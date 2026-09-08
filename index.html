@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🤖 AI Contract · Co‑create</title>
+    <title>🎮 AI Quest · Co‑create</title>
     <script src="https://cdn.tailwindcss.com">
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
@@ -11,12 +11,11 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js">
     </script>
     <style>
-        /* ── reset / base ── */
         * {
             box-sizing: border-box;
         }
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             background: #f0f4fe;
             min-height: 100vh;
         }
@@ -24,18 +23,13 @@
             display: none !important;
         }
 
-        /* ── glass ── */
+        /* ── glassmorphism ── */
         .glass {
             background: rgba(255, 255, 255, 0.78);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border: 1px solid rgba(255, 255, 255, 0.50);
             box-shadow: 0 8px 40px -12px rgba(0, 20, 40, 0.12);
-        }
-        .glass-dark {
-            background: rgba(15, 23, 42, 0.70);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         /* ── role cards ── */
@@ -44,96 +38,77 @@
             border-radius: 20px;
         }
         .role-card.role-you {
-            transform: scale(1.02);
-            box-shadow: 0 0 0 3px #4f46e5, 0 12px 32px -12px rgba(79, 70, 229, 0.25);
+            transform: scale(1.03);
+            box-shadow: 0 0 0 3px #4f46e5, 0 12px 32px -12px rgba(79, 70, 229, 0.35);
+            background: rgba(255, 255, 255, 0.95);
         }
-        .role-card .role-badge {
-            transition: all .3s ease;
-        }
-        .role-card.role-you .role-badge {
-            background: #4f46e5 !important;
-            color: #fff !important;
-        }
-
-        /* ── choice cards ── */
-        .choice-card {
-            transition: all .25s ease;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.55);
-            border: 2px solid transparent;
-        }
-        .choice-card:focus-within {
-            border-color: #4f46e5;
-            background: rgba(255, 255, 255, 0.85);
-        }
-        .choice-card select,
-        .choice-card input {
-            background: transparent;
-            border: none;
-            padding: 8px 0;
-            width: 100%;
-            font-size: 14px;
-            font-weight: 500;
-            color: #1e293b;
-            outline: none;
-        }
-        .choice-card select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0 center;
-            padding-right: 20px;
-        }
-        .choice-card input::placeholder {
-            color: #94a3b8;
-            font-weight: 400;
-        }
-
-        /* ── partner field ── */
-        .partner-field {
-            background: rgba(241, 245, 249, 0.70);
-            border: 2px dashed #cbd5e1;
-            border-radius: 14px;
-            padding: 10px 14px;
-            color: #475569;
-            font-size: 14px;
-            font-weight: 500;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            transition: all .3s ease;
-        }
-        .partner-field.has-value {
-            border-color: #818cf8;
-            background: rgba(79, 70, 229, 0.06);
-            border-style: solid;
-            color: #1e293b;
-        }
-        .partner-field .placeholder {
-            color: #94a3b8;
-            font-weight: 400;
-        }
-
-        /* ── options modal ── */
-        .opt-card {
-            transition: all .2s ease;
-            border-radius: 16px;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            padding: 16px;
-            cursor: pointer;
-        }
-        .opt-card:hover {
-            transform: translateY(-3px);
-            border-color: #818cf8;
-            box-shadow: 0 8px 24px -8px rgba(79, 70, 229, 0.12);
-        }
-        .opt-card .tag {
+        .role-card .badge {
             font-size: 10px;
             font-weight: 700;
-            letter-spacing: 0.3px;
             text-transform: uppercase;
-            padding: 2px 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── quest items ── */
+        .quest-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.4);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .quest-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #c7d2fe;
+        }
+        .quest-item.done {
+            opacity: 0.7;
+            background: #ecfdf5;
+            border-color: #6ee7b7;
+        }
+        .quest-item.done .quest-text {
+            text-decoration: line-through;
+            color: #6b7280;
+        }
+        .quest-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 8px;
+            border: 2px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+            background: white;
+            font-size: 14px;
+            color: white;
+        }
+        .quest-item.done .quest-check {
+            background: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .quest-item.done .quest-check::after {
+            content: "✓";
+            color: white;
+        }
+
+        /* ── progress bar ── */
+        .progress-track {
+            background: #e2e8f0;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #4f46e5, #818cf8);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
             border-radius: 20px;
         }
 
@@ -154,7 +129,7 @@
             align-self: flex-end;
         }
         .chat-container {
-            max-height: 160px;
+            max-height: 180px;
             overflow-y: auto;
             scroll-behavior: smooth;
         }
@@ -177,19 +152,27 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
-        /* ── checklist ── */
-        .checklist-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 6px 0;
-            font-size: 14px;
-            color: #1e293b;
+        /* ── collapsible ── */
+        .collapsible-header {
+            cursor: pointer;
+            user-select: none;
         }
-        .checklist-item .num {
-            font-weight: 700;
-            color: #4f46e5;
-            min-width: 22px;
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            max-height: 800px;
+        }
+        .collapsible-content.collapsed {
+            max-height: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        .toggle-icon.collapsed {
+            transform: rotate(-90deg);
         }
 
         /* ── animations ── */
@@ -219,43 +202,62 @@
             animation: float 2.6s ease-in-out infinite;
         }
 
-        /* ── collapsible (novo) ── */
-        .collapsible-header {
+        .tool-btn {
+            transition: all 0.2s ease;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid #e2e8f0;
+            font-size: 18px;
             cursor: pointer;
-            user-select: none;
         }
-        .collapsible-content {
-            overflow: hidden;
-            transition: max-height 0.35s ease, padding 0.35s ease, margin 0.35s ease;
-            max-height: 800px; /* valor alto para caber o conteúdo */
-            padding-top: 0;
-            padding-bottom: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-        .collapsible-content.collapsed {
-            max-height: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-        }
-        .toggle-icon {
-            transition: transform 0.3s ease;
-            display: inline-block;
-            font-size: 12px;
-            line-height: 1;
-        }
-        .toggle-icon.collapsed {
-            transform: rotate(-90deg);
+        .tool-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
-        /* ── responsive ── */
+        /* ── vocab/grammar cards inside modal ── */
+        .vocab-item {
+            display: flex;
+            flex-direction: column;
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .vocab-item .en {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .vocab-item .def {
+            color: #475569;
+            font-size: 0.9em;
+            margin-left: 4px;
+        }
+        .grammar-tip {
+            background: #f0fdf4;
+            border-left: 3px solid #22c55e;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+        .vocab-intro {
+            background: #eff6ff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.95em;
+            color: #1e293b;
+            border-left: 4px solid #3b82f6;
+        }
+        .vocab-intro b {
+            color: #1e40af;
+        }
+
         @media (max-width: 640px) {
             .role-card-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .two-col-grid {
                 grid-template-columns: 1fr !important;
             }
         }
@@ -269,9 +271,9 @@
     <div id="screen-setup" class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md glass rounded-3xl p-8 shadow-xl fade-up">
             <div class="text-center mb-6">
-                <span class="text-5xl block mb-2 float-icon">🤖</span>
-                <h1 class="text-2xl font-bold text-slate-800">AI Contract Studio</h1>
-                <p class="text-sm text-slate-500 mt-1">Co‑create a contract with an AI expert</p>
+                <span class="text-5xl block mb-2 float-icon">🎮</span>
+                <h1 class="text-2xl font-bold text-slate-800">AI Quest Studio</h1>
+                <p class="text-sm text-slate-500 mt-1">Complete a mission with your partner</p>
             </div>
             <form id="form-setup" class="space-y-4">
                 <div>
@@ -279,7 +281,7 @@
                     <input type="text" id="input-name" required placeholder="Type your full name" class="w-full px-4 py-3 bg-slate-50/80 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
                 </div>
                 <button type="submit" class="w-full py-3.5 bg-indigo-600 text-white rounded-2xl font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
-                    <span>🚀</span> Enter Lobby
+                    <span>🚀</span> Start Quest
                 </button>
             </form>
             <p class="text-center text-[10px] text-slate-400 mt-4">Your teacher will assign you to a room</p>
@@ -287,7 +289,7 @@
     </div>
 
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <!--  SCREEN 2: LOBBY (waiting for room)          -->
+    <!--  SCREEN 2: LOBBY                              -->
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div id="screen-lobby" class="min-h-screen flex items-center justify-center p-4 hidden-screen">
         <div class="w-full max-w-lg glass rounded-3xl p-8 shadow-xl text-center fade-up">
@@ -297,138 +299,134 @@
             <div class="mt-6 flex justify-center">
                 <div class="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
             </div>
-            <div class="mt-4 text-xs text-slate-400">You'll be paired with a partner for co‑creation.</div>
         </div>
     </div>
 
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <!--  SCREEN 3: MISSION (co‑create contract)      -->
+    <!--  SCREEN 3: QUEST (GAMIFIED)                  -->
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div id="screen-activity" class="min-h-screen p-4 md:p-6 hidden-screen">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-7xl mx-auto">
 
-            <!-- ─── banner ─── -->
+            <!-- ─── BANNER com Progresso ─── -->
             <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-blue-900 p-6 md:p-8 shadow-2xl mb-5">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
                 <div class="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
 
-                <div class="relative z-10">
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div class="flex items-center gap-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
-                            <span class="text-xl">🤖</span>
-                            <span class="text-white/80 text-xs font-bold uppercase tracking-wider">AI Contract Studio</span>
-                        </div>
+                <div class="relative z-10 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                        <span class="text-xl">🎯</span>
+                        <span class="text-white/80 text-xs font-bold uppercase tracking-wider">Quest Log</span>
+                    </div>
+                    <div class="flex items-center gap-4">
                         <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                             <span class="text-white/60 text-xs font-bold uppercase tracking-wider">⏱</span>
                             <span id="timer-display" class="font-mono font-bold text-white text-lg tracking-wider">--:--</span>
                         </div>
-                    </div>
-
-                    <div class="mt-4 flex items-start gap-4 bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/10">
-                        <span class="text-3xl float-icon">🎯</span>
-                        <div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-300 block mb-0.5">Your Mission</span>
-                            <p class="text-white text-sm md:text-base font-medium leading-relaxed" id="mission-display">
-                                Create a contract with an AI expert to automate your daily work tasks.
-                            </p>
+                        <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                            <span class="text-white/60 text-xs font-bold uppercase">Progress</span>
+                            <span id="progress-text" class="text-white font-bold text-sm">0/6</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="relative z-10 mt-4 flex items-start gap-4 bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/10">
+                    <span class="text-3xl float-icon">📜</span>
+                    <div class="flex-1">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-300 block mb-0.5">Mission</span>
+                        <p class="text-white text-sm md:text-base font-medium leading-relaxed" id="mission-display">
+                            Loading mission...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="relative z-10 mt-4 progress-track">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+                </div>
             </div>
 
-            <!-- ─── main grid ─── -->
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-5">
+            <!-- ─── MAIN GRID ─── -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-                <!-- left column: roles + audio + checklist (3/5) -->
-                <div class="lg:col-span-3 space-y-4">
+                <!-- LEFT: 2/3 - Role Cards + Quest + Audio -->
+                <div class="lg:col-span-2 space-y-4">
 
-                    <!-- role cards -->
+                    <!-- Role Cards -->
                     <div class="grid grid-cols-2 gap-3 role-card-grid">
                         <div id="info-person-a" class="role-card glass p-4 text-center border-2 border-slate-200/60">
                             <div id="person-a-avatar" class="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-3xl bg-indigo-100/80">🧑‍💻</div>
-                            <span id="person-a-role-title" class="role-badge inline-block text-[10px] font-bold uppercase tracking-wide px-3 py-0.5 rounded-full bg-indigo-100 text-indigo-700 mt-1.5">AI Expert</span>
+                            <span id="person-a-role-title" class="badge inline-block px-3 py-0.5 rounded-full bg-indigo-100 text-indigo-700 mt-1.5">AI Expert</span>
                             <p class="font-bold text-slate-800 text-sm mt-1" id="person-a-name">Waiting…</p>
-                            <p class="text-[11px] text-slate-500" id="person-a-focus">Suggest models &amp; data</p>
+                            <div class="mt-1 bg-slate-100 rounded-lg p-2 text-[11px] text-slate-600">
+                                🎯 Focus: <span id="person-a-focus" class="font-medium">Suggest models</span>
+                            </div>
                         </div>
                         <div id="info-person-b" class="role-card glass p-4 text-center border-2 border-slate-200/60">
                             <div id="person-b-avatar" class="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-3xl bg-amber-100/80">👔</div>
-                            <span id="person-b-role-title" class="role-badge inline-block text-[10px] font-bold uppercase tracking-wide px-3 py-0.5 rounded-full bg-amber-100 text-amber-700 mt-1.5">Client</span>
+                            <span id="person-b-role-title" class="badge inline-block px-3 py-0.5 rounded-full bg-amber-100 text-amber-700 mt-1.5">Client</span>
                             <p class="font-bold text-slate-800 text-sm mt-1" id="person-b-name">Waiting for partner…</p>
-                            <p class="text-[11px] text-slate-500" id="person-b-focus">Define scope &amp; timeline</p>
+                            <div class="mt-1 bg-slate-100 rounded-lg p-2 text-[11px] text-slate-600">
+                                🎯 Focus: <span id="person-b-focus" class="font-medium">Define scope</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- audio drawer -->
-                    <details class="audio-drawer glass rounded-2xl overflow-hidden border border-slate-200/60" open>
-                        <summary class="cursor-pointer px-5 py-3.5 flex items-center justify-between text-sm font-semibold text-slate-700 hover:bg-slate-50/50 transition">
-                            <span class="flex items-center gap-2">
-                                <span class="text-lg">🎧</span> Audio Briefing
-                            </span>
-                            <span class="audio-chevron text-slate-400">⌄</span>
-                        </summary>
-                        <div class="p-4 pt-0" id="activity-audio-container">
-                            <!-- filled from Firebase / default -->
-                        </div>
-                    </details>
-
-                    <!-- ─── CHECKLIST ─── -->
+                    <!-- Quest Log (Checklist Interativa) -->
                     <div class="glass rounded-2xl p-5 border border-slate-200/60">
                         <div class="flex items-center gap-2 mb-3">
-                            <span class="text-lg">📋</span>
-                            <h3 class="font-bold text-slate-800 text-sm">Your co‑created proposal – checklist</h3>
+                            <span class="text-lg">✅</span>
+                            <h3 class="font-bold text-slate-800 text-sm">Quest Steps</h3>
+                            <span class="ml-auto text-xs text-slate-400">Click to complete</span>
                         </div>
-                        <div id="checklist-container" class="space-y-1">
-                            <!-- filled from Firebase / default -->
+                        <div id="quest-container" class="space-y-2">
+                            <!-- populated by JS -->
                         </div>
                     </div>
 
-                    <!-- ─── STICKY NOTE (agora colapsável) ─── -->
+                    <!-- Audio Briefing -->
+                    <details class="glass rounded-2xl overflow-hidden border border-slate-200/60" open>
+                        <summary class="cursor-pointer px-5 py-3.5 flex items-center justify-between text-sm font-semibold text-slate-700 hover:bg-slate-50/50 transition">
+                            <span class="flex items-center gap-2">🎧 Audio Briefing</span>
+                            <span class="text-slate-400">⌄</span>
+                        </summary>
+                        <div class="p-4 pt-0" id="activity-audio-container"></div>
+                    </details>
+
+                    <!-- Sticky Note (Teacher's Note) -->
                     <div id="sticky-container" class="sticky-note">
                         <div class="flex items-center gap-2 text-xs font-bold uppercase text-amber-700 mb-1 collapsible-header" data-target="sticky-content-wrapper">
-                            <span>📌</span> Teacher's note
+                            <span>📌</span> Teacher's Note
                             <span class="toggle-icon ml-auto">▼</span>
                         </div>
                         <div id="sticky-content-wrapper" class="collapsible-content">
                             <div id="sticky-content" class="text-sm">No notes yet.</div>
                         </div>
                     </div>
+
                 </div>
 
-                <!-- right column: co‑creation fields + chat + options (2/5) -->
-                <div class="lg:col-span-2 space-y-4">
+                <!-- RIGHT: 1/3 - Partner Status + Chat + Tools -->
+                <div class="space-y-4">
 
-                    <!-- co‑creation fields -->
-                    <div class="glass rounded-2xl p-5 border border-slate-200/60">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
-                            <span>✍️</span> Contract details
-                        </h3>
-
-                        <!-- my fields -->
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-bold uppercase text-indigo-600" id="my-answers-label">✏️ You</span>
-                                <span class="text-[10px] text-slate-400">fill in your part</span>
-                            </div>
-                            <div id="my-fields-container" class="space-y-2.5"></div>
+                    <!-- Partner Status -->
+                    <div class="glass rounded-2xl p-4 border border-slate-200/60">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold uppercase text-slate-500">👤 Partner</span>
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         </div>
-
-                        <div class="my-4 border-t border-slate-200/60"></div>
-
-                        <!-- partner fields -->
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-bold uppercase text-slate-500">👀 Partner</span>
-                                <span class="text-[11px] font-semibold text-indigo-600" id="choices-partner-name">—</span>
-                            </div>
-                            <div id="partner-fields-container" class="space-y-2.5"></div>
+                        <p class="font-bold text-slate-800 text-lg" id="partner-name-display">—</p>
+                        <p class="text-xs text-slate-500" id="partner-role-display">Waiting for connection...</p>
+                        <div class="mt-2 flex flex-wrap gap-1" id="partner-decision-badges">
+                            <!-- small pills showing partner's key decisions -->
                         </div>
                     </div>
 
-                    <!-- ─── TEACHER CHAT (agora colapsável) ─── -->
-                    <div class="glass rounded-2xl p-5 border border-slate-200/60">
-                        <div class="flex items-center justify-between mb-2 collapsible-header" data-target="chat-content-wrapper">
-                            <span class="text-[11px] font-bold uppercase text-slate-500 flex items-center gap-1.5">
-                                <span>💬</span> Teacher chat
+                    <!-- Teacher Chat (minimizável) -->
+                    <div class="glass rounded-2xl p-4 border border-slate-200/60">
+                        <div class="flex items-center justify-between collapsible-header" data-target="chat-content-wrapper">
+                            <span class="text-xs font-bold uppercase text-slate-500 flex items-center gap-1.5">
+                                💬 Teacher Chat
                             </span>
                             <span class="flex items-center gap-2">
                                 <span class="text-[10px] text-slate-400" id="chat-status">connected</span>
@@ -436,7 +434,7 @@
                             </span>
                         </div>
                         <div id="chat-content-wrapper" class="collapsible-content">
-                            <div id="chat-messages" class="chat-container space-y-1.5 mb-2"></div>
+                            <div id="chat-messages" class="chat-container space-y-1.5 mb-2 mt-2"></div>
                             <div class="flex gap-2">
                                 <input type="text" id="chat-input" placeholder="Reply to teacher…" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                                 <button id="chat-send" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">Send</button>
@@ -444,28 +442,27 @@
                         </div>
                     </div>
 
-                    <!-- action buttons -->
-                    <div class="grid grid-cols-2 gap-3">
-                        <button id="btn-options" class="py-3.5 rounded-2xl font-bold text-sm text-white shadow-lg shadow-indigo-200/50 bg-indigo-600 hover:bg-indigo-700 transition flex items-center justify-center gap-1.5">
-                            📋 Options
-                        </button>
-                        <button id="btn-help-friend" class="py-3.5 rounded-2xl font-bold text-sm border-2 border-indigo-200 bg-white/80 hover:bg-indigo-50 transition flex items-center justify-center gap-1.5 text-indigo-700">
-                            💡 Help friend
-                        </button>
+                    <!-- Tools (mini bar) -->
+                    <div class="flex items-center justify-end gap-2">
+                        <button onclick="openHelpModal()" class="tool-btn" title="Help your partner">💡</button>
+                        <button onclick="openOptionsModal()" class="tool-btn" title="Resources & Options">🧠</button>
+                        <button onclick="openVocabModal()" class="tool-btn" title="Vocabulary & Grammar">📚</button>
+                        <span class="text-[10px] text-slate-400 mr-auto">Tools</span>
                     </div>
 
-                    <!-- partner presence -->
+                    <!-- Partner presence (textual) -->
                     <div class="flex items-center justify-center gap-2 text-xs text-slate-400 glass rounded-full px-5 py-2 mx-auto w-fit">
                         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span id="partner-presence">Waiting for partner to connect…</span>
+                        <span id="partner-presence">Waiting for partner...</span>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <!--  MODAL                                       -->
+    <!--  MODAL (genérico)                            -->
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div id="modal-container" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 hidden-screen z-50">
         <div class="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 fade-up">
@@ -486,68 +483,60 @@
         const db = firebase.database();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // DEFAULT THEME (used if nothing in Firebase)
+        // DEFAULT THEME (fallback) – atualizado com vocabulário em inglês e texto introdutório
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         const DEFAULT_THEME = {
-            title: "AI Contract Studio",
+            title: "AI Quest",
             mission: "Create a contract with an AI expert to automate your daily work tasks.",
-            theme: {
-                icon: "🤖",
-                bannerGradient: "from-slate-900 via-indigo-900 to-blue-900",
-                roleA: { icon: "🧑‍💻", badge: "bg-indigo-100 text-indigo-700", border: "border-indigo-200",
-                    avatarBg: "bg-indigo-100/80" },
-                roleB: { icon: "👔", badge: "bg-amber-100 text-amber-700", border: "border-amber-200",
-                    avatarBg: "bg-amber-100/80" }
-            },
             personA: { roleTitle: "AI Expert", focus: "Suggest models & data" },
             personB: { roleTitle: "Client", focus: "Define scope & timeline" },
             checklist: [
-                "Read the audio briefing together",
-                "Decide on the AI model (AI Expert)",
-                "Define the training data (AI Expert)",
-                "Agree on the contract scope (Client)",
-                "Set a realistic timeline (Client)"
+                "Read the briefing together",
+                "Decide on the AI model",
+                "Define the training data",
+                "Agree on the contract scope",
+                "Set a realistic timeline",
+                "Present your proposal"
             ],
             audioEmbed: '<iframe src="https://whyp.it/embeds/track/unX5t6r4ApS5?token=f57mg4Wwmfa7" width="100%" height="200" scrolling="no" frameborder="0" loading="lazy"></iframe>',
-            choicesSection: {
-                fieldsA: [
-                    { key: "model", label: "AI Model", type: "text", placeholder: "e.g. GPT-4, Claude, Custom" },
-                    { key: "data", label: "Training Data", type: "text", placeholder: "e.g. Internal docs, public data" }
-                ],
-                fieldsB: [
-                    { key: "scope", label: "Contract Scope", type: "text", placeholder: "e.g. Automate 5 reports" },
-                    { key: "timeline", label: "Timeline", type: "text", placeholder: "e.g. 3 months" }
-                ]
-            },
             optionsButton: {
-                label: "📋 Options",
-                modalTitle: "🤖 AI Options",
                 optionsA: [
-                    { icon: "🧠", title: "GPT-4 Enterprise", description: "State‑of‑the‑art reasoning & reliability.",
-                        advantage: "High accuracy", outcome: "~$0.03/token",
-                    consideration: "Higher cost per token" },
-                    { icon: "⚡", title: "Fine‑tuned Model", description: "Custom‑trained on your company data.",
-                        advantage: "Domain‑specific", outcome: "~$0.01/token",
-                        consideration: "Requires initial setup" }
+                    { icon: "🧠", title: "GPT-4 Enterprise", description: "State‑of‑the‑art reasoning.",
+                        advantage: "High accuracy", outcome: "~$0.03/token" },
+                    { icon: "⚡", title: "Fine‑tuned Model", description: "Custom‑trained.", advantage: "Domain‑specific",
+                        outcome: "~$0.01/token" }
                 ],
                 optionsB: [
-                    { icon: "📊", title: "Full Automation", description: "Complete end‑to‑end process automation.",
-                        advantage: "Maximum efficiency", outcome: "~$15K/month",
-                        consideration: "Higher upfront investment" },
-                    { icon: "🚀", title: "Phased Rollout", description: "Gradual implementation with milestones.",
-                        advantage: "Lower risk", outcome: "~$8K/month",
-                        consideration: "Slower time‑to‑value" }
+                    { icon: "📊", title: "Full Automation", description: "Complete process automation.",
+                        advantage: "Max efficiency", outcome: "~$15K/month" },
+                    { icon: "🚀", title: "Phased Rollout", description: "Gradual implementation.",
+                        advantage: "Lower risk", outcome: "~$8K/month" }
                 ]
             },
             helpFriend: {
-                buttonLabel: "💡 Help friend",
-                modalTitle: "🤝 How to help your partner",
                 steps: [
-                    "Ask about their top priorities for this automation.",
-                    "Suggest one AI model that fits their needs best.",
-                    "Confirm the timeline and scope together."
+                    "Ask about their top priorities.",
+                    "Suggest one AI model that fits.",
+                    "Confirm the timeline together."
                 ]
-            }
+            },
+            // ─── NOVO: Vocabulário com definições em inglês simples ───
+            vocabIntro: "In this quest, you will talk about an <b>expired</b> product. You may ask for a <b>refund</b> or an <b>exchange</b>. The manager will check the <b>stock</b> and talk about <b>quality control</b>. If there is a <b>complaint</b>, the store must listen and find a solution. The goal is <b>prevention</b> of future problems.",
+            vocab: [
+                { word: "expired", definition: "no longer good to use or eat (past the date)" },
+                { word: "refund", definition: "money given back to a customer" },
+                { word: "exchange", definition: "giving a new item instead of the old one" },
+                { word: "quality control", definition: "checking that products are safe and good" },
+                { word: "complaint", definition: "saying you are not happy with something" },
+                { word: "stock", definition: "products available in the store" },
+                { word: "prevention", definition: "actions to stop something bad from happening" }
+            ],
+            grammarTips: [
+                "Use the past simple to describe what happened: 'I found an expired product.'",
+                "Use 'should' to give advice: 'You should check the stock.'",
+                "Use polite questions: 'Could you please help me?'",
+                "Use 'because' to explain reasons: 'I want a refund because the product is expired.'"
+            ]
         };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -556,9 +545,9 @@
         let currentUser = null;
         let currentRoom = null;
         let currentTheme = null;
-        let isInitializedFields = false;
-        let myRoleKey = 'A'; // 'A' or 'B'
+        let myRoleKey = 'A';
         let chatListener = null;
+        let questProgress = {};
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // HELPERS
@@ -582,42 +571,25 @@
             e.preventDefault();
             const name = document.getElementById('input-name').value.trim();
             if (!name) return;
-
-            // Check if this device already has a session
             const saved = localStorage.getItem('ai_contract_session');
             let userId = null;
             if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    userId = parsed.userId;
-                } catch (_) {}
+                try { const parsed = JSON.parse(saved);
+                    userId = parsed.userId; } catch (_) {}
             }
-
             if (userId) {
-                // Try to re-join existing session
                 db.ref(`students/${userId}`).once('value').then(snap => {
                     const data = snap.val();
                     if (data && data.name === name) {
                         currentUser = data;
                         currentUser.id = userId;
-                        if (data.room) {
-                            currentRoom = data.room;
+                        if (data.room) { currentRoom = data.room;
                             showScreen('screen-activity');
-                            initActivityScreen();
-                            return;
-                        } else {
-                            showScreen('screen-lobby');
-                            listenForRoomAssignment();
-                            return;
-                        }
-                    } else {
-                        // Session invalid, create new
-                        createNewUser(name);
-                    }
+                            initActivityScreen(); return; } else { showScreen('screen-lobby');
+                            listenForRoomAssignment(); return; }
+                    } else { createNewUser(name); }
                 });
-            } else {
-                createNewUser(name);
-            }
+            } else { createNewUser(name); }
         });
 
         function createNewUser(name) {
@@ -628,7 +600,8 @@
                 room: null,
                 joinedAt: Date.now(),
                 answers: {},
-                role: null
+                role: null,
+                quest: {}
             };
             db.ref(`students/${currentUser.id}`).set(currentUser);
             localStorage.setItem('ai_contract_session', JSON.stringify({ userId: currentUser.id }));
@@ -641,10 +614,7 @@
                 const data = snap.val();
                 if (data && data.room) {
                     currentRoom = data.room;
-                    if (data.role) {
-                        myRoleKey = data.role;
-                    } else {
-                        // Assign role based on arrival order
+                    if (data.role) { myRoleKey = data.role; } else {
                         db.ref('students').once('value').then(allSnap => {
                             const all = allSnap.val() || {};
                             const inRoom = Object.values(all).filter(s => s.room === currentRoom)
@@ -664,31 +634,24 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // ACTIVITY SCREEN
+        // ACTIVITY SCREEN (GAMIFIED)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function initActivityScreen() {
             // Load theme
             db.ref('dailyThemes/active').on('value', (snap) => {
                 const theme = snap.val();
-                if (theme) {
-                    currentTheme = theme;
-                } else {
-                    // Fallback to default, but also try to load from dailyThemes
+                if (theme) currentTheme = theme;
+                else {
                     db.ref('dailyThemes').once('value').then(s => {
                         const all = s.val() || {};
                         const keys = Object.keys(all);
-                        if (keys.length > 0) {
-                            currentTheme = all[keys[0]];
-                        } else {
-                            currentTheme = DEFAULT_THEME;
-                        }
+                        currentTheme = keys.length > 0 ? all[keys[0]] : DEFAULT_THEME;
                         renderAll();
                     });
                 }
                 renderAll();
             });
 
-            // Also listen for timer (teacher controlled, not displayed but used for sync)
             db.ref('timer').on('value', (snap) => {
                 const t = snap.val() || { seconds: 0, running: false };
                 const m = String(Math.floor(t.seconds / 60)).padStart(2, '0');
@@ -696,35 +659,29 @@
                 document.getElementById('timer-display').textContent = t.running ? `${m}:${s}` : '--:--';
             });
 
-            // Listen for students in room
             db.ref('students').on('value', (snap) => {
                 const all = snap.val() || {};
                 const players = Object.values(all)
                     .filter(s => s.room === currentRoom)
                     .sort((a, b) => (a.joinedAt || 0) - (b.joinedAt || 0));
                 renderRoomPlayers(players);
-                updatePartnerRealtimeView(players);
+                updatePartnerView(players);
             });
 
-            // Listen for sticky notes
             db.ref('stickyNotes').on('value', (snap) => {
                 const note = snap.val();
-                if (note && note.content) {
-                    document.getElementById('sticky-content').innerHTML = escapeHtml(note.content);
-                } else {
-                    document.getElementById('sticky-content').textContent = 'No notes yet.';
-                }
+                document.getElementById('sticky-content').innerHTML = note?.content ? escapeHtml(note.content) :
+                    'No notes yet.';
             });
 
-            // Listen for chat messages
             if (chatListener) chatListener();
             chatListener = db.ref(`chat/${currentRoom || 'global'}`).on('value', (snap) => {
                 const msgs = snap.val() || {};
                 const container = document.getElementById('chat-messages');
                 const entries = Object.entries(msgs).sort((a, b) => (a[1].ts || 0) - (b[1].ts || 0));
                 container.innerHTML = entries.map(([key, msg]) => {
-                    const isTeacher = msg.from === 'teacher';
-                    return `<div class="chat-bubble ${isTeacher ? 'teacher' : 'student'} p-2.5 text-xs max-w-[85%] ${isTeacher ? 'self-start' : 'self-end'}">
+                    const isTeacher = msg.from === 'teacher' || msg.isGhost;
+                    return `<div class="chat-bubble ${isTeacher ? 'teacher' : 'student'} p-2.5 text-xs max-w-[85%]">
                                 <span class="font-semibold ${isTeacher ? 'text-indigo-200' : 'text-slate-600'}">${escapeHtml(msg.from)}:</span>
                                 <span>${escapeHtml(msg.text)}</span>
                             </div>`;
@@ -732,39 +689,11 @@
                 container.scrollTop = container.scrollHeight;
             });
 
-            // Chat send
             document.getElementById('chat-send').onclick = sendChatMessage;
-            document.getElementById('chat-input').addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') sendChatMessage();
-            });
+            document.getElementById('chat-input').addEventListener('keydown', (e) => { if (e.key === 'Enter')
+                sendChatMessage(); });
 
-            // Options
-            document.getElementById('btn-options').onclick = () => openOptionsModal();
-
-            // Help
-            document.getElementById('btn-help-friend').onclick = () => {
-                const steps = currentTheme?.helpFriend?.steps || DEFAULT_THEME.helpFriend.steps;
-                const html = `<div class="space-y-3">
-                            ${steps.map((s, i) => `
-                                <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border-l-4 border-indigo-500">
-                                    <span class="font-bold text-indigo-600 text-sm">${i+1}.</span>
-                                    <span class="text-sm text-slate-700">${escapeHtml(s)}</span>
-                                </div>
-                            `).join('')}
-                        </div>`;
-                openModal(currentTheme?.helpFriend?.modalTitle || '🤝 Help your partner', html);
-            };
-
-            // Wire fields
-            if (!isInitializedFields) {
-                renderFields();
-                isInitializedFields = true;
-            }
-
-            // Render checklist
-            renderChecklist();
-
-            // ─── Collapsible toggle (novo) ───
+            // Collapsible toggle
             document.querySelectorAll('.collapsible-header').forEach(header => {
                 header.addEventListener('click', function(e) {
                     const targetId = this.dataset.target;
@@ -772,143 +701,101 @@
                     const icon = this.querySelector('.toggle-icon');
                     if (content) {
                         content.classList.toggle('collapsed');
-                        if (icon) {
-                            icon.classList.toggle('collapsed');
-                        }
+                        if (icon) icon.classList.toggle('collapsed');
                     }
                 });
             });
-        }
 
-        function renderAll() {
-            if (!currentTheme) return;
-            renderScenarioStaticParts();
-            renderChecklist();
-            renderFields();
-            renderOptions();
-        }
-
-        function renderScenarioStaticParts() {
-            const theme = currentTheme || DEFAULT_THEME;
-            const th = theme.theme || DEFAULT_THEME.theme;
-
-            document.getElementById('mission-display').innerHTML = theme.mission || DEFAULT_THEME.mission;
-
-            // roles
-            const pA = theme.personA || DEFAULT_THEME.personA;
-            const pB = theme.personB || DEFAULT_THEME.personB;
-            const rA = th.roleA || {};
-            const rB = th.roleB || {};
-
-            document.getElementById('person-a-avatar').innerText = rA.icon || '🧑‍💻';
-            document.getElementById('person-a-avatar').className =
-                'w-14 h-14 mx-auto rounded-full flex items-center justify-center text-3xl ' + (rA.avatarBg ||
-                'bg-indigo-100/80');
-            document.getElementById('person-a-role-title').innerText = pA.roleTitle || 'AI Expert';
-            document.getElementById('person-a-focus').innerText = pA.focus || '';
-
-            document.getElementById('person-b-avatar').innerText = rB.icon || '👔';
-            document.getElementById('person-b-avatar').className =
-                'w-14 h-14 mx-auto rounded-full flex items-center justify-center text-3xl ' + (rB.avatarBg ||
-                'bg-amber-100/80');
-            document.getElementById('person-b-role-title').innerText = pB.roleTitle || 'Client';
-            document.getElementById('person-b-focus').innerText = pB.focus || '';
-
-            // audio
-            document.getElementById('activity-audio-container').innerHTML = theme.audioEmbed ||
-                DEFAULT_THEME.audioEmbed;
-        }
-
-        function renderChecklist() {
-            const items = currentTheme?.checklist || DEFAULT_THEME.checklist;
-            const container = document.getElementById('checklist-container');
-            container.innerHTML = items.map((item, i) =>
-                `<div class="checklist-item">
-                            <span class="num">${i+1}.</span>
-                            <span>${escapeHtml(item)}</span>
-                        </div>`
-            ).join('');
-        }
-
-        function renderFields() {
-            const theme = currentTheme || DEFAULT_THEME;
-            const fieldsA = theme.choicesSection?.fieldsA || DEFAULT_THEME.choicesSection.fieldsA;
-            const fieldsB = theme.choicesSection?.fieldsB || DEFAULT_THEME.choicesSection.fieldsB;
-
-            const myFields = myRoleKey === 'A' ? fieldsA : fieldsB;
-            const partnerFields = myRoleKey === 'A' ? fieldsB : fieldsA;
-
-            const myContainer = document.getElementById('my-fields-container');
-            const partnerContainer = document.getElementById('partner-fields-container');
-
-            myContainer.innerHTML = myFields.map((f, i) => {
-                const key = myRoleKey === 'A' ? `fieldA_${i}` : `fieldB_${i}`;
-                if (f.type === 'select') {
-                    const opts = (f.options || []).map(o =>
-                        `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
-                    return `<div class="choice-card p-3">
-                                <label class="block text-[10px] font-semibold uppercase tracking-wide text-slate-500 mb-0.5">${escapeHtml(f.label)}</label>
-                                <select id="my-field-${i}" onchange="syncMyAnswer('${key}', ${i})">
-                                    <option value="">Choose…</option>
-                                    ${opts}
-                                </select>
-                            </div>`;
-                }
-                return `<div class="choice-card p-3">
-                            <label class="block text-[10px] font-semibold uppercase tracking-wide text-slate-500 mb-0.5">${escapeHtml(f.label)}</label>
-                            <input type="text" id="my-field-${i}" oninput="syncMyAnswer('${key}', ${i})" placeholder="${escapeHtml(f.placeholder || '')}">
-                        </div>`;
-            }).join('');
-
-            partnerContainer.innerHTML = partnerFields.map((f, i) => {
-                const key = myRoleKey === 'A' ? `fieldB_${i}` : `fieldA_${i}`;
-                return `<div class="partner-field" id="partner-field-${i}">
-                            <span class="placeholder">⏳ waiting for partner…</span>
-                        </div>`;
-            }).join('');
-
-            if (currentUser?.name) {
-                document.getElementById('my-answers-label').innerHTML =
-                    `✏️ You <span class="font-normal text-slate-400">(${escapeHtml(currentUser.name)})</span>`;
+            // Load quest progress from Firebase
+            if (currentUser?.id) {
+                db.ref(`students/${currentUser.id}/quest`).on('value', (snap) => {
+                    const data = snap.val() || {};
+                    questProgress = data;
+                    renderQuest();
+                });
             }
         }
 
-        function syncMyAnswer(key, index) {
-            const val = document.getElementById(`my-field-${index}`).value;
-            db.ref(`students/${currentUser.id}/answers/${key}`).set(val);
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // RENDER FUNCTIONS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderAll() {
+            if (!currentTheme) return;
+            renderStatic();
+            renderQuest();
         }
 
-        function updatePartnerRealtimeView(players) {
+        function renderStatic() {
+            const theme = currentTheme || DEFAULT_THEME;
+            document.getElementById('mission-display').innerHTML = theme.mission || DEFAULT_THEME.mission;
+
+            const pA = theme.personA || DEFAULT_THEME.personA;
+            const pB = theme.personB || DEFAULT_THEME.personB;
+
+            document.getElementById('person-a-role-title').innerText = pA.roleTitle || 'AI Expert';
+            document.getElementById('person-a-focus').innerText = pA.focus || '';
+            document.getElementById('person-b-role-title').innerText = pB.roleTitle || 'Client';
+            document.getElementById('person-b-focus').innerText = pB.focus || '';
+
+            document.getElementById('activity-audio-container').innerHTML = theme.audioEmbed || DEFAULT_THEME.audioEmbed;
+        }
+
+        function renderQuest() {
+            const items = currentTheme?.checklist || DEFAULT_THEME.checklist;
+            const container = document.getElementById('quest-container');
+            let total = items.length;
+            let done = 0;
+
+            container.innerHTML = items.map((item, i) => {
+                const key = `step_${i}`;
+                const isDone = questProgress[key] === true;
+                if (isDone) done++;
+                return `<div class="quest-item ${isDone ? 'done' : ''}" data-key="${key}" onclick="toggleQuest('${key}')">
+                            <div class="quest-check"></div>
+                            <span class="quest-text text-sm text-slate-700">${escapeHtml(item)}</span>
+                        </div>`;
+            }).join('');
+
+            const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+            document.getElementById('progress-fill').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = `${done}/${total}`;
+        }
+
+        function toggleQuest(key) {
+            const current = questProgress[key] || false;
+            questProgress[key] = !current;
+            db.ref(`students/${currentUser.id}/quest/${key}`).set(questProgress[key]);
+            renderQuest();
+        }
+
+        function updatePartnerView(players) {
             const partner = players.find(p => p && p.id !== currentUser?.id);
             const theme = currentTheme || DEFAULT_THEME;
-            const fieldsA = theme.choicesSection?.fieldsA || DEFAULT_THEME.choicesSection.fieldsA;
-            const fieldsB = theme.choicesSection?.fieldsB || DEFAULT_THEME.choicesSection.fieldsB;
 
-            const partnerFields = myRoleKey === 'A' ? fieldsB : fieldsA;
-
-            partnerFields.forEach((f, i) => {
-                const key = myRoleKey === 'A' ? `fieldB_${i}` : `fieldA_${i}`;
-                const el = document.getElementById(`partner-field-${i}`);
-                if (!el) return;
-                if (partner && partner.answers && partner.answers[key] !== undefined &&
-                    partner.answers[key] !== '') {
-                    el.innerHTML = escapeHtml(partner.answers[key]);
-                    el.className = 'partner-field has-value';
-                } else {
-                    el.innerHTML = `<span class="placeholder">⏳ waiting for partner…</span>`;
-                    el.className = 'partner-field';
-                }
-            });
-
-            document.getElementById('choices-partner-name').innerText = partner ? partner.name : '—';
-
-            const presence = document.getElementById('partner-presence');
+            document.getElementById('partner-name-display').innerText = partner ? partner.name : '—';
             if (partner) {
-                presence.innerHTML = `👤 <strong>${escapeHtml(partner.name)}</strong> is connected`;
-                presence.className = 'text-emerald-600';
+                const partnerRole = myRoleKey === 'A' ? theme.personB?.roleTitle || 'Client' : theme.personA
+                ?.roleTitle || 'Expert';
+                document.getElementById('partner-role-display').innerText = `Role: ${partnerRole}`;
+                document.getElementById('partner-presence').innerHTML =
+                    `👤 <strong>${escapeHtml(partner.name)}</strong> is online`;
+                document.getElementById('partner-presence').className = 'text-emerald-600';
             } else {
-                presence.innerHTML = '⏳ Waiting for partner to connect…';
-                presence.className = 'text-slate-400';
+                document.getElementById('partner-role-display').innerText = 'Waiting for connection...';
+                document.getElementById('partner-presence').innerHTML = '⏳ Waiting for partner...';
+                document.getElementById('partner-presence').className = 'text-slate-400';
+            }
+
+            const partnerSteps = partner?.quest || {};
+            const items = currentTheme?.checklist || DEFAULT_THEME.checklist;
+            const doneCount = Object.values(partnerSteps).filter(v => v === true).length;
+            const badgeContainer = document.getElementById('partner-decision-badges');
+            if (partner) {
+                badgeContainer.innerHTML =
+                    `<span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full">✅ ${doneCount}/${items.length} steps done</span>`;
+            } else {
+                badgeContainer.innerHTML =
+                    `<span class="text-xs text-slate-400">⏳ waiting for partner data</span>`;
             }
         }
 
@@ -927,46 +814,6 @@
             document.getElementById('info-person-a').classList.toggle('role-you', isA);
             document.getElementById('info-person-b').classList.toggle('role-you', !isA && !!(pB && currentUser && pB.id ===
                 currentUser.id));
-
-            // Re-render fields if role changed
-            if (isInitializedFields) {
-                renderFields();
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // OPTIONS MODAL
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function renderOptions() {
-            const theme = currentTheme || DEFAULT_THEME;
-            const optA = theme.optionsButton?.optionsA || DEFAULT_THEME.optionsButton.optionsA;
-            const optB = theme.optionsButton?.optionsB || DEFAULT_THEME.optionsButton.optionsB;
-            const opts = myRoleKey === 'A' ? optA : optB;
-            return opts;
-        }
-
-        function openOptionsModal() {
-            const opts = renderOptions();
-            const body = `
-                        <div class="space-y-3">
-                            ${opts.map(opt => `
-                                <div class="opt-card">
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-2xl">${escapeHtml(opt.icon || '⭐')}</span>
-                                        <strong class="text-indigo-700">${escapeHtml(opt.title)}</strong>
-                                    </div>
-                                    <p class="text-sm text-slate-600 mt-1">${escapeHtml(opt.description || '')}</p>
-                                    <div class="flex flex-wrap gap-2 mt-2">
-                                        <span class="tag bg-emerald-100 text-emerald-700">👍 ${escapeHtml(opt.advantage || '')}</span>
-                                        <span class="tag bg-indigo-100 text-indigo-700">📊 ${escapeHtml(opt.outcome || '')}</span>
-                                        ${opt.consideration ? `<span class="tag bg-amber-100 text-amber-700">⚠️ ${escapeHtml(opt.consideration)}</span>` : ''}
-                                    </div>
-                                </div>
-                            `).join('') || '<p class="text-sm text-slate-400">No options available.</p>'}
-                        </div>
-                    `;
-            const title = currentTheme?.optionsButton?.modalTitle || DEFAULT_THEME.optionsButton.modalTitle;
-            openModal(title || '📋 Options', body);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -987,7 +834,97 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // MODAL
+        // TOOLS / MODALS (Options, Help, Vocab)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function openOptionsModal() {
+            const theme = currentTheme || DEFAULT_THEME;
+            const opts = myRoleKey === 'A' ? theme.optionsButton?.optionsA || DEFAULT_THEME.optionsButton.optionsA :
+                theme.optionsButton?.optionsB || DEFAULT_THEME.optionsButton.optionsB;
+            const body = `
+                        <div class="space-y-3">
+                            ${opts.map(opt => `
+                                <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-2xl">${escapeHtml(opt.icon || '⭐')}</span>
+                                        <strong class="text-indigo-700">${escapeHtml(opt.title)}</strong>
+                                    </div>
+                                    <p class="text-sm text-slate-600 mt-1">${escapeHtml(opt.description || '')}</p>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="text-xs bg-emerald-100 px-2 py-1 rounded-full">👍 ${escapeHtml(opt.advantage || '')}</span>
+                                        <span class="text-xs bg-indigo-100 px-2 py-1 rounded-full">📊 ${escapeHtml(opt.outcome || '')}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+            openModal('🧠 Resource Options', body);
+        }
+
+        function openHelpModal() {
+            const steps = currentTheme?.helpFriend?.steps || DEFAULT_THEME.helpFriend.steps;
+            const body = `
+                        <div class="space-y-3">
+                            ${steps.map((s, i) => `
+                                <div class="flex items-start gap-3 p-3 bg-amber-50 rounded-xl border-l-4 border-amber-500">
+                                    <span class="font-bold text-amber-600 text-sm">${i+1}.</span>
+                                    <span class="text-sm text-slate-700">${escapeHtml(s)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+            openModal('💡 How to help your partner', body);
+        }
+
+        // ─── Modal de Vocabulário (atualizado) ───
+        function openVocabModal() {
+            const theme = currentTheme || DEFAULT_THEME;
+            const intro = theme.vocabIntro || DEFAULT_THEME.vocabIntro || '';
+            const vocab = theme.vocab || DEFAULT_THEME.vocab || [];
+            const grammar = theme.grammarTips || DEFAULT_THEME.grammarTips || [];
+
+            const introHtml = intro ? `
+                        <div class="vocab-intro">
+                            ${intro}
+                        </div>
+                    ` : '';
+
+            const vocabHtml = vocab.length ? `
+                        <div class="mt-2">
+                            <h4 class="font-bold text-indigo-700 text-sm">📖 Key Vocabulary</h4>
+                            <div class="bg-slate-50 rounded-xl p-3 mt-1">
+                                ${vocab.map(v => `
+                                    <div class="vocab-item">
+                                        <span class="en">${escapeHtml(v.word)}</span>
+                                        <span class="def">– ${escapeHtml(v.definition)}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : '<p class="text-slate-400 text-sm">No vocabulary available for this quest.</p>';
+
+            const grammarHtml = grammar.length ? `
+                        <div class="mt-4">
+                            <h4 class="font-bold text-emerald-700 text-sm">📚 Grammar Tips</h4>
+                            <div class="space-y-1 mt-1">
+                                ${grammar.map(g => `
+                                    <div class="grammar-tip text-sm">💡 ${escapeHtml(g)}</div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : '';
+
+            const body = `
+                        <div class="space-y-3">
+                            ${introHtml}
+                            ${vocabHtml}
+                            ${grammarHtml}
+                        </div>
+                    `;
+            openModal('📚 Vocabulary & Grammar', body);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // MODAL BASE
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function openModal(title, html) {
             document.getElementById('modal-title').innerText = title;
@@ -1008,12 +945,9 @@
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             if (params.get('role') === 'teacher') {
-                // Redirect to teacher panel
                 window.location.href = 'teacher.html';
                 return;
             }
-
-            // Check for saved session
             const saved = localStorage.getItem('ai_contract_session');
             if (saved) {
                 try {
@@ -1023,33 +957,24 @@
                         if (data) {
                             currentUser = data;
                             currentUser.id = parsed.userId;
-                            if (data.room) {
-                                currentRoom = data.room;
+                            if (data.room) { currentRoom = data.room;
                                 showScreen('screen-activity');
-                                initActivityScreen();
-                                return;
-                            } else {
-                                showScreen('screen-lobby');
-                                listenForRoomAssignment();
-                                return;
-                            }
-                        } else {
-                            showScreen('screen-setup');
-                        }
+                                initActivityScreen(); return; } else { showScreen('screen-lobby');
+                                listenForRoomAssignment(); return; }
+                        } else { showScreen('screen-setup'); }
                     });
-                } catch (_) {
-                    showScreen('screen-setup');
-                }
-            } else {
-                showScreen('screen-setup');
-            }
+                } catch (_) { showScreen('screen-setup'); }
+            } else { showScreen('screen-setup'); }
         });
 
-        // ─── expose for inline ───
-        window.syncMyAnswer = syncMyAnswer;
+        // Expose globals
+        window.toggleQuest = toggleQuest;
         window.openModal = openModal;
         window.closeModal = closeModal;
         window.sendChatMessage = sendChatMessage;
+        window.openOptionsModal = openOptionsModal;
+        window.openHelpModal = openHelpModal;
+        window.openVocabModal = openVocabModal;
     </script>
 
 </body>
