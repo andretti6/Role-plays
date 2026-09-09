@@ -22,6 +22,9 @@
         .hidden-screen {
             display: none !important;
         }
+        .hidden-role {
+            display: none !important;
+        }
 
         /* ── glassmorphism ── */
         .glass {
@@ -141,17 +144,6 @@
             border-radius: 10px;
         }
 
-        /* ── sticky note ── */
-        .sticky-note {
-            background: #fef9c3;
-            border-left: 4px solid #eab308;
-            padding: 12px 16px;
-            border-radius: 12px 12px 12px 4px;
-            font-size: 14px;
-            color: #1e293b;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
         /* ── collapsible ── */
         .collapsible-header {
             cursor: pointer;
@@ -214,11 +206,45 @@
             border: 1px solid #e2e8f0;
             font-size: 18px;
             cursor: pointer;
+            position: relative;
         }
         .tool-btn:hover {
             background: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ── notification badge (like WhatsApp) ── */
+        .badge-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ef4444;
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            padding: 0 5px;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        .badge-count.hidden {
+            display: none;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
         }
 
         /* ── vocab/grammar cards inside modal ── */
@@ -256,9 +282,65 @@
             color: #1e40af;
         }
 
+        /* ── print styles ── */
+        .print-only {
+            display: none !important;
+        }
+        @media print {
+            body {
+                background: white !important;
+                font-size: 12px;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            .print-section {
+                page-break-after: avoid;
+                margin-bottom: 20px;
+            }
+            .glass {
+                background: white !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                backdrop-filter: none !important;
+            }
+            .role-card.role-you {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            .chat-bubble {
+                border: 1px solid #ccc;
+                background: #f8f8f8 !important;
+            }
+            .chat-bubble.teacher {
+                background: #eef !important;
+                color: #000 !important;
+            }
+            #screen-activity .max-w-7xl {
+                max-width: 100% !important;
+            }
+            #timer-display {
+                color: #000 !important;
+            }
+            .print-section .quest-item {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+        }
+
         @media (max-width: 640px) {
             .role-card-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+            .role-card-grid.three-col {
                 grid-template-columns: 1fr !important;
+            }
+            .header-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
@@ -313,12 +395,12 @@
                 <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
                 <div class="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
 
-                <div class="relative z-10 flex flex-wrap items-center justify-between gap-3">
+                <div class="relative z-10 flex flex-wrap items-center justify-between gap-3 header-buttons">
                     <div class="flex items-center gap-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                         <span class="text-xl">🎯</span>
                         <span class="text-white/80 text-xs font-bold uppercase tracking-wider">Quest Log</span>
                     </div>
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3 flex-wrap">
                         <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                             <span class="text-white/60 text-xs font-bold uppercase tracking-wider">⏱</span>
                             <span id="timer-display" class="font-mono font-bold text-white text-lg tracking-wider">--:--</span>
@@ -327,6 +409,10 @@
                             <span class="text-white/60 text-xs font-bold uppercase">Progress</span>
                             <span id="progress-text" class="text-white font-bold text-sm">0/6</span>
                         </div>
+                        <!-- Print Button -->
+                        <button onclick="printQuest()" class="bg-white/10 backdrop-blur px-3 py-2 rounded-full text-white/80 hover:bg-white/20 transition text-sm font-medium flex items-center gap-1.5 no-print">
+                            <span>🖨️</span>
+                        </button>
                     </div>
                 </div>
 
@@ -352,8 +438,8 @@
                 <!-- LEFT: 2/3 - Role Cards + Quest + Audio -->
                 <div class="lg:col-span-2 space-y-4">
 
-                    <!-- Role Cards -->
-                    <div class="grid grid-cols-2 gap-3 role-card-grid">
+                    <!-- Role Cards (suporte para 3, mas terceiro só aparece se houver 3 alunos) -->
+                    <div class="grid grid-cols-2 gap-3 role-card-grid" id="role-cards-container">
                         <div id="info-person-a" class="role-card glass p-4 text-center border-2 border-slate-200/60">
                             <div id="person-a-avatar" class="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-3xl bg-indigo-100/80">🧑‍💻</div>
                             <span id="person-a-role-title" class="badge inline-block px-3 py-0.5 rounded-full bg-indigo-100 text-indigo-700 mt-1.5">AI Expert</span>
@@ -370,17 +456,26 @@
                                 🎯 Focus: <span id="person-b-focus" class="font-medium">Define scope</span>
                             </div>
                         </div>
+                        <div id="info-person-c" class="role-card glass p-4 text-center border-2 border-slate-200/60 hidden-role">
+                            <div id="person-c-avatar" class="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-3xl bg-purple-100/80">👩‍💼</div>
+                            <span id="person-c-role-title" class="badge inline-block px-3 py-0.5 rounded-full bg-purple-100 text-purple-700 mt-1.5">Team Lead</span>
+                            <p class="font-bold text-slate-800 text-sm mt-1" id="person-c-name">Waiting for partner…</p>
+                            <div class="mt-1 bg-slate-100 rounded-lg p-2 text-[11px] text-slate-600">
+                                🎯 Focus: <span id="person-c-focus" class="font-medium">Oversee & decide</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Quest Log (Checklist Interativa) -->
+                    <!-- Quest Log (Checklist Interativa - limitada a 3 sugestões) -->
                     <div class="glass rounded-2xl p-5 border border-slate-200/60">
-                        <div class="flex items-center gap-2 mb-3">
+                        <div class="flex items-center gap-2 mb-1">
                             <span class="text-lg">✅</span>
                             <h3 class="font-bold text-slate-800 text-sm">Quest Steps</h3>
                             <span class="ml-auto text-xs text-slate-400">Click to complete</span>
                         </div>
+                        <p class="text-xs text-slate-400 mb-2 italic">💡 These are suggestions — feel free to create your own flow!</p>
                         <div id="quest-container" class="space-y-2">
-                            <!-- populated by JS -->
+                            <!-- populated by JS (máximo 3) -->
                         </div>
                     </div>
 
@@ -393,16 +488,7 @@
                         <div class="p-4 pt-0" id="activity-audio-container"></div>
                     </details>
 
-                    <!-- Sticky Note (Teacher's Note) -->
-                    <div id="sticky-container" class="sticky-note">
-                        <div class="flex items-center gap-2 text-xs font-bold uppercase text-amber-700 mb-1 collapsible-header" data-target="sticky-content-wrapper">
-                            <span>📌</span> Teacher's Note
-                            <span class="toggle-icon ml-auto">▼</span>
-                        </div>
-                        <div id="sticky-content-wrapper" class="collapsible-content">
-                            <div id="sticky-content" class="text-sm">No notes yet.</div>
-                        </div>
-                    </div>
+                    <!-- Teacher's Note removido daqui - apenas no ícone em cima -->
 
                 </div>
 
@@ -412,13 +498,13 @@
                     <!-- Partner Status -->
                     <div class="glass rounded-2xl p-4 border border-slate-200/60">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold uppercase text-slate-500">👤 Partner</span>
+                            <span class="text-xs font-bold uppercase text-slate-500">👤 Partners</span>
                             <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         </div>
                         <p class="font-bold text-slate-800 text-lg" id="partner-name-display">—</p>
                         <p class="text-xs text-slate-500" id="partner-role-display">Waiting for connection...</p>
                         <div class="mt-2 flex flex-wrap gap-1" id="partner-decision-badges">
-                            <!-- small pills showing partner's key decisions -->
+                            <!-- small pills showing partners' key decisions -->
                         </div>
                     </div>
 
@@ -442,9 +528,12 @@
                         </div>
                     </div>
 
-                    <!-- Tools (mini bar) -->
+                    <!-- Tools (mini bar) - Teacher's Note como ícone com badge -->
                     <div class="flex items-center justify-end gap-2">
-                        <button onclick="openHelpModal()" class="tool-btn" title="Help your partner">💡</button>
+                        <button onclick="openNoteModal()" class="tool-btn" title="Teacher's Note">
+                            📌
+                            <span id="note-badge" class="badge-count hidden">0</span>
+                        </button>
                         <button onclick="openOptionsModal()" class="tool-btn" title="Resources & Options">🧠</button>
                         <button onclick="openVocabModal()" class="tool-btn" title="Vocabulary & Grammar">📚</button>
                         <span class="text-[10px] text-slate-400 mr-auto">Tools</span>
@@ -462,6 +551,24 @@
     </div>
 
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!--  MODAL: Teacher's Note (pop-up)              -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div id="note-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden-screen z-50">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl fade-up">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <span>📌</span> Teacher's Note
+                </h3>
+                <button onclick="closeNoteModal()" class="text-slate-400 hover:text-slate-600 text-2xl leading-none">&times;</button>
+            </div>
+            <div class="py-4">
+                <div id="note-modal-content" class="sticky-note text-sm">No notes yet.</div>
+            </div>
+            <button onclick="closeNoteModal()" class="w-full py-3 bg-indigo-600 text-white rounded-2xl font-medium hover:bg-indigo-700 transition">Fechar</button>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <!--  MODAL (genérico)                            -->
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div id="modal-container" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 hidden-screen z-50">
@@ -470,6 +577,45 @@
             <div id="modal-body" class="py-4 text-sm text-slate-600 space-y-3"></div>
             <button onclick="closeModal()" class="w-full py-3 bg-slate-100 text-slate-700 rounded-2xl font-medium hover:bg-slate-200 transition">Close</button>
         </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!--  PRINT-ONLY SECTION (homework)              -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div id="print-area" class="print-only max-w-4xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-4">🎮 AI Quest - Relatório da Sessão</h1>
+
+        <div class="print-section">
+            <h2 class="text-lg font-bold border-b pb-1 mb-2">📜 Missão</h2>
+            <p id="print-mission" class="text-sm">Carregando...</p>
+        </div>
+
+        <div class="print-section">
+            <h2 class="text-lg font-bold border-b pb-1 mb-2">👥 Papéis</h2>
+            <div id="print-roles" class="text-sm space-y-1"></div>
+        </div>
+
+        <div class="print-section">
+            <h2 class="text-lg font-bold border-b pb-1 mb-2">✅ Passos da Quest</h2>
+            <ul id="print-quest" class="list-disc list-inside text-sm space-y-1"></ul>
+        </div>
+
+        <div class="print-section">
+            <h2 class="text-lg font-bold border-b pb-1 mb-2">📌 Nota do Professor</h2>
+            <div id="print-note" class="sticky-note text-sm">Nenhuma nota.</div>
+        </div>
+
+        <div class="print-section">
+            <h2 class="text-lg font-bold border-b pb-1 mb-2">💬 Chat com o Professor</h2>
+            <div id="print-chat" class="text-sm space-y-1"></div>
+        </div>
+
+        <div class="print-section">
+            <h2 class="text-lg font-bold border-b pb-1 mb-2">📚 Vocabulário e Gramática</h2>
+            <div id="print-vocab" class="text-sm space-y-1"></div>
+        </div>
+
+        <p class="text-xs text-slate-400 mt-8 border-t pt-4">Gerado em: <span id="print-date"></span></p>
     </div>
 
     <script>
@@ -483,13 +629,14 @@
         const db = firebase.database();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // DEFAULT THEME (fallback) – atualizado com vocabulário em inglês e texto introdutório
+        // DEFAULT THEME (fallback) – com 3 papéis
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         const DEFAULT_THEME = {
             title: "AI Quest",
             mission: "Create a contract with an AI expert to automate your daily work tasks.",
             personA: { roleTitle: "AI Expert", focus: "Suggest models & data" },
             personB: { roleTitle: "Client", focus: "Define scope & timeline" },
+            personC: { roleTitle: "Team Lead", focus: "Oversee & decide" },
             checklist: [
                 "Read the briefing together",
                 "Decide on the AI model",
@@ -511,16 +658,14 @@
                         advantage: "Max efficiency", outcome: "~$15K/month" },
                     { icon: "🚀", title: "Phased Rollout", description: "Gradual implementation.",
                         advantage: "Lower risk", outcome: "~$8K/month" }
+                ],
+                optionsC: [
+                    { icon: "🔍", title: "Quality First", description: "Focus on accuracy and validation.",
+                        advantage: "High reliability", outcome: "~$12K/month" },
+                    { icon: "⚡", title: "Speed to Market", description: "Prioritize fast delivery.",
+                        advantage: "Quick wins", outcome: "~$9K/month" }
                 ]
             },
-            helpFriend: {
-                steps: [
-                    "Ask about their top priorities.",
-                    "Suggest one AI model that fits.",
-                    "Confirm the timeline together."
-                ]
-            },
-            // ─── NOVO: Vocabulário com definições em inglês simples ───
             vocabIntro: "In this quest, you will talk about an <b>expired</b> product. You may ask for a <b>refund</b> or an <b>exchange</b>. The manager will check the <b>stock</b> and talk about <b>quality control</b>. If there is a <b>complaint</b>, the store must listen and find a solution. The goal is <b>prevention</b> of future problems.",
             vocab: [
                 { word: "expired", definition: "no longer good to use or eat (past the date)" },
@@ -548,6 +693,9 @@
         let myRoleKey = 'A';
         let chatListener = null;
         let questProgress = {};
+        let noteCount = 0;
+        let noteSeenCount = 0;
+        let currentNote = 'No notes yet.';
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // HELPERS
@@ -620,7 +768,8 @@
                             const inRoom = Object.values(all).filter(s => s.room === currentRoom)
                                 .sort((a, b) => (a.joinedAt || 0) - (b.joinedAt || 0));
                             const idx = inRoom.findIndex(s => s.id === currentUser.id);
-                            const role = idx === 0 ? 'A' : 'B';
+                            const roleMap = ['A', 'B', 'C'];
+                            const role = roleMap[idx] || 'A';
                             db.ref(`students/${currentUser.id}/role`).set(role);
                             myRoleKey = role;
                         });
@@ -668,10 +817,14 @@
                 updatePartnerView(players);
             });
 
+            // Sticky Note (Teacher's Note) com badge
             db.ref('stickyNotes').on('value', (snap) => {
                 const note = snap.val();
-                document.getElementById('sticky-content').innerHTML = note?.content ? escapeHtml(note.content) :
-                    'No notes yet.';
+                currentNote = note?.content ? note.content : 'No notes yet.';
+                document.getElementById('note-modal-content').innerHTML = escapeHtml(currentNote);
+                // Incrementa contador de não lidas
+                noteCount++;
+                updateNoteBadge();
             });
 
             if (chatListener) chatListener();
@@ -731,22 +884,26 @@
 
             const pA = theme.personA || DEFAULT_THEME.personA;
             const pB = theme.personB || DEFAULT_THEME.personB;
+            const pC = theme.personC || DEFAULT_THEME.personC;
 
             document.getElementById('person-a-role-title').innerText = pA.roleTitle || 'AI Expert';
             document.getElementById('person-a-focus').innerText = pA.focus || '';
             document.getElementById('person-b-role-title').innerText = pB.roleTitle || 'Client';
             document.getElementById('person-b-focus').innerText = pB.focus || '';
+            document.getElementById('person-c-role-title').innerText = pC.roleTitle || 'Team Lead';
+            document.getElementById('person-c-focus').innerText = pC.focus || '';
 
             document.getElementById('activity-audio-container').innerHTML = theme.audioEmbed || DEFAULT_THEME.audioEmbed;
         }
 
         function renderQuest() {
             const items = currentTheme?.checklist || DEFAULT_THEME.checklist;
+            const limited = items.slice(0, 3);
             const container = document.getElementById('quest-container');
-            let total = items.length;
+            let total = limited.length;
             let done = 0;
 
-            container.innerHTML = items.map((item, i) => {
+            container.innerHTML = limited.map((item, i) => {
                 const key = `step_${i}`;
                 const isDone = questProgress[key] === true;
                 if (isDone) done++;
@@ -755,6 +912,14 @@
                             <span class="quest-text text-sm text-slate-700">${escapeHtml(item)}</span>
                         </div>`;
             }).join('');
+
+            if (items.length > 3) {
+                container.innerHTML +=
+                    `<div class="text-xs text-slate-400 italic mt-2">💡 Essas são sugestões — sintam-se livres para criar seu próprio fluxo!</div>`;
+            } else {
+                container.innerHTML +=
+                    `<div class="text-xs text-slate-400 italic mt-2">💡 Sugestões iniciais — adaptem conforme a conversa!</div>`;
+            }
 
             const pct = total > 0 ? Math.round((done / total) * 100) : 0;
             document.getElementById('progress-fill').style.width = pct + '%';
@@ -769,51 +934,106 @@
         }
 
         function updatePartnerView(players) {
-            const partner = players.find(p => p && p.id !== currentUser?.id);
+            const partners = players.filter(p => p && p.id !== currentUser?.id);
             const theme = currentTheme || DEFAULT_THEME;
 
-            document.getElementById('partner-name-display').innerText = partner ? partner.name : '—';
-            if (partner) {
-                const partnerRole = myRoleKey === 'A' ? theme.personB?.roleTitle || 'Client' : theme.personA
-                ?.roleTitle || 'Expert';
-                document.getElementById('partner-role-display').innerText = `Role: ${partnerRole}`;
+            if (partners.length > 0) {
+                const names = partners.map(p => p.name).join(', ');
+                document.getElementById('partner-name-display').innerText = names;
+                const roles = partners.map(p => {
+                    const roleKey = p.role || 'A';
+                    const roleMap = { 'A': theme.personA?.roleTitle || 'AI Expert', 'B': theme.personB?.roleTitle ||
+                            'Client', 'C': theme.personC?.roleTitle || 'Team Lead' };
+                    return roleMap[roleKey] || 'Partner';
+                }).join(', ');
+                document.getElementById('partner-role-display').innerText = `Roles: ${roles}`;
                 document.getElementById('partner-presence').innerHTML =
-                    `👤 <strong>${escapeHtml(partner.name)}</strong> is online`;
+                    `👤 <strong>${escapeHtml(names)}</strong> online`;
                 document.getElementById('partner-presence').className = 'text-emerald-600';
             } else {
+                document.getElementById('partner-name-display').innerText = '—';
                 document.getElementById('partner-role-display').innerText = 'Waiting for connection...';
                 document.getElementById('partner-presence').innerHTML = '⏳ Waiting for partner...';
                 document.getElementById('partner-presence').className = 'text-slate-400';
             }
 
-            const partnerSteps = partner?.quest || {};
-            const items = currentTheme?.checklist || DEFAULT_THEME.checklist;
-            const doneCount = Object.values(partnerSteps).filter(v => v === true).length;
             const badgeContainer = document.getElementById('partner-decision-badges');
-            if (partner) {
-                badgeContainer.innerHTML =
-                    `<span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full">✅ ${doneCount}/${items.length} steps done</span>`;
+            if (partners.length > 0) {
+                const totalItems = (theme.checklist || DEFAULT_THEME.checklist).slice(0, 3).length;
+                badgeContainer.innerHTML = partners.map(p => {
+                    const done = Object.values(p.quest || {}).filter(v => v === true).length;
+                    return `<span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full">${escapeHtml(p.name)}: ${done}/${totalItems}</span>`;
+                }).join('');
             } else {
-                badgeContainer.innerHTML =
-                    `<span class="text-xs text-slate-400">⏳ waiting for partner data</span>`;
+                badgeContainer.innerHTML = `<span class="text-xs text-slate-400">⏳ waiting for partners</span>`;
             }
         }
 
         function renderRoomPlayers(players) {
             const pA = players[0] || null;
             const pB = players[1] || null;
+            const pC = players[2] || null;
+
+            const hasThree = players.length >= 3;
+
+            // Mostrar/esconder o terceiro card
+            const cardC = document.getElementById('info-person-c');
+            if (hasThree) {
+                cardC.classList.remove('hidden-role');
+                // Ajusta grid para 3 colunas
+                const container = document.getElementById('role-cards-container');
+                container.classList.add('three-col');
+                container.classList.remove('grid-cols-2');
+                container.classList.add('grid-cols-3');
+            } else {
+                cardC.classList.add('hidden-role');
+                const container = document.getElementById('role-cards-container');
+                container.classList.remove('three-col');
+                container.classList.add('grid-cols-2');
+                container.classList.remove('grid-cols-3');
+            }
 
             document.getElementById('person-a-name').innerHTML = pA ? escapeHtml(pA.name) + (pA.id === currentUser?.id ?
                 ' <span class="text-indigo-600 text-[10px] font-bold">(You)</span>' : '') : 'Waiting…';
             document.getElementById('person-b-name').innerHTML = pB ? escapeHtml(pB.name) + (pB.id === currentUser?.id ?
                 ' <span class="text-indigo-600 text-[10px] font-bold">(You)</span>' : '') : 'Waiting for partner…';
+            document.getElementById('person-c-name').innerHTML = pC ? escapeHtml(pC.name) + (pC.id === currentUser?.id ?
+                ' <span class="text-indigo-600 text-[10px] font-bold">(You)</span>' : '') : 'Waiting for partner…';
 
-            const isA = pA && currentUser && pA.id === currentUser.id;
-            myRoleKey = isA ? 'A' : 'B';
+            // Determina meu papel
+            let myRole = 'A';
+            if (pA && currentUser && pA.id === currentUser.id) myRole = 'A';
+            else if (pB && currentUser && pB.id === currentUser.id) myRole = 'B';
+            else if (pC && currentUser && pC.id === currentUser.id) myRole = 'C';
+            myRoleKey = myRole;
 
-            document.getElementById('info-person-a').classList.toggle('role-you', isA);
-            document.getElementById('info-person-b').classList.toggle('role-you', !isA && !!(pB && currentUser && pB.id ===
-                currentUser.id));
+            document.getElementById('info-person-a').classList.toggle('role-you', myRole === 'A');
+            document.getElementById('info-person-b').classList.toggle('role-you', myRole === 'B');
+            document.getElementById('info-person-c').classList.toggle('role-you', myRole === 'C');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // TEACHER'S NOTE TOOL (pop-up + badge)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function updateNoteBadge() {
+            const badge = document.getElementById('note-badge');
+            const unread = noteCount - noteSeenCount;
+            if (unread > 0) {
+                badge.textContent = unread;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function openNoteModal() {
+            document.getElementById('note-modal').classList.remove('hidden-screen');
+            noteSeenCount = noteCount;
+            updateNoteBadge();
+        }
+
+        function closeNoteModal() {
+            document.getElementById('note-modal').classList.add('hidden-screen');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -834,12 +1054,15 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // TOOLS / MODALS (Options, Help, Vocab)
+        // TOOLS / MODALS (Options, Vocab)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function openOptionsModal() {
             const theme = currentTheme || DEFAULT_THEME;
-            const opts = myRoleKey === 'A' ? theme.optionsButton?.optionsA || DEFAULT_THEME.optionsButton.optionsA :
-                theme.optionsButton?.optionsB || DEFAULT_THEME.optionsButton.optionsB;
+            let opts = [];
+            if (myRoleKey === 'A') opts = theme.optionsButton?.optionsA || DEFAULT_THEME.optionsButton.optionsA;
+            else if (myRoleKey === 'B') opts = theme.optionsButton?.optionsB || DEFAULT_THEME.optionsButton.optionsB;
+            else opts = theme.optionsButton?.optionsC || DEFAULT_THEME.optionsButton.optionsC;
+
             const body = `
                         <div class="space-y-3">
                             ${opts.map(opt => `
@@ -860,22 +1083,7 @@
             openModal('🧠 Resource Options', body);
         }
 
-        function openHelpModal() {
-            const steps = currentTheme?.helpFriend?.steps || DEFAULT_THEME.helpFriend.steps;
-            const body = `
-                        <div class="space-y-3">
-                            ${steps.map((s, i) => `
-                                <div class="flex items-start gap-3 p-3 bg-amber-50 rounded-xl border-l-4 border-amber-500">
-                                    <span class="font-bold text-amber-600 text-sm">${i+1}.</span>
-                                    <span class="text-sm text-slate-700">${escapeHtml(s)}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-            openModal('💡 How to help your partner', body);
-        }
-
-        // ─── Modal de Vocabulário (atualizado) ───
+        // ─── Modal de Vocabulário ───
         function openVocabModal() {
             const theme = currentTheme || DEFAULT_THEME;
             const intro = theme.vocabIntro || DEFAULT_THEME.vocabIntro || '';
@@ -921,6 +1129,54 @@
                         </div>
                     `;
             openModal('📚 Vocabulary & Grammar', body);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // PRINT FUNCTION
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function printQuest() {
+            const theme = currentTheme || DEFAULT_THEME;
+
+            document.getElementById('print-mission').textContent = theme.mission || DEFAULT_THEME.mission;
+
+            const pA = theme.personA || DEFAULT_THEME.personA;
+            const pB = theme.personB || DEFAULT_THEME.personB;
+            const pC = theme.personC || DEFAULT_THEME.personC;
+            document.getElementById('print-roles').innerHTML = `
+                        <p><strong>Role A (${pA.roleTitle}):</strong> ${pA.focus}</p>
+                        <p><strong>Role B (${pB.roleTitle}):</strong> ${pB.focus}</p>
+                        <p><strong>Role C (${pC.roleTitle}):</strong> ${pC.focus}</p>
+                    `;
+
+            const items = theme.checklist || DEFAULT_THEME.checklist;
+            const limited = items.slice(0, 3);
+            document.getElementById('print-quest').innerHTML = limited.map((item, i) => {
+                const isDone = questProgress[`step_${i}`] === true;
+                return `<li>${escapeHtml(item)} ${isDone ? '✅' : '⬜'}</li>`;
+            }).join('');
+
+            document.getElementById('print-note').innerHTML = escapeHtml(currentNote);
+
+            db.ref(`chat/${currentRoom || 'global'}`).once('value', snap => {
+                const msgs = snap.val() || {};
+                const entries = Object.entries(msgs).sort((a, b) => (a[1].ts || 0) - (b[1].ts || 0));
+                document.getElementById('print-chat').innerHTML = entries.map(([key, msg]) =>
+                    `<p><strong>${escapeHtml(msg.from)}:</strong> ${escapeHtml(msg.text)}</p>`
+                ).join('') || '<p>Nenhuma mensagem.</p>';
+            });
+
+            const vocab = theme.vocab || DEFAULT_THEME.vocab;
+            const grammar = theme.grammarTips || DEFAULT_THEME.grammarTips;
+            document.getElementById('print-vocab').innerHTML = `
+                        ${vocab.length ? `<p><strong>Vocabulary:</strong></p><ul class="list-disc list-inside">${vocab.map(v => `<li><strong>${escapeHtml(v.word)}</strong> – ${escapeHtml(v.definition)}</li>`).join('')}</ul>` : ''}
+                        ${grammar.length ? `<p class="mt-2"><strong>Grammar Tips:</strong></p><ul class="list-disc list-inside">${grammar.map(g => `<li>${escapeHtml(g)}</li>`).join('')}</ul>` : ''}
+                    `;
+
+            document.getElementById('print-date').textContent = new Date().toLocaleString();
+
+            setTimeout(() => {
+                window.print();
+            }, 300);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -973,8 +1229,10 @@
         window.closeModal = closeModal;
         window.sendChatMessage = sendChatMessage;
         window.openOptionsModal = openOptionsModal;
-        window.openHelpModal = openHelpModal;
         window.openVocabModal = openVocabModal;
+        window.openNoteModal = openNoteModal;
+        window.closeNoteModal = closeNoteModal;
+        window.printQuest = printQuest;
     </script>
 
 </body>
