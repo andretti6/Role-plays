@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🚑 Medical Emergency</title>
+<title>☕ The Reunion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,8 +12,8 @@
 :root{
   --bg:#05070a;--ink:#e9eef4;--muted:#7f8b9b;--dim:#57616e;
   --line:rgba(255,255,255,.085);--line-strong:rgba(255,255,255,.16);
-  --accent:#6ee7b7;--accent-2:#38bdf8;--gold:#fbbf24;--purple:#a78bfa;
-  --red:#f87171;--orange:#fb923c;--pink:#f472b6;--med:#ef4444;
+  --accent:#fbbf24;--accent-2:#f472b6;--gold:#fbbf24;--purple:#a78bfa;
+  --red:#f87171;--orange:#fb923c;--pink:#f472b6;--med:#fb923c;
   --radius:18px;
   --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
 }
@@ -23,15 +23,15 @@ body{
   font-size:16px;line-height:1.6;overflow:hidden;
   -webkit-font-smoothing:antialiased;
 }
-::selection{background:rgba(110,231,183,.28)}
+::selection{background:rgba(251,191,36,.28)}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:8px}
 
 .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45}
-.orb-1{width:52vw;height:52vw;left:-14vw;top:-16vw;background:radial-gradient(circle,rgba(239,68,68,.20),transparent 68%);animation:d1 28s ease-in-out infinite}
-.orb-2{width:46vw;height:46vw;right:-12vw;bottom:-18vw;background:radial-gradient(circle,rgba(56,189,248,.18),transparent 68%);animation:d2 34s ease-in-out infinite}
-.orb-3{width:34vw;height:34vw;left:44%;top:52%;background:radial-gradient(circle,rgba(167,139,250,.12),transparent 70%);animation:d3 40s ease-in-out infinite}
+.orb-1{width:52vw;height:52vw;left:-14vw;top:-16vw;background:radial-gradient(circle,rgba(251,146,60,.22),transparent 68%);animation:d1 28s ease-in-out infinite}
+.orb-2{width:46vw;height:46vw;right:-12vw;bottom:-18vw;background:radial-gradient(circle,rgba(244,114,182,.18),transparent 68%);animation:d2 34s ease-in-out infinite}
+.orb-3{width:34vw;height:34vw;left:44%;top:52%;background:radial-gradient(circle,rgba(167,139,250,.13),transparent 70%);animation:d3 40s ease-in-out infinite}
 @keyframes d1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,5vh) scale(1.12)}}
 @keyframes d2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,-5vh) scale(1.1)}}
 @keyframes d3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,6vh) scale(1.18)}}
@@ -59,7 +59,7 @@ body{
 .label{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700}
 h1.title-xl{
   font-size:clamp(36px,6.4vw,66px);line-height:1.02;font-weight:800;letter-spacing:-.04em;
-  background:linear-gradient(180deg,#fff 20%,#9fb0c4 120%);
+  background:linear-gradient(180deg,#fff 20%,#e8b48a 120%);
   -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px;
 }
 h2.title-l{font-size:clamp(24px,3.4vw,36px);line-height:1.1;font-weight:700;letter-spacing:-.028em;margin-bottom:12px}
@@ -78,28 +78,28 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 }
 .btn:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
 .btn-primary{
-  background:linear-gradient(135deg,rgba(110,231,183,.94),rgba(56,189,248,.86));
-  color:#04140f;border:none;font-weight:800;
-  box-shadow:0 0 0 1px rgba(110,231,183,.35),0 12px 44px -10px rgba(110,231,183,.6);
+  background:linear-gradient(135deg,rgba(251,191,36,.94),rgba(244,114,182,.86));
+  color:#1a0e05;border:none;font-weight:800;
+  box-shadow:0 0 0 1px rgba(251,191,36,.35),0 12px 44px -10px rgba(251,191,36,.6);
 }
-.btn-primary:hover{box-shadow:0 0 0 1px rgba(110,231,183,.6),0 18px 60px -8px rgba(110,231,183,.8)}
+.btn-primary:hover{box-shadow:0 0 0 1px rgba(251,191,36,.6),0 18px 60px -8px rgba(251,191,36,.8)}
 .btn-med{
-  background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;border:none;font-weight:800;
-  box-shadow:0 0 0 1px rgba(239,68,68,.35),0 12px 44px -10px rgba(239,68,68,.7);
+  background:linear-gradient(135deg,#fb923c,#f472b6);color:#fff;border:none;font-weight:800;
+  box-shadow:0 0 0 1px rgba(251,146,60,.35),0 12px 44px -10px rgba(251,146,60,.7);
 }
-.btn-med:hover{box-shadow:0 0 0 1px rgba(239,68,68,.6),0 18px 60px -8px rgba(239,68,68,.9)}
+.btn-med:hover{box-shadow:0 0 0 1px rgba(251,146,60,.6),0 18px 60px -8px rgba(251,146,60,.9)}
 .btn-sm{padding:11px 20px;font-size:11px}
 .btn:disabled{opacity:.32;pointer-events:none}
 .btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:32px}
 .center .btn-row{justify-content:center}
 
 .emblem{width:150px;height:150px;margin:0 auto 26px;position:relative;display:grid;place-items:center}
-.emblem .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(239,68,68,.4);animation:spin 18s linear infinite}
-.emblem .ring.r2{inset:-22px;border-color:rgba(56,189,248,.22);animation-duration:26s;animation-direction:reverse}
-.emblem .ring.r3{inset:-44px;border-color:rgba(167,139,250,.16);animation-duration:34s}
-.emblem .ring::before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:var(--med);box-shadow:0 0 16px rgba(239,68,68,.95)}
+.emblem .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(251,146,60,.4);animation:spin 18s linear infinite}
+.emblem .ring.r2{inset:-22px;border-color:rgba(244,114,182,.25);animation-duration:26s;animation-direction:reverse}
+.emblem .ring.r3{inset:-44px;border-color:rgba(167,139,250,.18);animation-duration:34s}
+.emblem .ring::before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:var(--med);box-shadow:0 0 16px rgba(251,146,60,.95)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.emblem .core{font-size:66px;filter:drop-shadow(0 0 40px rgba(239,68,68,.8));animation:breathe 4.5s ease-in-out infinite;position:relative;z-index:1}
+.emblem .core{font-size:66px;filter:drop-shadow(0 0 40px rgba(251,146,60,.8));animation:breathe 4.5s ease-in-out infinite;position:relative;z-index:1}
 @keyframes breathe{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.08) translateY(-6px)}}
 
 .name-form{max-width:480px;margin:0 auto;text-align:left}
@@ -111,19 +111,19 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   border:1px solid var(--line-strong);background:rgba(255,255,255,.025);
   color:var(--ink);outline:none;transition:.25s;
 }
-.field input:focus{border-color:rgba(110,231,183,.6);background:rgba(110,231,183,.04);box-shadow:0 0 0 4px rgba(110,231,183,.08)}
+.field input:focus{border-color:rgba(251,191,36,.6);background:rgba(251,191,36,.04);box-shadow:0 0 0 4px rgba(251,191,36,.08)}
 .field input::placeholder{color:var(--dim);font-weight:300}
 
 .brief-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:30px}
 .context-card{
   border:1px solid var(--line-strong);border-radius:20px;padding:26px 28px;
-  background:linear-gradient(165deg,rgba(239,68,68,.06),rgba(255,255,255,.006));
+  background:linear-gradient(165deg,rgba(251,146,60,.07),rgba(255,255,255,.006));
 }
 .context-card .cc-h{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--med);font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:9px}
 .context-card p{font-size:15.5px;color:#c4d0dd;font-weight:300;line-height:1.65;max-width:720px}
 .mission-card{
-  border:1px solid rgba(110,231,183,.3);border-radius:20px;padding:24px 26px;
-  background:linear-gradient(165deg,rgba(110,231,183,.06),rgba(110,231,183,.012));
+  border:1px solid rgba(251,191,36,.3);border-radius:20px;padding:24px 26px;
+  background:linear-gradient(165deg,rgba(251,191,36,.06),rgba(251,191,36,.012));
 }
 .mission-card .mc-h{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:12px}
 .mission-card p{font-size:16.5px;color:#dce6ef;font-weight:400;line-height:1.55}
@@ -151,8 +151,8 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .side-head{display:flex;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.055)}
 .side-head .sh-emoji{
   width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:22px;
-  background:linear-gradient(135deg,rgba(239,68,68,.16),rgba(56,189,248,.05));
-  border:1px solid rgba(239,68,68,.28);
+  background:linear-gradient(135deg,rgba(251,146,60,.18),rgba(244,114,182,.06));
+  border:1px solid rgba(251,146,60,.28);
 }
 .side-head .sh-t{font-size:13.5px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
 .side-head .sh-c{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--med);font-weight:700;margin-top:3px}
@@ -161,30 +161,30 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .role-chip{
   display:flex;gap:12px;align-items:flex-start;
   padding:14px 16px;border-radius:14px;
-  background:linear-gradient(160deg,rgba(56,189,248,.09),rgba(56,189,248,.015));
-  border:1px solid rgba(56,189,248,.28);
+  background:linear-gradient(160deg,rgba(244,114,182,.1),rgba(244,114,182,.015));
+  border:1px solid rgba(244,114,182,.28);
 }
-.role-chip .rc-ic{width:38px;height:38px;flex:0 0 38px;border-radius:10px;display:grid;place-items:center;font-size:19px;background:rgba(56,189,248,.14);border:1px solid rgba(56,189,248,.32)}
+.role-chip .rc-ic{width:38px;height:38px;flex:0 0 38px;border-radius:10px;display:grid;place-items:center;font-size:19px;background:rgba(244,114,182,.14);border:1px solid rgba(244,114,182,.32)}
 .role-chip .rc-n{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .role-chip .rc-d{font-size:12px;color:var(--muted);font-weight:300;line-height:1.5}
 .power-chip{
   display:flex;gap:12px;align-items:flex-start;
   padding:14px 16px;border-radius:14px;
-  background:linear-gradient(160deg,rgba(110,231,183,.09),rgba(110,231,183,.015));
-  border:1px solid rgba(110,231,183,.28);
+  background:linear-gradient(160deg,rgba(251,191,36,.1),rgba(251,191,36,.015));
+  border:1px solid rgba(251,191,36,.28);
 }
-.power-chip .pc-ic{width:38px;height:38px;flex:0 0 38px;border-radius:10px;display:grid;place-items:center;font-size:19px;background:rgba(110,231,183,.14);border:1px solid rgba(110,231,183,.32)}
+.power-chip .pc-ic{width:38px;height:38px;flex:0 0 38px;border-radius:10px;display:grid;place-items:center;font-size:19px;background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.32)}
 .power-chip .pc-n{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .power-chip .pc-d{font-size:12px;color:var(--muted);font-weight:300;line-height:1.5}
 .mission-side{
-  border:1px solid rgba(239,68,68,.25);border-radius:14px;padding:16px;
-  background:linear-gradient(160deg,rgba(239,68,68,.06),rgba(239,68,68,.012));
+  border:1px solid rgba(251,146,60,.25);border-radius:14px;padding:16px;
+  background:linear-gradient(160deg,rgba(251,146,60,.07),rgba(251,146,60,.012));
 }
 .players-count{
   display:inline-flex;align-items:center;gap:8px;
   font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
   padding:6px 12px;border-radius:999px;
-  border:1px solid rgba(110,231,183,.3);background:rgba(110,231,183,.07);color:var(--accent);
+  border:1px solid rgba(251,191,36,.3);background:rgba(251,191,36,.07);color:var(--accent);
 }
 .players-count.waiting{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:var(--gold)}
 
@@ -194,35 +194,35 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .partners-wrap{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
 .partner-card{
   flex:1 1 240px;max-width:320px;text-align:center;padding:30px 22px 26px;
-  border:1px solid rgba(56,189,248,.3);border-radius:24px;
-  background:linear-gradient(165deg,rgba(56,189,248,.08),rgba(255,255,255,.008));
+  border:1px solid rgba(244,114,182,.3);border-radius:24px;
+  background:linear-gradient(165deg,rgba(244,114,182,.08),rgba(255,255,255,.008));
   position:relative;overflow:hidden;
 }
 .partner-card::before{
   content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:60%;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.7),transparent);
+  width:60%;height:1px;background:linear-gradient(90deg,transparent,rgba(244,114,182,.7),transparent);
 }
 .partner-card.self{
-  border-color:rgba(110,231,183,.4);
-  background:linear-gradient(165deg,rgba(110,231,183,.09),rgba(255,255,255,.008));
+  border-color:rgba(251,191,36,.4);
+  background:linear-gradient(165deg,rgba(251,191,36,.09),rgba(255,255,255,.008));
 }
-.partner-card.self::before{background:linear-gradient(90deg,transparent,rgba(110,231,183,.7),transparent)}
+.partner-card.self::before{background:linear-gradient(90deg,transparent,rgba(251,191,36,.7),transparent)}
 .partner-avatar{
   width:76px;height:76px;margin:0 auto 16px;border-radius:50%;
   display:grid;place-items:center;font-size:34px;
-  background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(110,231,183,.06));
-  border:2px solid rgba(56,189,248,.4);
-  box-shadow:0 0 40px -8px rgba(56,189,248,.7);
+  background:linear-gradient(135deg,rgba(244,114,182,.18),rgba(251,191,36,.06));
+  border:2px solid rgba(244,114,182,.4);
+  box-shadow:0 0 40px -8px rgba(244,114,182,.7);
   animation:breathe 4.5s ease-in-out infinite;
 }
 .partner-card.self .partner-avatar{
-  border-color:rgba(110,231,183,.5);box-shadow:0 0 40px -8px rgba(110,231,183,.7);
+  border-color:rgba(251,191,36,.5);box-shadow:0 0 40px -8px rgba(251,191,36,.7);
 }
 .partner-eyebrow{font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:9px}
 .partner-card.self .partner-eyebrow{color:var(--accent)}
 .partner-name{
   font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-.025em;line-height:1.1;
-  background:linear-gradient(180deg,#ffffff 30%,#9fb0c4 120%);
+  background:linear-gradient(180deg,#ffffff 30%,#d9b8a0 120%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   margin-bottom:10px;
 }
@@ -238,7 +238,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
   color:var(--accent);font-weight:800;margin-bottom:16px;
 }
-.questions-head .qh-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(110,231,183,.5),transparent)}
+.questions-head .qh-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(251,191,36,.5),transparent)}
 .questions-hint{
   font-size:12.5px;color:var(--dim);font-weight:300;letter-spacing:.02em;
   margin:-4px 0 16px;font-style:italic;
@@ -250,12 +250,12 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   border:1px solid var(--line);background:rgba(255,255,255,.022);
   transition:.28s cubic-bezier(.2,.7,.3,1);
 }
-.q-card:hover{background:rgba(110,231,183,.05);border-color:rgba(110,231,183,.3);transform:translateX(4px)}
+.q-card:hover{background:rgba(251,191,36,.05);border-color:rgba(251,191,36,.3);transform:translateX(4px)}
 .q-card .q-num{
   width:30px;height:30px;flex:0 0 30px;border-radius:9px;
   display:grid;place-items:center;font-size:12px;font-weight:800;
-  background:linear-gradient(135deg,rgba(110,231,183,.2),rgba(56,189,248,.08));
-  border:1px solid rgba(110,231,183,.35);color:var(--accent);
+  background:linear-gradient(135deg,rgba(251,191,36,.2),rgba(244,114,182,.08));
+  border:1px solid rgba(251,191,36,.35);color:var(--accent);
   font-variant-numeric:tabular-nums;
 }
 .q-card .q-text{
@@ -279,11 +279,11 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .dock-btn .di{font-size:14px}
 .dock-btn:hover{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.08);transform:translateY(-2px)}
 .dock-btn.dock-primary{
-  border-color:rgba(110,231,183,.5);color:var(--accent);
-  background:linear-gradient(135deg,rgba(110,231,183,.14),rgba(56,189,248,.06));
-  box-shadow:0 0 22px -8px rgba(110,231,183,.6);
+  border-color:rgba(251,191,36,.5);color:var(--accent);
+  background:linear-gradient(135deg,rgba(251,191,36,.14),rgba(244,114,182,.06));
+  box-shadow:0 0 22px -8px rgba(251,191,36,.6);
 }
-.dock-btn.dock-primary:hover{background:rgba(110,231,183,.2);box-shadow:0 0 34px -6px rgba(110,231,183,.9)}
+.dock-btn.dock-primary:hover{background:rgba(251,191,36,.2);box-shadow:0 0 34px -6px rgba(251,191,36,.9)}
 
 .stage-tool{width:100%;max-width:780px;animation:rise .5s cubic-bezier(.2,.75,.3,1) both}
 .tool-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:26px}
@@ -304,7 +304,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   background:rgba(255,255,255,.022);font-size:13px;color:var(--muted);font-weight:300;
   transition:.25s;display:flex;gap:14px;align-items:flex-start;
 }
-.tb-item .tbi{width:38px;height:38px;flex:0 0 38px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:rgba(110,231,183,.08);border:1px solid rgba(110,231,183,.18)}
+.tb-item .tbi{width:38px;height:38px;flex:0 0 38px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.18)}
 .tb-item .tbt b{color:#d6e1ec;font-weight:700;display:block;font-size:13.5px;margin-bottom:4px}
 .tb-item .tbt{font-size:13px;line-height:1.5}
 .tb-item:hover{background:rgba(255,255,255,.055);border-color:var(--line-strong)}
@@ -323,9 +323,9 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 }
 .reflect-card .rc-ic{width:44px;height:44px;flex:0 0 44px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.35s}
 .reflect-card:hover{background:rgba(255,255,255,.045);border-color:var(--line-strong);transform:translateX(4px)}
-.reflect-card:hover .rc-ic{background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.35)}
-.reflect-card.noted{border-color:rgba(110,231,183,.4);background:rgba(110,231,183,.04)}
-.reflect-card.noted .rc-ic{background:rgba(110,231,183,.14);border-color:rgba(110,231,183,.5)}
+.reflect-card:hover .rc-ic{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.35)}
+.reflect-card.noted{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.04)}
+.reflect-card.noted .rc-ic{background:rgba(251,191,36,.14);border-color:rgba(251,191,36,.5)}
 .reflect-card.noted::after{content:'✓';position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:14px;font-weight:800;animation:pop .3s cubic-bezier(.2,1.6,.4,1)}
 @keyframes pop{from{transform:translateY(-50%) scale(0);opacity:0}to{transform:translateY(-50%) scale(1);opacity:1}}
 .reflect-card .rl{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-bottom:7px}
@@ -341,35 +341,22 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .compass-card .cc-n{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px}
 .compass-card .cc-d{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.5}
 .compass-card:hover{background:rgba(255,255,255,.06);transform:translateY(-3px);border-color:var(--line-strong)}
-.compass-card.sel{border-color:rgba(110,231,183,.6);background:linear-gradient(160deg,rgba(110,231,183,.1),rgba(110,231,183,.02));box-shadow:0 0 0 1px rgba(110,231,183,.3),0 14px 44px -18px rgba(110,231,183,.8)}
-
-.waiting-badge{
-  display:inline-flex;align-items:center;gap:9px;
-  font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  padding:8px 16px;border-radius:999px;
-  border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:var(--gold);
-  margin-bottom:20px;
-}
-.waiting-badge .dot{
-  width:8px;height:8px;border-radius:50%;background:var(--gold);
-  box-shadow:0 0 12px rgba(251,191,36,.9);animation:pulseDot 1.4s ease-in-out infinite;
-}
-@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.compass-card.sel{border-color:rgba(251,191,36,.6);background:linear-gradient(160deg,rgba(251,191,36,.1),rgba(251,191,36,.02));box-shadow:0 0 0 1px rgba(251,191,36,.3),0 14px 44px -18px rgba(251,191,36,.8)}
 
 .congrats-overlay{
   position:fixed;inset:0;z-index:200;
   display:flex;align-items:center;justify-content:center;padding:22px;
-  background:radial-gradient(circle at 50% 40%,rgba(110,231,183,.22),rgba(3,5,8,.96) 70%);
+  background:radial-gradient(circle at 50% 40%,rgba(251,191,36,.22),rgba(3,5,8,.96) 70%);
   opacity:0;visibility:hidden;transition:opacity .55s,visibility .55s;
   overflow:hidden;
 }
 .congrats-overlay.open{opacity:1;visibility:visible}
 .congrats-card{
   width:min(600px,100%);text-align:center;position:relative;
-  border:2px solid rgba(110,231,183,.55);border-radius:28px;
-  background:linear-gradient(165deg,rgba(15,25,32,.98),rgba(8,14,20,.98));
+  border:2px solid rgba(251,191,36,.55);border-radius:28px;
+  background:linear-gradient(165deg,rgba(28,20,15,.98),rgba(20,14,10,.98));
   padding:44px 36px 36px;
-  box-shadow:0 40px 120px -30px rgba(110,231,183,.5),inset 0 1px 0 rgba(255,255,255,.06);
+  box-shadow:0 40px 120px -30px rgba(251,191,36,.5),inset 0 1px 0 rgba(255,255,255,.06);
   transform:scale(.92) translateY(20px);
   transition:transform .6s cubic-bezier(.2,.9,.3,1);
   z-index:2;
@@ -386,7 +373,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .congrats-close:hover{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.1);transform:rotate(90deg)}
 .congrats-emoji{
   font-size:78px;display:block;margin-bottom:10px;
-  filter:drop-shadow(0 0 40px rgba(110,231,183,.9));
+  filter:drop-shadow(0 0 40px rgba(251,191,36,.9));
   animation:congratsPop 1.2s cubic-bezier(.2,1.6,.4,1) both, breathe 3s ease-in-out 1.2s infinite;
 }
 @keyframes congratsPop{
@@ -402,7 +389,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .congrats-title{
   font-size:clamp(30px,4.6vw,46px);font-weight:800;letter-spacing:-.035em;
   line-height:1.05;margin-bottom:14px;
-  background:linear-gradient(180deg,#ffffff 30%,#9fb0c4 120%);
+  background:linear-gradient(180deg,#ffffff 30%,#e8b48a 120%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:fadeIn .7s .4s both;
 }
@@ -476,11 +463,11 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
         <div class="ring"></div>
         <div class="ring r2"></div>
         <div class="ring r3"></div>
-        <div class="core">🚑</div>
+        <div class="core">☕</div>
       </div>
       <div class="eyebrow">Live Pair Simulation</div>
-      <h1 class="title-xl">MEDICAL<br>EMERGENCY</h1>
-      <p class="sub" style="margin-bottom:38px">A conversation between people in a critical moment.</p>
+      <h1 class="title-xl">THE<br>REUNION</h1>
+      <p class="sub" style="margin-bottom:38px">Two friends. Years apart. One honest conversation.</p>
       <div class="btn-row" style="justify-content:center">
         <button class="btn btn-med btn-lg" onclick="go('name')">▶ Begin</button>
       </div>
@@ -493,7 +480,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
       <div class="center" style="margin-bottom:34px">
         <div class="eyebrow">Before we begin</div>
         <h2 class="title-l">WHO IS IN THE ROOM?</h2>
-        <p class="sub" style="margin:0 auto">Enter your name. The system will connect you with your team automatically.</p>
+        <p class="sub" style="margin:0 auto">Enter your name. The system will connect you with your friend automatically.</p>
       </div>
 
       <div class="name-form">
@@ -515,35 +502,35 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   <!-- ══════════ BRIEF ══════════ -->
   <section class="screen" id="s-brief">
     <div class="wrap">
-      <div class="eyebrow anim">🚨 Briefing · 2 minutes</div>
-      <h2 class="title-l anim">BEFORE YOU ENTER THE ROOM</h2>
+      <div class="eyebrow anim">☕ Briefing · 2 minutes</div>
+      <h2 class="title-l anim">BEFORE YOU SIT DOWN</h2>
 
       <div class="brief-grid">
         <div class="context-card anim">
-          <div class="cc-h"><span>🚨</span> Context</div>
+          <div class="cc-h"><span>☕</span> Context</div>
           <p>
-            A patient has just arrived at the emergency room with severe chest pain.
-            You and your team are on the medical team. The patient's story lives
-            between all of you — you will only understand it by talking.
+            Two friends who haven't seen each other in years are finally meeting again.
+            Life took them in different directions. The polite version of this conversation
+            is easy — the real one is harder, and better.
           </p>
         </div>
 
         <div class="mission-card anim">
           <div class="mc-h">🎯 Your Mission</div>
           <p>
-            Talk with your team. Ask the questions you need to understand what
-            is happening. Together, decide the next step.
+            Talk honestly. Ask the questions you've been meaning to ask.
+            Listen for what's underneath the answers.
           </p>
         </div>
 
         <div class="anim">
           <div class="eyebrow" style="margin-bottom:14px">📚 Key Terms</div>
           <div class="terms-grid">
-            <div class="term"><div class="tk">Triage</div><div class="tv">Sorting patients by how urgent their condition is.</div></div>
-            <div class="term"><div class="tk">Vitals</div><div class="tv">Blood pressure, heart rate, temperature, breathing, oxygen.</div></div>
-            <div class="term"><div class="tk">Chief Complaint</div><div class="tv">The main reason the patient came in.</div></div>
-            <div class="term"><div class="tk">OPQRST</div><div class="tv">Common emergencies: Chest pain · Breathing difficulty · Abdominal pain · Head injury · Dizziness.</div></div>
-            <div class="term"><div class="tk">SAMPLE</div><div class="tv">Symptoms · Allergies · Medications · Past history · Last meal · Events.</div></div>
+            <div class="term"><div class="tk">Catch-up</div><div class="tv">The polite version of "how have you been."</div></div>
+            <div class="term"><div class="tk">Deep talk</div><div class="tv">The conversation underneath the conversation.</div></div>
+            <div class="term"><div class="tk">Listening</div><div class="tv">Hearing what isn't being said.</div></div>
+            <div class="term"><div class="tk">Honesty</div><div class="tv">Saying the true thing, not the easy thing.</div></div>
+            <div class="term"><div class="tk">Curiosity</div><div class="tv">Asking because you really want to know.</div></div>
           </div>
         </div>
       </div>
@@ -561,16 +548,16 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
         <button class="back" onclick="leaveRoom()">← Leave the room</button>
 
         <div class="side-head">
-          <div class="sh-emoji">🚑</div>
+          <div class="sh-emoji">☕</div>
           <div>
-            <div class="sh-t">Medical Emergency</div>
-            <div class="sh-c">Emergency Room · 20 min</div>
+            <div class="sh-t">The Reunion</div>
+            <div class="sh-c">One table · 20 min</div>
           </div>
         </div>
 
         <div class="side-block">
           <div class="sb-label"><span>🎯</span> Mission</div>
-          <p class="sb-text">Talk with your team. Ask questions. Decide the next step together.</p>
+          <p class="sb-text">Talk honestly. Ask real questions. Listen for what's underneath.</p>
         </div>
 
         <div class="side-block">
@@ -579,7 +566,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
         </div>
 
         <div class="side-block">
-          <div class="sb-label"><span>🩺</span> Your Role</div>
+          <div class="sb-label"><span>🎭</span> Your Role</div>
           <div id="roleDisplay"></div>
         </div>
 
@@ -591,7 +578,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
         <div class="side-block mission-side">
           <div class="sb-label"><span>⚠️</span> Remember</div>
           <p class="sb-text">
-            This is a live conversation. Don't type. Look at the others, ask, listen, respond.
+            This is a live conversation. Don't type. Look at each other, ask, listen, respond.
           </p>
         </div>
       </aside>
@@ -601,10 +588,10 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
           <div class="partners-wrap" id="partnersWrap"></div>
 
           <div class="questions-head">
-            <span>🔑 Key words to ask about</span>
+            <span>🔑 Key words to explore together</span>
             <span class="qh-line"></span>
           </div>
-          <div class="questions-hint">Form your own questions. Ask your team out loud.</div>
+          <div class="questions-hint">Form your own questions. Ask your friend out loud.</div>
 
           <div class="q-list" id="qList"></div>
         </div>
@@ -617,7 +604,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
       <div class="dock-tools">
         <button class="dock-btn" onclick="openTool('personal')"><span class="di">🧠</span> Personal Tools</button>
         <button class="dock-btn" onclick="openTool('language')"><span class="di">🎧</span> Language</button>
-        <button class="dock-btn" onclick="openTool('knowledge')"><span class="di">📚</span> Knowledge</button>
+        <button class="dock-btn" onclick="openTool('knowledge')"><span class="di">📚</span> Conversation</button>
       </div>
       <button class="dock-btn dock-primary" onclick="finishConversation()"><span class="di">✓</span> Finish Conversation</button>
     </div>
@@ -664,12 +651,12 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
     <div class="congrats-eyebrow">Great work together!</div>
     <h2 class="congrats-title" id="congratsTitle">You did it.</h2>
     <p class="congrats-sub" id="congratsSub">
-      You practiced real English in a real situation — asking questions, listening, and deciding together.
+      You practiced real English in a real conversation — asking real questions, listening, and being honest with a friend.
     </p>
 
     <div class="congrats-actions">
       <button class="btn" onclick="printReference()">
-        <span class="ci">📄</span> Print Knowledge & Expressions
+        <span class="ci">📄</span> Print Knowledge &amp; Expressions
       </button>
       <button class="btn btn-primary" onclick="continueToReflection()">
         <span class="ci">🪞</span> Continue to Reflection
@@ -697,11 +684,9 @@ const POLL_MS = 3000;
    DATA
    ═══════════════════════════════════════════════════════ */
 const ROLES = [
-  { id:'doctor',    ic:'🩺', nm:'Emergency Doctor', ds:'You lead the assessment. Ask clear questions and decide the next step.' },
-  { id:'nurse',     ic:'💉', nm:'Triage Nurse',     ds:'You gather the first information. Ask what changed and when.' },
-  { id:'paramedic', ic:'🚑', nm:'Paramedic',        ds:'You bring the story from the scene. Ask what happened before arriving.' },
-  { id:'specialist',ic:'🫀', nm:'Specialist',       ds:'You look deeper. Ask about history, medications and allergies.' },
-  { id:'patient',   ic:'🤕', nm:'Patient',          ds:'You describe what you feel. Answer clearly and honestly.' }
+  { id:'stayed',   ic:'🏡', nm:'The One Who Stayed',   ds:'You kept the roots. You saw the town change. You carry the memory of how things were.' },
+  { id:'left',     ic:'✈️', nm:'The One Who Left',     ds:'You went looking for something else. You built a life elsewhere. You wonder what you missed.' },
+  { id:'returned', ic:'🔄', nm:'The One Who Returned', ds:'You came back different. You know both worlds. You\'re still figuring out where you belong.' }
 ];
 
 const STRENGTHS = [
@@ -717,24 +702,27 @@ const STRENGTHS = [
 
 /* KEYWORDS ONLY — students form their own questions out loud */
 const QUESTIONS = [
-  { kw:'Name · Age' },
-  { kw:'Chief complaint · Why here' },
-  { kw:'Onset · When it started' },
-  { kw:'Location · Radiating pain' },
-  { kw:'Severity · 0–10 scale' },
-  { kw:'Allergies' },
-  { kw:'Medications' },
-  { kw:'Past medical history' }
+  { kw:'Time · Years apart' },
+  { kw:'Career · Work today' },
+  { kw:'Biggest change' },
+  { kw:'Proudest moment' },
+  { kw:'A regret' },
+  { kw:'A fear you carry' },
+  { kw:'A dream you kept' },
+  { kw:'A dream you let go' },
+  { kw:'Love · Family' },
+  { kw:'A lesson learned' },
+  { kw:'Something unspoken' }
 ];
 
 const REFLECT = [
-  { k:'world',   ic:'🌍', l:'About the situation', ph:'Today I discovered...' },
-  { k:'others',  ic:'🤝', l:'About my team',       ph:'My team helped me see...' },
-  { k:'self',    ic:'🪞', l:'About myself',        ph:'I noticed that I...' },
-  { k:'emotion', ic:'💗', l:'About my emotions',   ph:'I felt ___ when...' },
-  { k:'action',  ic:'⚡', l:'About my actions',    ph:'I contributed by...' },
-  { k:'growth',  ic:'🌱', l:'About my growth',     ph:'Next time I want to...' },
-  { k:'language',ic:'🎧', l:'About language',      ph:'One expression I used was...' }
+  { k:'conversation', ic:'☕', l:'About the conversation', ph:'Today I discovered...' },
+  { k:'friend',       ic:'🤝', l:'About my friend',       ph:'My friend helped me see...' },
+  { k:'self',         ic:'🪞', l:'About myself',          ph:'I noticed that I...' },
+  { k:'emotion',      ic:'💗', l:'About my emotions',     ph:'I felt ___ when...' },
+  { k:'action',       ic:'⚡', l:'About my actions',      ph:'I contributed by...' },
+  { k:'growth',       ic:'🌱', l:'About my growth',       ph:'Next time I want to...' },
+  { k:'language',     ic:'🎧', l:'About language',        ph:'One expression I used was...' }
 ];
 
 const COMPASS = [
@@ -747,46 +735,49 @@ const COMPASS = [
 ];
 
 const PERSONAL_TOOLS = [
-  { ic:'👂', k:'Listen', v:'Listen before acting. Hear what is actually said — not what you expect.' },
-  { ic:'⚡', k:'Adapt',  v:'Deal with emotion, change and uncertainty. Respond, don\'t react.' }
+  { ic:'👂', k:'Listen',  v:'Listen before speaking. Hear what is actually said — not what you expect.' },
+  { ic:'🔗', k:'Connect', v:'Discover what the other person really needs right now. Go beneath the surface.' }
 ];
 
 const PRINT_KNOWLEDGE = [
-  { k:'Triage',         v:'Sorting patients by how urgent their condition is.' },
-  { k:'Vitals',         v:'Blood pressure, heart rate, temperature, breathing, oxygen.' },
-  { k:'Chief Complaint',v:'The main reason the patient came in.' },
-  { k:'OPQRST',         v:'Common emergencies: Chest pain · Breathing difficulty · Abdominal pain · Head injury · Dizziness.' },
-  { k:'SAMPLE',         v:'Symptoms · Allergies · Medications · Past history · Last meal · Events.' }
+  { k:'Open questions',       v:'Questions that can\'t be answered with yes or no. They open the door.' },
+  { k:'The second question',  v:'After the first answer, ask again. That\'s where the truth lives.' },
+  { k:'Silence',              v:'Let there be space. The other person will fill it with what matters.' },
+  { k:'Reflection',           v:'Repeat back what you heard. It shows you were really listening.' },
+  { k:'Honesty',              v:'Say the true thing, not the easy thing. Friendship can hold it.' }
 ];
 
 const PRINT_LANGUAGE = [
-  { g:'Need to ask?', items:[
-    '"Can you tell me more about that?"',
-    '"What makes you think that?"',
-    '"When did this start?"'
+  { g:'Need to open up a topic?', items:[
+    '"There\'s something I\'ve been meaning to ask you..."',
+    '"Can I ask you something real?"',
+    '"How have you actually been?"'
   ]},
-  { g:'Need to build on what they said?', items:[
-    '"Building on that..."',
-    '"That\'s a really important point."'
+  { g:'Need to go deeper?', items:[
+    '"Tell me more about that."',
+    '"How did that feel?"',
+    '"What was that like for you?"'
   ]},
-  { g:'Need to check understanding?', items:[
-    '"Let me make sure I understood..."',
-    '"So what you\'re saying is..."'
+  { g:'Need to share something yourself?', items:[
+    '"I\'ve been thinking a lot about..."',
+    '"Honestly, I..."',
+    '"I never told you this, but..."'
   ]},
-  { g:'Need time to think?', items:[
-    '"Let me think about that."',
-    '"I hadn\'t thought about it that way."'
+  { g:'Need to be honest but gentle?', items:[
+    '"I don\'t know how to say this, but..."',
+    '"I\'ve wanted to tell you..."'
   ]},
-  { g:'Need to decide together?', items:[
-    '"What do you think we should do?"',
-    '"Should we act now or wait?"'
+  { g:'Need to listen better?', items:[
+    '"I\'m listening."',
+    '"Take your time."',
+    '"That sounds hard."'
   ]}
 ];
 
 /* ═══════════════════════════════════════════════════════
    STATE
    ═══════════════════════════════════════════════════════ */
-const KEY = 'med_emergency_v2';
+const KEY = 'reunion_v1';
 function fresh(){
   return {
     myName:'',
@@ -805,18 +796,15 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e
 function load(){ try{ const r = localStorage.getItem(KEY); return r ? Object.assign(fresh(), JSON.parse(r)) : null; }catch(e){ return null; } }
 
 /* ═══════════════════════════════════════════════════════
-   FIREBASE HELPERS (REST API)
+   FIREBASE HELPERS
    ═══════════════════════════════════════════════════════ */
-function fbPath(path){
-  return `${FIREBASE_URL}/${path}.json`;
-}
+function fbPath(path){ return `${FIREBASE_URL}/${path}.json`; }
 
 async function fbGet(path){
   const r = await fetch(fbPath(path));
   if(!r.ok) throw new Error('FB get failed');
   return await r.json();
 }
-
 async function fbPut(path, data){
   const r = await fetch(fbPath(path), {
     method:'PUT',
@@ -826,7 +814,6 @@ async function fbPut(path, data){
   if(!r.ok) throw new Error('FB put failed');
   return await r.json();
 }
-
 async function fbDelete(path){
   const r = await fetch(fbPath(path), { method:'DELETE' });
   return r.ok;
@@ -843,7 +830,7 @@ function assignStrengthForIndex(index){
    CONNECT: create/join room
    ═══════════════════════════════════════════════════════ */
 async function connectToRoom(name){
-  const roomsPath = `medical/${SESSION_ID}/rooms`;
+  const roomsPath = `reunion/${SESSION_ID}/rooms`;
   const rooms = await fbGet(roomsPath) || {};
 
   let targetId = null;
@@ -878,11 +865,11 @@ async function connectToRoom(name){
 
 async function readRoomPlayers(){
   if(!state.roomId) return [];
-  const path = `medical/${SESSION_ID}/rooms/${state.roomId}/players`;
+  const path = `reunion/${SESSION_ID}/rooms/${state.roomId}/players`;
   const raw = await fbGet(path) || {};
   const players = Object.entries(raw).map(([id, p]) => ({
     id,
-    name: p.name || 'Player',
+    name: p.name || 'Friend',
     joinedAt: p.joinedAt || 0
   }));
   players.sort((a, b) => a.joinedAt - b.joinedAt || a.id.localeCompare(b.id));
@@ -987,7 +974,6 @@ async function enterRoom(){
     </div>
   ` : '—';
 
-  // Render keywords only — no full sentences
   const qList = document.getElementById('qList');
   qList.innerHTML = '';
   QUESTIONS.forEach((q, i) => {
@@ -1065,8 +1051,8 @@ function renderPlayers(players){
     const card = document.createElement('div');
     card.className = 'partner-card' + (p.isSelf ? ' self' : '');
     card.innerHTML = `
-      <div class="partner-avatar">${p.isSelf ? '🧑‍⚕️' : '👤'}</div>
-      <div class="partner-eyebrow">${p.isSelf ? 'You' : 'Your partner'}</div>
+      <div class="partner-avatar">${p.isSelf ? '🙋' : '👤'}</div>
+      <div class="partner-eyebrow">${p.isSelf ? 'You' : 'Your friend'}</div>
       <div class="partner-name">${p.name}</div>
       <div class="partner-role">${role ? role.ic + ' ' + role.nm : ''}</div>
     `;
@@ -1081,7 +1067,7 @@ function renderPlayers(players){
     waiting.innerHTML = `
       <div class="partner-avatar" style="animation:pulseDot 2s ease-in-out infinite">⏳</div>
       <div class="partner-eyebrow" style="color:var(--gold)">Waiting</div>
-      <div class="partner-name" style="background:none;color:var(--muted);font-weight:500;font-size:16px;-webkit-text-fill-color:var(--muted)">Connecting a partner…</div>
+      <div class="partner-name" style="background:none;color:var(--muted);font-weight:500;font-size:16px;-webkit-text-fill-color:var(--muted)">Connecting your friend…</div>
       <div class="partner-role">The system will add them automatically</div>
     `;
     wrap.appendChild(waiting);
@@ -1089,11 +1075,11 @@ function renderPlayers(players){
 
   const count = players.length;
   if(count === 1){
-    roomStatus.innerHTML = `<span class="players-count waiting"><span class="dot"></span> Waiting for team</span>`;
+    roomStatus.innerHTML = `<span class="players-count waiting"><span class="dot"></span> Waiting for friend</span>`;
   } else if(count === 2){
-    roomStatus.innerHTML = `<span class="players-count">👥 2 players · pair</span>`;
+    roomStatus.innerHTML = `<span class="players-count">👥 2 friends · pair</span>`;
   } else {
-    roomStatus.innerHTML = `<span class="players-count">👥 ${count} players · trio</span>`;
+    roomStatus.innerHTML = `<span class="players-count">👥 ${count} friends · group</span>`;
   }
 }
 
@@ -1148,15 +1134,15 @@ const TOOLS = {
   knowledge: () => `
     <div class="tool-head">
       <div>
-        <div class="eyebrow" style="margin-bottom:10px">📚 Knowledge Drops</div>
-        <h3>Quick reference while you talk.</h3>
+        <div class="eyebrow" style="margin-bottom:10px">📚 Conversation Drops</div>
+        <h3>Small things that make a conversation real.</h3>
       </div>
       <button class="tool-close" onclick="closeTool()">✕</button>
     </div>
     <div class="tb-grid" style="grid-template-columns:1fr">
       ${PRINT_KNOWLEDGE.map(k => `
         <div class="tb-item">
-          <div class="tbi">${k.k === 'Triage' ? '🚦' : k.k === 'Vitals' ? '💓' : k.k === 'Chief Complaint' ? '🗣️' : k.k === 'OPQRST' ? '🔤' : '🔠'}</div>
+          <div class="tbi">${k.k === 'Open questions' ? '🔓' : k.k === 'The second question' ? '❓' : k.k === 'Silence' ? '🤫' : k.k === 'Reflection' ? '🪞' : '💛'}</div>
           <div class="tbt"><b>${k.k}</b>${k.v}</div>
         </div>
       `).join('')}
@@ -1204,7 +1190,7 @@ function closeCongrats(){
 function spawnConfetti(){
   const layer = document.getElementById('confettiLayer');
   layer.innerHTML = '';
-  const emojis = ['🎉','🎊','✨','🌟','⭐','🎈','💫','🥳','🏆','👏'];
+  const emojis = ['🎉','🎊','✨','🌟','⭐','🎈','💫','🥳','☕','👏','💛'];
   for(let i = 0; i < 70; i++){
     const c = document.createElement('span');
     c.className = 'confetti';
@@ -1227,7 +1213,7 @@ function restartGame(){
   const ok = confirm('Restart the game? Your current room will close and you will return to the beginning.');
   if(!ok) return;
   if(state.roomId && state.playerId){
-    fbDelete(`medical/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
+    fbDelete(`reunion/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
   }
   const myName = state.myName;
   state = fresh();
@@ -1247,7 +1233,7 @@ function confirmExit(){
   const ok = confirm('Are you sure you want to exit? Your progress in the reflection will be lost.');
   if(!ok) return;
   if(state.roomId && state.playerId){
-    fbDelete(`medical/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
+    fbDelete(`reunion/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
   }
   state = fresh();
   save();
@@ -1282,16 +1268,16 @@ function printReference(){
 
   const html = `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
-<title>Medical Emergency — Reference</title>
+<title>The Reunion — Reference</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;background:#fff;padding:32px;max-width:820px;margin:0 auto;line-height:1.55}
   h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
   .sub{color:#666;font-size:13px;margin-bottom:24px;border-bottom:1px solid #ddd;padding-bottom:14px}
-  h2{font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0d7a5a;margin:26px 0 14px}
+  h2{font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#b45309;margin:26px 0 14px}
   h3{font-size:13px;font-weight:700;letter-spacing:.06em;margin:14px 0 8px;color:#333}
   .card{border:1px solid #e2e8ee;border-radius:10px;padding:12px 16px;margin-bottom:8px}
-  .k{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0d7a5a;margin-bottom:4px}
+  .k{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#b45309;margin-bottom:4px}
   .v{font-size:13.5px;color:#333}
   .line{font-size:13.5px;color:#333;padding:6px 0;border-bottom:1px dashed #e2e8ee}
   .line:last-child{border-bottom:none}
@@ -1299,10 +1285,10 @@ function printReference(){
   .meta{font-size:11px;color:#888;margin-top:30px;border-top:1px solid #eee;padding-top:14px;text-align:center}
 </style></head>
 <body>
-  <h1>🚑 Medical Emergency — Reference</h1>
+  <h1>☕ The Reunion — Reference</h1>
   <div class="sub">A live pair simulation · From Poverty to Wealth World Engine</div>
 
-  <h2>📚 Knowledge</h2>
+  <h2>📚 Conversation Skills</h2>
   ${knowledgeRows}
 
   <h2>🎧 Language Expressions</h2>
@@ -1364,7 +1350,7 @@ function renderCompass(){
    ═══════════════════════════════════════════════════════ */
 function returnHome(){
   if(state.roomId && state.playerId){
-    fbDelete(`medical/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
+    fbDelete(`reunion/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
   }
   state = fresh();
   save();
@@ -1395,7 +1381,7 @@ document.addEventListener('keydown', e => {
 
 window.addEventListener('beforeunload', () => {
   if(state.roomId && state.playerId){
-    const url = `${FIREBASE_URL}/medical/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}.json`;
+    const url = `${FIREBASE_URL}/reunion/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}.json`;
     try { navigator.sendBeacon(url + '?_method=DELETE'); } catch(e){}
   }
 });
