@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🏠 The Airbnb Dispute</title>
+<title>✈️ The Trip Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -113,6 +113,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 }
 .field input:focus{border-color:rgba(52,211,153,.6);background:rgba(52,211,153,.04);box-shadow:0 0 0 4px rgba(52,211,153,.08)}
 .field input::placeholder{color:var(--dim);font-weight:300}
+.field .hint{font-size:11.5px;color:var(--dim);font-weight:300;margin-top:8px;letter-spacing:.02em;line-height:1.5}
 
 .brief-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:30px}
 .context-card{
@@ -168,6 +169,11 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
 .role-chip .rc-n{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .role-chip .rc-d{font-size:12px;color:var(--muted);font-weight:300;line-height:1.55}
 .role-chip .rc-d b{color:#c9d5e1;font-weight:700}
+.expertise-note{
+  margin-top:10px;font-size:11.5px;color:var(--accent-2);font-weight:600;
+  letter-spacing:.02em;padding:8px 12px;border-radius:10px;
+  background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.22);
+}
 .power-chip{
   display:flex;gap:12px;align-items:flex-start;
   padding:14px 16px;border-radius:14px;
@@ -225,7 +231,11 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-.025em;line-height:1.1;
   background:linear-gradient(180deg,#ffffff 30%,#a0d4bc 120%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  margin-bottom:10px;
+  margin-bottom:8px;
+}
+.partner-expertise{
+  font-size:12px;color:var(--accent-2);font-weight:600;
+  letter-spacing:.04em;margin-bottom:10px;
 }
 .partner-role{
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;
@@ -464,11 +474,11 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
         <div class="ring"></div>
         <div class="ring r2"></div>
         <div class="ring r3"></div>
-        <div class="core">🏠</div>
+        <div class="core">✈️</div>
       </div>
       <div class="eyebrow">Live Trio Simulation</div>
-      <h1 class="title-xl">THE AIRBNB<br>DISPUTE</h1>
-      <p class="sub" style="margin-bottom:38px">One booking. One problem. One honest conversation.</p>
+      <h1 class="title-xl">THE TRIP<br>PLAN</h1>
+      <p class="sub" style="margin-bottom:38px">One budget. Three perspectives. One trip that has to happen — seen through your own expertise.</p>
       <div class="btn-row" style="justify-content:center">
         <button class="btn btn-med btn-lg" onclick="go('name')">▶ Begin</button>
       </div>
@@ -481,13 +491,19 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
       <div class="center" style="margin-bottom:34px">
         <div class="eyebrow">Before we begin</div>
         <h2 class="title-l">WHO IS IN THE ROOM?</h2>
-        <p class="sub" style="margin:0 auto">Enter your name. The system will connect you with your team automatically.</p>
+        <p class="sub" style="margin:0 auto">Enter your name and what you do. Your profession becomes your lens in the conversation.</p>
       </div>
 
       <div class="name-form">
         <div class="field">
           <label for="myName">Your name</label>
           <input id="myName" type="text" placeholder="Type your name" autocomplete="off" maxlength="40">
+        </div>
+
+        <div class="field">
+          <label for="myExpertise">Your profession or area of expertise</label>
+          <input id="myExpertise" type="text" placeholder="e.g. Veterinarian, Administration, Teacher" autocomplete="off" maxlength="50">
+          <div class="hint">Optional — but it makes the conversation real. You'll bring what your work teaches you to notice.</div>
         </div>
 
         <div class="btn-row" style="justify-content:center;margin-top:30px">
@@ -503,42 +519,43 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   <!-- ══════════ BRIEF ══════════ -->
   <section class="screen" id="s-brief">
     <div class="wrap">
-      <div class="eyebrow anim">🏠 Briefing · 2 minutes</div>
-      <h2 class="title-l anim">BEFORE THE CALL STARTS</h2>
+      <div class="eyebrow anim">✈️ Briefing · 2 minutes</div>
+      <h2 class="title-l anim">BEFORE THE PLANNING STARTS</h2>
 
       <div class="brief-grid">
         <div class="context-card anim">
-          <div class="cc-h"><span>🏠</span> Context</div>
+          <div class="cc-h"><span>✈️</span> Context</div>
           <p>
-            The booking is confirmed. The guest has checked in. Two hours later,
-            the stay is not what was advertised — and everyone is on the line.
-            The host has another check-in in forty minutes. Platform Support has
-            the policy open in another window. Nobody has agreed on anything yet.
+            The trip is real. The dates are close. The budget is limited — and everyone
+            sees the plan differently. You are not here as your job title. You are here
+            as a person whose work teaches you to notice certain things. A vet notices
+            health, paperwork, and stress. An administrator notices deadlines, forms, and
+            budget lines. The best trip is built from both.
           </p>
         </div>
 
         <div class="mission-card anim">
           <div class="mc-h">🎯 Your Mission</div>
           <p>
-            Say what actually happened. Show what you have.
-            Agree on something that works tonight.
+            Plan a trip that fits the budget, works for everyone, and survives contact
+            with reality. Bring your expertise. Listen to theirs.
           </p>
         </div>
 
         <div class="anim">
           <div class="eyebrow" style="margin-bottom:14px">📚 Key Terms</div>
           <div class="terms-grid">
-            <div class="term"><div class="tk">Listing</div><div class="tv">What the host advertises: photos, amenities, rules, price.</div></div>
-            <div class="term"><div class="tk">Check-in</div><div class="tv">The moment the guest arrives and gets access to the place.</div></div>
-            <div class="term"><div class="tk">Amenities</div><div class="tv">What's promised: AC, wifi, kitchen, pool, view.</div></div>
-            <div class="term"><div class="tk">Policy</div><div class="tv">The rules on cancellations, refunds, and damages.</div></div>
-            <div class="term"><div class="tk">Review</div><div class="tv">The public rating both sides leave after the stay.</div></div>
+            <div class="term"><div class="tk">Budget</div><div class="tv">The total money available — not a suggestion.</div></div>
+            <div class="term"><div class="tk">Itinerary</div><div class="tv">The day-by-day plan of what happens on the trip.</div></div>
+            <div class="term"><div class="tk">Accommodation</div><div class="tv">Where you stay: hotel, hostel, Airbnb, friend's place.</div></div>
+            <div class="term"><div class="tk">Transport</div><div class="tv">How you get there and move around: flights, trains, buses, cars.</div></div>
+            <div class="term"><div class="tk">Cancellation</div><div class="tv">What happens if plans change — and what it costs.</div></div>
           </div>
         </div>
       </div>
 
       <div class="btn-row anim">
-        <button class="btn btn-med" onclick="enterRoom()">▶ Enter the Call</button>
+        <button class="btn btn-med" onclick="enterRoom()">▶ Start Planning</button>
       </div>
     </div>
   </section>
@@ -547,19 +564,19 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
   <section class="screen" id="s-world">
     <div class="world-layout">
       <aside class="world-side">
-        <button class="back" onclick="leaveRoom()">← Leave the call</button>
+        <button class="back" onclick="leaveRoom()">← Leave the planning</button>
 
         <div class="side-head">
-          <div class="sh-emoji">🏠</div>
+          <div class="sh-emoji">✈️</div>
           <div>
-            <div class="sh-t">The Airbnb Dispute</div>
-            <div class="sh-c">Apartment · 20 min</div>
+            <div class="sh-t">The Trip Plan</div>
+            <div class="sh-c">Planning Session · 20 min</div>
           </div>
         </div>
 
         <div class="side-block">
           <div class="sb-label"><span>🎯</span> Mission</div>
-          <p class="sb-text">Explain what happened. Show evidence. Agree on a resolution that works tonight.</p>
+          <p class="sb-text">Agree on budget, dates, places, and a plan that works. Bring your expertise. Resolve disagreements honestly.</p>
         </div>
 
         <div class="side-block">
@@ -593,7 +610,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
             <span>🔑 Key words to explore together</span>
             <span class="qh-line"></span>
           </div>
-          <div class="questions-hint">Form your own questions. Ask your team out loud.</div>
+          <div class="questions-hint">Form your own questions. Ask your team out loud. Use what your work teaches you.</div>
 
           <div class="q-list" id="qList"></div>
         </div>
@@ -608,7 +625,7 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
         <button class="dock-btn" onclick="openTool('language')"><span class="di">🎧</span> Language</button>
         <button class="dock-btn" onclick="openTool('knowledge')"><span class="di">📚</span> Principles</button>
       </div>
-      <button class="dock-btn dock-primary" onclick="finishConversation()"><span class="di">✓</span> Finish Call</button>
+      <button class="dock-btn dock-primary" onclick="finishConversation()"><span class="di">✓</span> Finish Planning</button>
     </div>
   </section>
 
@@ -653,8 +670,8 @@ h3.title-m{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-.02e
     <div class="congrats-eyebrow">Great work together!</div>
     <h2 class="congrats-title" id="congratsTitle">You did it.</h2>
     <p class="congrats-sub" id="congratsSub">
-      You practiced real English in a real dispute — describing problems, showing evidence,
-      and finding a way forward together.
+      You practiced real English in a real planning session — bringing your expertise,
+      disagreeing politely, and building a trip that works for everyone.
     </p>
 
     <div class="congrats-actions">
@@ -688,22 +705,22 @@ const POLL_MS = 3000;
    ═══════════════════════════════════════════════════════ */
 const ROLES = [
   {
-    id:'guest',
-    ic:'🧳',
-    nm:'Guest',
-    ds:`You booked 5 nights. The photos looked great. Two hours after arriving you found: the AC doesn't work, the bathroom wasn't cleaned, and "beachfront" is actually a 20-minute walk.<br><br><b>What you want:</b> A fix today, or a partial refund. You paid a lot.`
+    id:'advocate',
+    ic:'🎯',
+    nm:'The Advocate',
+    ds:`You speak for what the trip needs to include — not just logistics, but the reason it matters.<br><br><b>Use YOUR expertise here.</b><br>A vet notices animal welfare, stress, climate, feeding.<br>An administrator notices people's real needs, rest, and fairness.<br><br>Bring your priorities. Argue for them. But listen.`
   },
   {
-    id:'host',
-    ic:'🏠',
-    nm:'Host',
-    ds:`You manage 6 listings. Your cleaner didn't show up and you have 40 minutes before the next check-in.<br><br><b>Your concerns:</b><br>• A 1-star review could drop your ranking<br>• The AC can't be fixed until tomorrow<br>• You already offered a late checkout<br><br>You want the guest to stay — and review fairly.`
+    id:'analyst',
+    ic:'📐',
+    nm:'The Analyst',
+    ds:`You check whether the plan actually works. Numbers, timing, documents, cost.<br><br><b>Use YOUR expertise here.</b><br>A vet checks vaccination windows, health certificates, carrier rules.<br>An administrator checks deadlines, forms, budget lines, and who approves what.<br><br>What does your work teach you to verify before saying yes?`
   },
   {
-    id:'support',
-    ic:'🎧',
-    nm:'Platform Support',
-    ds:`You handle disputes by policy, not emotion. You can authorize a partial refund, a rebooking, or a cancellation — <b>but only with evidence.</b><br><br><b>Your job:</b> Ask both sides for facts. Photos. Messages. Timestamps. Then apply the policy.`
+    id:'guardian',
+    ic:'🛡️',
+    nm:'The Guardian',
+    ds:`You look for what could go wrong — and what's covered if it does.<br><br><b>Use YOUR expertise here.</b><br>A vet knows which animals can travel, when, and with what paperwork.<br>An administrator knows which documents expire, which rules apply, and who signs.<br><br>Your job is not to block the trip. It's to make sure it survives contact with reality.`
   }
 ];
 
@@ -720,28 +737,28 @@ const STRENGTHS = [
 
 /* KEYWORDS ONLY — students form their own questions out loud */
 const QUESTIONS = [
-  { kw:'Listing · What was advertised vs. what you found' },
-  { kw:'Check-in · Access and arrival problems' },
-  { kw:'Amenities · What is missing or broken' },
-  { kw:'Cleanliness · The standard you expected' },
-  { kw:'Photos · Accurate or misleading' },
-  { kw:'Fees · Cleaning, service, extra charges' },
-  { kw:'Policy · What the cancellation terms say' },
-  { kw:'Resolution · Refund, partial refund, or rebooking' },
-  { kw:'Reviews · Rating and its consequences' },
-  { kw:'Evidence · Photos, messages, timestamps' },
-  { kw:'Communication · Response time before arrival' },
-  { kw:'Alternatives · What options exist tonight' }
+  { kw:'Budget · What we can actually spend' },
+  { kw:'Dates · When we can travel' },
+  { kw:'Transport · Flights, trains, buses' },
+  { kw:'Accommodation · Where we stay' },
+  { kw:'Itinerary · What we do each day' },
+  { kw:'Documents · What needs to be ready' },
+  { kw:'Health & safety · What could go wrong' },
+  { kw:'Cancellation · What if plans change' },
+  { kw:'Expertise · What your work notices here' },
+  { kw:'Expertise · What others might miss' },
+  { kw:'Compromise · What each of us gives up' },
+  { kw:'Sign-off · Who checks the final plan' }
 ];
 
 const REFLECT = [
-  { k:'meeting',   ic:'🏠', l:'About the call',       ph:'Today I discovered...' },
-  { k:'team',      ic:'🤝', l:'About my team',        ph:'My team helped me see...' },
-  { k:'self',      ic:'🪞', l:'About myself',         ph:'I noticed that I...' },
-  { k:'emotion',   ic:'💗', l:'About my emotions',    ph:'I felt ___ when...' },
-  { k:'action',    ic:'⚡', l:'About my actions',     ph:'I contributed by...' },
-  { k:'growth',    ic:'🌱', l:'About my growth',      ph:'Next time I want to...' },
-  { k:'language',  ic:'🎧', l:'About language',       ph:'One expression I used was...' }
+  { k:'meeting',   ic:'✈️', l:'About the planning',    ph:'Today I discovered...' },
+  { k:'team',      ic:'🤝', l:'About my team',         ph:'My team helped me see...' },
+  { k:'self',      ic:'🪞', l:'About myself',          ph:'I noticed that I...' },
+  { k:'emotion',   ic:'💗', l:'About my emotions',     ph:'I felt ___ when...' },
+  { k:'action',    ic:'⚡', l:'About my actions',      ph:'I contributed by...' },
+  { k:'growth',    ic:'🌱', l:'About my growth',       ph:'Next time I want to...' },
+  { k:'language',  ic:'🎧', l:'About language',        ph:'One expression I used was...' }
 ];
 
 const COMPASS = [
@@ -754,59 +771,69 @@ const COMPASS = [
 ];
 
 const PERSONAL_TOOLS = [
-  { ic:'👂', k:'Listen',  v:'Listen before speaking. Hear what is actually said — between the listing and the reality.' },
-  { ic:'⚖️', k:'Own',    v:'Balance honesty and accountability. Own what went wrong without collapsing. Explain, don\'t excuse.' }
+  { ic:'👂', k:'Listen',  v:'Listen before speaking. Hear what the other person actually needs — not just what they say.' },
+  { ic:'⚖️', k:'Balance', v:'Balance your wishes with the group\'s reality. A trip only happens if everyone says yes.' }
 ];
 
 const PRINT_KNOWLEDGE = [
-  { ic:'📸', k:'Listing vs. reality',    v:'A booking is a promise. When reality differs, the question is: how big is the gap, and who pays for it?' },
-  { ic:'🗂️', k:'Document everything',    v:'Photos, timestamps, messages. Facts win disputes. Feelings don\'t.' },
-  { ic:'⭐', k:'The rating is leverage', v:'Both sides have something to lose. The guest can review. So can the host. That balance shapes the deal.' },
-  { ic:'📜', k:'Policy beats emotion',   v:'"That\'s unfair" is not an argument. "That\'s covered under section 4" is.' },
-  { ic:'🪜', k:'The escalation ladder',  v:'Host → Co-host → Platform → Public review. Know which rung you\'re standing on.' },
-  { ic:'🤝', k:'Solution, not blame',    v:'Both sides want tonight to work. Start there — not with who is wrong.' }
+  { ic:'🔍', k:'Every profession sees differently',        v:'A vet sees health, paperwork, and stress. An administrator sees deadlines, forms, and budget lines. The best plan uses both.' },
+  { ic:'🧠', k:'Expertise is a lens, not a cage',          v:'You are not in this meeting as your job title. You are here as a person who notices certain things. Say what you notice.' },
+  { ic:'💰', k:'Budget is a limit',                        v:'Not a suggestion. A trip that breaks the budget is not a trip — it\'s a problem.' },
+  { ic:'📅', k:'Dates drive everything',                   v:'Flights, prices, availability, documentation windows. Fix the dates first, then plan around them.' },
+  { ic:'📜', k:'Cancellation is part of the price',        v:'A refundable ticket costs more — but it might save the whole trip.' },
+  { ic:'🎯', k:'Everyone has a non-negotiable',            v:'Find it early. If you ignore it, it will come back at the worst moment.' },
+  { ic:'🕊️', k:'The best itinerary has empty space',       v:'A trip planned hour-by-hour is a trip that breaks on day two.' },
+  { ic:'✅', k:'The plan is real when someone signs off',  v:'Until someone owns the final check, it\'s just a conversation.' }
 ];
 
 const PRINT_LANGUAGE = [
-  { g:'Describing the problem?', items:[
-    '"The listing said… but what we found was…"',
-    '"When we arrived, the AC wasn\'t working."',
-    '"This isn\'t what was advertised."'
+  { g:'Bringing your expertise in?', items:[
+    '"From my experience in ___, I\'d check…"',
+    '"In my work, this is usually where things go wrong."',
+    '"Something I\'d want to verify first is…"',
+    '"I\'m not an expert in this, but I know who to ask."'
   ]},
-  { g:'Asking for a fix?', items:[
-    '"Can you send someone today?"',
-    '"I\'d like to discuss a partial refund."',
-    '"What can you do right now?"'
+  { g:'Describing what you want?', items:[
+    '"What I really want is…"',
+    '"My priority is…"',
+    '"I\'d be happy if we could…"'
   ]},
-  { g:'Host responding?', items:[
-    '"I understand your frustration."',
-    '"Let me be honest about what happened."',
-    '"Here\'s what I can offer."'
+  { g:'Talking about budget?', items:[
+    '"My total budget is around…"',
+    '"That\'s over what I can spend."',
+    '"Is there a cheaper option that still works?"'
   ]},
-  { g:'Escalating?', items:[
-    '"I\'d like to take this to Support."',
-    '"I\'ll have to leave an honest review."',
-    '"This is covered under the policy."'
+  { g:'Disagreeing politely?', items:[
+    '"I see it differently."',
+    '"I\'m not sure that works for me."',
+    '"Can we look at another option?"'
   ]},
-  { g:'Finding a solution?', items:[
-    '"Let\'s agree on something that works for both of us."',
-    '"If I refund X, will you keep the booking?"',
-    '"Thank you for being reasonable."'
+  { g:'Asking about policies and risk?', items:[
+    '"What happens if we cancel?"',
+    '"Is this refundable?"',
+    '"What documents do we need, and when?"',
+    '"Who is responsible if this goes wrong?"'
   ]},
-  { g:'Closing the conversation?', items:[
+  { g:'Finding a compromise?', items:[
+    '"What if we…"',
+    '"I could accept that if…"',
+    '"Let\'s meet in the middle."'
+  ]},
+  { g:'Closing the plan?', items:[
     '"So we agree on…"',
-    '"I\'ll confirm that in writing."',
-    '"Let\'s leave it there."'
+    '"Let\'s book it before prices change."',
+    '"I\'ll confirm everything in writing."'
   ]}
 ];
 
 /* ═══════════════════════════════════════════════════════
    STATE
    ═══════════════════════════════════════════════════════ */
-const KEY = 'airbnb_v1';
+const KEY = 'travel_v2';
 function fresh(){
   return {
     myName:'',
+    myExpertise:'',
     playerId:null,
     roomId:null,
     roleId:null,
@@ -855,8 +882,8 @@ function assignStrengthForIndex(index){
 /* ═══════════════════════════════════════════════════════
    CONNECT: create/join room
    ═══════════════════════════════════════════════════════ */
-async function connectToRoom(name){
-  const roomsPath = `airbnb/${SESSION_ID}/rooms`;
+async function connectToRoom(name, expertise){
+  const roomsPath = `travel/${SESSION_ID}/rooms`;
   const rooms = await fbGet(roomsPath) || {};
 
   let targetId = null;
@@ -882,6 +909,7 @@ async function connectToRoom(name){
   const playerId = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
   const player = {
     name: name,
+    expertise: expertise || '',
     joinedAt: Date.now()
   };
   await fbPut(`${roomsPath}/${targetId}/players/${playerId}`, player);
@@ -891,11 +919,12 @@ async function connectToRoom(name){
 
 async function readRoomPlayers(){
   if(!state.roomId) return [];
-  const path = `airbnb/${SESSION_ID}/rooms/${state.roomId}/players`;
+  const path = `travel/${SESSION_ID}/rooms/${state.roomId}/players`;
   const raw = await fbGet(path) || {};
   const players = Object.entries(raw).map(([id, p]) => ({
     id,
     name: p.name || 'Participant',
+    expertise: p.expertise || '',
     joinedAt: p.joinedAt || 0
   }));
   players.sort((a, b) => a.joinedAt - b.joinedAt || a.id.localeCompare(b.id));
@@ -934,24 +963,31 @@ function go(id){
    NAME SCREEN
    ═══════════════════════════════════════════════════════ */
 const myNameEl = document.getElementById('myName');
+const myExpertiseEl = document.getElementById('myExpertise');
 const startBtn = document.getElementById('startBtn');
 const connectStatus = document.getElementById('connectStatus');
 
 myNameEl.addEventListener('input', () => {
   startBtn.disabled = myNameEl.value.trim().length === 0;
 });
+myExpertiseEl.addEventListener('input', () => {
+  state.myExpertise = myExpertiseEl.value.trim();
+  save();
+});
 
 async function startSim(){
-  const my = myNameEl.value.trim();
+  const my  = myNameEl.value.trim();
+  const myE = myExpertiseEl.value.trim();
   if(!my) return;
 
   state.myName = my;
+  state.myExpertise = myE;
   startBtn.disabled = true;
   startBtn.textContent = 'Connecting…';
   connectStatus.textContent = 'Looking for a room…';
 
   try {
-    const { roomId, playerId } = await connectToRoom(my);
+    const { roomId, playerId } = await connectToRoom(my, myE);
     state.roomId = roomId;
     state.playerId = playerId;
 
@@ -974,13 +1010,11 @@ async function startSim(){
 }
 
 /* ═══════════════════════════════════════════════════════
-   ENTER ROOM
+   SIDE PANEL RENDERERS
    ═══════════════════════════════════════════════════════ */
-async function enterRoom(){
-  const role = ROLES.find(r => r.id === state.roleId);
-  const strength = STRENGTHS.find(s => s.id === state.strengthId);
-
-  document.getElementById('roleDisplay').innerHTML = role ? `
+function renderRolePanel(role, expertise){
+  if(!role) return '—';
+  return `
     <div class="role-chip">
       <div class="rc-ic">${role.ic}</div>
       <div>
@@ -988,9 +1022,13 @@ async function enterRoom(){
         <div class="rc-d">${role.ds}</div>
       </div>
     </div>
-  ` : '—';
+    ${expertise ? `<div class="expertise-note">🔎 Your expertise: ${expertise}</div>` : ''}
+  `;
+}
 
-  document.getElementById('powerDisplay').innerHTML = strength ? `
+function renderPowerPanel(strength){
+  if(!strength) return '—';
+  return `
     <div class="power-chip">
       <div class="pc-ic">${strength.ic}</div>
       <div>
@@ -998,7 +1036,18 @@ async function enterRoom(){
         <div class="pc-d">${strength.ds}</div>
       </div>
     </div>
-  ` : '—';
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ENTER ROOM
+   ═══════════════════════════════════════════════════════ */
+async function enterRoom(){
+  const role = ROLES.find(r => r.id === state.roleId);
+  const strength = STRENGTHS.find(s => s.id === state.strengthId);
+
+  document.getElementById('roleDisplay').innerHTML = renderRolePanel(role, state.myExpertise);
+  document.getElementById('powerDisplay').innerHTML = renderPowerPanel(strength);
 
   const qList = document.getElementById('qList');
   qList.innerHTML = '';
@@ -1031,30 +1080,15 @@ async function refreshRoom(){
 
     const me = players.find(p => p.id === state.playerId);
     if(me){
-      if(me.roleId !== state.roleId){
+      if(me.roleId !== state.roleId || me.expertise !== state.myExpertise){
         state.roleId = me.roleId;
         state.strengthId = me.strengthId;
+        if(me.expertise) state.myExpertise = me.expertise;
         save();
         const role = ROLES.find(r => r.id === state.roleId);
         const strength = STRENGTHS.find(s => s.id === state.strengthId);
-        document.getElementById('roleDisplay').innerHTML = role ? `
-          <div class="role-chip">
-            <div class="rc-ic">${role.ic}</div>
-            <div>
-              <div class="rc-n">${role.nm}</div>
-              <div class="rc-d">${role.ds}</div>
-            </div>
-          </div>
-        ` : '—';
-        document.getElementById('powerDisplay').innerHTML = strength ? `
-          <div class="power-chip">
-            <div class="pc-ic">${strength.ic}</div>
-            <div>
-              <div class="pc-n">${strength.nm}</div>
-              <div class="pc-d">${strength.ds}</div>
-            </div>
-          </div>
-        ` : '—';
+        document.getElementById('roleDisplay').innerHTML = renderRolePanel(role, state.myExpertise);
+        document.getElementById('powerDisplay').innerHTML = renderPowerPanel(strength);
       }
     }
 
@@ -1078,8 +1112,9 @@ function renderPlayers(players){
     card.className = 'partner-card' + (p.isSelf ? ' self' : '');
     card.innerHTML = `
       <div class="partner-avatar">${p.isSelf ? '🙋' : '👤'}</div>
-      <div class="partner-eyebrow">${p.isSelf ? 'You' : 'In this call'}</div>
+      <div class="partner-eyebrow">${p.isSelf ? 'You' : 'In this planning'}</div>
       <div class="partner-name">${p.name}</div>
+      ${p.expertise ? `<div class="partner-expertise">${p.expertise}</div>` : ''}
       <div class="partner-role">${role ? role.ic + ' ' + role.nm : ''}</div>
     `;
     wrap.appendChild(card);
@@ -1093,7 +1128,7 @@ function renderPlayers(players){
     waiting.innerHTML = `
       <div class="partner-avatar" style="animation:pulseDot 2s ease-in-out infinite">⏳</div>
       <div class="partner-eyebrow" style="color:var(--gold)">Waiting</div>
-      <div class="partner-name" style="background:none;color:var(--muted);font-weight:500;font-size:16px;-webkit-text-fill-color:var(--muted)">Connecting the other side…</div>
+      <div class="partner-name" style="background:none;color:var(--muted);font-weight:500;font-size:16px;-webkit-text-fill-color:var(--muted)">Connecting the others…</div>
       <div class="partner-role">The system will add them automatically</div>
     `;
     wrap.appendChild(waiting);
@@ -1105,7 +1140,7 @@ function renderPlayers(players){
   } else if(count === 2){
     roomStatus.innerHTML = `<span class="players-count">👥 2 people · pair</span>`;
   } else {
-    roomStatus.innerHTML = `<span class="players-count">👥 ${count} people · full call</span>`;
+    roomStatus.innerHTML = `<span class="players-count">👥 ${count} people · full planning</span>`;
   }
 }
 
@@ -1114,6 +1149,7 @@ function leaveRoom(){
   closeTool();
   go('name');
   myNameEl.value = state.myName || '';
+  myExpertiseEl.value = state.myExpertise || '';
   startBtn.disabled = !state.myName;
   startBtn.textContent = '▶ Connect me';
   connectStatus.textContent = 'Your role will be revealed on the next screen.';
@@ -1161,7 +1197,7 @@ const TOOLS = {
     <div class="tool-head">
       <div>
         <div class="eyebrow" style="margin-bottom:10px">📚 Principles</div>
-        <h3>Small principles that keep a dispute fair — and useful.</h3>
+        <h3>Small principles that make a trip actually happen.</h3>
       </div>
       <button class="tool-close" onclick="closeTool()">✕</button>
     </div>
@@ -1216,7 +1252,7 @@ function closeCongrats(){
 function spawnConfetti(){
   const layer = document.getElementById('confettiLayer');
   layer.innerHTML = '';
-  const emojis = ['🎉','🎊','✨','🌟','⭐','🎈','💫','🥳','🏠','👏','🧳'];
+  const emojis = ['🎉','🎊','✈️','🌍','🧳','🗺️','⭐','🎈','💫','🥳','📸','🏝️'];
   for(let i = 0; i < 70; i++){
     const c = document.createElement('span');
     c.className = 'confetti';
@@ -1239,16 +1275,19 @@ function restartGame(){
   const ok = confirm('Restart the game? Your current room will close and you will return to the beginning.');
   if(!ok) return;
   if(state.roomId && state.playerId){
-    fbDelete(`airbnb/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
+    fbDelete(`travel/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
   }
   const myName = state.myName;
+  const myExp  = state.myExpertise;
   state = fresh();
   state.myName = myName;
+  state.myExpertise = myExp;
   save();
   document.getElementById('congratsOverlay').classList.remove('open');
   document.getElementById('confettiLayer').innerHTML = '';
   stopPolling();
   myNameEl.value = myName;
+  myExpertiseEl.value = myExp;
   startBtn.disabled = false;
   startBtn.textContent = '▶ Connect me';
   connectStatus.textContent = 'Your role will be revealed on the next screen.';
@@ -1259,7 +1298,7 @@ function confirmExit(){
   const ok = confirm('Are you sure you want to exit? Your progress in the reflection will be lost.');
   if(!ok) return;
   if(state.roomId && state.playerId){
-    fbDelete(`airbnb/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
+    fbDelete(`travel/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
   }
   state = fresh();
   save();
@@ -1267,6 +1306,7 @@ function confirmExit(){
   document.getElementById('congratsOverlay').classList.remove('open');
   document.getElementById('confettiLayer').innerHTML = '';
   myNameEl.value = '';
+  myExpertiseEl.value = '';
   startBtn.disabled = true;
   startBtn.textContent = '▶ Connect me';
   connectStatus.textContent = 'Your role will be revealed on the next screen.';
@@ -1294,7 +1334,7 @@ function printReference(){
 
   const html = `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
-<title>The Airbnb Dispute — Reference</title>
+<title>The Trip Plan — Reference</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;background:#fff;padding:32px;max-width:820px;margin:0 auto;line-height:1.55}
@@ -1311,10 +1351,10 @@ function printReference(){
   .meta{font-size:11px;color:#888;margin-top:30px;border-top:1px solid #eee;padding-top:14px;text-align:center}
 </style></head>
 <body>
-  <h1>🏠 The Airbnb Dispute — Reference</h1>
+  <h1>✈️ The Trip Plan — Reference</h1>
   <div class="sub">A live trio simulation · Everyday English World Engine</div>
 
-  <h2>📚 Negotiation Principles</h2>
+  <h2>📚 Planning Principles</h2>
   ${knowledgeRows}
 
   <h2>🎧 Language Expressions</h2>
@@ -1376,12 +1416,13 @@ function renderCompass(){
    ═══════════════════════════════════════════════════════ */
 function returnHome(){
   if(state.roomId && state.playerId){
-    fbDelete(`airbnb/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
+    fbDelete(`travel/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}`).catch(()=>{});
   }
   state = fresh();
   save();
   stopPolling();
   myNameEl.value = '';
+  myExpertiseEl.value = '';
   startBtn.disabled = true;
   startBtn.textContent = '▶ Connect me';
   connectStatus.textContent = 'Your role will be revealed on the next screen.';
@@ -1395,6 +1436,7 @@ function boot(){
   const saved = load();
   if(saved) state = saved;
   if(state.myName) myNameEl.value = state.myName;
+  if(state.myExpertise) myExpertiseEl.value = state.myExpertise;
   startBtn.disabled = !state.myName;
   go('landing');
 }
@@ -1407,7 +1449,7 @@ document.addEventListener('keydown', e => {
 
 window.addEventListener('beforeunload', () => {
   if(state.roomId && state.playerId){
-    const url = `${FIREBASE_URL}/airbnb/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}.json`;
+    const url = `${FIREBASE_URL}/travel/${SESSION_ID}/rooms/${state.roomId}/players/${state.playerId}.json`;
     try { navigator.sendBeacon(url + '?_method=DELETE'); } catch(e){}
   }
 });
