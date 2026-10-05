@@ -2,1914 +2,617 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🌍 Global Venture</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scenarios of Possibilities — Mystery Cards</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#05070a;--ink:#e9eef4;--muted:#7f8b9b;--dim:#57616e;
-  --line:rgba(255,255,255,.085);--line-strong:rgba(255,255,255,.16);
-  --accent:#38bdf8;--accent-2:#a78bfa;--gold:#fbbf24;
-  --red:#f87171;--green:#34d399;--orange:#fb923c;
-  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-}
-html,body{height:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;overflow:hidden;-webkit-font-smoothing:antialiased}
-::selection{background:rgba(56,189,248,.28)}
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:8px}
+  :root{
+    --bg1:#0f172a;
+    --bg2:#1e293b;
+    --ink:#0f172a;
+    --muted:#475569;
+    --radius:18px;
+  }
 
-.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45}
-.orb-1{width:52vw;height:52vw;left:-14vw;top:-16vw;background:radial-gradient(circle,rgba(56,189,248,.24),transparent 68%);animation:d1 28s ease-in-out infinite}
-.orb-2{width:46vw;height:46vw;right:-12vw;bottom:-18vw;background:radial-gradient(circle,rgba(167,139,250,.20),transparent 68%);animation:d2 34s ease-in-out infinite}
-.orb-3{width:34vw;height:34vw;left:44%;top:52%;background:radial-gradient(circle,rgba(251,191,36,.14),transparent 70%);animation:d3 40s ease-in-out infinite}
-@keyframes d1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,5vh) scale(1.12)}}
-@keyframes d2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,-5vh) scale(1.1)}}
-@keyframes d3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,6vh) scale(1.18)}}
-.grid-ov{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 78%);mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 78%)}
+  *{box-sizing:border-box;}
 
-#app{position:fixed;inset:0;z-index:1}
-.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;visibility:hidden;transform:translateY(16px) scale(.994);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.3,1),visibility .55s;padding:60px 32px 100px;display:flex;flex-direction:column}
-.screen.active{opacity:1;visibility:visible;transform:none}
-.wrap{width:100%;max-width:1000px;margin:auto}
-.eyebrow{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:18px}
-h1.title-xl{font-size:clamp(36px,6.4vw,66px);line-height:1.02;font-weight:900;letter-spacing:-.04em;background:linear-gradient(180deg,#fff 20%,#7cc3e8 120%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px}
-h2.title-l{font-size:clamp(24px,3.4vw,36px);line-height:1.1;font-weight:800;letter-spacing:-.028em;margin-bottom:12px}
-.sub{font-size:clamp(15px,1.7vw,18px);color:var(--muted);font-weight:300;max-width:640px}
-.center{text-align:center}.center .sub{margin-left:auto;margin-right:auto}
+  body{
+    margin:0;
+    min-height:100vh;
+    padding:40px 18px 70px;
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    color:var(--ink);
+    background:linear-gradient(160deg,var(--bg1),var(--bg2));
+  }
 
-.btn{font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:15px 30px;border-radius:999px;cursor:pointer;border:1px solid var(--line-strong);background:rgba(255,255,255,.035);color:var(--ink);transition:all .28s;display:inline-flex;align-items:center;gap:10px;justify-content:center;-webkit-tap-highlight-color:transparent}
-.btn:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
-.btn-med{background:linear-gradient(135deg,#38bdf8,#a78bfa);color:#fff;border:none;font-weight:800;box-shadow:0 0 0 1px rgba(56,189,248,.4),0 12px 44px -10px rgba(56,189,248,.8)}
-.btn-med:hover{box-shadow:0 0 0 1px rgba(56,189,248,.7),0 18px 60px -8px rgba(167,139,250,.9)}
-.btn-gold{background:linear-gradient(135deg,#fbbf24,#fb923c);color:#1a0e05;border:none;font-weight:900;box-shadow:0 0 0 1px rgba(251,191,36,.4),0 12px 44px -10px rgba(251,191,36,.8)}
-.btn-gold:hover{box-shadow:0 0 0 1px rgba(251,191,36,.7),0 18px 60px -8px rgba(251,191,36,.95)}
-.btn-green{background:linear-gradient(135deg,#34d399,#10b981);color:#04231a;border:none;font-weight:900;box-shadow:0 0 0 1px rgba(52,211,153,.4),0 12px 44px -10px rgba(52,211,153,.8)}
-.btn-green:hover{box-shadow:0 0 0 1px rgba(52,211,153,.7),0 18px 60px -8px rgba(52,211,153,.95)}
-.btn-sm{padding:11px 20px;font-size:11px}
-.btn:disabled{opacity:.32;pointer-events:none}
-.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:32px}
-.center .btn-row{justify-content:center}
+  header{
+    max-width:960px;
+    margin:0 auto 26px;
+    text-align:center;
+    color:#e2e8f0;
+  }
 
-.emblem{width:150px;height:150px;margin:0 auto 26px;position:relative;display:grid;place-items:center}
-.emblem .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(56,189,248,.4);animation:spin 22s linear infinite}
-.emblem .ring.r2{inset:-22px;border-color:rgba(167,139,250,.28);animation-duration:30s;animation-direction:reverse}
-.emblem .ring.r3{inset:-44px;border-color:rgba(251,191,36,.20);animation-duration:38s}
-.emblem .ring::before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px rgba(56,189,248,.95)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.emblem .core{font-size:66px;filter:drop-shadow(0 0 40px rgba(56,189,248,.85));animation:breathe 4.5s ease-in-out infinite;position:relative;z-index:1}
-@keyframes breathe{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.08) translateY(-6px)}}
+  header h1{
+    margin:0 0 10px;
+    font-size:clamp(1.5rem,4vw,2.2rem);
+    letter-spacing:-.02em;
+  }
 
-.name-form{max-width:480px;margin:0 auto;text-align:left}
-.field{margin-bottom:22px}
-.field label{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:10px}
-.field input{width:100%;font-family:inherit;font-size:17px;font-weight:400;padding:16px 20px;border-radius:14px;border:1px solid var(--line-strong);background:rgba(255,255,255,.025);color:var(--ink);outline:none;transition:.25s}
-.field input:focus{border-color:rgba(56,189,248,.6);background:rgba(56,189,248,.04);box-shadow:0 0 0 4px rgba(56,189,248,.08)}
-.field input::placeholder{color:var(--dim);font-weight:300}
+  header p{
+    margin:0;
+    color:#94a3b8;
+    font-size:.98rem;
+    line-height:1.5;
+  }
 
-.brief-grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:30px}
-.context-card{border:1px solid var(--line-strong);border-radius:20px;padding:26px 28px;background:linear-gradient(165deg,rgba(56,189,248,.08),rgba(255,255,255,.006))}
-.context-card .cc-h{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:9px}
-.context-card p{font-size:15.5px;color:#c4d0dd;font-weight:300;line-height:1.65;max-width:720px}
+  .toolbar{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:20px 0 0;
+  }
 
-.brief-keywords{border:1px solid rgba(56,189,248,.35);border-radius:20px;padding:24px 26px;background:linear-gradient(165deg,rgba(56,189,248,.06),rgba(255,255,255,.006))}
-.brief-keywords .bk-h{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:9px}
-.brief-kw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
-.brief-kw{display:flex;gap:12px;align-items:center;padding:13px 16px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.022);font-size:14px;color:#dce6f0;font-weight:500;line-height:1.4}
-.brief-kw .bk-n{width:26px;height:26px;flex:0 0 26px;border-radius:8px;display:grid;place-items:center;font-size:11.5px;font-weight:900;background:linear-gradient(135deg,rgba(56,189,248,.25),rgba(167,139,250,.1));border:1px solid rgba(56,189,248,.4);color:var(--accent);font-variant-numeric:tabular-nums}
+  .toolbar button{
+    border:1px solid rgba(226,232,240,.25);
+    background:rgba(226,232,240,.08);
+    color:#e2e8f0;
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:.85rem;
+    cursor:pointer;
+    transition:.2s;
+    font-weight:500;
+  }
 
-/* ══════════ SCREEN 1: CO-CREATE ══════════ */
-#s-cocreate{padding:0;display:grid;grid-template-rows:1fr auto;min-height:0}
-.cc-header{padding:22px 32px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
-.cc-scenario{display:flex;align-items:center;gap:14px}
-.cc-scenario .csi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(251,191,36,.2),rgba(56,189,248,.1));border:1px solid rgba(251,191,36,.4);box-shadow:0 0 24px -6px rgba(251,191,36,.7)}
-.cc-scenario .cst{font-size:14.5px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
-.cc-scenario .csc{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-top:2px}
-.cc-header .hdr-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .toolbar button:hover{background:rgba(226,232,240,.18);}
 
-.cc-body{display:flex;align-items:center;justify-content:center;padding:44px 32px;overflow-y:auto}
-.cc-center{text-align:center;max-width:720px;width:100%;animation:rise .7s cubic-bezier(.2,.75,.3,1) both}
+  #resetBtn{
+    border-color:rgba(248,113,113,.5);
+    color:#fecaca;
+  }
+  #resetBtn:hover{background:rgba(248,113,113,.15);}
 
-.cc-friend-label{font-size:10.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px}
-.cc-friend-label .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px rgba(56,189,248,.9);animation:pulseDot 1.8s ease-in-out infinite}
-@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+  .grid{
+    max-width:960px;
+    margin:32px auto 0;
+    display:grid;
+    gap:16px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  }
 
-.cc-friend-name{
-  font-size:clamp(48px,9vw,110px);line-height:1;font-weight:900;letter-spacing:-.05em;
-  background:linear-gradient(180deg,#fff 20%,#a8bfe0 130%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  margin-bottom:20px;position:relative;display:inline-block;
-  padding:0 10px;
-  animation:ccGlow 4s ease-in-out infinite;
-}
-@keyframes ccGlow{
-  0%,100%{filter:drop-shadow(0 0 30px rgba(56,189,248,.35))}
-  50%{filter:drop-shadow(0 0 55px rgba(56,189,248,.65))}
-}
-.cc-friend-name .cc-fname-glow{
-  position:absolute;inset:-20px -40px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(56,189,248,.15),transparent 70%);
-  filter:blur(24px);z-index:-1;pointer-events:none;
-}
-.cc-friend-name.waiting{
-  font-size:clamp(28px,4.5vw,52px);background:linear-gradient(180deg,#7f8b9b,#4b5563);
-  -webkit-background-clip:text;background-clip:text;color:transparent;animation:none;
-}
+  /* ---------- Flip card ---------- */
+  .card{
+    position:relative;
+    perspective:1200px;
+    min-height: 260px; /* Replaced fixed aspect-ratio to prevent text cut-off */
+    border:0;
+    padding:0;
+    background:none;
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+    border-radius:var(--radius);
+  }
 
-.cc-you{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:8px 18px;border-radius:999px;
-  background:rgba(255,255,255,.04);border:1px solid var(--line);
-  font-size:12.5px;color:var(--muted);font-weight:600;letter-spacing:.04em;
-  margin-bottom:32px;
-}
-.cc-you b{color:#dce6f0;font-weight:800}
+  .card:focus-visible{outline:3px solid #38bdf8;outline-offset:4px;}
 
-.cc-tagline{
-  font-size:clamp(14px,1.7vw,17px);color:var(--muted);font-weight:300;
-  max-width:520px;margin:0 auto 34px;line-height:1.55;
-}
+  .card-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .6s cubic-bezier(.4,.15,.2,1);
+  }
 
-.cc-kw-label{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-bottom:12px}
-.cc-kw-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
-.cc-kw{
-  padding:11px 22px;border-radius:999px;
-  background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(167,139,250,.06));
-  border:1px solid rgba(56,189,248,.4);
-  font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
-  color:#dce6f0;
-  box-shadow:0 8px 24px -12px rgba(56,189,248,.7);
-  animation:kwin 1s cubic-bezier(.2,.8,.3,1) both;
-}
-.cc-kw:nth-child(1){animation-delay:.1s}
-.cc-kw:nth-child(2){animation-delay:.2s}
-.cc-kw:nth-child(3){animation-delay:.3s}
-@keyframes kwin{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:none}}
+  .card.flipped .card-inner{transform:rotateY(180deg);}
 
-.cc-cta{margin-top:10px}
+  .face{
+    position:absolute;
+    inset:0;
+    border-radius:var(--radius);
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 12px 28px rgba(2,6,23,.32);
+    overflow:hidden;
+  }
 
-.cc-dock{border-top:1px solid var(--line);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:rgba(5,7,10,.72);backdrop-filter:blur(14px)}
-.cc-dock .dock-tools{display:flex;gap:7px;flex-wrap:wrap}
-.dock-btn{font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;border-radius:999px;cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);transition:.25s;-webkit-tap-highlight-color:transparent;display:inline-flex;align-items:center;gap:7px}
-.dock-btn .di{font-size:13px}
-.dock-btn:hover{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.08);transform:translateY(-2px)}
-.dock-btn.dock-primary{border-color:rgba(56,189,248,.55);color:var(--accent);background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(167,139,250,.06));box-shadow:0 0 22px -8px rgba(56,189,248,.7)}
-.dock-btn.dock-primary:hover{background:rgba(56,189,248,.22);box-shadow:0 0 34px -6px rgba(56,189,248,.95)}
+  /* ---------- FRONT (mystery) ---------- */
+  .front{
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    background:linear-gradient(135deg,var(--c1),var(--c2));
+  }
 
-/* ══════════ GLOBAL DATA DASHBOARD ══════════ */
-.globe-hero{display:flex;flex-direction:column;gap:20px}
-.globe-hero .gh-title{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:4px}
-.globe-hero .gh-sub{font-size:13px;color:var(--muted);font-weight:300;margin-bottom:18px;max-width:600px;line-height:1.55}
+  .front::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 78% 15%,rgba(255,255,255,.35),transparent 55%);
+    pointer-events:none;
+  }
 
-.region-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:22px}
-.region-card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:linear-gradient(160deg,rgba(255,255,255,.03),rgba(255,255,255,.008));transition:.25s;position:relative;overflow:hidden}
-.region-card:hover{background:rgba(255,255,255,.05);border-color:var(--line-strong);transform:translateY(-2px)}
-.region-card .rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px}
-.region-card .rc-flag{font-size:22px}
-.region-card .rc-growth{font-size:11px;font-weight:800;color:var(--green);padding:3px 8px;border-radius:6px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.35);white-space:nowrap}
-.region-card .rc-name{font-size:13px;font-weight:800;color:#e4ecf4;margin-bottom:4px;letter-spacing:-.01em}
-.region-card .rc-metric{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.02em;margin-bottom:10px}
-.region-card .rc-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
-.region-card .rc-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#a78bfa);box-shadow:0 0 12px -2px rgba(56,189,248,.8);transition:width 1s cubic-bezier(.2,.8,.3,1)}
+  .number{
+    position:absolute;
+    top:12px;
+    left:12px;
+    min-width:34px;
+    height:34px;
+    padding:0 9px;
+    border-radius:999px;
+    background:rgba(255,255,255,.22);
+    border:1px solid rgba(255,255,255,.5);
+    display:grid;
+    place-items:center;
+    font-weight:800;
+    font-size:1rem;
+    letter-spacing:.02em;
+    backdrop-filter:blur(4px);
+  }
 
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:22px}
-.stat-big{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:rgba(255,255,255,.02);position:relative;overflow:hidden}
-.stat-big::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#38bdf8,#a78bfa);opacity:.6}
-.stat-big .sb-n{font-size:26px;font-weight:900;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff 30%,#7cc3e8 130%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat-big .sb-l{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-top:6px}
+  .question-mark{
+    font-size:clamp(3.2rem,10vw,4.6rem);
+    font-weight:800;
+    line-height:1;
+    text-shadow:0 6px 18px rgba(0,0,0,.25);
+    animation:breathe 3.4s ease-in-out infinite;
+  }
 
-.sector-row{display:flex;flex-direction:column;gap:8px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
-.sector-row .sr-line{display:grid;grid-template-columns:120px 1fr 60px;gap:12px;align-items:center;font-size:12.5px}
-.sector-row .sr-name{font-weight:700;color:#dce6f0;letter-spacing:-.005em}
-.sector-row .sr-bar{height:8px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
-.sector-row .sr-fill{height:100%;border-radius:999px;transition:width 1s cubic-bezier(.2,.8,.3,1);box-shadow:0 0 12px -2px currentColor}
-.sector-row .sr-val{font-size:12px;font-weight:800;font-variant-numeric:tabular-nums;text-align:right;color:#e4ecf4}
+  @keyframes breathe{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.07);}
+  }
 
-.world-mini-map{
-  border:1px solid var(--line);border-radius:14px;padding:18px;
-  background:linear-gradient(160deg,rgba(56,189,248,.05),rgba(255,255,255,.008));
-  position:relative;overflow:hidden;margin-bottom:22px;
-}
-.world-mini-map svg{width:100%;height:auto;display:block}
-.world-mini-map .wmm-dot{animation:wmmPulse 2.4s ease-in-out infinite;transform-origin:center}
-@keyframes wmmPulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
-.world-mini-map .wmm-line{stroke-dasharray:4 4;animation:flow 3s linear infinite}
-@keyframes flow{to{stroke-dashoffset:-20}}
+  .hint{
+    position:absolute;
+    bottom:14px;
+    font-size:.74rem;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    opacity:.85;
+  }
 
-/* ══════════ REFLECT BOT (Copy-based) ══════════ */
-.reflect-bot{border:1px solid rgba(56,189,248,.35);border-radius:18px;padding:20px;background:linear-gradient(160deg,rgba(56,189,248,.08),rgba(56,189,248,.012))}
-.reflect-bot .rb-ic{width:60px;height:60px;margin:0 auto 14px;border-radius:18px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,rgba(56,189,248,.25),rgba(167,139,250,.1));border:1px solid rgba(56,189,248,.5);box-shadow:0 0 40px -8px rgba(56,189,248,.8);animation:breathe 4s ease-in-out infinite}
-.reflect-bot .rb-q{font-size:16.5px;font-weight:700;color:#e4ecf4;line-height:1.4;margin-bottom:8px;text-align:center}
-.reflect-bot .rb-q b{color:var(--accent)}
-.reflect-bot .rb-hint{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.55;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto;text-align:center}
-.reflect-bot textarea{width:100%;font-family:inherit;font-size:14px;padding:14px 16px;border-radius:13px;border:1px solid var(--line-strong);background:rgba(255,255,255,.025);color:var(--ink);outline:none;transition:.25s;resize:vertical;min-height:70px}
-.reflect-bot textarea:focus{border-color:rgba(56,189,248,.6);background:rgba(56,189,248,.04);box-shadow:0 0 0 4px rgba(56,189,248,.08)}
+  /* ---------- BACK (revealed) ---------- */
+  .back{
+    transform:rotateY(180deg);
+    background:#fff;
+    border-top:6px solid var(--c1);
+    padding: 55px 18px 20px; /* Top padding ensures content clears the top-right controls */
+    justify-content:center;
+    gap:8px;
+    position:relative;
+  }
 
-.ai-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:12px}
-.ai-pick .ap{font-family:inherit;cursor:pointer;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.022);color:#dce6f0;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.22s;-webkit-tap-highlight-color:transparent;text-align:left}
-.ai-pick .ap:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);transform:translateY(-2px)}
-.ai-pick .ap .api{font-size:15px}
+  .top-right-controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    z-index: 2;
+  }
 
-.prompt-box{margin-top:14px;text-align:left}
-.prompt-box .pb-lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
-.prompt-box pre{font-family:ui-monospace,SFMono-Regular,monospace;font-size:11.5px;line-height:1.55;padding:14px 16px;border-radius:12px;background:rgba(0,0,0,.4);border:1px solid var(--line);color:#c9d5e1;white-space:pre-wrap;word-break:break-word;max-height:220px;overflow-y:auto}
-.prompt-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.prompt-actions .pbtn{font-family:inherit;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:9px 14px;border-radius:999px;cursor:pointer;border:1px solid rgba(56,189,248,.4);background:rgba(56,189,248,.1);color:var(--accent);display:inline-flex;align-items:center;gap:7px;transition:.22s;-webkit-tap-highlight-color:transparent}
-.prompt-actions .pbtn:hover{background:rgba(56,189,248,.2)}
+  .badge{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:.78rem;
+    font-weight:800;
+    color:#fff;
+    background:var(--c1);
+    transition: background 0.3s;
+  }
 
-/* ══════════ NOTES / IDEAS ══════════ */
-.notes-hint{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.55;margin-bottom:16px}
-.note-input-row{display:flex;gap:8px;margin-bottom:6px}
-.note-input-row input{flex:1;font-family:inherit;font-size:15px;font-weight:500;padding:14px 18px;border-radius:13px;border:1px solid var(--line-strong);background:rgba(255,255,255,.025);color:var(--ink);outline:none;transition:.25s}
-.note-input-row input:focus{border-color:rgba(251,191,36,.6);background:rgba(251,191,36,.04);box-shadow:0 0 0 4px rgba(251,191,36,.08)}
-.note-input-row input::placeholder{color:var(--dim);font-weight:300}
-.note-input-row .note-add{font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:12px 22px;border-radius:13px;cursor:pointer;border:none;background:linear-gradient(135deg,#fbbf24,#fb923c);color:#1a0e05;white-space:nowrap;transition:.25s;-webkit-tap-highlight-color:transparent;box-shadow:0 10px 30px -10px rgba(251,191,36,.8)}
-.note-input-row .note-add:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 14px 40px -8px rgba(251,191,36,.95)}
-.note-input-row .note-add:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
-.note-count{font-size:11px;color:var(--dim);font-weight:600;margin-top:6px;letter-spacing:.02em}
-.note-count.over{color:#f87171;font-weight:800}
+  /* ---------- The new Check Square ---------- */
+  .check-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 2px solid #cbd5e1;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 1rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
 
-.notes-board{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:4px}
-.sticky{padding:14px 14px 12px;border-radius:12px;min-height:100px;position:relative;transition:.25s;box-shadow:0 4px 16px -8px rgba(0,0,0,.6);transform:rotate(-1deg);animation:noteIn .4s cubic-bezier(.2,.8,.3,1) both}
-.sticky:nth-child(3n){transform:rotate(1.2deg)}
-.sticky:nth-child(3n+1){transform:rotate(-1.4deg)}
-.sticky:hover{transform:rotate(0deg) scale(1.03);box-shadow:0 12px 30px -8px rgba(0,0,0,.8);z-index:2}
-.sticky .st-text{font-size:13.5px;font-weight:700;line-height:1.4;word-break:break-word}
-.sticky .st-author{position:absolute;bottom:8px;right:12px;font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.6}
-.sticky .st-del{position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,.18);color:inherit;font-size:12px;font-weight:900;cursor:pointer;display:grid;place-items:center;opacity:0;transition:.22s;-webkit-tap-highlight-color:transparent}
-.sticky:hover .st-del{opacity:1}
-.sticky.yellow{background:#fde68a;color:#4b3306}
-.sticky.pink{background:#fbcfe8;color:#4d1239}
-.sticky.blue{background:#bae6fd;color:#0c3d5c}
-.sticky.green{background:#bbf7d0;color:#053b1e}
-.sticky.purple{background:#ddd6fe;color:#2d1855}
-.sticky.orange{background:#fed7aa;color:#5a2606}
-@keyframes noteIn{from{opacity:0;transform:scale(.9) rotate(-4deg)}to{opacity:1}}
-.notes-empty{text-align:center;padding:24px 16px;color:var(--dim);font-style:italic;font-size:13px;border:1px dashed var(--line-strong);border-radius:14px}
+  .check-box:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+  }
 
-/* ══════════ WORLD (Role-play) ══════════ */
-#s-world{padding:0;display:grid;grid-template-rows:1fr auto;min-height:0}
-.world-layout{display:grid;grid-template-columns:290px 1fr;min-height:0;overflow:hidden}
-.world-side{border-right:1px solid var(--line);padding:22px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:18px;background:rgba(255,255,255,.012)}
-.world-side .back{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);cursor:pointer;background:none;border:none;font-family:inherit;padding:0;display:inline-flex;align-items:center;gap:8px;transition:.25s;align-self:flex-start}
-.world-side .back:hover{color:var(--accent)}
-.side-head{display:flex;align-items:center;gap:11px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.055)}
-.side-head .sh-emoji{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(167,139,250,.1));border:1px solid rgba(56,189,248,.35)}
-.side-head .sh-t{font-size:12.5px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
-.side-head .sh-c{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-top:3px}
-.side-block .sb-label{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.side-block .sb-text{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.55}
+  .card.done .check-box {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: #fff;
+  }
 
-.country-box{border:1px solid rgba(251,191,36,.3);border-radius:14px;padding:13px 14px;background:linear-gradient(160deg,rgba(251,191,36,.09),rgba(251,191,36,.012));position:relative;overflow:hidden}
-.country-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(251,191,36,.7),transparent)}
-.country-box .cb-flag{display:flex;align-items:center;gap:9px;margin-bottom:10px}
-.country-box .cb-flag .cbf-ic{font-size:22px}
-.country-box .cb-flag .cbf-name{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-.country-box .cb-flag .cbf-role{font-size:10px;color:var(--dim);font-weight:600;letter-spacing:.06em;margin-top:1px}
-.country-box .cb-text{font-size:12px;color:#c9d5e1;font-weight:300;line-height:1.55}
-.country-box .cb-secret{margin-top:10px;padding-top:10px;border-top:1px solid rgba(251,191,36,.18);font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.5;font-style:italic}
-.country-box .cb-secret b{color:#fbbf24;font-weight:700;font-style:normal;letter-spacing:.04em}
+  .card.done .badge {
+    background: #22c55e;
+  }
 
-.role-chip{display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border-radius:14px;background:linear-gradient(160deg,rgba(56,189,248,.1),rgba(56,189,248,.015));border:1px solid rgba(56,189,248,.3)}
-.role-chip .rc-ic{width:36px;height:36px;flex:0 0 36px;border-radius:10px;display:grid;place-items:center;font-size:18px;background:rgba(56,189,248,.16);border:1px solid rgba(56,189,248,.35)}
-.role-chip .rc-n{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
-.role-chip .rc-d{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.5}
+  .card.done .back {
+    border-top-color: #22c55e;
+  }
 
-.players-count{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.08);color:var(--accent)}
-.players-count.waiting{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:var(--gold)}
+  .back .icon{
+    font-size:1.6rem;
+    line-height:1;
+  }
 
-.help-mini{border:1px solid rgba(251,191,36,.28);border-radius:14px;padding:13px;background:linear-gradient(160deg,rgba(251,191,36,.07),rgba(251,191,36,.01))}
-.help-mini .hm-h{display:flex;align-items:center;justify-content:space-between;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:10px}
-.help-mini .hm-h .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(251,191,36,.9);animation:pulseDot 1.8s ease-in-out infinite}
-.help-mini .hm-list{display:flex;flex-direction:column;gap:7px}
-.help-mini .hm-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line)}
-.help-mini .hm-row.self{border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.05)}
-.help-mini .hm-row .hm-name{font-size:12px;font-weight:700;color:#e4ecf4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.help-mini .hm-row .hm-pts{font-size:11px;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums;padding:3px 9px;border-radius:999px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.4)}
+  .back .theme{
+    font-weight:750;
+    font-size:1.02rem;
+    letter-spacing:-.01em;
+    color:var(--ink);
+  }
 
-.framework-mini{border:1px solid rgba(167,139,250,.3);border-radius:14px;padding:13px;background:linear-gradient(160deg,rgba(167,139,250,.07),rgba(167,139,250,.01))}
-.framework-mini .fm-h{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.framework-mini .fm-h button{font-family:inherit;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:999px;cursor:pointer;border:1px solid rgba(167,139,250,.4);background:rgba(167,139,250,.1);color:var(--accent-2);font-weight:800;transition:.22s;-webkit-tap-highlight-color:transparent}
-.framework-mini .fm-h button:hover{background:rgba(167,139,250,.2)}
-.framework-mini .fm-list{display:flex;flex-direction:column;gap:6px}
-.framework-mini .fm-item{font-size:11px;line-height:1.4;color:var(--muted);font-weight:300;padding-left:14px;position:relative}
-.framework-mini .fm-item::before{content:'▸';position:absolute;left:0;color:var(--accent-2);font-size:11px}
-.framework-mini .fm-item b{color:#e4ecf4;font-weight:700;display:block;font-size:10px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:1px}
-.framework-mini .fm-item span{font-size:11px;color:#c9d5e1;font-weight:400}
-.framework-mini .fm-empty{font-size:11.5px;color:var(--dim);font-style:italic;text-align:center;padding:6px 0}
+  .back .ask{
+    margin:0;
+    font-size:.9rem;
+    line-height:1.5;
+    color:var(--muted);
+  }
 
-.world-stage{position:relative;overflow-y:auto;padding:34px 28px;display:flex;align-items:flex-start;justify-content:center}
-.stage-center{width:100%;max-width:680px;animation:rise .6s cubic-bezier(.2,.75,.3,1) both}
-.partners-wrap{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
-.partner-card{flex:1 1 220px;max-width:300px;text-align:center;padding:24px 18px 20px;border:1px solid rgba(167,139,250,.3);border-radius:22px;background:linear-gradient(165deg,rgba(167,139,250,.09),rgba(255,255,255,.008));position:relative;overflow:hidden}
-.partner-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.7),transparent)}
-.partner-card.self{border-color:rgba(56,189,248,.5);background:linear-gradient(165deg,rgba(56,189,248,.1),rgba(255,255,255,.008))}
-.partner-card.self::before{background:linear-gradient(90deg,transparent,rgba(56,189,248,.8),transparent)}
-.partner-avatar{width:66px;height:66px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:linear-gradient(135deg,rgba(167,139,250,.2),rgba(56,189,248,.08));border:2px solid rgba(167,139,250,.4);box-shadow:0 0 40px -8px rgba(167,139,250,.7);animation:breathe 4.5s ease-in-out infinite}
-.partner-card.self .partner-avatar{border-color:rgba(56,189,248,.55);box-shadow:0 0 40px -8px rgba(56,189,248,.8)}
-.partner-eyebrow{font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:6px}
-.partner-card.self .partner-eyebrow{color:var(--accent)}
-.partner-name{font-size:clamp(20px,2.6vw,28px);font-weight:800;letter-spacing:-.025em;line-height:1.1;background:linear-gradient(180deg,#ffffff 30%,#a8bfe0 120%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px}
-.partner-role{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:6px 12px;border-radius:999px;display:inline-block;border:1px solid var(--line);background:rgba(255,255,255,.025)}
-.partner-helped{font-size:10.5px;color:var(--gold);font-weight:800;letter-spacing:.06em;margin-top:8px}
+  /* Front face done indicator */
+  .card.done .front{
+    filter:grayscale(.3);
+  }
 
-.questions-head{display:flex;align-items:center;gap:10px;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:16px}
-.questions-head .qh-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(56,189,248,.5),transparent)}
-.questions-hint{font-size:12.5px;color:var(--dim);font-weight:300;letter-spacing:.02em;margin:-4px 0 16px;font-style:italic}
-.q-list{display:flex;flex-direction:column;gap:10px}
-.q-card{display:flex;gap:16px;align-items:center;padding:18px 22px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.022);transition:.28s}
-.q-card:hover{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.35);transform:translateX(4px)}
-.q-card .q-num{width:32px;height:32px;flex:0 0 32px;border-radius:10px;display:grid;place-items:center;font-size:13px;font-weight:800;background:linear-gradient(135deg,rgba(56,189,248,.25),rgba(167,139,250,.1));border:1px solid rgba(56,189,248,.4);color:var(--accent);font-variant-numeric:tabular-nums}
-.q-card .q-text{font-size:16px;color:#e4ecf4;font-weight:600;line-height:1.5;letter-spacing:.01em}
+  .card.done .front::before{
+    content:"✅";
+    position:absolute;
+    top:10px;
+    right:12px;
+    font-size:1.3rem;
+    z-index:2;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));
+  }
 
-.world-dock{border-top:1px solid var(--line);padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:rgba(5,7,10,.72);backdrop-filter:blur(14px)}
-.world-dock .dock-tools{display:flex;gap:7px;flex-wrap:wrap}
-.dock-btn.dock-finish{border-color:rgba(52,211,153,.55);color:var(--green);background:linear-gradient(135deg,rgba(52,211,153,.16),rgba(52,211,153,.06));box-shadow:0 0 22px -8px rgba(52,211,153,.7)}
+  /* ---------- Individual card colors ---------- */
+  .card:nth-child(1){--c1:#6366f1;--c2:#0ea5e9;}
+  .card:nth-child(2){--c1:#ec4899;--c2:#f97316;}
+  .card:nth-child(3){--c1:#0f766e;--c2:#22c55e;}
+  .card:nth-child(4){--c1:#b45309;--c2:#facc15;}
+  .card:nth-child(5){--c1:#7c3aed;--c2:#a855f7;}
+  .card:nth-child(6){--c1:#0284c7;--c2:#06b6d4;}
+  .card:nth-child(7){--c1:#db2777;--c2:#8b5cf6;}
+  .card:nth-child(8){--c1:#15803d;--c2:#84cc16;}
+  .card:nth-child(9){--c1:#c2410c;--c2:#ef4444;}
+  .card:nth-child(10){--c1:#1e40af;--c2:#3b82f6;}
 
-/* ══════════ MODALS ══════════ */
-.modal-back{position:fixed;inset:0;z-index:300;background:rgba(3,5,8,.85);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:22px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;overflow-y:auto}
-.modal-back.open{opacity:1;visibility:visible}
-.modal{width:min(720px,100%);border-radius:26px;padding:30px;border:1px solid var(--line-strong);background:linear-gradient(165deg,rgba(12,18,28,.98),rgba(8,12,20,.98));box-shadow:0 40px 120px -30px rgba(0,0,0,1);transform:scale(.95) translateY(16px);transition:transform .5s cubic-bezier(.2,.9,.3,1);max-height:92vh;overflow-y:auto;margin:auto}
-.modal-back.open .modal{transform:none}
-.modal.gold{border-color:rgba(251,191,36,.5);box-shadow:0 40px 120px -30px rgba(251,191,36,.4)}
-.modal.green{border-color:rgba(52,211,153,.5)}
-.modal.purple{border-color:rgba(167,139,250,.5);box-shadow:0 40px 120px -30px rgba(167,139,250,.4)}
-.modal-hd{margin-bottom:22px;position:relative;padding-right:40px}
-.modal-eyebrow{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:9px}
-.modal.gold .modal-eyebrow{color:var(--gold)}
-.modal.green .modal-eyebrow{color:var(--green)}
-.modal.purple .modal-eyebrow{color:var(--accent-2)}
-.modal h3{font-size:23px;font-weight:900;letter-spacing:-.025em;color:#f4ede4;margin-bottom:9px;line-height:1.15}
-.modal .modal-sub{font-size:13.5px;color:var(--muted);font-weight:300;line-height:1.55;max-width:560px}
-.modal-close{position:absolute;top:0;right:0;width:36px;height:36px;border-radius:50%;cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);font-size:14px;font-weight:700;display:grid;place-items:center;transition:.25s;-webkit-tap-highlight-color:transparent}
-.modal-close:hover{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.1);transform:rotate(90deg)}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
-
-.fw-q{border:1px solid var(--line);border-radius:16px;padding:18px;background:rgba(255,255,255,.018);margin-bottom:12px}
-.fw-q-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
-.fw-q-head .fq-ic{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,rgba(167,139,250,.18),rgba(56,189,248,.06));border:1px solid rgba(167,139,250,.4)}
-.fw-q-head .fq-title{font-size:14.5px;font-weight:800;color:#e4ecf4;letter-spacing:-.01em;line-height:1.3;margin-bottom:3px}
-.fw-q-head .fq-sub{font-size:11.5px;color:var(--muted);font-weight:300;font-style:italic}
-.fw-options{display:flex;flex-direction:column;gap:7px}
-.fw-opt{font-family:inherit;cursor:pointer;text-align:left;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.022);display:flex;align-items:center;gap:11px;transition:.22s;color:#dce6f0;font-size:13px;font-weight:500;-webkit-tap-highlight-color:transparent}
-.fw-opt:hover{background:rgba(255,255,255,.055);border-color:var(--line-strong)}
-.fw-opt.sel{border-color:rgba(167,139,250,.7);background:linear-gradient(160deg,rgba(167,139,250,.15),rgba(167,139,250,.02));box-shadow:0 0 0 1px rgba(167,139,250,.4)}
-.fw-opt .fo-bullet{width:20px;height:20px;flex:0 0 20px;border-radius:50%;border:2px solid var(--line-strong);display:grid;place-items:center;font-size:11px;color:transparent;transition:.22s}
-.fw-opt.sel .fo-bullet{border-color:var(--accent-2);background:var(--accent-2);color:#fff}
-
-.eval-row{border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(255,255,255,.02);margin-bottom:12px;transition:.25s}
-.eval-row.active{border-color:rgba(251,191,36,.5);background:linear-gradient(160deg,rgba(251,191,36,.08),rgba(251,191,36,.012));box-shadow:0 0 0 1px rgba(251,191,36,.25)}
-.eval-head{display:flex;align-items:center;gap:13px;margin-bottom:14px}
-.eval-av{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(56,189,248,.06));border:2px solid rgba(251,191,36,.35);transition:.25s}
-.eval-row.active .eval-av{border-color:rgba(251,191,36,.7);box-shadow:0 0 24px -6px rgba(251,191,36,.95);transform:scale(1.05)}
-.eval-info{flex:1;min-width:0}
-.eval-name{font-size:14.5px;font-weight:800;color:#e4ecf4;letter-spacing:-.01em}
-.eval-role{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
-.eval-chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:inherit;cursor:pointer;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.022);color:var(--muted);font-size:11.5px;font-weight:600;letter-spacing:.03em;display:inline-flex;align-items:center;gap:6px;transition:.22s;-webkit-tap-highlight-color:transparent}
-.chip:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);color:var(--ink)}
-.chip.sel{border-color:rgba(251,191,36,.6);background:linear-gradient(160deg,rgba(251,191,36,.16),rgba(251,191,36,.03));color:var(--gold);box-shadow:0 0 0 1px rgba(251,191,36,.35)}
-.chip .cc-i{font-size:13px}
-
-.reflect-grid{display:flex;flex-direction:column;gap:12px;margin-top:26px}
-.reflect-card{border:1px solid var(--line);border-radius:16px;padding:18px 22px;background:rgba(255,255,255,.018);transition:.35s;cursor:pointer;position:relative;overflow:hidden;display:flex;gap:16px;align-items:center;text-align:left;font-family:inherit;color:inherit;-webkit-tap-highlight-color:transparent;width:100%}
-.reflect-card .rc-ic{width:44px;height:44px;flex:0 0 44px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.35s}
-.reflect-card:hover{background:rgba(255,255,255,.045);border-color:var(--line-strong);transform:translateX(4px)}
-.reflect-card:hover .rc-ic{background:rgba(56,189,248,.12);border-color:rgba(56,189,248,.4)}
-.reflect-card.noted{border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.05)}
-.reflect-card.noted .rc-ic{background:rgba(56,189,248,.16);border-color:rgba(56,189,248,.5)}
-.reflect-card.noted::after{content:'✓';position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:14px;font-weight:800}
-.reflect-card .rl{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-bottom:7px}
-.reflect-card .rp{font-size:15.5px;font-weight:300;color:#c9d5e1;line-height:1.5;font-style:italic}
-
-.compass-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
-.compass-card{border:1px solid var(--line);border-radius:18px;padding:22px;background:rgba(255,255,255,.02);cursor:pointer;transition:.28s;text-align:left;font-family:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
-.compass-card .cc-ic{font-size:24px;display:block;margin-bottom:12px}
-.compass-card .cc-n{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px}
-.compass-card .cc-d{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.5}
-.compass-card:hover{background:rgba(255,255,255,.06);transform:translateY(-3px);border-color:var(--line-strong)}
-.compass-card.sel{border-color:rgba(56,189,248,.6);background:linear-gradient(160deg,rgba(56,189,248,.12),rgba(56,189,248,.02));box-shadow:0 0 0 1px rgba(56,189,248,.35),0 14px 44px -18px rgba(56,189,248,.9)}
-
-.congrats-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(circle at 50% 40%,rgba(56,189,248,.24),rgba(3,5,8,.96) 70%);opacity:0;visibility:hidden;transition:opacity .55s,visibility .55s;overflow-y:auto}
-.congrats-overlay.open{opacity:1;visibility:visible}
-.congrats-card{width:min(600px,100%);text-align:center;position:relative;border:2px solid rgba(56,189,248,.6);border-radius:28px;background:linear-gradient(165deg,rgba(12,20,32,.98),rgba(8,14,22,.98));padding:44px 34px 34px;box-shadow:0 40px 120px -30px rgba(56,189,248,.6);transform:scale(.92) translateY(20px);transition:transform .6s cubic-bezier(.2,.9,.3,1);z-index:2;margin:auto}
-.congrats-overlay.open .congrats-card{transform:none}
-.congrats-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);font-size:15px;font-weight:700;display:grid;place-items:center;transition:.25s;-webkit-tap-highlight-color:transparent}
-.congrats-close:hover{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.1);transform:rotate(90deg)}
-.congrats-emoji{font-size:78px;display:block;margin-bottom:10px;filter:drop-shadow(0 0 40px rgba(56,189,248,.95));animation:breathe 3s ease-in-out infinite}
-.congrats-eyebrow{font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:12px}
-.congrats-title{font-size:clamp(30px,4.6vw,46px);font-weight:900;letter-spacing:-.035em;line-height:1.05;margin-bottom:12px;background:linear-gradient(180deg,#ffffff 30%,#7cc3e8 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.congrats-sub{font-size:15px;color:var(--muted);font-weight:300;line-height:1.6;max-width:460px;margin:0 auto 28px}
-.congrats-actions{display:flex;flex-direction:column;gap:10px}
-.congrats-actions .btn{width:100%;justify-content:center;padding:14px 20px;font-size:12px}
-
-.confetti-layer{position:fixed;inset:0;z-index:400;pointer-events:none;overflow:hidden}
-.confetti{position:absolute;top:-40px;font-size:22px;animation:confettiFall linear forwards}
-@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(120vh) rotate(720deg);opacity:.7}}
-
-.toast-wrap{position:fixed;top:24px;right:24px;z-index:500;display:flex;flex-direction:column;gap:10px;pointer-events:none}
-.toast{display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:14px;background:rgba(20,14,8,.96);backdrop-filter:blur(14px);border:1px solid rgba(251,191,36,.5);box-shadow:0 20px 60px -20px rgba(251,191,36,.7);font-size:13.5px;font-weight:600;color:#f4ede4;min-width:240px;max-width:380px;animation:toastIn .5s cubic-bezier(.2,.9,.3,1) both}
-@keyframes toastIn{from{opacity:0;transform:translateX(40px) scale(.94)}to{opacity:1;transform:none}}
-.toast.out{animation:toastOut .35s ease forwards}
-@keyframes toastOut{to{opacity:0;transform:translateX(40px) scale(.94)}}
-.toast .ti{font-size:20px}
-.toast b{color:var(--gold);font-weight:900}
-
-.rise{animation:rise .65s cubic-bezier(.2,.75,.3,1) both}
-@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.hidden{display:none !important}
-
-@media (max-width:900px){.compass-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:820px){
-  #s-world{grid-template-rows:auto 1fr auto;overflow-y:auto}
-  .world-layout{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  .world-side{border-right:none;border-bottom:1px solid var(--line);padding:16px;flex-direction:row;flex-wrap:wrap;gap:14px}
-  .world-side .back,.side-head{flex-basis:100%}
-  .side-block{flex:1 1 180px}
-  .world-stage{padding:22px 16px}
-  .cc-header{padding:16px 20px}
-}
-@media (max-width:620px){
-  .screen{padding:44px 20px 100px}
-  .compass-grid{grid-template-columns:1fr}
-  .world-dock,.cc-dock{padding:10px 14px}
-  .dock-btn{padding:9px 11px;font-size:10px}
-  .partner-card{padding:20px 14px 16px}
-  .brief-kw-grid{grid-template-columns:1fr}
-  .notes-board{grid-template-columns:1fr 1fr}
-  .cc-friend-name{font-size:clamp(40px,13vw,72px)}
-}
+  @media (max-width:420px){
+    .back{padding: 45px 14px 16px;}
+    .back .ask{font-size:.85rem;}
+    .check-box { width: 24px; height: 24px; border-radius: 6px; font-size: 0.9rem; }
+    .badge { width: 24px; height: 24px; font-size: 0.7rem; }
+  }
 </style>
 </head>
 <body>
 
-<div class="bg">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="grid-ov"></div>
-</div>
+<header>
+  <h1>Scenarios of Possibilities</h1>
+  <p>Pick a number and say it out loud. Tap the card to reveal the topic and its question. Tap again to hide it.</p>
+  <div class="toolbar">
+    <button id="soundToggle" aria-pressed="true">🔊 Sound on</button>
+    <button id="resetBtn">🔄 Reset game</button>
+  </div>
+</header>
 
-<div id="app">
+<main class="grid" id="grid">
 
-  <!-- ══════════ LANDING ══════════ -->
-  <section class="screen active" id="s-landing">
-    <div class="wrap center" style="margin:auto">
-      <div class="emblem">
-        <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
-        <div class="core">🌍</div>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 1, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">1</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
       </div>
-      <div class="eyebrow">Live Trio Simulation</div>
-      <h1 class="title-xl">GLOBAL<br>VENTURE</h1>
-      <p class="sub" style="margin-bottom:38px">One idea. One investor. One friend to help you go global.</p>
-      <div class="btn-row" style="justify-content:center">
-        <button class="btn btn-med" onclick="go('name')">▶ Begin</button>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">1</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">📚</span>
+        <span class="theme">Education</span>
+        <p class="ask">What can we do to turn schools and neighborhoods into places where everyone can learn, teach, and grow together?</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ══════════ NAME ══════════ -->
-  <section class="screen" id="s-name">
-    <div class="wrap">
-      <div class="center" style="margin-bottom:34px">
-        <div class="eyebrow">Before we begin</div>
-        <h2 class="title-l">WHO IS IN THE ROOM?</h2>
-        <p class="sub" style="margin:0 auto">Enter your name. The system will connect you with your partners automatically.</p>
-      </div>
-      <div class="name-form">
-        <div class="field">
-          <label for="myName">Your name</label>
-          <input id="myName" type="text" placeholder="Type your name" autocomplete="off" maxlength="40">
-        </div>
-        <div class="btn-row" style="justify-content:center;margin-top:30px">
-          <button class="btn btn-med" id="startBtn" disabled onclick="startSim()">▶ Connect me</button>
-        </div>
-        <p style="text-align:center;font-size:12px;color:var(--dim);margin-top:16px" id="connectStatus">Your role will be revealed on the next screen.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ BRIEF ══════════ -->
-  <section class="screen" id="s-brief">
-    <div class="wrap">
-      <div class="eyebrow anim">🌍 Briefing · 2 minutes</div>
-      <h2 class="title-l anim">BEFORE THE PITCH</h2>
-      <div class="brief-grid">
-        <div class="context-card anim">
-          <div class="cc-h"><span>🌍</span> The scenario</div>
-          <p>
-            An angel investor wants to put money into something real. She has <b>$500,000</b>
-            and one condition: the idea must be able to go <b>global</b>. She's not looking
-            for a local business. She's looking for someone who thinks across borders.
-            <br><br>
-            Today, you and your partner will help each other find and shape an idea that
-            deserves her money — then pitch it to her.
-          </p>
-        </div>
-
-        <div class="brief-keywords anim">
-          <div class="bk-h"><span>🔑</span> Only 3 things to think about</div>
-          <div class="brief-kw-grid">
-            <div class="brief-kw"><span class="bk-n">1</span><span>🎯 Opportunity · Where's the real need?</span></div>
-            <div class="brief-kw"><span class="bk-n">2</span><span>🌍 Global · Why can this work in 3+ countries?</span></div>
-            <div class="brief-kw"><span class="bk-n">3</span><span>🎤 Pitch · What's the one line they'll remember?</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="btn-row anim">
-        <button class="btn btn-med" onclick="enterCocreate()">▶ Start Co-Creating</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ SCREEN 1: CO-CREATE ══════════ -->
-  <section class="screen" id="s-cocreate">
-    <div class="cc-header">
-      <div class="cc-scenario">
-        <div class="csi">💡</div>
-        <div>
-          <div class="cst">Co-Create · Find the opportunity</div>
-          <div class="csc">$500K angel investment · must be global</div>
-        </div>
-      </div>
-      <div class="hdr-actions">
-        <button class="btn btn-sm" onclick="printScreen('cocreate')">📄 Print</button>
-        <button class="btn btn-sm" onclick="openLanguage()">🎧 Language</button>
-      </div>
-    </div>
-
-    <div class="cc-body">
-      <div class="cc-center" id="ccCenter">
-        <div class="cc-friend-label"><span class="dot"></span> Your partner</div>
-        <h1 class="cc-friend-name waiting" id="ccFriendName">
-          <span class="cc-fname-glow"></span>
-          Waiting for partner…
-        </h1>
-        <div class="cc-you" id="ccYou">You · <b>—</b></div>
-
-        <p class="cc-tagline">
-          Help your partner find the global opportunity hidden in what they already know.
-          Ask questions. Listen. Shape it together.
-        </p>
-
-        <div class="cc-kw-label">3 things to explore together</div>
-        <div class="cc-kw-row">
-          <span class="cc-kw">🎯 Opportunity</span>
-          <span class="cc-kw">🌍 Global</span>
-          <span class="cc-kw">🎤 Pitch</span>
-        </div>
-
-        <div class="cc-cta">
-          <button class="btn btn-gold" onclick="go('world')" id="ccNextBtn">▶ We're ready to pitch</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="cc-dock">
-      <div class="dock-tools">
-        <button class="dock-btn" onclick="openGlobalData()"><span class="di">📊</span> Global Data</button>
-        <button class="dock-btn" onclick="openReflectBot()"><span class="di">🧠</span> Reflect Bot</button>
-        <button class="dock-btn" onclick="openNotes()"><span class="di">📝</span> Idea Pad</button>
-        <button class="dock-btn" onclick="openLanguage()"><span class="di">🎧</span> Language</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ SCREEN 2: ROLE-PLAY ══════════ -->
-  <section class="screen" id="s-world">
-    <div class="world-layout">
-      <aside class="world-side">
-        <button class="back" onclick="leaveRoom()">← Leave</button>
-
-        <div class="side-head">
-          <div class="sh-emoji">🎤</div>
-          <div>
-            <div class="sh-t">Pitch to the Investor</div>
-            <div class="sh-c">Boardroom · 20 min</div>
-          </div>
-        </div>
-
-        <div class="side-block">
-          <div class="sb-label"><span>👥</span> Room</div>
-          <div id="roomStatus"><span class="players-count">Connecting…</span></div>
-        </div>
-
-        <div class="side-block">
-          <div class="sb-label"><span>🎭</span> Your Role</div>
-          <div id="roleDisplay"></div>
-        </div>
-
-        <div class="side-block">
-          <div class="sb-label"><span>🔒</span> Private Brief</div>
-          <div id="countryDisplay"></div>
-        </div>
-
-        <div class="side-block">
-          <div class="sb-label"><span>⚡</span> Help Score</div>
-          <div id="helpDisplay"></div>
-        </div>
-
-        <div class="side-block">
-          <div class="sb-label"><span>🧩</span> Our Rules</div>
-          <div id="frameworkDisplay"></div>
-        </div>
-      </aside>
-
-      <main class="world-stage" id="worldStage">
-        <div class="stage-center" id="stageCenter">
-          <div class="partners-wrap" id="partnersWrap"></div>
-
-          <div class="questions-head">
-            <span>🔑 3 key words to explore together</span>
-            <span class="qh-line"></span>
-          </div>
-          <div class="questions-hint">Form your own questions. Speak them out loud.</div>
-
-          <div class="q-list" id="qList"></div>
-        </div>
-      </main>
-    </div>
-
-    <div class="world-dock">
-      <div class="dock-tools">
-        <button class="dock-btn" onclick="openFramework()"><span class="di">🧩</span> Team Rules</button>
-        <button class="dock-btn" onclick="openGlobalData()"><span class="di">📊</span> Global Data</button>
-        <button class="dock-btn" onclick="openNotes()"><span class="di">📝</span> Idea Pad</button>
-        <button class="dock-btn" onclick="openLanguage()"><span class="di">🎧</span> Language</button>
-        <button class="dock-btn" onclick="printScreen('world')">📄 Print</button>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="dock-btn dock-primary" id="projectDoneBtn" onclick="openProjectDone()"><span class="di">✨</span> Pitch Done</button>
-        <button class="dock-btn dock-finish hidden" id="finishProjectBtn" onclick="openFinishProject()"><span class="di">✅</span> Close Deal</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ LOOK INSIDE ══════════ -->
-  <section class="screen" id="s-inside">
-    <div class="wrap">
-      <div class="eyebrow anim">🪞 Look Inside</div>
-      <h2 class="title-l anim">DON'T JUDGE THE RESULT.<br>LOOK AT WHAT HAPPENED.</h2>
-      <p class="sub anim" style="margin-top:14px;font-weight:300;color:var(--muted)">No score. No grade. Just an honest look.</p>
-      <div class="reflect-grid" id="reflectGrid"></div>
-      <div class="btn-row anim">
-        <button class="btn btn-med" onclick="go('compass')">🧭 Growth Compass</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ COMPASS ══════════ -->
-  <section class="screen" id="s-compass">
-    <div class="wrap">
-      <div class="eyebrow anim">🧭 Growth Compass</div>
-      <h2 class="title-l anim">WHAT DID YOU PRACTICE TODAY?</h2>
-      <p class="sub anim" style="margin-top:14px;font-weight:300;color:var(--muted)">Not what you are. What you practiced.</p>
-      <div class="compass-grid" id="compassGrid"></div>
-      <div class="btn-row anim">
-        <button class="btn btn-med" onclick="returnHome()">🌱 Return to Start</button>
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<!-- ══════════ MODALS ══════════ -->
-
-<!-- GLOBAL DATA -->
-<div class="modal-back" id="globalModal">
-  <div class="modal">
-    <div class="modal-hd">
-      <button class="modal-close" onclick="closeGlobalData()">✕</button>
-      <div class="modal-eyebrow">📊 Global Opportunity Signals</div>
-      <h3>What the investor sees in the world.</h3>
-      <div class="modal-sub">These are the signals that make an idea "global-ready." Use them to find the angle your partner's idea could take.</div>
-    </div>
-    <div class="globe-hero">
-      <div>
-        <div class="gh-title">Where the growth is</div>
-        <div class="gh-sub">Regions with rising demand for cross-border products and services.</div>
-      </div>
-      <div class="region-grid">
-        <div class="region-card">
-          <div class="rc-top"><span class="rc-flag">🇧🇷</span><span class="rc-growth">+18%</span></div>
-          <div class="rc-name">Latin America</div>
-          <div class="rc-metric">Digital products · 240M users</div>
-          <div class="rc-bar"><div class="rc-fill" style="width:72%"></div></div>
-        </div>
-        <div class="region-card">
-          <div class="rc-top"><span class="rc-flag">🇵🇹</span><span class="rc-growth">+12%</span></div>
-          <div class="rc-name">Southern Europe</div>
-          <div class="rc-metric">Local services · 180M users</div>
-          <div class="rc-bar"><div class="rc-fill" style="width:55%"></div></div>
-        </div>
-        <div class="region-card">
-          <div class="rc-top"><span class="rc-flag">🇺🇸</span><span class="rc-growth">+9%</span></div>
-          <div class="rc-name">North America</div>
-          <div class="rc-metric">Premium B2C · 340M users</div>
-          <div class="rc-bar"><div class="rc-fill" style="width:80%"></div></div>
-        </div>
-        <div class="region-card">
-          <div class="rc-top"><span class="rc-flag">🇮🇳</span><span class="rc-growth">+31%</span></div>
-          <div class="rc-name">South Asia</div>
-          <div class="rc-metric">Mobile-first · 1.4B users</div>
-          <div class="rc-bar"><div class="rc-fill" style="width:94%"></div></div>
-        </div>
-        <div class="region-card">
-          <div class="rc-top"><span class="rc-flag">🇯🇵</span><span class="rc-growth">+6%</span></div>
-          <div class="rc-name">East Asia</div>
-          <div class="rc-metric">Premium services · 420M users</div>
-          <div class="rc-bar"><div class="rc-fill" style="width:62%"></div></div>
-        </div>
-        <div class="region-card">
-          <div class="rc-top"><span class="rc-flag">🇿🇦</span><span class="rc-growth">+24%</span></div>
-          <div class="rc-name">Africa</div>
-          <div class="rc-metric">Leapfrog tech · 900M users</div>
-          <div class="rc-bar"><div class="rc-fill" style="width:88%"></div></div>
-        </div>
-      </div>
-
-      <div class="gh-title">What investors look for</div>
-      <div class="stat-grid">
-        <div class="stat-big"><div class="sb-n">3+</div><div class="sb-l">Countries minimum</div></div>
-        <div class="stat-big"><div class="sb-n">18mo</div><div class="sb-l">Time to ROI</div></div>
-        <div class="stat-big"><div class="sb-n">$500K</div><div class="sb-l">Investment size</div></div>
-        <div class="stat-big"><div class="sb-n">10×</div><div class="sb-l">Return potential</div></div>
-      </div>
-
-      <div class="gh-title">Sectors with global momentum</div>
-      <div class="sector-row">
-        <div class="sr-line">
-          <span class="sr-name">🛠️ Digital tools</span>
-          <span class="sr-bar"><span class="sr-fill" style="width:88%;background:linear-gradient(90deg,#38bdf8,#a78bfa);color:#38bdf8"></span></span>
-          <span class="sr-val">88</span>
-        </div>
-        <div class="sr-line">
-          <span class="sr-name">🎓 Education</span>
-          <span class="sr-bar"><span class="sr-fill" style="width:76%;background:linear-gradient(90deg,#a78bfa,#f472b6);color:#a78bfa"></span></span>
-          <span class="sr-val">76</span>
-        </div>
-        <div class="sr-line">
-          <span class="sr-name">🌱 Sustainability</span>
-          <span class="sr-bar"><span class="sr-fill" style="width:71%;background:linear-gradient(90deg,#34d399,#38bdf8);color:#34d399"></span></span>
-          <span class="sr-val">71</span>
-        </div>
-        <div class="sr-line">
-          <span class="sr-name">🍽️ Food & culture</span>
-          <span class="sr-bar"><span class="sr-fill" style="width:64%;background:linear-gradient(90deg,#fbbf24,#fb923c);color:#fbbf24"></span></span>
-          <span class="sr-val">64</span>
-        </div>
-        <div class="sr-line">
-          <span class="sr-name">🧠 Health & wellbeing</span>
-          <span class="sr-bar"><span class="sr-fill" style="width:58%;background:linear-gradient(90deg,#f472b6,#a78bfa);color:#f472b6"></span></span>
-          <span class="sr-val">58</span>
-        </div>
-      </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeGlobalData()">Close</button>
     </div>
   </div>
-</div>
 
-<!-- REFLECT BOT -->
-<div class="modal-back" id="reflectBotModal">
-  <div class="modal">
-    <div class="modal-hd">
-      <button class="modal-close" onclick="closeReflectBot()">✕</button>
-      <div class="modal-eyebrow">🧠 Reflect Bot</div>
-      <h3>Turn your idea into a question.</h3>
-      <div class="modal-sub">Write one thing you're thinking about. Then pick an AI to explore it with — the bot builds a ready-to-paste prompt for you.</div>
-    </div>
-    <div class="reflect-bot">
-      <div class="rb-ic">🧠</div>
-      <div class="rb-q">Today I'm thinking about <b>______</b></div>
-      <div class="rb-hint">Keep it small. One idea. Write it like you'd tell a friend.</div>
-      <textarea id="reflectInput" placeholder="e.g. My partner is a great baker — how could that become a global brand?" oninput="onReflectInput()"></textarea>
-
-      <div class="ai-pick" id="aiPick">
-        <button class="ap" onclick="copyPromptAndOpen('chatgpt')"><span class="api">🤖</span> ChatGPT</button>
-        <button class="ap" onclick="copyPromptAndOpen('gemini')"><span class="api">✨</span> Gemini</button>
-        <button class="ap" onclick="copyPromptAndOpen('claude')"><span class="api">🧭</span> Claude</button>
-        <button class="ap" onclick="copyPromptAndOpen('groq')"><span class="api">⚡</span> Groq</button>
-        <button class="ap" onclick="copyPromptOnly()"><span class="api">📋</span> Copy only</button>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 2, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">2</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
       </div>
-
-      <div class="prompt-box" id="promptBox" style="display:none">
-        <div class="pb-lbl"><span>📋 Your prompt</span></div>
-        <pre id="promptText"></pre>
-        <div class="prompt-actions">
-          <button class="pbtn" onclick="copyPromptOnly()">📋 Copy prompt</button>
-          <button class="pbtn" onclick="saveReflectToNotes()">💾 Save to Idea Pad</button>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">2</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
         </div>
+        <span class="icon">🩺</span>
+        <span class="theme">Healthcare</span>
+        <p class="ask">What can we create so people stay healthy, get help early, and don’t face long waits or fear?</p>
       </div>
     </div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeReflectBot()">Close</button>
+  </div>
+
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 3, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">3</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">3</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">🔦</span>
+        <span class="theme">Public Security</span>
+        <p class="ask">What can we do together to make our streets safe and peaceful, where everyone feels free to walk and play?</p>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- NOTES / IDEA PAD -->
-<div class="modal-back" id="notesModal">
-  <div class="modal gold">
-    <div class="modal-hd">
-      <button class="modal-close" onclick="closeNotes()">✕</button>
-      <div class="modal-eyebrow">📝 Idea Pad</div>
-      <h3>Write small ideas.</h3>
-      <div class="notes-hint">Max 6 words per note. Keep them short so you stay focused on the conversation. Your partners see them — like a shared whiteboard.</div>
-    </div>
-    <div class="note-input-row">
-      <input id="noteInput" type="text" placeholder="Type a short idea..." maxlength="60" oninput="onNoteInput()" onkeydown="if(event.key==='Enter')addNote()">
-      <button class="note-add" id="noteAddBtn" onclick="addNote()" disabled>+ Add</button>
-    </div>
-    <div class="note-count" id="noteCount">0 / 6 words</div>
-    <div id="notesBoard" style="margin-top:20px"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeNotes()">Close</button>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 4, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">4</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">4</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">🍲</span>
+        <span class="theme">Food Security</span>
+        <p class="ask">What can we create so no one goes hungry and good food is shared instead of wasted?</p>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- FRAMEWORK -->
-<div class="modal-back" id="frameworkModal">
-  <div class="modal purple">
-    <div class="modal-hd">
-      <button class="modal-close" onclick="closeFramework()">✕</button>
-      <div class="modal-eyebrow">🧩 Team Rules</div>
-      <h3>How will we work together?</h3>
-      <div class="modal-sub">Optional. Four quick questions. No right answers — just what you three choose.</div>
-    </div>
-    <div id="fwQuestionsWrap"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeFramework()">Cancel</button>
-      <button class="btn btn-med" onclick="saveFramework()">✓ Save our rules</button>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 5, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">5</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">5</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">💼</span>
+        <span class="theme">Jobs &amp; Income</span>
+        <p class="ask">What can we do so people have opportunities to earn, grow financially, and have a better quality of life?</p>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- PROJECT DONE -->
-<div class="modal-back" id="projectDoneModal">
-  <div class="modal gold">
-    <div class="modal-hd">
-      <button class="modal-close" onclick="closeProjectDone()">✕</button>
-      <div class="modal-eyebrow">✨ Pitch Done</div>
-      <h3>Who helped you pitch today?</h3>
-      <div class="modal-sub">For each person, tap what they did. You can pick more than one reason. You can rate more than one person.</div>
-    </div>
-    <div id="partnerEvalList"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeProjectDone()">Cancel</button>
-      <button class="btn btn-gold" id="sendThanksBtn" onclick="sendThanks()" disabled>✨ Send thanks</button>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 6, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">6</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">6</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">🚰</span>
+        <span class="theme">Water &amp; Sanitation</span>
+        <p class="ask">What can we do to bring clean water and proper sanitation to every home, and keep it that way?</p>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- FINISH -->
-<div class="modal-back" id="finishModal">
-  <div class="modal green">
-    <div class="modal-hd">
-      <button class="modal-close" onclick="closeFinishModal()">✕</button>
-      <div class="modal-eyebrow">✅ Close Deal</div>
-      <h3>End the session?</h3>
-      <div class="modal-sub">This ends the room and shows the final Help Score board.</div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeFinishModal()">Not yet</button>
-      <button class="btn btn-green" onclick="confirmFinish()">✅ Close Deal</button>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 7, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">7</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">7</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">📱</span>
+        <span class="theme">Digital Inclusion</span>
+        <p class="ask">What can we create so everyone can use technology to learn, work, and connect, no matter their age or income?</p>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- LANGUAGE -->
-<div class="modal-back" id="languageModal">
-  <div class="modal">
-    <div class="modal-hd">
-      <button class="modal-close" onclick="closeLanguage()">✕</button>
-      <div class="modal-eyebrow">🎧 Language</div>
-      <h3>Say it like this.</h3>
-    </div>
-    <div style="margin-bottom:18px">
-      <div style="font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px">💬 Finding the opportunity</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-style:italic">"What do you already know that others need?"</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;font-style:italic">"Where have you seen this work before?"</div>
-    </div>
-    <div style="margin-bottom:18px">
-      <div style="font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px">💬 Going global</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-style:italic">"Which 3 countries would you start with, and why?"</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;font-style:italic">"What needs to change for it to work there?"</div>
-    </div>
-    <div style="margin-bottom:18px">
-      <div style="font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px">💬 Pitching</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-style:italic">"Let me walk you through the one thing that makes this different."</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;font-style:italic">"Here's the proof that it works."</div>
-    </div>
-    <div>
-      <div style="font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px">💬 Handling questions</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-style:italic">"That's a fair question. Let me answer it honestly."</div>
-      <div style="font-size:14.5px;color:#d4dfea;padding:9px 0;font-style:italic">"Let me show you what we've already prepared."</div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeLanguage()">Close</button>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 8, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">8</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">8</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">🌳</span>
+        <span class="theme">Environment &amp; Climate</span>
+        <p class="ask">What can we do to protect our air, water, and land, and make our communities ready for climate challenges?</p>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- CONGRATS -->
-<div class="congrats-overlay" id="congratsOverlay">
-  <div class="confetti-layer" id="confettiLayer"></div>
-  <div class="congrats-card">
-    <button class="congrats-close" onclick="closeCongrats()">✕</button>
-    <span class="congrats-emoji">🎉</span>
-    <div class="congrats-eyebrow">Great work together!</div>
-    <h2 class="congrats-title">You did it.</h2>
-    <p class="congrats-sub">You helped a friend find a global opportunity — and pitched it to an investor. That's not an exercise. That's the work.</p>
-    <div class="congrats-actions">
-      <button class="btn btn-gold" onclick="printEverything()">
-        <span style="font-size:15px;margin-right:4px">📄</span> Print &amp; Save Everything
-      </button>
-      <button class="btn btn-med" onclick="continueToReflection()">
-        <span style="font-size:15px;margin-right:4px">🪞</span> Continue to Reflection
-      </button>
-      <button class="btn" onclick="restartGame()">
-        <span style="font-size:15px;margin-right:4px">🔄</span> Restart the Game
-      </button>
-      <button class="btn" onclick="confirmExit()">
-        <span style="font-size:15px;margin-right:4px">🚪</span> Exit &amp; Confirm
-      </button>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 9, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">9</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">9</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">🤝</span>
+        <span class="theme">Care for Elderly &amp; Disabled</span>
+        <p class="ask">What can we create so elderly and disabled people are cared for with dignity, and no family carries the burden alone?</p>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="toast-wrap" id="toastWrap"></div>
+  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 10, tap to reveal topic">
+    <div class="card-inner">
+      <div class="face front">
+        <span class="number">10</span>
+        <span class="question-mark">?</span>
+        <span class="hint">Tap to reveal</span>
+      </div>
+      <div class="face back">
+        <div class="top-right-controls">
+          <span class="badge">10</span>
+          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+        </div>
+        <span class="icon">🗣️</span>
+        <span class="theme">Civic Participation</span>
+        <p class="ask">What can we do to help everyone have a voice and work together on solutions that matter?</p>
+      </div>
+    </div>
+  </div>
+
+</main>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   CONFIG
-   ═══════════════════════════════════════════════════════ */
-const FIREBASE_URL = 'https://english-meetings-f08e4-default-rtdb.firebaseio.com';
-const SESSION_ID = new URLSearchParams(location.search).get('session') || 'default';
-const MAX_PLAYERS = 3;
-const POLL_MS = 3000;
-const MAX_NOTE_WORDS = 6;
+(function () {
+  /* ---------- Simple sound effect (Web Audio API) ---------- */
+  var audioCtx = null;
+  var soundOn = true;
 
-/* ═══════════════════════════════════════════════════════
-   ROLES
-   ═══════════════════════════════════════════════════════ */
-const ROLES = [
-  { id:'investor', ic:'💰', nm:'Angel Investor',
-    ds:'You have $500K to invest. You only back ideas that can go global.',
-    private:'<b>Private:</b> You already rejected 3 pitches this month. You need to see: (1) proof it works somewhere, (2) a plan for at least 3 countries, (3) a clear path to ROI in 18 months.' },
-  { id:'pitcher', ic:'🎤', nm:'Pitcher',
-    ds:'You have an idea. You need to convince the investor it can scale.',
-    private:'<b>Private:</b> Your idea works locally. You have 50 customers and $10K revenue. You must show how it scales globally — but you haven\'t done that before.' },
-  { id:'counselor', ic:'🧭', nm:'Counselor',
-    ds:'You watch the pitch and give honest feedback after.',
-    private:'<b>Private:</b> Watch for: (1) does the pitcher listen or just talk? (2) does the investor ask good questions? (3) is the "global" angle real or just words?' }
-];
+  function playTone(isRevealing) {
+    if (!soundOn) return;
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") audioCtx.resume();
 
-const QUESTIONS = [
-  { kw:'🎯 Opportunity · Where is the real need?' },
-  { kw:'🌍 Global · Why can this work in 3+ countries?' },
-  { kw:'🎤 Pitch · What is the one line they will remember?' }
-];
+      var now = audioCtx.currentTime;
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
 
-const FRAMEWORK_QUESTIONS = [
-  { id:'lead', ic:'🗳️', title:'Who leads the pitch?', sub:'Power — but nobody is the boss here.',
-    options:[
-      { id:'pitcher_lead', label:'The pitcher leads, the others support' },
-      { id:'rotate', label:'We rotate depending on the topic' },
-      { id:'together', label:'Every decision needs all three of us' }
-    ]},
-  { id:'info', ic:'📡', title:'How does information flow?', sub:'Transparency.',
-    options:[
-      { id:'needed', label:'Share only what each person needs to know' },
-      { id:'all', label:'Everything is shared with everyone' },
-      { id:'signals', label:'Only important signals, when they matter' }
-    ]},
-  { id:'sync', ic:'📅', title:'How do we sync?', sub:'Rhythm.',
-    options:[
-      { id:'before_after', label:'Before and after the pitch' },
-      { id:'asked', label:'When someone asks' },
-      { id:'milestones', label:'At each big moment of the deal' }
-    ]},
-  { id:'conflict', ic:'⚖️', title:'How do we handle disagreements?', sub:'Justice.',
-    options:[
-      { id:'direct', label:'Direct talk between the two people' },
-      { id:'all_three', label:'All three together, until we agree' },
-      { id:'pause', label:'Pause, then decide calmly' }
-    ]}
-];
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(isRevealing ? 620 : 420, now);
+      osc.frequency.exponentialRampToValueAtTime(isRevealing ? 1020 : 290, now + 0.1);
 
-const FEYNMAN_REASONS = [
-  { id:'listen', icon:'👂', label:'Listened' },
-  { id:'explain', icon:'💡', label:'Explained' },
-  { id:'push', icon:'⚡', label:'Challenged me' },
-  { id:'build', icon:'🛠️', label:'Built on my idea' },
-  { id:'connect', icon:'🔗', label:'Connected me' },
-  { id:'courage', icon:'🦁', label:'Gave courage' },
-  { id:'solution', icon:'🧩', label:'Found a solution' },
-  { id:'space', icon:'🌿', label:'Gave me space' }
-];
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.13, now + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
 
-const NOTE_COLORS = ['yellow','pink','blue','green','purple','orange'];
-
-const REFLECT = [
-  { k:'idea',    ic:'💡', l:'About the idea',    ph:'Today I discovered...' },
-  { k:'partner', ic:'🤝', l:'About my partner',  ph:'My partner helped me see...' },
-  { k:'self',    ic:'🪞', l:'About myself',      ph:'I noticed that I...' },
-  { k:'emotion', ic:'💗', l:'About my feelings', ph:'I felt ___ when...' },
-  { k:'action',  ic:'⚡', l:'About my actions',  ph:'I contributed by...' },
-  { k:'growth',  ic:'🌱', l:'Next time',         ph:'Next time I want to...' }
-];
-
-const COMPASS = [
-  { id:'listening',   ic:'👂', nm:'Listening',      ds:'I heard the other side.' },
-  { id:'pitching',    ic:'🎤', nm:'Pitching',       ds:'I made the idea clear.' },
-  { id:'global',      ic:'🌍', nm:'Global thinking', ds:'I saw beyond my borders.' },
-  { id:'empathy',     ic:'💛', nm:'Empathy',         ds:'I felt what they needed.' },
-  { id:'adapting',    ic:'⚡', nm:'Adapting',        ds:'I changed with new info.' },
-  { id:'creating',    ic:'💡', nm:'Creating value',  ds:'I made something useful.' }
-];
-
-/* ═══════════════════════════════════════════════════════
-   STATE
-   ═══════════════════════════════════════════════════════ */
-const KEY = 'globalventure_v1';
-function fresh(){
-  return {
-    myName:'', playerId:null, roomId:null, roleId:null,
-    framework:{}, reflections:[], compass:[],
-    feynmanAssets:[], sentThanks:[]
-  };
-}
-let state = fresh();
-let pollTimer = null;
-let fwTemp = {};
-let evalState = {};
-let roomPlayersCache = [];
-let roomNotesCache = [];
-let lastInsightText = '';
-
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-function load(){ try{ const r = localStorage.getItem(KEY); return r ? Object.assign(fresh(), JSON.parse(r)) : null; }catch(e){ return null; } }
-
-/* ═══════════════════════════════════════════════════════
-   FIREBASE
-   ═══════════════════════════════════════════════════════ */
-function fbPath(path){ return FIREBASE_URL + '/' + path + '.json'; }
-async function fbGet(path){ const r = await fetch(fbPath(path)); if(!r.ok) throw new Error('FB get'); return await r.json(); }
-async function fbPut(path, data){ const r = await fetch(fbPath(path), { method:'PUT', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(data) }); if(!r.ok) throw new Error('FB put'); return await r.json(); }
-async function fbPatch(path, data){ const r = await fetch(fbPath(path), { method:'PATCH', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(data) }); if(!r.ok) throw new Error('FB patch'); return await r.json(); }
-async function fbDelete(path){ const r = await fetch(fbPath(path), { method:'DELETE' }); return r.ok; }
-
-function assignRoleForIndex(i){ return ROLES[i % ROLES.length].id; }
-
-async function connectToRoom(name){
-  const roomsPath = 'globalventure/' + SESSION_ID + '/rooms';
-  const rooms = await fbGet(roomsPath) || {};
-  let targetId = null;
-  const entries = Object.entries(rooms).sort((a,b) => (a[1].createdAt||0) - (b[1].createdAt||0));
-  for(const [id, room] of entries){
-    const count = room.players ? Object.keys(room.players).length : 0;
-    if(count < MAX_PLAYERS){ targetId = id; break; }
-  }
-  if(!targetId){
-    targetId = 'room_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-    await fbPut(roomsPath + '/' + targetId, { createdAt: Date.now(), players: {} });
-  }
-  const playerId = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-  await fbPut(roomsPath + '/' + targetId + '/players/' + playerId, {
-    name: name, joinedAt: Date.now(), helpScore: 0
-  });
-  return { roomId: targetId, playerId };
-}
-
-async function readRoomPlayers(){
-  if(!state.roomId) return [];
-  const path = 'globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/players';
-  const raw = await fbGet(path) || {};
-  const players = Object.entries(raw).map(([id, p]) => ({
-    id, name: p.name || 'Partner', joinedAt: p.joinedAt || 0,
-    helpScore: p.helpScore || 0
-  }));
-  players.sort((a,b) => a.joinedAt - b.joinedAt || a.id.localeCompare(b.id));
-  players.forEach((p, i) => { p.roleId = assignRoleForIndex(i); p.isSelf = p.id === state.playerId; });
-  return players;
-}
-
-async function readRoomNotes(){
-  if(!state.roomId) return [];
-  const path = 'globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/notes';
-  const raw = await fbGet(path) || {};
-  return Object.entries(raw).map(([id, n]) => Object.assign({ id }, n))
-    .sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
-}
-
-async function addRoomNote(text){
-  if(!state.roomId || !state.playerId) return;
-  const noteId = 'n_' + Date.now() + '_' + Math.random().toString(36).slice(2,5);
-  const color = NOTE_COLORS[Math.floor(Math.random() * NOTE_COLORS.length)];
-  await fbPut('globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/notes/' + noteId, {
-    text: text, authorId: state.playerId, authorName: state.myName,
-    color: color, timestamp: Date.now()
-  });
-}
-
-async function deleteRoomNote(noteId){
-  if(!state.roomId) return;
-  await fbDelete('globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/notes/' + noteId);
-}
-
-async function creditHelp(targetId, points){
-  const path = 'globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/players/' + targetId;
-  const cur = await fbGet(path) || {};
-  await fbPatch(path, { helpScore: (cur.helpScore || 0) + points });
-}
-
-async function saveFrameworkToFirebase(){
-  if(!state.roomId || !state.playerId) return;
-  const path = 'globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/players/' + state.playerId;
-  await fbPatch(path, { framework: state.framework });
-}
-
-/* ═══════════════════════════════════════════════════════
-   NAV
-   ═══════════════════════════════════════════════════════ */
-function go(id){
-  const cur = document.querySelector('.screen.active');
-  if(cur) cur.classList.remove('active');
-  const next = document.getElementById('s-' + id);
-  if(!next) return;
-  next.classList.add('active');
-  next.scrollTop = 0;
-  next.querySelectorAll('.anim').forEach((el, i) => {
-    el.classList.remove('rise'); void el.offsetWidth;
-    el.style.animationDelay = (i*60) + 'ms'; el.classList.add('rise');
-  });
-  if(id === 'inside') renderReflections();
-  if(id === 'compass') renderCompass();
-  if(id === 'world') { renderRolePanel(); renderCountryBox(); renderFrameworkWidget(); renderKeywords(); refreshRoom(); startPolling(); }
-  if(id === 'cocreate') { startPolling(); refreshRoom(); }
-}
-
-/* ═══════════════════════════════════════════════════════
-   NAME SCREEN
-   ═══════════════════════════════════════════════════════ */
-const myNameEl = document.getElementById('myName');
-const startBtn = document.getElementById('startBtn');
-const connectStatus = document.getElementById('connectStatus');
-myNameEl.addEventListener('input', () => { startBtn.disabled = myNameEl.value.trim().length === 0; });
-
-async function startSim(){
-  const my = myNameEl.value.trim();
-  if(!my) return;
-  state.myName = my;
-  startBtn.disabled = true; startBtn.textContent = 'Connecting…';
-  connectStatus.textContent = 'Looking for a room…';
-  try {
-    const res = await connectToRoom(my);
-    state.roomId = res.roomId; state.playerId = res.playerId;
-    const players = await readRoomPlayers();
-    const me = players.find(p => p.id === res.playerId);
-    if(me) state.roleId = me.roleId;
-    save();
-    connectStatus.textContent = 'Connected.';
-    go('brief');
-  } catch(err){
-    console.error(err);
-    connectStatus.textContent = 'Could not connect. Try again.';
-    startBtn.disabled = false; startBtn.textContent = '▶ Connect me';
-  }
-}
-
-/* ═══════════════════════════════════════════════════════
-   ENTER CO-CREATE
-   ═══════════════════════════════════════════════════════ */
-async function enterCocreate(){
-  go('cocreate');
-  await refreshRoom();
-  // After loading players, update the co-create center
-  renderCocreate();
-}
-
-function renderCocreate(){
-  const players = roomPlayersCache;
-  const me = players.find(p => p.isSelf);
-  const others = players.filter(p => !p.isSelf);
-
-  const friendNameEl = document.getElementById('ccFriendName');
-  const youEl = document.getElementById('ccYou');
-  const nextBtn = document.getElementById('ccNextBtn');
-
-  if(others.length > 0){
-    friendNameEl.classList.remove('waiting');
-    friendNameEl.innerHTML = '<span class="cc-fname-glow"></span>' + others[0].name;
-  } else {
-    friendNameEl.classList.add('waiting');
-    friendNameEl.innerHTML = '<span class="cc-fname-glow"></span>Waiting for partner…';
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.2);
+    } catch (e) { /* sound is optional */ }
   }
 
-  if(me){
-    youEl.innerHTML = 'You · <b>' + me.name + '</b>';
-  } else {
-    youEl.innerHTML = 'You · <b>—</b>';
+  /* ---------- Flip card ---------- */
+  var cards = document.querySelectorAll(".card");
+
+  function toggleCard(card) {
+    var willFlip = !card.classList.contains("flipped");
+    card.classList.toggle("flipped", willFlip);
+    card.setAttribute("aria-pressed", willFlip ? "true" : "false");
+    playTone(willFlip);
   }
 
-  // Enable/disable the next button
-  if(others.length > 0){
-    nextBtn.disabled = false;
-    nextBtn.textContent = '▶ We\'re ready to pitch';
-  } else {
-    nextBtn.disabled = true;
-    nextBtn.textContent = '⏳ Waiting for partner…';
-  }
-}
-
-/* ═══════════════════════════════════════════════════════
-   ENTER ROOM (Screen 2)
-   ═══════════════════════════════════════════════════════ */
-function renderRolePanel(){
-  const role = ROLES.find(r => r.id === state.roleId);
-  document.getElementById('roleDisplay').innerHTML = role ? (
-    '<div class="role-chip">' +
-      '<div class="rc-ic">' + role.ic + '</div>' +
-      '<div><div class="rc-n">' + role.nm + '</div><div class="rc-d">' + role.ds + '</div></div>' +
-    '</div>'
-  ) : '—';
-}
-
-function renderCountryBox(){
-  const role = ROLES.find(r => r.id === state.roleId);
-  const box = document.getElementById('countryDisplay');
-  if(!role){ box.innerHTML = '<div class="sb-text">—</div>'; return; }
-  box.innerHTML =
-    '<div class="country-box">' +
-      '<div class="cb-flag">' +
-        '<span class="cbf-ic">' + role.ic + '</span>' +
-        '<div><div class="cbf-name">' + role.nm + '</div><div class="cbf-role">Private brief</div></div>' +
-      '</div>' +
-      '<div class="cb-secret">' + (role.private || role.ds) + '</div>' +
-    '</div>';
-}
-
-function renderFrameworkWidget(){
-  const box = document.getElementById('frameworkDisplay');
-  const fw = state.framework || {};
-  const answered = FRAMEWORK_QUESTIONS.filter(q => fw[q.id]).length;
-  if(answered === 0){
-    box.innerHTML =
-      '<div class="framework-mini">' +
-        '<div class="fm-h"><span>Not set</span><button onclick="openFramework()">Set</button></div>' +
-        '<div class="fm-empty">No rules agreed yet. Optional.</div>' +
-      '</div>';
-    return;
-  }
-  const items = FRAMEWORK_QUESTIONS.map(q => {
-    const choice = fw[q.id]; if(!choice) return '';
-    const opt = q.options.find(o => o.id === choice);
-    return '<div class="fm-item"><b>' + q.ic + ' ' + q.title.replace('?','') + '</b><span>' + (opt ? opt.label : '') + '</span></div>';
-  }).filter(Boolean).join('');
-  box.innerHTML =
-    '<div class="framework-mini">' +
-      '<div class="fm-h"><span>' + answered + '/4 set</span><button onclick="openFramework()">Edit</button></div>' +
-      '<div class="fm-list">' + items + '</div>' +
-    '</div>';
-}
-
-function renderKeywords(){
-  const qList = document.getElementById('qList');
-  qList.innerHTML = '';
-  QUESTIONS.forEach((q, i) => {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.innerHTML = '<div class="q-num">' + (i+1) + '</div><div class="q-text">' + q.kw + '</div>';
-    qList.appendChild(card);
-  });
-}
-
-function startPolling(){ stopPolling(); pollTimer = setInterval(refreshRoom, POLL_MS); }
-function stopPolling(){ if(pollTimer){ clearInterval(pollTimer); pollTimer = null; } }
-
-async function refreshRoom(){
-  if(!state.roomId) return;
-  try {
-    const players = await readRoomPlayers();
-    roomPlayersCache = players;
-    renderPlayers(players);
-    renderHelpMini(players);
-
-    const active = document.querySelector('.screen.active');
-    if(active && active.id === 's-cocreate') renderCocreate();
-
-    const notesModal = document.getElementById('notesModal');
-    if(notesModal && notesModal.classList.contains('open')){
-      roomNotesCache = await readRoomNotes();
-      renderNotesBoard();
-    }
-  } catch(err){ console.warn(err); }
-}
-
-function renderPlayers(players){
-  const wrap = document.getElementById('partnersWrap');
-  const roomStatus = document.getElementById('roomStatus');
-  if(!wrap) return;
-  wrap.innerHTML = '';
-  players.slice().sort((a,b) => (b.isSelf?1:0) - (a.isSelf?1:0)).forEach(p => {
-    const role = ROLES.find(r => r.id === p.roleId);
-    const card = document.createElement('div');
-    card.className = 'partner-card' + (p.isSelf ? ' self' : '');
-    card.innerHTML =
-      '<div class="partner-avatar">' + (role ? role.ic : '👤') + '</div>' +
-      '<div class="partner-eyebrow">' + (p.isSelf ? 'You' : 'In this room') + '</div>' +
-      '<div class="partner-name">' + p.name + '</div>' +
-      '<div class="partner-role">' + (role ? role.nm : '') + '</div>' +
-      (p.helpScore > 0 ? '<div class="partner-helped">✨ ' + p.helpScore + ' help points</div>' : '');
-    wrap.appendChild(card);
-  });
-  if(players.length < 2){
-    const w = document.createElement('div');
-    w.className = 'partner-card'; w.style.borderStyle = 'dashed'; w.style.opacity = '.7';
-    w.innerHTML =
-      '<div class="partner-avatar" style="animation:pulseDot 2s ease-in-out infinite">⏳</div>' +
-      '<div class="partner-eyebrow" style="color:var(--gold)">Waiting</div>' +
-      '<div class="partner-name" style="background:none;color:var(--muted);font-weight:500;font-size:16px;-webkit-text-fill-color:var(--muted)">Connecting…</div>' +
-      '<div class="partner-role">Adding them automatically</div>';
-    wrap.appendChild(w);
-  }
-  const count = players.length;
-  if(count === 1) roomStatus.innerHTML = '<span class="players-count waiting"><span class="dot"></span> Waiting</span>';
-  else if(count === 2) roomStatus.innerHTML = '<span class="players-count">👥 2 partners</span>';
-  else roomStatus.innerHTML = '<span class="players-count">👥 ' + count + ' partners · full room</span>';
-}
-
-function renderHelpMini(players){
-  const box = document.getElementById('helpDisplay');
-  if(!box) return;
-  if(players.length === 0){ box.innerHTML = '<div class="sb-text">—</div>'; return; }
-  const rows = players.map(p =>
-    '<div class="hm-row ' + (p.isSelf ? 'self' : '') + '">' +
-      '<span class="hm-name">' + (p.isSelf ? 'You' : p.name) + '</span>' +
-      '<span class="hm-pts">+' + p.helpScore + '</span>' +
-    '</div>'
-  ).join('');
-  box.innerHTML =
-    '<div class="help-mini">' +
-      '<div class="hm-h"><span>✨ Earned by helping</span><span class="dot"></span></div>' +
-      '<div class="hm-list">' + rows + '</div>' +
-    '</div>';
-}
-
-function leaveRoom(){
-  stopPolling();
-  go('cocreate');
-}
-
-/* ═══════════════════════════════════════════════════════
-   FRAMEWORK
-   ═══════════════════════════════════════════════════════ */
-function openFramework(){
-  fwTemp = Object.assign({}, state.framework || {});
-  renderFrameworkQuestions();
-  document.getElementById('frameworkModal').classList.add('open');
-}
-function closeFramework(){ document.getElementById('frameworkModal').classList.remove('open'); }
-
-function renderFrameworkQuestions(){
-  const wrap = document.getElementById('fwQuestionsWrap');
-  wrap.innerHTML = '';
-  FRAMEWORK_QUESTIONS.forEach(q => {
-    const qEl = document.createElement('div');
-    qEl.className = 'fw-q';
-    qEl.innerHTML =
-      '<div class="fw-q-head">' +
-        '<div class="fq-ic">' + q.ic + '</div>' +
-        '<div>' +
-          '<div class="fq-title">' + q.title + '</div>' +
-          '<div class="fq-sub">' + q.sub + '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="fw-options"></div>';
-    const optsWrap = qEl.querySelector('.fw-options');
-    q.options.forEach(o => {
-      const btn = document.createElement('button');
-      btn.className = 'fw-opt' + (fwTemp[q.id] === o.id ? ' sel' : '');
-      btn.innerHTML = '<span class="fo-bullet">✓</span><span>' + o.label + '</span>';
-      btn.onclick = () => { fwTemp[q.id] = o.id; renderFrameworkQuestions(); };
-      optsWrap.appendChild(btn);
+  cards.forEach(function (card) {
+    card.addEventListener("click", function (e) {
+      // If the click was on the check box, don't flip the card
+      if (e.target.closest("[data-check]")) return;
+      toggleCard(card);
     });
-    wrap.appendChild(qEl);
-  });
-}
 
-async function saveFramework(){
-  state.framework = Object.assign({}, fwTemp);
-  save();
-  try { await saveFrameworkToFirebase(); } catch(e){}
-  renderFrameworkWidget();
-  closeFramework();
-  toast('Team rules saved ✨', '🧩');
-}
-
-/* ═══════════════════════════════════════════════════════
-   PROJECT DONE
-   ═══════════════════════════════════════════════════════ */
-async function openProjectDone(){
-  roomPlayersCache = await readRoomPlayers();
-  const others = roomPlayersCache.filter(p => !p.isSelf);
-  if(others.length === 0){ toast('No one else in the room yet', '⚠️'); return; }
-  evalState = {};
-  others.forEach(p => { evalState[p.id] = new Set(); });
-  renderPartnerEval();
-  document.getElementById('projectDoneModal').classList.add('open');
-}
-function closeProjectDone(){ document.getElementById('projectDoneModal').classList.remove('open'); }
-
-function renderPartnerEval(){
-  const wrap = document.getElementById('partnerEvalList');
-  const others = roomPlayersCache.filter(p => !p.isSelf);
-  wrap.innerHTML = others.map(p => {
-    const role = ROLES.find(r => r.id === p.roleId);
-    const selSet = evalState[p.id] || new Set();
-    const isActive = selSet.size > 0;
-    const chips = FEYNMAN_REASONS.map(r => {
-      const sel = selSet.has(r.id);
-      return '<button class="chip ' + (sel ? 'sel' : '') + '" onclick="toggleReason(\'' + p.id + '\',\'' + r.id + '\')">' +
-        '<span class="cc-i">' + r.icon + '</span><span>' + r.label + '</span></button>';
-    }).join('');
-    return '<div class="eval-row ' + (isActive ? 'active' : '') + '">' +
-      '<div class="eval-head">' +
-        '<div class="eval-av">' + (role ? role.ic : '👤') + '</div>' +
-        '<div class="eval-info">' +
-          '<div class="eval-name">' + p.name + '</div>' +
-          '<div class="eval-role">' + (role ? role.nm : '') + '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="eval-chips">' + chips + '</div>' +
-    '</div>';
-  }).join('');
-  const anyPicked = Object.values(evalState).some(set => set.size > 0);
-  document.getElementById('sendThanksBtn').disabled = !anyPicked;
-}
-
-function toggleReason(playerId, reasonId){
-  const set = evalState[playerId];
-  if(set.has(reasonId)) set.delete(reasonId); else set.add(reasonId);
-  renderPartnerEval();
-}
-
-async function sendThanks(){
-  const entries = Object.entries(evalState).filter(e => e[1].size > 0);
-  if(entries.length === 0) return;
-  const POINTS_PER_PERSON = 10;
-  let totalSent = 0;
-  try {
-    for(const entry of entries){
-      const playerId = entry[0];
-      const reasonSet = entry[1];
-      await creditHelp(playerId, POINTS_PER_PERSON);
-      totalSent++;
-      state.sentThanks = state.sentThanks || [];
-      state.sentThanks.push({
-        toId: playerId, reasons: Array.from(reasonSet),
-        points: POINTS_PER_PERSON, timestamp: Date.now()
-      });
-    }
-    save();
-    spawnConfetti();
-    toast('<b>' + totalSent + '</b> ' + (totalSent === 1 ? 'partner' : 'partners') + ' earned <b>+' + POINTS_PER_PERSON + '</b> each ✨', '✨');
-    closeProjectDone();
-    await refreshRoom();
-    document.getElementById('projectDoneBtn').classList.add('hidden');
-    document.getElementById('finishProjectBtn').classList.remove('hidden');
-  } catch(err){
-    console.error(err);
-    toast('Could not send thanks. Try again.', '⚠️');
-  }
-}
-
-/* ═══════════════════════════════════════════════════════
-   FINISH
-   ═══════════════════════════════════════════════════════ */
-function openFinishProject(){ document.getElementById('finishModal').classList.add('open'); }
-function closeFinishModal(){ document.getElementById('finishModal').classList.remove('open'); }
-function confirmFinish(){ closeFinishModal(); stopPolling(); openCongrats(); }
-
-/* ═══════════════════════════════════════════════════════
-   GLOBAL DATA
-   ═══════════════════════════════════════════════════════ */
-function openGlobalData(){ document.getElementById('globalModal').classList.add('open'); }
-function closeGlobalData(){ document.getElementById('globalModal').classList.remove('open'); }
-
-/* ═══════════════════════════════════════════════════════
-   REFLECT BOT — copy-based (works with any AI)
-   ═══════════════════════════════════════════════════════ */
-function openReflectBot(){
-  document.getElementById('reflectInput').value = '';
-  document.getElementById('promptBox').style.display = 'none';
-  document.getElementById('reflectBotModal').classList.add('open');
-}
-function closeReflectBot(){ document.getElementById('reflectBotModal').classList.remove('open'); }
-
-function onReflectInput(){
-  const val = (document.getElementById('reflectInput').value || '').trim();
-  const box = document.getElementById('promptBox');
-  const pre = document.getElementById('promptText');
-  if(!val){ box.style.display = 'none'; return; }
-  box.style.display = 'block';
-  pre.textContent = buildPrompt(val);
-  lastInsightText = pre.textContent;
-}
-
-function buildPrompt(val){
-  return 'I\'m in a live role-play called "Global Venture" — a scenario where an angel investor has $500K to put into an idea, but only if it can go global.\n\n' +
-    'My team is 2-3 people. One is the investor, one pitches, and (if there\'s a third) one counsels.\n\n' +
-    'Right now I\'m thinking about:\n\n' +
-    '"' + val + '"\n\n' +
-    'Give me 3 short insights in simple English (A2-B1 level):\n' +
-    '1. One thing I might be missing about going global\n' +
-    '2. One question I should ask my partner\n' +
-    '3. One way to make the pitch stronger\n\n' +
-    'Keep each insight under 15 words. No intro. No greeting. Just the 3 ideas, numbered.';
-}
-
-const AI_URLS = {
-  chatgpt: 'https://chat.openai.com/',
-  gemini:  'https://gemini.google.com/app',
-  claude:  'https://claude.ai/new',
-  groq:    'https://console.groq.com/playground'
-};
-
-function copyPromptAndOpen(ai){
-  const val = (document.getElementById('reflectInput').value || '').trim();
-  if(!val){ toast('Write something first', '⚠️'); return; }
-  const prompt = buildPrompt(val);
-  copyToClipboard(prompt, () => {
-    toast('Prompt copied ✨ Opening ' + ai, '📋');
-    setTimeout(() => window.open(AI_URLS[ai], '_blank'), 250);
-  });
-}
-
-function copyPromptOnly(){
-  const val = (document.getElementById('reflectInput').value || '').trim();
-  if(!val){ toast('Write something first', '⚠️'); return; }
-  const prompt = buildPrompt(val);
-  copyToClipboard(prompt, () => toast('Prompt copied 📋', '📋'));
-}
-
-function copyToClipboard(text, done){
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
-  } else {
-    fallbackCopy(text, done);
-  }
-}
-
-function fallbackCopy(text, done){
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand('copy'); done(); } catch(e){ toast('Could not copy', '⚠️'); }
-  ta.remove();
-}
-
-async function saveReflectToNotes(){
-  const val = (document.getElementById('reflectInput').value || '').trim();
-  if(!val){ toast('Nothing to save', '⚠️'); return; }
-  const words = val.split(/\s+/).filter(Boolean);
-  let text = words.length > MAX_NOTE_WORDS ? words.slice(0, MAX_NOTE_WORDS).join(' ') + '…' : val;
-  try {
-    await addRoomNote(text);
-    toast('Saved to Idea Pad 📝', '📝');
-    closeReflectBot();
-  } catch(e){ toast('Could not save', '⚠️'); }
-}
-
-/* ═══════════════════════════════════════════════════════
-   IDEAS NOTEPAD
-   ═══════════════════════════════════════════════════════ */
-function openNotes(){
-  document.getElementById('noteInput').value = '';
-  document.getElementById('noteCount').textContent = '0 / 6 words';
-  document.getElementById('noteCount').classList.remove('over');
-  document.getElementById('noteAddBtn').disabled = true;
-  loadNotes();
-  document.getElementById('notesModal').classList.add('open');
-}
-
-async function loadNotes(){
-  try { roomNotesCache = await readRoomNotes(); } catch(e){ roomNotesCache = []; }
-  renderNotesBoard();
-}
-
-function renderNotesBoard(){
-  const board = document.getElementById('notesBoard');
-  if(roomNotesCache.length === 0){
-    board.innerHTML = '<div class="notes-empty">No ideas yet. Be the first to write one.</div>';
-    return;
-  }
-  board.innerHTML = '<div class="notes-board">' + roomNotesCache.map(n => {
-    const isMine = n.authorId === state.playerId;
-    const del = isMine ? '<button class="st-del" onclick="removeNote(\'' + n.id + '\')" title="Delete">×</button>' : '';
-    return '<div class="sticky ' + (n.color || 'yellow') + '">' +
-      del +
-      '<div class="st-text">' + escapeHtml(n.text) + '</div>' +
-      '<div class="st-author">' + escapeHtml(n.authorName || 'Partner') + '</div>' +
-    '</div>';
-  }).join('') + '</div>';
-}
-
-function closeNotes(){ document.getElementById('notesModal').classList.remove('open'); }
-
-function onNoteInput(){
-  const input = document.getElementById('noteInput');
-  const val = input.value.trim();
-  const words = val.length === 0 ? [] : val.split(/\s+/).filter(Boolean);
-  const count = words.length;
-  const countEl = document.getElementById('noteCount');
-  const addBtn = document.getElementById('noteAddBtn');
-  countEl.textContent = count + ' / ' + MAX_NOTE_WORDS + ' words';
-  countEl.classList.toggle('over', count > MAX_NOTE_WORDS);
-  addBtn.disabled = count === 0 || count > MAX_NOTE_WORDS;
-}
-
-async function addNote(){
-  const input = document.getElementById('noteInput');
-  const val = input.value.trim();
-  const words = val.split(/\s+/).filter(Boolean);
-  if(words.length === 0 || words.length > MAX_NOTE_WORDS) return;
-  try {
-    await addRoomNote(val);
-    input.value = '';
-    onNoteInput();
-    await loadNotes();
-    toast('Idea added 📝', '📝');
-  } catch(err){
-    console.error(err);
-    toast('Could not save the note', '⚠️');
-  }
-}
-
-async function removeNote(noteId){
-  try { await deleteRoomNote(noteId); await loadNotes(); } catch(err){ console.error(err); }
-}
-
-/* ═══════════════════════════════════════════════════════
-   LANGUAGE
-   ═══════════════════════════════════════════════════════ */
-function openLanguage(){ document.getElementById('languageModal').classList.add('open'); }
-function closeLanguage(){ document.getElementById('languageModal').classList.remove('open'); }
-
-/* ═══════════════════════════════════════════════════════
-   PRINT SCREEN
-   ═══════════════════════════════════════════════════════ */
-function printScreen(which){
-  const isCocreate = which === 'cocreate';
-  const players = roomPlayersCache;
-  const me = players.find(p => p.isSelf);
-  const friend = players.find(p => !p.isSelf);
-  const role = ROLES.find(r => r.id === state.roleId);
-  const notes = roomNotesCache;
-
-  const title = isCocreate ? 'Co-Create — Global Venture' : 'Pitch to the Investor — Global Venture';
-  const ctxText = isCocreate
-    ? 'An angel investor has $500K and one condition: the idea must be able to go global. You and your partner are shaping the idea before the pitch.'
-    : 'A live pitch. Three roles: Angel Investor, Pitcher, and (if there are 3 players) Counselor. The pitcher must convince the investor to back a global idea.';
-
-  const kws = isCocreate
-    ? ['🎯 Opportunity · Where is the real need?', '🌍 Global · Why can this work in 3+ countries?', '🎤 Pitch · What is the one line they will remember?']
-    : ['🎯 Opportunity · Where is the real need?', '🌍 Global · Why can this work in 3+ countries?', '🎤 Pitch · What is the one line they will remember?'];
-
-  const roleBlock = role ? (
-    '<div class="role-block">' +
-      '<div class="role-ic">' + role.ic + '</div>' +
-      '<div>' +
-        '<div class="role-name">' + role.nm + '</div>' +
-        '<div class="role-desc">' + role.ds + '</div>' +
-        (role.private ? '<div class="role-private">' + role.private + '</div>' : '') +
-      '</div>' +
-    '</div>'
-  ) : '';
-
-  const notesBlock = notes.length ? notes.map(n =>
-    '<div class="note ' + n.color + '"><b>' + escapeHtml(n.authorName || '') + '</b> ' + escapeHtml(n.text) + '</div>'
-  ).join('') : '<div class="empty">No ideas written yet.</div>';
-
-  const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' +
-    '<title>' + title + '</title><style>' +
-    '*{box-sizing:border-box}' +
-    'body{font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;color:#111;background:#fff;padding:32px;max-width:820px;margin:0 auto;line-height:1.6;font-size:14.5px}' +
-    'h1{font-size:26px;font-weight:900;letter-spacing:-.02em;margin-bottom:4px}' +
-    '.sub{color:#666;font-size:13px;margin-bottom:24px;border-bottom:1px solid #ddd;padding-bottom:14px}' +
-    'h2{font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0369a1;margin:26px 0 12px}' +
-    '.context{border:1px solid #e2e8ee;border-radius:12px;padding:16px 18px;background:#f8fafc;margin-bottom:20px}' +
-    '.context p{color:#333;font-size:14px;line-height:1.65}' +
-    '.role-block{display:flex;gap:14px;border:1px solid #e2e8ee;border-radius:12px;padding:16px;margin-bottom:12px;background:#f8fafc}' +
-    '.role-ic{font-size:32px}' +
-    '.role-name{font-size:15px;font-weight:800;color:#0369a1;margin-bottom:4px}' +
-    '.role-desc{font-size:13.5px;color:#333;margin-bottom:6px}' +
-    '.role-private{font-size:12.5px;color:#666;font-style:italic;padding-top:6px;border-top:1px dashed #ddd}' +
-    '.kw{display:inline-block;padding:6px 12px;border:1px solid #e2e8ee;border-radius:999px;margin:0 6px 6px 0;font-size:12.5px;color:#333;background:#f8fafc}' +
-    '.note{padding:10px 14px;border-radius:10px;margin-bottom:6px;font-size:13.5px;color:#333}' +
-    '.note.yellow{background:#fef3c7}.note.pink{background:#fce7f3}.note.blue{background:#dbeafe}' +
-    '.note.green{background:#d1fae5}.note.purple{background:#ede9fe}.note.orange{background:#fed7aa}' +
-    '.note b{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin-bottom:3px}' +
-    '.phrase{border-bottom:1px dashed #e2e8ee;padding:7px 0;font-style:italic;color:#333;font-size:13.5px}' +
-    '.phrase:last-child{border-bottom:none}' +
-    '.empty{color:#999;font-style:italic;font-size:13px;padding:8px 0}' +
-    '.meta{font-size:11px;color:#888;margin-top:32px;border-top:1px solid #eee;padding-top:14px;text-align:center}' +
-    '.section-label{font-size:13px;font-weight:800;color:#333;margin:16px 0 8px}' +
-    '@media print { body{padding:16px} h2{page-break-after:avoid} }' +
-    '</style></head><body>' +
-
-    '<h1>🌍 ' + title + '</h1>' +
-    '<div class="sub">' + new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) + '</div>' +
-
-    '<h2>Scenario</h2>' +
-    '<div class="context"><p>' + ctxText + '</p></div>' +
-
-    '<h2>Your Team</h2>' +
-    (me ? '<div class="role-block"><div class="role-ic">🙋</div><div><div class="role-name">You — ' + me.name + '</div></div></div>' : '') +
-    (friend ? '<div class="role-block"><div class="role-ic">👤</div><div><div class="role-name">Your partner — ' + friend.name + '</div></div></div>' : '') +
-
-    (roleBlock ? '<h2>Your Role</h2>' + roleBlock : '') +
-
-    '<h2>3 Key Words</h2>' +
-    kws.map(k => '<div class="kw">' + k + '</div>').join('') +
-
-    '<h2>Your Ideas (shared)</h2>' +
-    notesBlock +
-
-    '<h2>Language</h2>' +
-    '<div class="section-label">Finding the opportunity</div>' +
-    '<div class="phrase">"What do you already know that others need?"</div>' +
-    '<div class="phrase">"Where have you seen this work before?"</div>' +
-    '<div class="section-label">Going global</div>' +
-    '<div class="phrase">"Which 3 countries would you start with, and why?"</div>' +
-    '<div class="phrase">"What needs to change for it to work there?"</div>' +
-    '<div class="section-label">Pitching</div>' +
-    '<div class="phrase">"Let me walk you through the one thing that makes this different."</div>' +
-    '<div class="phrase">"Here\'s the proof that it works."</div>' +
-
-    '<div class="meta">Print this page or save as PDF to study later.</div>' +
-    '</body></html>';
-
-  const w = window.open('', '_blank');
-  if(!w){ alert('Please allow pop-ups to print.'); return; }
-  w.document.open(); w.document.write(html); w.document.close();
-  setTimeout(() => w.print(), 500);
-}
-
-function printEverything(){ printScreen('world'); }
-
-/* ═══════════════════════════════════════════════════════
-   CONGRATS
-   ═══════════════════════════════════════════════════════ */
-function openCongrats(){
-  document.getElementById('congratsOverlay').classList.add('open');
-  spawnConfetti();
-}
-function closeCongrats(){
-  document.getElementById('congratsOverlay').classList.remove('open');
-  document.getElementById('confettiLayer').innerHTML = '';
-}
-function spawnConfetti(){
-  const layer = document.getElementById('confettiLayer');
-  layer.innerHTML = '';
-  const emojis = ['🎉','🎊','🌍','💼','🤝','💡','💰','⭐','💫','🥳','👏','🎤'];
-  for(let i = 0; i < 70; i++){
-    const c = document.createElement('span');
-    c.className = 'confetti';
-    c.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    c.style.left = Math.random()*100 + '%';
-    c.style.animationDuration = (2.4 + Math.random()*2.6) + 's';
-    c.style.animationDelay = (Math.random()*1.6) + 's';
-    c.style.fontSize = (16 + Math.random()*20) + 'px';
-    layer.appendChild(c);
-  }
-}
-function continueToReflection(){ closeCongrats(); go('inside'); }
-function restartGame(){ if(confirm('Play again?')) cleanupAndReset(); }
-function confirmExit(){ if(confirm('Exit the game?')) cleanupAndReset(); }
-
-async function cleanupAndReset(){
-  if(state.roomId && state.playerId){
-    fbDelete('globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/players/' + state.playerId).catch(()=>{});
-  }
-  const myName = state.myName;
-  state = fresh(); state.myName = myName; save();
-  closeCongrats(); stopPolling();
-  myNameEl.value = myName;
-  startBtn.disabled = false; startBtn.textContent = '▶ Connect me';
-  connectStatus.textContent = 'Your role will be revealed on the next screen.';
-  document.getElementById('projectDoneBtn').classList.remove('hidden');
-  document.getElementById('finishProjectBtn').classList.add('hidden');
-  go('landing');
-}
-
-/* ═══════════════════════════════════════════════════════
-   LOOK INSIDE / COMPASS
-   ═══════════════════════════════════════════════════════ */
-function renderReflections(){
-  const grid = document.getElementById('reflectGrid');
-  if(!grid) return;
-  grid.innerHTML = '';
-  REFLECT.forEach(r => {
-    const b = document.createElement('button');
-    b.className = 'reflect-card' + (state.reflections.includes(r.k) ? ' noted' : '');
-    b.innerHTML = '<div class="rc-ic">' + r.ic + '</div><div><div class="rl">' + r.l + '</div><div class="rp">' + r.ph + '</div></div>';
-    b.onclick = () => {
-      const i = state.reflections.indexOf(r.k);
-      if(i > -1) state.reflections.splice(i,1); else state.reflections.push(r.k);
-      save(); b.classList.toggle('noted');
-    };
-    grid.appendChild(b);
-  });
-}
-
-function renderCompass(){
-  const grid = document.getElementById('compassGrid');
-  if(!grid) return;
-  grid.innerHTML = '';
-  COMPASS.forEach(c => {
-    const b = document.createElement('button');
-    b.className = 'compass-card' + (state.compass.includes(c.id) ? ' sel' : '');
-    b.innerHTML = '<span class="cc-ic">' + c.ic + '</span><div class="cc-n">' + c.nm + '</div><div class="cc-d">' + c.ds + '</div>';
-    b.onclick = () => {
-      const i = state.compass.indexOf(c.id);
-      if(i > -1) state.compass.splice(i,1); else state.compass.push(c.id);
-      save(); b.classList.toggle('sel');
-    };
-    grid.appendChild(b);
-  });
-}
-
-function returnHome(){ cleanupAndReset(); go('landing'); }
-
-/* ═══════════════════════════════════════════════════════
-   TOAST
-   ═══════════════════════════════════════════════════════ */
-function toast(msg, icon){
-  icon = icon || '✨';
-  const wrap = document.getElementById('toastWrap');
-  const el = document.createElement('div');
-  el.className = 'toast';
-  el.innerHTML = '<span class="ti">' + icon + '</span><span>' + msg + '</span>';
-  wrap.appendChild(el);
-  setTimeout(() => {
-    el.classList.add('out');
-    setTimeout(() => el.remove(), 400);
-  }, 3400);
-}
-
-/* ═══════════════════════════════════════════════════════
-   UTIL
-   ═══════════════════════════════════════════════════════ */
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
-}
-
-/* ═══════════════════════════════════════════════════════
-   BOOT
-   ═══════════════════════════════════════════════════════ */
-function boot(){
-  const saved = load();
-  if(saved) state = saved;
-  if(state.myName) myNameEl.value = state.myName;
-  startBtn.disabled = !state.myName;
-  go('landing');
-}
-
-document.addEventListener('DOMContentLoaded', boot);
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape'){
-    ['frameworkModal','projectDoneModal','finishModal','reflectBotModal','notesModal','languageModal','globalModal'].forEach(id => {
-      const el = document.getElementById(id);
-      if(el) el.classList.remove('open');
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+        if (e.target.closest("[data-check]")) return;
+        e.preventDefault();
+        toggleCard(card);
+      }
     });
-  }
-});
+  });
 
-['frameworkModal','projectDoneModal','finishModal','reflectBotModal','notesModal','languageModal','globalModal'].forEach(id => {
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('click', e => { if(e.target.id === id) el.classList.remove('open'); });
-});
+  /* ---------- Mark as done (Check box) ---------- */
+  var checkBoxes = document.querySelectorAll("[data-check]");
 
-window.addEventListener('beforeunload', () => {
-  if(state.roomId && state.playerId){
-    const url = FIREBASE_URL + '/globalventure/' + SESSION_ID + '/rooms/' + state.roomId + '/players/' + state.playerId + '.json';
-    try { navigator.sendBeacon(url + '?_method=DELETE'); } catch(e){}
-  }
-});
+  checkBoxes.forEach(function (box) {
+    box.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var card = box.closest(".card");
+      var isDone = card.classList.toggle("done");
+      box.textContent = isDone ? "✓" : "☐";
+      box.setAttribute("aria-checked", isDone ? "true" : "false");
+      playTone(isDone);
+    });
+
+    // Keyboard support for the checkbox
+    box.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        e.stopPropagation();
+        box.click();
+      }
+    });
+  });
+
+  /* ---------- Reset game ---------- */
+  var resetBtn = document.getElementById("resetBtn");
+
+  resetBtn.addEventListener("click", function () {
+    cards.forEach(function (card) {
+      card.classList.remove("flipped", "done");
+      card.setAttribute("aria-pressed", "false");
+      var box = card.querySelector("[data-check]");
+      if (box) {
+        box.textContent = "☐";
+        box.setAttribute("aria-checked", "false");
+      }
+    });
+    playTone(false);
+  });
+
+  /* ---------- Sound toggle ---------- */
+  var toggle = document.getElementById("soundToggle");
+
+  toggle.addEventListener("click", function (e) {
+    e.stopPropagation();
+    soundOn = !soundOn;
+    toggle.textContent = soundOn ? "🔊 Sound on" : "🔇 Sound off";
+    toggle.setAttribute("aria-pressed", soundOn ? "true" : "false");
+    if (soundOn) playTone(true);
+  });
+})();
 </script>
+
 </body>
 </html>
