@@ -1,618 +1,1236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scenarios of Possibilities — Mystery Cards</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EasySpeak · B1–B2 English Practice for Adults</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 <style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --bg1:#0f172a;
-    --bg2:#1e293b;
-    --ink:#0f172a;
-    --muted:#475569;
-    --radius:18px;
+    --bg:#faf6ee;
+    --panel:#ffffff;
+    --panel-2:#fdfaf3;
+    --panel-3:#f7f1e3;
+    --border:#e8e0cf;
+    --border-hi:#d4c9b0;
+    --text:#2d2a24;
+    --muted:#78716c;
+    --amber:#d97706;
+    --amber-dark:#b45309;
+    --sage:#059669;
+    --blue:#0284c7;
+    --red:#dc2626;
+    --gold:#ca8a04;
+    --amber-soft:rgba(217,119,6,.1);
+    --sage-soft:rgba(5,150,105,.1);
+    --blue-soft:rgba(2,132,199,.1);
   }
-
-  *{box-sizing:border-box;}
-
   body{
-    margin:0;
+    font-family:'Inter',sans-serif;
+    background:
+      radial-gradient(ellipse at top left, #fdf3e0 0%, transparent 55%),
+      radial-gradient(ellipse at bottom right, #e8f0e4 0%, transparent 55%),
+      var(--bg);
+    color:var(--text);
     min-height:100vh;
-    padding:40px 18px 70px;
-    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
-    color:var(--ink);
-    background:linear-gradient(160deg,var(--bg1),var(--bg2));
+    padding:22px;
+  }
+  .app-wrapper{
+    max-width:1280px;margin:0 auto;
+    background:var(--panel);
+    border-radius:28px;
+    border:1px solid var(--border);
+    box-shadow:0 20px 60px rgba(120,113,108,.12), 0 0 0 1px rgba(217,119,6,.04);
+    padding:24px 28px 20px;
   }
 
-  header{
-    max-width:960px;
-    margin:0 auto 26px;
-    text-align:center;
-    color:#e2e8f0;
+  /* HEADER */
+  .app-header{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;
+    gap:14px 20px;border-bottom:1px solid var(--border);
+    padding-bottom:16px;margin-bottom:18px;
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand .logo{
+    font-size:22px;color:#fff;
+    background:linear-gradient(135deg,var(--amber),var(--amber-dark));
+    width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:14px;
+    box-shadow:0 8px 20px rgba(217,119,6,.25);
+  }
+  .brand h1{font-size:21px;font-weight:800;letter-spacing:-.3px;color:var(--text);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .brand h1 span{background:linear-gradient(90deg,var(--amber),var(--sage));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand .sub{font-size:12.5px;font-weight:500;color:var(--muted);display:block;margin-top:2px}
+  .brand .sub i{color:var(--amber);margin-right:4px}
+  .brand .lvl-badge{
+    font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+    padding:3px 9px;border-radius:20px;
+    background:linear-gradient(135deg,rgba(217,119,6,.15),rgba(5,150,105,.15));
+    border:1px solid rgba(217,119,6,.35);color:var(--amber-dark);
   }
 
-  header h1{
-    margin:0 0 10px;
-    font-size:clamp(1.5rem,4vw,2.2rem);
-    letter-spacing:-.02em;
-  }
+  .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .xp-mini{display:flex;align-items:center;gap:12px;background:var(--panel-2);border:1px solid var(--border);border-radius:40px;padding:6px 16px}
+  .xp-mini .lvl{font-size:13px;font-weight:800;color:var(--amber-dark);white-space:nowrap}
+  .xp-mini .bar{width:100px;height:8px;background:rgba(120,113,108,.12);border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  .xp-mini .fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--sage));transition:width .4s ease}
+  .xp-mini .num{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}
 
-  header p{
-    margin:0;
-    color:#94a3b8;
-    font-size:.98rem;
-    line-height:1.5;
+  .reset-btn{
+    background:transparent;border:1px solid var(--border);color:var(--muted);
+    padding:7px 14px;border-radius:40px;font-size:12.5px;font-weight:700;
+    cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;
+    transition:all .15s;
   }
+  .reset-btn:hover{color:var(--red);border-color:rgba(220,38,38,.35);background:rgba(220,38,38,.06)}
+  .reset-btn i{font-size:12px}
 
-  .toolbar{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
-    margin:20px 0 0;
+  /* TABS */
+  .tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--border)}
+  .tab{
+    background:transparent;border:none;color:var(--muted);
+    padding:12px 20px 14px;font-size:14.5px;font-weight:700;
+    cursor:pointer;font-family:inherit;
+    display:flex;align-items:center;gap:8px;
+    border-bottom:2px solid transparent;
+    transition:all .15s;margin-bottom:-1px;
   }
+  .tab:hover{color:var(--text)}
+  .tab.active{color:var(--amber);border-bottom-color:var(--amber)}
+  .tab i{font-size:15px}
+  .tab-count{
+    background:rgba(120,113,108,.1);color:var(--muted);
+    font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:4px;
+  }
+  .tab.active .tab-count{background:var(--amber-soft);color:var(--amber-dark)}
 
-  .toolbar button{
-    border:1px solid rgba(226,232,240,.25);
-    background:rgba(226,232,240,.08);
-    color:#e2e8f0;
-    padding:9px 18px;
-    border-radius:999px;
-    font-size:.85rem;
+  .tab-panel{display:none}
+  .tab-panel.active{display:block;animation:fadeUp .3s ease-out}
+
+  /* ── CARD CHECKBOX ── */
+  .card-check{
+    position:absolute;top:12px;right:12px;
+    width:28px;height:28px;border-radius:50%;
+    border:2px solid var(--border-hi);
+    background:var(--panel);
+    display:flex;align-items:center;justify-content:center;
     cursor:pointer;
-    transition:.2s;
-    font-weight:500;
+    transition:all .2s cubic-bezier(.22,1,.36,1);
+    z-index:3;padding:0;font-family:inherit;
+  }
+  .card-check i{color:transparent;font-size:12px;transition:all .2s;transform:scale(.6)}
+  .card-check:hover{border-color:var(--sage);transform:scale(1.12);box-shadow:0 4px 10px rgba(5,150,105,.18)}
+  .card-check:hover i{color:var(--sage);transform:scale(1)}
+  .card-check.checked{
+    background:linear-gradient(135deg,var(--sage),#047857);
+    border-color:var(--sage);
+    box-shadow:0 4px 12px rgba(5,150,105,.35);
+  }
+  .card-check.checked i{color:#fff;transform:scale(1)}
+  .card-check.checked:hover{transform:scale(1.12)}
+
+  .quest-card.is-done,
+  .quick-card.is-done{
+    border-color:rgba(5,150,105,.4);
+    background:linear-gradient(180deg, rgba(5,150,105,.06), rgba(255,255,255,0));
   }
 
-  .toolbar button:hover{background:rgba(226,232,240,.18);}
-
-  #resetBtn{
-    border-color:rgba(248,113,113,.5);
-    color:#fecaca;
+  .resume-badge{
+    color:var(--amber-dark);display:flex;align-items:center;gap:6px;
+    font-weight:800;font-size:12.5px;
   }
-  #resetBtn:hover{background:rgba(248,113,113,.15);}
-
-  .grid{
-    max-width:960px;
-    margin:32px auto 0;
-    display:grid;
-    gap:16px;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  .resume-badge i{
+    font-size:9px;background:var(--amber-soft);
+    padding:5px;border-radius:50%;
+    box-shadow:0 0 0 3px rgba(217,119,6,.08);
   }
 
-  /* ---------- Flip card ---------- */
-  .card{
-    position:relative;
-    perspective:1200px;
-    min-height: 260px; /* Replaced fixed aspect-ratio to prevent text cut-off */
-    border:0;
-    padding:0;
-    background:none;
-    font:inherit;
-    text-align:left;
-    cursor:pointer;
-    border-radius:var(--radius);
+  /* QUEST GRID */
+  .quest-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));gap:16px;
+  }
+  .quest-card{
+    background:var(--panel-2);border:1px solid var(--border);border-radius:20px;
+    padding:22px 22px 20px;cursor:pointer;transition:all .2s;
+    position:relative;overflow:hidden;
+    display:flex;flex-direction:column;min-height:200px;
+  }
+  .quest-card::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at top right, rgba(217,119,6,.08), transparent 60%);
+    opacity:0;transition:opacity .25s;pointer-events:none;
+  }
+  .quest-card:hover{border-color:var(--amber);transform:translateY(-4px);box-shadow:0 16px 36px rgba(217,119,6,.15)}
+  .quest-card:hover::before{opacity:1}
+  .quest-card .tag{
+    display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.2px;
+    padding:4px 12px;border-radius:40px;text-transform:uppercase;
+    margin-bottom:14px;align-self:flex-start;
+  }
+  .quest-card .tag.everyday{background:var(--amber-soft);color:var(--amber-dark);border:1px solid rgba(217,119,6,.25)}
+  .quest-card .tag.social{background:var(--sage-soft);color:var(--sage);border:1px solid rgba(5,150,105,.25)}
+  .quest-card .icon{
+    font-size:22px;color:var(--amber);margin-bottom:12px;
+    width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+    background:var(--amber-soft);border:1px solid rgba(217,119,6,.2);border-radius:12px;
+  }
+  .quest-card h3{font-size:17px;font-weight:800;margin-bottom:8px;letter-spacing:-.2px;line-height:1.25;color:var(--text)}
+  .quest-card .desc{font-size:13px;line-height:1.55;color:var(--muted);flex:1;margin-bottom:14px}
+  .quest-card .footer{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:700}
+  .quest-card .stages-count{color:var(--sage)}
+  .quest-card .start{color:var(--amber-dark);display:flex;align-items:center;gap:6px;transition:gap .2s}
+  .quest-card:hover .start{gap:10px}
+
+  /* WIZARD */
+  .wizard{display:flex;flex-direction:column;gap:16px;animation:fadeUp .3s ease-out}
+  .back-btn{
+    background:transparent;border:none;color:var(--muted);
+    font-family:inherit;font-size:13.5px;font-weight:700;
+    cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+    padding:6px 0;align-self:flex-start;transition:color .15s;
+  }
+  .back-btn:hover{color:var(--amber)}
+  .wizard-header .tag{
+    display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.2px;
+    padding:4px 14px;border-radius:40px;text-transform:uppercase;margin-bottom:10px;
+  }
+  .wizard-header .tag.everyday{background:var(--amber-soft);color:var(--amber-dark);border:1px solid rgba(217,119,6,.25)}
+  .wizard-header .tag.social{background:var(--sage-soft);color:var(--sage);border:1px solid rgba(5,150,105,.25)}
+  .wizard-header h2{font-size:26px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px;color:var(--text)}
+  .wizard-header .intro{font-size:14.5px;line-height:1.6;color:var(--muted);font-style:italic;max-width:720px}
+  .wizard-progress{display:flex;align-items:center;gap:14px;margin-top:4px}
+  .wizard-progress .bar{flex:1;height:8px;background:rgba(120,113,108,.12);border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  .wizard-progress .fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--sage));transition:width .4s ease}
+  .wizard-progress .text{font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap}
+  .wizard-progress .text b{color:var(--amber-dark)}
+
+  .stage-pills{display:flex;flex-wrap:wrap;gap:8px}
+  .stage-pill{
+    background:transparent;border:1px solid var(--border);color:var(--muted);
+    padding:7px 14px;border-radius:40px;font-size:12.5px;font-weight:600;
+    cursor:pointer;transition:all .15s;font-family:inherit;
+    display:flex;align-items:center;gap:6px;
+  }
+  .stage-pill:hover{border-color:var(--amber);color:var(--text)}
+  .stage-pill.active{background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(217,119,6,.3)}
+  .stage-pill.done{border-color:rgba(5,150,105,.5);color:var(--sage)}
+  .stage-pill.done.active{background:linear-gradient(135deg,var(--sage),#047857);color:#fff}
+
+  .stage-content{
+    background:linear-gradient(180deg, rgba(217,119,6,.04), rgba(5,150,105,.03));
+    border:1px solid var(--border);border-radius:18px;padding:24px 26px;
+    min-height:220px;
+  }
+  .stage-label{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--amber-dark);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .stage-prompt{font-size:18px;font-weight:600;line-height:1.55;color:var(--text);margin-bottom:20px}
+  .starters-title{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--sage);text-transform:uppercase;margin-bottom:10px}
+  .starters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .starter{background:var(--sage-soft);border:1px solid rgba(5,150,105,.25);color:#065f46;padding:7px 14px;border-radius:40px;font-size:13.5px;font-weight:500;transition:all .15s}
+  .starter:hover{background:rgba(5,150,105,.18);transform:translateY(-1px)}
+  .word-bank{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .word-bank .wb-title{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--gold);text-transform:uppercase;width:100%;margin-bottom:6px}
+  .wb{background:rgba(202,138,4,.08);border:1px solid rgba(202,138,4,.25);color:#854d0e;padding:4px 12px;border-radius:30px;font-size:12.5px;font-weight:500}
+
+  .confidence-inline{
+    margin-top:20px;padding-top:18px;border-top:1px dashed rgba(120,113,108,.25);
+    display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px;
+  }
+  .confidence-inline .lbl{font-size:13.5px;font-weight:700;color:var(--amber-dark);display:flex;align-items:center;gap:6px}
+  .confidence-inline .stars{display:flex;gap:2px}
+  .confidence-inline .stars button{background:none;border:none;font-size:26px;color:#d6cfbd;cursor:pointer;transition:all .15s;padding:0 3px;line-height:1}
+  .confidence-inline .stars button:hover{transform:scale(1.2)}
+  .confidence-inline .stars button.active{color:var(--amber)}
+  .confidence-inline .msg{font-size:13px;color:var(--muted);font-weight:500}
+
+  .wizard-nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:4px}
+
+  .btn{
+    background:var(--panel-2);border:1px solid var(--border);color:var(--text);
+    padding:10px 22px;border-radius:40px;font-weight:700;font-size:13.5px;
+    cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+    transition:all .15s;font-family:inherit;
+  }
+  .btn:hover{background:var(--panel-3);transform:translateY(-1px);border-color:var(--border-hi)}
+  .btn.primary{background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(217,119,6,.25)}
+  .btn.primary:hover{box-shadow:0 8px 22px rgba(217,119,6,.35)}
+  .btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+  /* QUICK SCENARIOS */
+  .quick-intro{
+    font-size:13.5px;color:var(--muted);margin-bottom:16px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .quick-intro i{color:var(--amber)}
+
+  .quick-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));gap:14px;
+  }
+  .quick-card{
+    background:var(--panel-2);border:1px solid var(--border);border-radius:16px;
+    padding:18px 20px;cursor:pointer;
+    transition:all .2s;position:relative;overflow:hidden;
+  }
+  .quick-card::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at top right, rgba(5,150,105,.08), transparent 60%);
+    opacity:0;transition:opacity .25s;pointer-events:none;
+  }
+  .quick-card:hover{border-color:var(--border-hi);transform:translateY(-2px);box-shadow:0 10px 22px rgba(120,113,108,.12)}
+  .quick-card:hover::before{opacity:1}
+
+  .quick-card .qc-head{display:flex;align-items:flex-start;gap:12px}
+  .quick-card .qc-icon{
+    font-size:22px;line-height:1;
+    width:44px;height:44px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--amber-soft);border:1px solid rgba(217,119,6,.2);border-radius:12px;
+  }
+  .quick-card .qc-body{flex:1;min-width:0;padding-right:34px}
+  .quick-card .qc-tag{font-size:10px;font-weight:800;letter-spacing:1.2px;color:var(--sage);text-transform:uppercase;margin-bottom:4px;display:block}
+  .quick-card .qc-title{font-size:14.5px;font-weight:700;line-height:1.3;letter-spacing:-.1px;color:var(--text)}
+  .quick-card .qc-meta{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:6px;display:flex;align-items:center;gap:6px}
+  .quick-card .qc-meta i{font-size:10px}
+
+  .quick-card.expanded{
+    grid-column:1 / -1;border-color:var(--amber);
+    box-shadow:0 0 0 1px rgba(217,119,6,.2), 0 16px 36px rgba(217,119,6,.1);
+    cursor:default;
+  }
+  .quick-card.expanded:hover{transform:none}
+  .qc-expanded-body{
+    margin-top:18px;padding-top:18px;
+    border-top:1px dashed rgba(120,113,108,.25);
+    animation:fadeUp .25s ease-out;
   }
 
-  .card:focus-visible{outline:3px solid #38bdf8;outline-offset:4px;}
-
-  .card-inner{
-    position:relative;
-    width:100%;
-    height:100%;
-    transform-style:preserve-3d;
-    transition:transform .6s cubic-bezier(.4,.15,.2,1);
+  .pic-stage{
+    display:flex;flex-direction:column;align-items:center;
+    padding:20px 16px;
+    background:linear-gradient(135deg, rgba(217,119,6,.06), rgba(5,150,105,.05));
+    border-radius:20px;
+    border:1px dashed rgba(217,119,6,.3);
+    margin-bottom:20px;
   }
-
-  .card.flipped .card-inner{transform:rotateY(180deg);}
-
-  .face{
-    position:absolute;
-    inset:0;
-    border-radius:var(--radius);
-    backface-visibility:hidden;
-    -webkit-backface-visibility:hidden;
-    display:flex;
-    flex-direction:column;
-    box-shadow:0 12px 28px rgba(2,6,23,.32);
-    overflow:hidden;
-  }
-
-  /* ---------- FRONT (mystery) ---------- */
-  .front{
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    background:linear-gradient(135deg,var(--c1),var(--c2));
-  }
-
-  .front::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:radial-gradient(circle at 78% 15%,rgba(255,255,255,.35),transparent 55%);
-    pointer-events:none;
-  }
-
-  .number{
-    position:absolute;
-    top:12px;
-    left:12px;
-    min-width:34px;
-    height:34px;
-    padding:0 9px;
-    border-radius:999px;
-    background:rgba(255,255,255,.22);
-    border:1px solid rgba(255,255,255,.5);
-    display:grid;
-    place-items:center;
-    font-weight:800;
-    font-size:1rem;
-    letter-spacing:.02em;
-    backdrop-filter:blur(4px);
-  }
-
-  .question-mark{
-    font-size:clamp(3.2rem,10vw,4.6rem);
-    font-weight:800;
+  .pic-stage .big-emoji{
+    font-size:clamp(56px, 9vw, 78px);
     line-height:1;
-    text-shadow:0 6px 18px rgba(0,0,0,.25);
-    animation:breathe 3.4s ease-in-out infinite;
+    margin-bottom:10px;
+    filter:drop-shadow(0 8px 16px rgba(217,119,6,.22));
+    animation:float 4s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+  }
+  .pic-stage .pic-label{
+    font-size:12.5px;font-weight:800;
+    color:var(--amber-dark);
+    text-transform:uppercase;letter-spacing:1.5px;
   }
 
-  @keyframes breathe{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.07);}
+  .balloon-section{margin-bottom:18px}
+  .balloon-title{
+    font-size:11px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--amber-dark);
+    margin-bottom:14px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .balloon-title i{font-size:12px}
+  .balloon-title.wh{color:var(--sage)}
+
+  .balloon-cloud{
+    display:flex;flex-wrap:wrap;gap:14px;
   }
 
-  .hint{
+  .balloon{
+    --balloon:#f59e0b;
+    display:inline-flex;align-items:center;
+    padding:11px 20px;
+    border-radius:24px;
+    font-size:14px;font-weight:600;
+    position:relative;
+    transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+    cursor:default;
+    white-space:nowrap;
+  }
+
+  .balloon.word{
+    --balloon:#f59e0b;
+    background:linear-gradient(135deg,#fef3c7,#fde68a);
+    color:#78350f;
+    border:1px solid rgba(217,119,6,.35);
+    box-shadow:0 6px 16px rgba(217,119,6,.15), inset 0 -2px 0 rgba(217,119,6,.08);
+  }
+  .balloon.wh{
+    --balloon:#10b981;
+    background:linear-gradient(135deg,#d1fae5,#a7f3d0);
+    color:#064e3b;
+    border:1px solid rgba(5,150,105,.35);
+    box-shadow:0 6px 16px rgba(5,150,105,.15), inset 0 -2px 0 rgba(5,150,105,.08);
+  }
+
+  .balloon::before{
+    content:'';
     position:absolute;
-    bottom:14px;
-    font-size:.74rem;
-    letter-spacing:.09em;
-    text-transform:uppercase;
+    bottom:-7px;left:22px;
+    width:0;height:0;
+    border-left:6px solid transparent;
+    border-right:6px solid transparent;
+    border-top:8px solid var(--balloon);
     opacity:.85;
   }
-
-  /* ---------- BACK (revealed) ---------- */
-  .back{
-    transform:rotateY(180deg);
-    background:#fff;
-    border-top:6px solid var(--c1);
-    padding: 55px 18px 20px; /* Top padding ensures content clears the top-right controls */
-    justify-content:center;
-    gap:8px;
-    position:relative;
-  }
-
-  .top-right-controls {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    z-index: 2;
-  }
-
-  .badge{
-    width:28px;
-    height:28px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    font-size:.78rem;
-    font-weight:800;
-    color:#fff;
-    background:var(--c1);
-    transition: background 0.3s;
-  }
-
-  /* ---------- The new Check Square ---------- */
-  .check-box {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    border: 2px solid #cbd5e1;
-    background: #f8fafc;
-    color: #64748b;
-    font-size: 1rem;
-    font-weight: 700;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    user-select: none;
-  }
-
-  .check-box:hover {
-    background: #e2e8f0;
-    border-color: #94a3b8;
-  }
-
-  .card.done .check-box {
-    background: #22c55e;
-    border-color: #22c55e;
-    color: #fff;
-  }
-
-  .card.done .badge {
-    background: #22c55e;
-  }
-
-  .card.done .back {
-    border-top-color: #22c55e;
-  }
-
-  .back .icon{
-    font-size:1.6rem;
-    line-height:1;
-  }
-
-  .back .theme{
-    font-weight:750;
-    font-size:1.02rem;
-    letter-spacing:-.01em;
-    color:var(--ink);
-  }
-
-  .back .ask{
-    margin:0;
-    font-size:.9rem;
-    line-height:1.5;
-    color:var(--muted);
-  }
-
-  /* Front face done indicator */
-  .card.done .front{
-    filter:grayscale(.3);
-  }
-
-  .card.done .front::before{
-    content:"✅";
+  .balloon::after{
+    content:'';
     position:absolute;
-    top:10px;
-    right:12px;
-    font-size:1.3rem;
-    z-index:2;
-    filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));
+    bottom:-20px;left:27px;
+    width:1.5px;height:14px;
+    background:var(--balloon);
+    opacity:.4;
+    border-radius:2px;
   }
 
-  /* ---------- Individual card colors ---------- */
-  .card:nth-child(1){--c1:#6366f1;--c2:#0ea5e9;}
-  .card:nth-child(2){--c1:#ec4899;--c2:#f97316;}
-  .card:nth-child(3){--c1:#0f766e;--c2:#22c55e;}
-  .card:nth-child(4){--c1:#b45309;--c2:#facc15;}
-  .card:nth-child(5){--c1:#7c3aed;--c2:#a855f7;}
-  .card:nth-child(6){--c1:#0284c7;--c2:#06b6d4;}
-  .card:nth-child(7){--c1:#db2777;--c2:#8b5cf6;}
-  .card:nth-child(8){--c1:#15803d;--c2:#84cc16;}
-  .card:nth-child(9){--c1:#c2410c;--c2:#ef4444;}
-  .card:nth-child(10){--c1:#1e40af;--c2:#3b82f6;}
+  .balloon:hover{
+    transform:translateY(-4px) rotate(-2deg) scale(1.05);
+    box-shadow:0 12px 26px rgba(217,119,6,.28);
+  }
+  .balloon.wh:hover{box-shadow:0 12px 26px rgba(5,150,105,.28)}
 
-  @media (max-width:420px){
-    .back{padding: 45px 14px 16px;}
-    .back .ask{font-size:.85rem;}
-    .check-box { width: 24px; height: 24px; border-radius: 6px; font-size: 0.9rem; }
-    .badge { width: 24px; height: 24px; font-size: 0.7rem; }
+  .qc-actions{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:12px;flex-wrap:wrap;
+    margin-top:22px;padding-top:16px;
+    border-top:1px dashed rgba(120,113,108,.25);
+  }
+  .qc-hint{
+    font-size:13px;color:#78350f;font-weight:500;
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(217,119,6,.07);
+    padding:8px 14px;border-radius:40px;
+    border:1px solid rgba(217,119,6,.18);
+  }
+  .qc-hint i{color:var(--amber)}
+  .qc-close{
+    background:var(--panel-2);border:1px solid var(--border);color:var(--muted);
+    padding:8px 18px;border-radius:40px;font-size:12.5px;font-weight:700;
+    cursor:pointer;font-family:inherit;transition:all .15s;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .qc-close:hover{color:var(--text);background:var(--panel-3)}
+
+  .tip-footer{
+    margin-top:22px;padding:14px 20px;
+    background:linear-gradient(135deg, rgba(217,119,6,.06), rgba(5,150,105,.04));
+    border:1px solid rgba(217,119,6,.15);
+    border-radius:14px;font-size:13.5px;line-height:1.55;color:#78350f;
+    display:flex;align-items:center;gap:12px;
+  }
+  .tip-footer i{color:var(--amber);font-size:16px;flex-shrink:0}
+  .tip-footer strong{color:var(--text)}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  @media(max-width:600px){
+    body{padding:12px}
+    .app-wrapper{padding:16px;border-radius:20px}
+    .brand h1{font-size:18px}
+    .brand .logo{width:42px;height:42px;font-size:18px}
+    .xp-mini{padding:5px 12px}
+    .xp-mini .bar{width:60px}
+    .tab{padding:10px 12px 12px;font-size:13px}
+    .tab-count{display:none}
+    .wizard-header h2{font-size:20px}
+    .stage-prompt{font-size:16px}
+    .stage-content{padding:18px}
+    .quest-grid{grid-template-columns:1fr}
+    .quick-grid{grid-template-columns:1fr}
+    .wizard-nav{flex-direction:column-reverse}
+    .wizard-nav .btn{width:100%;justify-content:center}
+    .balloon{font-size:13px;padding:10px 16px}
+    .balloon-cloud{gap:12px}
+    .qc-actions{flex-direction:column;align-items:stretch}
+    .qc-hint{justify-content:center;text-align:center}
+    .qc-close{justify-content:center}
   }
 </style>
 </head>
 <body>
+<div class="app-wrapper">
 
-<header>
-  <h1>Scenarios of Possibilities</h1>
-  <p>Pick a number and say it out loud. Tap the card to reveal the topic and its question. Tap again to hide it.</p>
-  <div class="toolbar">
-    <button id="soundToggle" aria-pressed="true">🔊 Sound on</button>
-    <button id="resetBtn">🔄 Reset game</button>
-  </div>
-</header>
-
-<main class="grid" id="grid">
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 1, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">1</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">1</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">📚</span>
-        <span class="theme">Education</span>
-        <p class="ask">What can we do to turn schools and neighborhoods into places where everyone can learn, teach, and grow together?</p>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo"><i class="fas fa-comment-dots"></i></div>
+      <div>
+        <h1>Easy<span>Speak</span> <span class="lvl-badge">B1–B2</span></h1>
+        <span class="sub"><i class="fas fa-mug-hot"></i> Real Conversations · Opinions · Debate</span>
       </div>
     </div>
-  </div>
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 2, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">2</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
+    <div class="header-right">
+      <div class="xp-mini">
+        <span class="lvl" id="xpLevel">Lv.1 Beginner</span>
+        <div class="bar"><div class="fill" id="xpFill" style="width:0%"></div></div>
+        <span class="num"><span id="xpValue">0</span> pts</span>
       </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">2</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
+      <button class="reset-btn" id="resetBtn" title="Reset all progress">
+        <i class="fas fa-rotate-left"></i> Reset
+      </button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="quest">
+      <i class="fas fa-comments"></i> Guided Practice
+      <span class="tab-count">6 lessons</span>
+    </button>
+    <button class="tab" data-tab="quick">
+      <i class="fas fa-list"></i> Everyday Topics
+      <span class="tab-count">13 topics</span>
+    </button>
+  </nav>
+
+  <!-- GUIDED PRACTICE -->
+  <section class="tab-panel active" id="questPanel">
+    <div class="quest-grid" id="questGrid"></div>
+
+    <div class="wizard" id="wizard" style="display:none">
+      <button class="back-btn" id="backToGrid">
+        <i class="fas fa-arrow-left"></i> All lessons
+      </button>
+
+      <div class="wizard-header">
+        <span class="tag" id="wizTag"></span>
+        <h2 id="wizTitle"></h2>
+        <p class="intro" id="wizIntro"></p>
+      </div>
+
+      <div class="wizard-progress">
+        <div class="bar"><div class="fill" id="progressFill"></div></div>
+        <span class="text">Step <b id="wizStageNum">1</b> / <span id="wizStageTotal">6</span></span>
+      </div>
+
+      <div class="stage-pills" id="stagePills"></div>
+
+      <div class="stage-content" id="stageContent">
+        <div class="stage-label"><i class="fas fa-bookmark" id="stageIcon"></i> <span id="stageLabel"></span></div>
+        <div class="stage-prompt" id="stagePrompt"></div>
+        <div class="starters-title"><i class="fas fa-comment"></i> Useful phrases</div>
+        <div class="starters" id="stageStarters"></div>
+        <div class="word-bank" id="wordBank"></div>
+        <div class="confidence-inline" id="confidenceInline" style="display:none">
+          <span class="lbl"><i class="fas fa-star"></i> How did it feel?</span>
+          <div class="stars" id="starsContainer">
+            <button data-val="1">☆</button>
+            <button data-val="2">☆</button>
+            <button data-val="3">☆</button>
+            <button data-val="4">☆</button>
+            <button data-val="5">☆</button>
+          </div>
+          <span class="msg" id="confidenceMsg">Tap a star</span>
         </div>
-        <span class="icon">🩺</span>
-        <span class="theme">Healthcare</span>
-        <p class="ask">What can we create so people stay healthy, get help early, and don’t face long waits or fear?</p>
+      </div>
+
+      <div class="wizard-nav">
+        <button class="btn" id="prevStageBtn"><i class="fas fa-chevron-left"></i> Back</button>
+        <button class="btn primary" id="nextStageBtn">Next <i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 3, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">3</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">3</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">🔦</span>
-        <span class="theme">Public Security</span>
-        <p class="ask">What can we do together to make our streets safe and peaceful, where everyone feels free to walk and play?</p>
-      </div>
+  <!-- EVERYDAY TOPICS -->
+  <section class="tab-panel" id="quickPanel">
+    <div class="quick-intro">
+      <i class="fas fa-hand-pointer"></i>
+      Click a topic. Study the vocabulary, pick a discussion starter, and take a side with your partner.
     </div>
-  </div>
+    <div class="quick-grid" id="quickGrid"></div>
+  </section>
 
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 4, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">4</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">4</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">🍲</span>
-        <span class="theme">Food Security</span>
-        <p class="ask">What can we create so no one goes hungry and good food is shared instead of wasted?</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 5, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">5</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">5</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">💼</span>
-        <span class="theme">Jobs &amp; Income</span>
-        <p class="ask">What can we do so people have opportunities to earn, grow financially, and have a better quality of life?</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 6, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">6</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">6</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">🚰</span>
-        <span class="theme">Water &amp; Sanitation</span>
-        <p class="ask">What can we do to bring clean water and proper sanitation to every home, and keep it that way?</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 7, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">7</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">7</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">📱</span>
-        <span class="theme">Digital Inclusion</span>
-        <p class="ask">What can we create so everyone can use technology to learn, work, and connect, no matter their age or income?</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 8, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">8</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">8</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">🌳</span>
-        <span class="theme">Environment &amp; Climate</span>
-        <p class="ask">What can we do to protect our air, water, and land, and make our communities ready for climate challenges?</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 9, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">9</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">9</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">🤝</span>
-        <span class="theme">Care for Elderly &amp; Disabled</span>
-        <p class="ask">What can we create so elderly and disabled people are cared for with dignity, and no family carries the burden alone?</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Mystery card 10, tap to reveal topic">
-    <div class="card-inner">
-      <div class="face front">
-        <span class="number">10</span>
-        <span class="question-mark">?</span>
-        <span class="hint">Tap to reveal</span>
-      </div>
-      <div class="face back">
-        <div class="top-right-controls">
-          <span class="badge">10</span>
-          <span class="check-box" data-check role="checkbox" aria-checked="false" tabindex="0" title="Mark as done">☐</span>
-        </div>
-        <span class="icon">🗣️</span>
-        <span class="theme">Civic Participation</span>
-        <p class="ask">What can we do to help everyone have a voice and work together on solutions that matter?</p>
-      </div>
-    </div>
-  </div>
-
-</main>
+  <footer class="tip-footer">
+    <i class="fas fa-lightbulb"></i>
+    <span><strong>Tip:</strong> <span id="tipText">Try to use linking words: however, although, therefore, moreover.</span></span>
+  </footer>
+</div>
 
 <script>
-(function () {
-  /* ---------- Simple sound effect (Web Audio API) ---------- */
-  var audioCtx = null;
-  var soundOn = true;
+(function(){
+  'use strict';
 
-  function playTone(isRevealing) {
-    if (!soundOn) return;
-    try {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
+  /* =========================================================
+     6 GUIDED PRACTICE LESSONS (B1–B2 adults)
+     ========================================================= */
+  const questScenarios = [
+    {
+      title:'Giving Opinions',
+      type:'social',
+      tag:'COMMUNICATION',
+      icon:'fa-comments',
+      intro:'A friend shares a strong opinion. You want to respond with yours — clearly, politely, and without sounding aggressive.',
+      wordBank:['opinion','point of view','agree','disagree','argument','evidence','example','respectfully','consider','on the other hand'],
+      stages:[
+        {label:'Situation', icon:'fa-circle-info', prompt:'Your friend says: "Social media is destroying our attention span." How do you respond?', starters:['I see your point, but…','I partly agree, although…','I have a different view —','That\'s interesting, because…']},
+        {label:'Your Choice', icon:'fa-hand-pointer', prompt:'What is your immediate reaction? A) Agree fully  B) Disagree politely  C) Ask them to explain first', starters:['I completely agree because…','I see it differently because…','What makes you say that?']},
+        {label:'Say More', icon:'fa-plus', prompt:'Give one clear reason for your view, plus one concrete example.', starters:['For example, I noticed that…','One reason is that…','In my experience,…']},
+        {label:'New Problem', icon:'fa-bolt', prompt:'Your friend disagrees strongly. How do you keep the conversation calm and productive?', starters:['I understand why you feel that way.','Can we look at it from another angle?','Let\'s agree to disagree on this part.']},
+        {label:'Your Story', icon:'fa-book-open', prompt:'Present your full opinion in 6–8 sentences. Include a reason, an example, and one counter-argument.', starters:['In my opinion,…','I believe this because…','For instance,…','Of course, some people argue…','However, I still think…']},
+        {label:'Finish', icon:'fa-flag-checkered', prompt:'Do you usually share your opinions openly, or keep them to yourself? Why?', starters:['I usually… because…','It depends on…','In my culture,…']}
+      ]
+    },
+    {
+      title:'Job Interview',
+      type:'social',
+      tag:'PROFESSIONAL',
+      icon:'fa-briefcase',
+      intro:'You are in an interview for a role you really want. Practice confident, structured, professional answers.',
+      wordBank:['experience','skills','strengths','weakness','motivation','teamwork','challenge','achievement','growth','contribution'],
+      stages:[
+        {label:'Situation', icon:'fa-circle-info', prompt:'The interviewer says: "Tell me about yourself." Give a strong 30-second answer.', starters:['I have worked in… for… years.','My background is mainly in…','I\'m particularly good at…']},
+        {label:'Your Choice', icon:'fa-hand-pointer', prompt:'Which strength do you highlight? A) Teamwork  B) Problem-solving  C) Creativity  D) Leadership', starters:['My biggest strength is…','I\'m known for…','I take pride in…']},
+        {label:'Say More', icon:'fa-plus', prompt:'Describe a real situation when you used that strength. What was the result?', starters:['At my last job, I…','The situation was…','As a result,…']},
+        {label:'New Problem', icon:'fa-bolt', prompt:'They ask: "What is your greatest weakness?" Answer honestly without hurting your chances.', starters:['I sometimes struggle with…','I\'ve been working on…','For example, I now…']},
+        {label:'Your Story', icon:'fa-book-open', prompt:'They ask: "Why should we hire you?" Answer in 6 sentences with a clear, confident structure.', starters:['You should hire me because…','First,…','Second,…','Most importantly,…','I believe I can…']},
+        {label:'Finish', icon:'fa-flag-checkered', prompt:'What would you ask the interviewer at the end of the interview? Give two smart questions.', starters:['Could you tell me more about…?','How do you measure success in this role?','What does a typical week look like?']}
+      ]
+    },
+    {
+      title:'Handling a Complaint',
+      type:'everyday',
+      tag:'SERVICE',
+      icon:'fa-hand',
+      intro:'Something went wrong with a product or service. You need to complain clearly, calmly, and effectively.',
+      wordBank:['complain','refund','replacement','apology','frustrating','resolve','policy','escalate','compensation','expectation'],
+      stages:[
+        {label:'Situation', icon:'fa-circle-info', prompt:'Your online order arrived broken. You call customer service. What do you say first?', starters:['I\'m calling about an order I received…','I\'d like to report a problem with…','I\'m quite disappointed because…']},
+        {label:'Your Choice', icon:'fa-hand-pointer', prompt:'What outcome do you want? A) Full refund  B) Replacement  C) Apology + compensation  D) All of the above', starters:['I would like…','Ideally, I expect…','What I\'m asking for is…']},
+        {label:'Say More', icon:'fa-plus', prompt:'Explain the problem clearly. When did it happen? What exactly went wrong?', starters:['This happened on…','The issue is that…','To be specific,…']},
+        {label:'New Problem', icon:'fa-bolt', prompt:'The agent says: "Sorry, that\'s our policy." How do you respond without losing your temper?', starters:['I understand your policy, however…','Could we find another solution?','I\'d like to speak to a manager, please.']},
+        {label:'Your Story', icon:'fa-book-open', prompt:'Tell the whole complaint, from the first call to the resolution, in 6 sentences.', starters:['I called because…','At first, they said…','Then I explained…','In the end,…']},
+        {label:'Finish', icon:'fa-flag-checkered', prompt:'Do you usually complain when something goes wrong? Or do you let it go? Why?', starters:['I usually… because…','It depends on…','I used to… but now…']}
+      ]
+    },
+    {
+      title:'Telling a Story',
+      type:'social',
+      tag:'NARRATIVE',
+      icon:'fa-book-open',
+      intro:'A friend asks about a memorable moment from your life. Practice telling a real story with structure and detail.',
+      wordBank:['memorable','suddenly','unfortunately','eventually','at first','meanwhile','luckily','in the end','realise','turn out'],
+      stages:[
+        {label:'Situation', icon:'fa-circle-info', prompt:'A friend asks: "What\'s the most memorable day of your life?" Start your story.', starters:['I\'ll never forget the day…','It all started when…','It was a… day, and…']},
+        {label:'Your Choice', icon:'fa-hand-pointer', prompt:'What kind of story? A) Funny  B) Sad  C) Surprising  D) Inspiring', starters:['It\'s actually a… story.','Looking back, it was…','At the time, it felt…']},
+        {label:'Say More', icon:'fa-plus', prompt:'Add important details: where, when, who was with you, what happened.', starters:['We were in…','It happened on a…','I was with…','The weather was…']},
+        {label:'New Problem', icon:'fa-bolt', prompt:'You reach the most important moment. How do you build the tension?', starters:['Suddenly,…','Out of nowhere,…','And then, the strangest thing happened…']},
+        {label:'Your Story', icon:'fa-book-open', prompt:'Tell the whole story in 8 sentences. Use past tenses and at least three linking words.', starters:['It started when…','At first,…','Then,…','Meanwhile,…','In the end,…']},
+        {label:'Finish', icon:'fa-flag-checkered', prompt:'Why is this story important to you? What did you learn from it?', starters:['It taught me that…','What I took away was…','Since then, I…']}
+      ]
+    },
+    {
+      title:'Negotiating & Compromise',
+      type:'social',
+      tag:'NEGOTIATION',
+      icon:'fa-handshake',
+      intro:'You and a colleague want different things. Practice finding a fair middle ground without damaging the relationship.',
+      wordBank:['negotiate','compromise','alternative','flexible','priority','trade-off','both sides','fair','deal','agree on'],
+      stages:[
+        {label:'Situation', icon:'fa-circle-info', prompt:'You want to take Friday off, but your colleague also wants it. Only one person can.', starters:['I really need Friday because…','Would you be open to…?','Let\'s find a solution that works for both of us.']},
+        {label:'Your Choice', icon:'fa-hand-pointer', prompt:'What do you do first? A) Insist  B) Offer to swap  C) Suggest another day  D) Ask a manager', starters:['I\'d prefer to…','What if we…?','Would you consider…?']},
+        {label:'Say More', icon:'fa-plus', prompt:'Explain why Friday matters to you. Give one clear reason and one possible compromise.', starters:['The reason is…','An alternative would be…','What I could offer in return is…']},
+        {label:'New Problem', icon:'fa-bolt', prompt:'Your colleague says: "I really can\'t change my day." How do you respond?', starters:['I understand. What if we…?','Could we try…?','Is there any flexibility on…?']},
+        {label:'Your Story', icon:'fa-book-open', prompt:'Show how you negotiated a solution in 6 sentences. Include the problem, the offers, and the final deal.', starters:['The problem was…','I suggested…','They proposed…','We finally agreed on…']},
+        {label:'Finish', icon:'fa-flag-checkered', prompt:'Is compromise always a good thing? When is it not the best option?', starters:['Compromise is… but…','Sometimes it\'s better to…','In my experience,…']}
+      ]
+    },
+    {
+      title:'Debating a Topic',
+      type:'social',
+      tag:'DEBATE',
+      icon:'fa-scale-balanced',
+      intro:'You are in a friendly debate. You need to defend your side with clear arguments and evidence.',
+      wordBank:['argue','side','evidence','statistics','counter-argument','support','claim','refute','point','conclusion'],
+      stages:[
+        {label:'Situation', icon:'fa-circle-info', prompt:'The topic is: "AI will do more harm than good." Take one side and open the debate.', starters:['I strongly believe that…','I\'d like to argue that…','Let me begin with…']},
+        {label:'Your Choice', icon:'fa-hand-pointer', prompt:'Which side do you take? A) For  B) Against. Then give your first reason.', starters:['I support this because…','My first argument is…','To begin with,…']},
+        {label:'Say More', icon:'fa-plus', prompt:'Support your argument with one example, statistic, or real-world case.', starters:['For instance,…','According to…','Research shows that…','A good example is…']},
+        {label:'New Problem', icon:'fa-bolt', prompt:'Your opponent gives a strong counter-argument. How do you respond?', starters:['That\'s a fair point, however…','I see your point, but…','While that may be true,…','Let me address that —']},
+        {label:'Your Story', icon:'fa-book-open', prompt:'Present your full case in 8 sentences. Include one strong example and one counter-argument you refute.', starters:['I believe…','First, because…','For example,…','Some might argue…','However, I would respond that…','In conclusion,…']},
+        {label:'Finish', icon:'fa-flag-checkered', prompt:'Did you change your mind during the debate? Why or why not?', starters:['I still believe… because…','I was partly persuaded by…','It made me realise that…']}
+      ]
+    }
+  ];
 
-      var now = audioCtx.currentTime;
-      var osc = audioCtx.createOscillator();
-      var gain = audioCtx.createGain();
+  /* =========================================================
+     13 EVERYDAY TOPICS — B1–B2 (abstract + discussion starters)
+     ========================================================= */
+  const quickScenarios = [
+    {
+      tag:'Society', emoji:'📱', title:'Social Media & Identity',
+      words:['identity','authenticity','influence','comparison','impression','followers','self-esteem','validation','filter','persona'],
+      wh:['In my opinion…','I think… because…','Do you agree that…?','For example…','On the other hand…','What if…']
+    },
+    {
+      tag:'Society', emoji:'⭐', title:'Fame & Celebrity Culture',
+      words:['celebrity','fame','gossip','role model','privacy','attention','idolise','tabloids','influence','exposure'],
+      wh:['In my opinion…','I think… because…','Some people say…','For instance…','On the other hand…','It depends on…']
+    },
+    {
+      tag:'Society', emoji:'🏙️', title:'City vs Countryside',
+      words:['lifestyle','traffic','pollution','community','opportunities','pace','commute','nature','cost of living','isolation'],
+      wh:['In my opinion…','I would prefer… because…','Compared to…','For example…','However,…','What about you?']
+    },
+    {
+      tag:'Technology', emoji:'🤖', title:'AI & Human Work',
+      words:['automation','employment','reskilling','disruption','efficiency','creativity','innovation','replace','adapt','skills'],
+      wh:['I believe that…','Some argue…','The main concern is…','For example…','However,…','What do you think?']
+    },
+    {
+      tag:'Technology', emoji:'📵', title:'Digital Detox',
+      words:['addiction','mindfulness','screen time','notification','balance','wellbeing','withdrawal','habit','attention span','digital'],
+      wh:['In my experience…','I would say…','I tend to…','For example…','On the other hand…','Is it realistic to…?']
+    },
+    {
+      tag:'Education', emoji:'🎓', title:'Future of Education',
+      words:['curriculum','online learning','critical thinking','certification','classroom','personalised','access','skills gap','mentor','AI tutor'],
+      wh:['I predict that…','It\'s likely that…','Some people worry…','For instance…','However,…','Do you think…?']
+    },
+    {
+      tag:'Values', emoji:'🛍️', title:'Consumerism',
+      words:['advertising','needs vs wants','impulse buying','sustainable','disposable','brand','minimalism','materialism','budget','fulfilment'],
+      wh:['In my opinion…','I think we should…','The problem is…','For example…','On the other hand…','Would you give up…?']
+    },
+    {
+      tag:'Relationships', emoji:'👶', title:'Parenting Styles',
+      words:['discipline','freedom','boundaries','helicopter parent','authoritative','permissive','independence','role model','communication','trust'],
+      wh:['I think the best approach is…','Some parents believe…','In my experience…','For example…','However,…','What would you do?']
+    },
+    {
+      tag:'Values', emoji:'🏆', title:'Failure & Success',
+      words:['resilience','setback','growth mindset','achievement','risk','learn from mistakes','perseverance','ambition','motivation','reward'],
+      wh:['I believe… because…','For me, success is…','The key is…','For example…','Looking back,…','Do you agree that…?']
+    },
+    {
+      tag:'Global', emoji:'💊', title:'Global Health',
+      words:['healthcare system','access','universal','insurance','pandemic','prevention','vaccination','inequality','funding','public health'],
+      wh:['In my opinion…','It should be… because…','Some countries…','For example…','On the other hand…','Is it realistic to…?']
+    },
+    {
+      tag:'Media', emoji:'🎬', title:'Streaming vs Cinema',
+      words:['streaming platform','big screen','binge-watch','box office','experience','subscription','release','audience','industry','nostalgia'],
+      wh:['I prefer… because…','Some people say…','The difference is…','For example…','However,…','Do you think…?']
+    },
+    {
+      tag:'Media', emoji:'📖', title:'Books vs Films',
+      words:['adaptation','imagination','plot','character development','visual','interpretation','fidelity','director','novel','narrative'],
+      wh:['I think… because…','The book / film…','Some argue that…','For example…','On the other hand…','Which do you prefer?']
+    },
+    {
+      tag:'Culture', emoji:'🎵', title:'Music & Identity',
+      words:['genre','lyrics','subculture','self-expression','taste','generation','concert','playlist','mood','influence'],
+      wh:['My taste in music…','I feel that…','Some people…','For example…','On the other hand…','What kind of music…?']
+    }
+  ];
 
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(isRevealing ? 620 : 420, now);
-      osc.frequency.exponentialRampToValueAtTime(isRevealing ? 1020 : 290, now + 0.1);
+  /* =========================================================
+     ROTATING TIPS — B1–B2
+     ========================================================= */
+  const tips = [
+    'Try to use linking words: however, although, therefore, moreover.',
+    'Give examples to support your opinion: use "for instance" or "such as".',
+    'It\'s okay to pause. Use "Let me think…" or "That\'s a good question…".',
+    'Don\'t just agree — add something new to the conversation.',
+    'If you don\'t know a word, describe it or use a synonym.',
+    'Practice paraphrasing: say the same idea in a different way.',
+    'Use conditionals to imagine situations: "If I were…, I would…".',
+    'Speak in paragraphs, not single sentences. Connect your ideas.',
+    'Listen carefully, then respond to what your partner actually said.',
+    'Notice your mistakes. Self-correction is a sign of real progress.'
+  ];
 
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.13, now + 0.012);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+  /* =========================================================
+     STATE + PERSISTENCE
+     ========================================================= */
+  const STORAGE_KEY = 'easyspeak_b1b2_v1';
+  let xp = 0;
+  let curQuest = 0;
+  let curStage = 0;
+  let expandedQuick = -1;
+  const visitedStages = new Set();
+  const completedQuests = new Set();
+  const doneQuests = new Set();
+  const doneQuick = new Set();
+  const ratedQuests = new Map();
+  const openedQuick = new Set();
 
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.2);
-    } catch (e) { /* sound is optional */ }
+  function saveProgress(){
+    try{
+      const data = {
+        xp,
+        visitedStages: [...visitedStages],
+        completedQuests: [...completedQuests],
+        doneQuests: [...doneQuests],
+        doneQuick: [...doneQuick],
+        ratedQuests: Object.fromEntries(ratedQuests),
+        openedQuick: [...openedQuick]
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }catch(e){}
   }
 
-  /* ---------- Flip card ---------- */
-  var cards = document.querySelectorAll(".card");
-
-  function toggleCard(card) {
-    var willFlip = !card.classList.contains("flipped");
-    card.classList.toggle("flipped", willFlip);
-    card.setAttribute("aria-pressed", willFlip ? "true" : "false");
-    playTone(willFlip);
+  function loadProgress(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      xp = data.xp || 0;
+      (data.visitedStages || []).forEach(k => visitedStages.add(k));
+      (data.completedQuests || []).forEach(k => completedQuests.add(k));
+      (data.doneQuests || []).forEach(k => doneQuests.add(k));
+      (data.doneQuick || []).forEach(k => doneQuick.add(k));
+      if(data.ratedQuests){ Object.entries(data.ratedQuests).forEach(([k,v]) => ratedQuests.set(Number(k), v)); }
+      (data.openedQuick || []).forEach(k => openedQuick.add(k));
+    }catch(e){}
   }
 
-  cards.forEach(function (card) {
-    card.addEventListener("click", function (e) {
-      // If the click was on the check box, don't flip the card
-      if (e.target.closest("[data-check]")) return;
-      toggleCard(card);
-    });
+  const $ = id => document.getElementById(id);
+  const xpFill = $('xpFill'), xpValue = $('xpValue'), xpLevel = $('xpLevel');
+  const questGrid = $('questGrid'), wizard = $('wizard');
+  const backToGrid = $('backToGrid');
+  const wizTag = $('wizTag'), wizTitle = $('wizTitle'), wizIntro = $('wizIntro');
+  const progressFill = $('progressFill'), wizStageNum = $('wizStageNum'), wizStageTotal = $('wizStageTotal');
+  const stagePills = $('stagePills');
+  const stageIcon = $('stageIcon'), stageLabel = $('stageLabel'), stagePrompt = $('stagePrompt'), stageStarters = $('stageStarters'), wordBank = $('wordBank');
+  const confidenceInline = $('confidenceInline'), starsContainer = $('starsContainer'), confidenceMsg = $('confidenceMsg');
+  const prevStageBtn = $('prevStageBtn'), nextStageBtn = $('nextStageBtn');
+  const quickGrid = $('quickGrid');
+  const tipText = $('tipText');
 
-    card.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
-        if (e.target.closest("[data-check]")) return;
-        e.preventDefault();
-        toggleCard(card);
-      }
+  /* =========================================================
+     POINTS & LEVELS
+     ========================================================= */
+  const LEVELS = [
+    {name:'Beginner',   min:0},
+    {name:'Learner',    min:100},
+    {name:'Speaker',    min:250},
+    {name:'Fluent',     min:500},
+    {name:'Master',     min:1000}
+  ];
+  function getLevel(x){
+    let lv = LEVELS[0], idx = 1;
+    for(let i=0;i<LEVELS.length;i++){ if(x >= LEVELS[i].min){ lv = LEVELS[i]; idx = i+1; } }
+    return {level:idx, ...lv};
+  }
+  function updateXPBar(){
+    const L = getLevel(xp);
+    const next = LEVELS[L.level] || null;
+    const cur = L.min;
+    const span = next ? (next.min - cur) : 1;
+    const prog = next ? Math.min(100, ((xp - cur)/span)*100) : 100;
+    xpFill.style.width = prog + '%';
+    xpLevel.textContent = 'Lv.' + L.level + ' ' + L.name;
+    xpValue.textContent = xp;
+  }
+  function addXP(n){ xp += n; updateXPBar(); saveProgress(); }
+
+  /* =========================================================
+     TABS
+     ========================================================= */
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const target = t.dataset.tab === 'quest' ? 'questPanel' : 'quickPanel';
+      $(target).classList.add('active');
     });
   });
 
-  /* ---------- Mark as done (Check box) ---------- */
-  var checkBoxes = document.querySelectorAll("[data-check]");
+  /* =========================================================
+     HELPERS
+     ========================================================= */
+  function isInProgress(i){
+    const q = questScenarios[i];
+    let v = 0;
+    for(let s = 0; s < q.stages.length; s++){
+      if(visitedStages.has(i + '-' + s)) v++;
+    }
+    return v > 0 && v < q.stages.length;
+  }
 
-  checkBoxes.forEach(function (box) {
-    box.addEventListener("click", function (e) {
-      e.stopPropagation();
-      var card = box.closest(".card");
-      var isDone = card.classList.toggle("done");
-      box.textContent = isDone ? "✓" : "☐";
-      box.setAttribute("aria-checked", isDone ? "true" : "false");
-      playTone(isDone);
-    });
+  /* =========================================================
+     QUEST GRID
+     ========================================================= */
+  function renderQuestGrid(){
+    questGrid.innerHTML = '';
+    questGrid.style.display = 'grid';
+    wizard.style.display = 'none';
 
-    // Keyboard support for the checkbox
-    box.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
+    questScenarios.forEach((q, i) => {
+      const done = doneQuests.has(i);
+      const inProg = isInProgress(i) && !done;
+
+      const card = document.createElement('div');
+      card.className = 'quest-card' + (done ? ' is-done' : '');
+      card.dataset.idx = i;
+
+      card.innerHTML = `
+        <button class="card-check ${done ? 'checked' : ''}" data-idx="${i}" aria-label="Mark lesson as done">
+          <i class="fas fa-check"></i>
+        </button>
+        <span class="tag ${q.type}">${q.tag}</span>
+        <div class="icon"><i class="fas ${q.icon}"></i></div>
+        <h3>${q.title}</h3>
+        <p class="desc">${q.intro}</p>
+        <div class="footer">
+          <span class="stages-count"><i class="fas fa-list-check"></i> ${q.stages.length} steps</span>
+          ${inProg
+            ? '<span class="resume-badge"><i class="fas fa-play"></i> Resume</span>'
+            : '<span class="start">Start <i class="fas fa-arrow-right"></i></span>'}
+        </div>
+      `;
+
+      card.addEventListener('click', (e) => {
+        if(e.target.closest('.card-check')) return;
+        openQuest(i);
+      });
+
+      card.querySelector('.card-check').addEventListener('click', (e) => {
         e.stopPropagation();
-        box.click();
-      }
+        toggleDoneQuest(i);
+      });
+
+      questGrid.appendChild(card);
     });
-  });
+  }
 
-  /* ---------- Reset game ---------- */
-  var resetBtn = document.getElementById("resetBtn");
+  function toggleDoneQuest(i){
+    const card = questGrid.querySelector(`.quest-card[data-idx="${i}"]`);
+    if(!card) return;
+    const check = card.querySelector('.card-check');
+    const footer = card.querySelector('.footer');
 
-  resetBtn.addEventListener("click", function () {
-    cards.forEach(function (card) {
-      card.classList.remove("flipped", "done");
-      card.setAttribute("aria-pressed", "false");
-      var box = card.querySelector("[data-check]");
-      if (box) {
-        box.textContent = "☐";
-        box.setAttribute("aria-checked", "false");
-      }
+    if(doneQuests.has(i)){
+      doneQuests.delete(i);
+      card.classList.remove('is-done');
+      check.classList.remove('checked');
+      const inProg = isInProgress(i);
+      footer.querySelector('.resume-badge, .start')?.remove();
+      footer.insertAdjacentHTML('beforeend',
+        inProg
+          ? '<span class="resume-badge"><i class="fas fa-play"></i> Resume</span>'
+          : '<span class="start">Start <i class="fas fa-arrow-right"></i></span>'
+      );
+    } else {
+      doneQuests.add(i);
+      card.classList.add('is-done');
+      check.classList.add('checked');
+      footer.querySelector('.resume-badge, .start')?.remove();
+      footer.insertAdjacentHTML('beforeend', '<span class="start">Done <i class="fas fa-check"></i></span>');
+    }
+    saveProgress();
+  }
+
+  /* =========================================================
+     WIZARD
+     ========================================================= */
+  function openQuest(idx){
+    curQuest = idx;
+    curStage = 0;
+    questGrid.style.display = 'none';
+    wizard.style.display = 'flex';
+    window.scrollTo({top:0, behavior:'smooth'});
+    renderWizard();
+  }
+
+  function closeQuest(){
+    questGrid.style.display = 'grid';
+    wizard.style.display = 'none';
+    renderQuestGrid();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function renderWizard(){
+    const q = questScenarios[curQuest];
+    wizTag.textContent = q.tag;
+    wizTag.className = 'tag ' + q.type;
+    wizTitle.textContent = q.title;
+    wizIntro.textContent = q.intro;
+    wizStageTotal.textContent = q.stages.length;
+
+    stagePills.innerHTML = '';
+    q.stages.forEach((st, i) => {
+      const b = document.createElement('button');
+      b.className = 'stage-pill';
+      const key = curQuest + '-' + i;
+      if(visitedStages.has(key)) b.classList.add('done');
+      if(i === curStage) b.classList.add('active');
+      b.innerHTML = `<i class="fas ${st.icon}"></i> ${i+1}. ${st.label}`;
+      b.addEventListener('click', () => { curStage = i; renderWizard(); });
+      stagePills.appendChild(b);
     });
-    playTone(false);
+
+    const pct = ((curStage + 1) / q.stages.length) * 100;
+    progressFill.style.width = pct + '%';
+    wizStageNum.textContent = curStage + 1;
+
+    const st = q.stages[curStage];
+    stageIcon.className = 'fas ' + st.icon;
+    stageLabel.textContent = st.label;
+    stagePrompt.textContent = st.prompt;
+    stageStarters.innerHTML = st.starters.map(s => `<span class="starter">${s}</span>`).join('');
+    wordBank.innerHTML = '<span class="wb-title"><i class="fas fa-book"></i> Vocabulary</span>' +
+      q.wordBank.map(w => `<span class="wb">${w}</span>`).join('');
+
+    const isLast = curStage === q.stages.length - 1;
+    confidenceInline.style.display = isLast ? 'flex' : 'none';
+    if(isLast) updateStarsUI();
+
+    const key = curQuest + '-' + curStage;
+    if(!visitedStages.has(key)){
+      visitedStages.add(key);
+      addXP(10);
+      checkQuestComplete();
+      stagePills.querySelectorAll('.stage-pill').forEach((p, i) => {
+        if(visitedStages.has(curQuest + '-' + i)) p.classList.add('done');
+      });
+    }
+
+    prevStageBtn.disabled = (curStage === 0);
+    if(isLast){
+      nextStageBtn.innerHTML = 'Finish <i class="fas fa-check"></i>';
+    } else {
+      nextStageBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
+    }
+
+    const sc = $('stageContent');
+    sc.style.animation = 'none';
+    void sc.offsetWidth;
+    sc.style.animation = 'fadeUp .3s ease-out';
+  }
+
+  function checkQuestComplete(){
+    const q = questScenarios[curQuest];
+    let all = true;
+    for(let i=0;i<q.stages.length;i++){
+      if(!visitedStages.has(curQuest + '-' + i)){ all = false; break; }
+    }
+    if(all && !completedQuests.has(curQuest)){
+      completedQuests.add(curQuest);
+      addXP(50);
+      saveProgress();
+    }
+  }
+
+  nextStageBtn.addEventListener('click', () => {
+    const q = questScenarios[curQuest];
+    if(curStage < q.stages.length - 1){
+      curStage++;
+      renderWizard();
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
+      checkQuestComplete();
+      closeQuest();
+    }
   });
 
-  /* ---------- Sound toggle ---------- */
-  var toggle = document.getElementById("soundToggle");
-
-  toggle.addEventListener("click", function (e) {
-    e.stopPropagation();
-    soundOn = !soundOn;
-    toggle.textContent = soundOn ? "🔊 Sound on" : "🔇 Sound off";
-    toggle.setAttribute("aria-pressed", soundOn ? "true" : "false");
-    if (soundOn) playTone(true);
+  prevStageBtn.addEventListener('click', () => {
+    if(curStage > 0){ curStage--; renderWizard(); }
   });
+
+  backToGrid.addEventListener('click', closeQuest);
+
+  /* =========================================================
+     STARS
+     ========================================================= */
+  function updateStarsUI(){
+    const rating = ratedQuests.get(curQuest) || 0;
+    starsContainer.querySelectorAll('button').forEach((b, i) => {
+      const val = i + 1;
+      b.textContent = val <= rating ? '★' : '☆';
+      b.classList.toggle('active', val <= rating);
+    });
+    if(rating){
+      const labels = {1:'A little hard', 2:'Okay', 3:'Good', 4:'Very good', 5:'Easy!'};
+      confidenceMsg.textContent = `⭐ ${rating}/5 · ${labels[rating]}`;
+    } else {
+      confidenceMsg.textContent = 'Tap a star';
+    }
+  }
+  starsContainer.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if(!b) return;
+    const v = parseInt(b.dataset.val, 10);
+    const wasEmpty = !ratedQuests.has(curQuest);
+    ratedQuests.set(curQuest, v);
+    updateStarsUI();
+    saveProgress();
+    if(wasEmpty) addXP(25);
+  });
+
+  /* =========================================================
+     QUICK SCENARIOS — B1–B2
+     ========================================================= */
+  function renderQuickGrid(){
+    quickGrid.innerHTML = '';
+    quickScenarios.forEach((sc, i) => {
+      const done = doneQuick.has(i);
+      const card = document.createElement('div');
+      card.className = 'quick-card' + (done ? ' is-done' : '');
+      card.dataset.idx = i;
+
+      card.innerHTML = `
+        <button class="card-check ${done ? 'checked' : ''}" data-idx="${i}" aria-label="Mark topic as done">
+          <i class="fas fa-check"></i>
+        </button>
+        <div class="qc-head">
+          <div class="qc-icon">${sc.emoji}</div>
+          <div class="qc-body">
+            <span class="qc-tag">${sc.tag}</span>
+            <div class="qc-title">${sc.title}</div>
+            <div class="qc-meta"><i class="fas fa-comments"></i> Take a side & defend it</div>
+          </div>
+        </div>
+        <div class="qc-expanded-body" style="display:none"></div>
+      `;
+
+      card.addEventListener('click', (e) => {
+        if(e.target.closest('.card-check')) return;
+        if(e.target.closest('.qc-close')) return;
+        toggleQuick(i);
+      });
+
+      card.querySelector('.card-check').addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleDoneQuick(i);
+      });
+
+      quickGrid.appendChild(card);
+    });
+  }
+
+  function toggleDoneQuick(i){
+    const card = quickGrid.querySelector(`.quick-card[data-idx="${i}"]`);
+    if(!card) return;
+    const check = card.querySelector('.card-check');
+    if(doneQuick.has(i)){
+      doneQuick.delete(i);
+      card.classList.remove('is-done');
+      check.classList.remove('checked');
+    } else {
+      doneQuick.add(i);
+      card.classList.add('is-done');
+      check.classList.add('checked');
+    }
+    saveProgress();
+  }
+
+  function toggleQuick(i){
+    const cards = quickGrid.querySelectorAll('.quick-card');
+    if(expandedQuick === i){
+      cards[i].classList.remove('expanded');
+      cards[i].querySelector('.qc-expanded-body').style.display = 'none';
+      expandedQuick = -1;
+      return;
+    }
+    if(expandedQuick >= 0){
+      cards[expandedQuick].classList.remove('expanded');
+      cards[expandedQuick].querySelector('.qc-expanded-body').style.display = 'none';
+    }
+
+    const sc = quickScenarios[i];
+    const body = cards[i].querySelector('.qc-expanded-body');
+
+    const wordBalloons = sc.words.map(w =>
+      `<span class="balloon word">${w}</span>`
+    ).join('');
+
+    const whBalloons = sc.wh.map(w =>
+      `<span class="balloon wh">${w}</span>`
+    ).join('');
+
+    body.innerHTML = `
+      <div class="pic-stage">
+        <span class="big-emoji">${sc.emoji}</span>
+        <span class="pic-label">${sc.title}</span>
+      </div>
+
+      <div class="balloon-section">
+        <div class="balloon-title"><i class="fas fa-tag"></i> Key vocabulary</div>
+        <div class="balloon-cloud">${wordBalloons}</div>
+      </div>
+
+      <div class="balloon-section" style="margin-top:30px">
+        <div class="balloon-title wh"><i class="fas fa-comment-dots"></i> Discussion starters</div>
+        <div class="balloon-cloud">${whBalloons}</div>
+      </div>
+
+      <div class="qc-actions">
+        <span class="qc-hint"><i class="fas fa-comments"></i> Take a side. Defend your opinion. Discuss with a partner.</span>
+        <button class="qc-close"><i class="fas fa-times"></i> Close</button>
+      </div>
+    `;
+    cards[i].classList.add('expanded');
+    body.style.display = 'block';
+    expandedQuick = i;
+
+    body.querySelector('.qc-close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleQuick(i);
+    });
+
+    if(!openedQuick.has(i)){
+      openedQuick.add(i);
+      addXP(5);
+    }
+  }
+
+  /* =========================================================
+     RESET
+     ========================================================= */
+  function resetAll(){
+    const ok = confirm('Reset all progress?\n\nThis will clear:\n• All ✓ checkmarks\n• XP and level\n• Star ratings\n• In-progress lessons\n\nThis cannot be undone.');
+    if(!ok) return;
+
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+
+    xp = 0;
+    visitedStages.clear();
+    completedQuests.clear();
+    doneQuests.clear();
+    doneQuick.clear();
+    ratedQuests.clear();
+    openedQuick.clear();
+    expandedQuick = -1;
+
+    questGrid.style.display = 'grid';
+    wizard.style.display = 'none';
+
+    renderQuestGrid();
+    renderQuickGrid();
+    updateXPBar();
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* =========================================================
+     TIPS ROTATION
+     ========================================================= */
+  let tipIdx = 0;
+  setInterval(() => {
+    tipIdx = (tipIdx + 1) % tips.length;
+    tipText.textContent = tips[tipIdx];
+  }, 22000);
+
+  /* =========================================================
+     INIT
+     ========================================================= */
+  loadProgress();
+  renderQuestGrid();
+  renderQuickGrid();
+  updateXPBar();
+
+  document.getElementById('resetBtn').addEventListener('click', resetAll);
+
 })();
 </script>
-
 </body>
 </html>
