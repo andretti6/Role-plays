@@ -3,24 +3,25 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Future of Work — Group Project</title>
+<title>Privacy in a Digital World — Group Project</title>
 <style>
   :root{
-    --navy:#1e1b4b;
-    --purple:#4f46e5;
-    --purple-soft:#eef2ff;
+    --navy:#0f172a;
+    --navy-deep:#020617;
     --mint:#10b981;
     --mint-soft:#ecfdf5;
+    --mint-dark:#065f46;
+    --gray:#64748b;
+    --gray-light:#e2e8f0;
+    --gray-soft:#f1f5f9;
+    --bg:#f8fafc;
+    --ink:#1e293b;
+    --muted:#64748b;
+    --line:#e2e8f0;
     --amber:#f59e0b;
-    --pink:#ec4899;
-    --blue:#3b82f6;
-    --bg:#f7f8fc;
-    --ink:#1f2937;
-    --muted:#6b7280;
-    --line:#e5e7eb;
     --radius:16px;
-    --shadow:0 4px 16px rgba(30,27,75,.07);
-    --shadow-lg:0 10px 30px rgba(30,27,75,.12);
+    --shadow:0 4px 16px rgba(15,23,42,.07);
+    --shadow-lg:0 10px 30px rgba(15,23,42,.12);
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -39,7 +40,7 @@
 
   /* ============ HERO ============ */
   .hero{
-    background:linear-gradient(135deg,#1e1b4b 0%,#3730a3 45%,#6d28d9 100%);
+    background:linear-gradient(135deg,#020617 0%,#0f172a 40%,#1e293b 100%);
     color:#fff;
     padding:72px 0 64px;
     text-align:center;
@@ -49,9 +50,18 @@
   .hero::after{
     content:"";
     position:absolute;
-    width:520px;height:520px;
-    background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);
-    top:-220px;right:-160px;
+    width:560px;height:560px;
+    background:radial-gradient(circle,rgba(16,185,129,.18),transparent 70%);
+    top:-240px;right:-180px;
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    width:400px;height:400px;
+    background:radial-gradient(circle,rgba(100,116,139,.2),transparent 70%);
+    bottom:-200px;left:-120px;
     border-radius:50%;
     pointer-events:none;
   }
@@ -59,9 +69,9 @@
 
   .badge{
     display:inline-block;
-    background:rgba(255,255,255,.15);
-    border:1px solid rgba(255,255,255,.35);
-    color:#fff;
+    background:rgba(16,185,129,.15);
+    border:1px solid rgba(16,185,129,.5);
+    color:#6ee7b7;
     font-size:.78rem;
     font-weight:700;
     letter-spacing:.14em;
@@ -78,10 +88,11 @@
     letter-spacing:-.02em;
     margin-bottom:18px;
   }
+  .hero h1 .lock{display:inline-block;font-size:.85em;vertical-align:middle;margin-right:6px;}
 
   .hero p{
     font-size:clamp(1rem,2.4vw,1.25rem);
-    color:rgba(255,255,255,.88);
+    color:rgba(255,255,255,.82);
     max-width:620px;
     margin:0 auto 32px;
   }
@@ -101,17 +112,17 @@
     font-family:inherit;
   }
   .btn-primary{
-    background:#fff;
-    color:var(--purple);
-    box-shadow:0 6px 18px rgba(0,0,0,.18);
+    background:var(--mint);
+    color:#022c22;
+    box-shadow:0 6px 18px rgba(16,185,129,.35);
   }
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(16,185,129,.45);}
   .btn-ghost{
-    background:rgba(255,255,255,.12);
+    background:rgba(255,255,255,.08);
     color:#fff;
-    border:1.5px solid rgba(255,255,255,.5);
+    border:1.5px solid rgba(255,255,255,.35);
   }
-  .btn-ghost:hover{background:rgba(255,255,255,.24);transform:translateY(-2px);}
+  .btn-ghost:hover{background:rgba(255,255,255,.16);transform:translateY(-2px);}
 
   /* ============ SECTIONS ============ */
   section{padding:56px 0;}
@@ -122,14 +133,14 @@
     flex:none;
     width:42px;height:42px;
     border-radius:12px;
-    background:var(--purple);
+    background:var(--navy);
     color:#fff;
     font-weight:800;
     font-size:1.15rem;
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:0 4px 12px rgba(79,70,229,.3);
+    box-shadow:0 4px 12px rgba(15,23,42,.25);
   }
   .sec-title{
     font-size:clamp(1.35rem,3.4vw,1.75rem);
@@ -145,134 +156,164 @@
     padding:28px;
   }
 
-  /* ============ MISSION ============ */
-  .mission-card{border-top:5px solid var(--purple);}
-
-  .mission-top{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:16px;
-    padding-bottom:20px;
-    border-bottom:1px dashed var(--line);
-    margin-bottom:22px;
+  /* ============ 1. TEMA ============ */
+  .theme-card{
+    border-top:5px solid var(--navy);
+    text-align:center;
+    padding:36px 28px;
   }
-  .mission-intro{
-    font-size:1.02rem;
+  .theme-card .theme-icon{font-size:3rem;margin-bottom:12px;display:block;}
+  .theme-card h2{
+    font-size:clamp(1.6rem,4vw,2.1rem);
+    font-weight:800;
+    color:var(--navy);
+    letter-spacing:-.02em;
+    margin-bottom:10px;
+  }
+  .theme-card p{
+    font-size:1.05rem;
     color:var(--muted);
-    flex:1;
+    max-width:560px;
+    margin:0 auto;
   }
-  .mission-intro strong{color:var(--navy);}
 
-  .toggle-btn{
-    flex:none;
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    background:var(--purple-soft);
-    color:var(--purple);
-    border:1.5px solid #c7d2fe;
-    border-radius:999px;
-    padding:8px 16px;
-    font-size:.82rem;
-    font-weight:700;
-    font-family:inherit;
-    cursor:pointer;
-    transition:background .15s ease, transform .15s ease;
-    white-space:nowrap;
-  }
-  .toggle-btn:hover{background:#e0e7ff;transform:translateY(-1px);}
-  .toggle-btn .toggle-icon{
-    display:inline-block;
-    font-size:.85rem;
-    transition:transform .25s ease;
-  }
-  .toggle-btn[aria-expanded="false"] .toggle-icon{transform:rotate(-90deg);}
-
-  .mission-body{
-    max-height:1500px;
+  /* ============ 2. MISSION (destaque) ============ */
+  .mission-box{
+    background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:36px 32px;
+    position:relative;
     overflow:hidden;
-    transition:max-height .4s ease, opacity .3s ease;
-    opacity:1;
+    box-shadow:0 12px 40px rgba(15,23,42,.25);
   }
-  .mission-body.collapsed{
-    max-height:0;
-    opacity:0;
+  .mission-box::before{
+    content:"";
+    position:absolute;
+    width:400px;height:400px;
+    background:radial-gradient(circle,rgba(16,185,129,.22),transparent 70%);
+    top:-180px;right:-140px;
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .mission-box .inner{position:relative;z-index:1;}
+
+  .mission-box .mission-tag{
+    display:inline-block;
+    background:rgba(16,185,129,.2);
+    border:1px solid rgba(16,185,129,.5);
+    color:#6ee7b7;
+    font-size:.72rem;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    padding:5px 14px;
+    border-radius:999px;
+    margin-bottom:16px;
   }
 
-  .mission-list{
+  .mission-box h2{
+    font-size:clamp(1.5rem,4vw,2rem);
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1.2;
+    margin-bottom:12px;
+  }
+  .mission-box h2 .accent{color:#6ee7b7;}
+
+  .mission-box .lead{
+    font-size:1.02rem;
+    color:rgba(255,255,255,.8);
+    margin-bottom:26px;
+    max-width:640px;
+  }
+
+  .mission-steps{
     list-style:none;
     display:grid;
     gap:14px;
+    margin-bottom:28px;
   }
-  .mission-list li{
+  .mission-steps li{
     display:flex;
     gap:14px;
     align-items:flex-start;
     font-size:1rem;
     line-height:1.55;
+    color:rgba(255,255,255,.95);
   }
-  .mission-list .n{
+  .mission-steps .n{
     flex:none;
-    width:28px;height:28px;
+    width:30px;height:30px;
     border-radius:50%;
-    background:var(--purple-soft);
-    color:var(--purple);
-    font-size:.85rem;
+    background:var(--mint);
+    color:#022c22;
+    font-size:.88rem;
     font-weight:800;
     display:flex;
     align-items:center;
     justify-content:center;
-    margin-top:2px;
+    margin-top:1px;
   }
-  .mission-list b{color:var(--navy);}
+  .mission-steps b{color:#fff;font-weight:800;}
+  .mission-steps span{color:rgba(255,255,255,.85);}
 
-  .warn{
-    margin-top:24px;
-    background:#fffbeb;
-    border-left:5px solid var(--amber);
-    border-radius:10px;
-    padding:14px 18px;
-    font-weight:700;
-    color:#92400e;
-    font-size:.98rem;
+  .mission-divider{
+    border:0;
+    border-top:1px dashed rgba(255,255,255,.2);
+    margin:0 0 22px;
   }
 
-  /* ============ DESIGN BOARD ============ */
-  .hint{
-    background:var(--purple-soft);
-    border-left:4px solid var(--purple);
-    border-radius:10px;
-    padding:14px 18px;
-    font-size:.94rem;
-    color:#3730a3;
-    margin-bottom:24px;
-  }
-  .hint strong{color:var(--navy);}
-
-  .board{
+  .mission-questions{
+    list-style:none;
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+  .mission-questions li{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    font-size:.98rem;
+    color:#6ee7b7;
+    font-weight:600;
+    line-height:1.55;
+  }
+  .mission-questions li::before{
+    content:"→";
+    color:var(--mint);
+    font-weight:800;
+    flex:none;
+  }
+
+  /* ============ REFLECTION CARDS ============ */
+  .reflect-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
     gap:18px;
   }
 
-  .board-card{
+  .reflect-card{
     background:#fff;
     border-radius:var(--radius);
     box-shadow:var(--shadow);
-    padding:22px;
-    border-top:5px solid var(--purple);
+    padding:24px;
     transition:box-shadow .2s ease, transform .2s ease;
   }
-  .board-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);}
-  .board-card.c2{border-top-color:var(--blue);}
-  .board-card.c3{border-top-color:var(--mint);}
-  .board-card.c4{border-top-color:var(--amber);}
-  .board-card.c5{border-top-color:var(--pink);}
-  .board-card.c6{border-top-color:var(--navy);}
+  .reflect-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);}
+  .reflect-card.scenario{border-top:5px solid var(--gray);}
+  .reflect-card.keywords{border-top:5px solid var(--mint);}
 
-  .board-card h3{
-    font-size:1.05rem;
+  .reflect-card .r-tag{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .reflect-card h3{
+    font-size:1.08rem;
     font-weight:800;
     color:var(--navy);
     margin-bottom:14px;
@@ -280,44 +321,90 @@
     align-items:center;
     gap:9px;
   }
-  .board-card h3 .dot{
-    width:9px;height:9px;
+  .reflect-card h3 .dot{
+    width:10px;height:10px;
     border-radius:50%;
-    background:var(--purple);
+    background:var(--gray);
     flex:none;
   }
-  .c2 h3 .dot{background:var(--blue);}
-  .c3 h3 .dot{background:var(--mint);}
-  .c4 h3 .dot{background:var(--amber);}
-  .c5 h3 .dot{background:var(--pink);}
-  .c6 h3 .dot{background:var(--navy);}
+  .reflect-card.keywords h3 .dot{background:var(--mint);}
 
-  .board-card ul{
-    list-style:none;
-    display:grid;
-    gap:9px;
+  .reflect-card p{
+    font-size:.95rem;
+    color:#334155;
+    line-height:1.65;
   }
-  .board-card ul li{
+  .reflect-card p + p{margin-top:10px;}
+  .reflect-card p strong{color:var(--navy);}
+
+  .kw-mini{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:6px;
+  }
+  .kw-mini span{
+    background:var(--gray-soft);
+    color:var(--navy);
+    font-size:.82rem;
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:999px;
+    border-left:3px solid var(--mint);
+  }
+
+  /* ============ REAL WORLD EXAMPLE ============ */
+  .example-card{
+    border:2px solid var(--navy);
+    border-radius:var(--radius);
+    background:#fff;
+    padding:28px;
     position:relative;
-    padding-left:20px;
-    font-size:.94rem;
-    color:#374151;
-    line-height:1.5;
+    overflow:hidden;
   }
-  .board-card ul li::before{
-    content:"▸";
+  .example-card::before{
+    content:"";
     position:absolute;
-    left:0;
-    top:0;
-    color:var(--purple);
-    font-weight:800;
-    font-size:.9rem;
+    top:0;left:0;
+    width:100%;height:5px;
+    background:linear-gradient(90deg,var(--navy),var(--mint));
   }
-  .c2 ul li::before{color:var(--blue);}
-  .c3 ul li::before{color:var(--mint);}
-  .c4 ul li::before{color:var(--amber);}
-  .c5 ul li::before{color:var(--pink);}
-  .c6 ul li::before{color:var(--navy);}
+  .example-card .ex-badge{
+    display:inline-block;
+    background:var(--navy);
+    color:#fff;
+    font-size:.7rem;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:5px 14px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+  .example-card h3{
+    font-size:1.2rem;
+    font-weight:800;
+    color:var(--navy);
+    margin-bottom:12px;
+  }
+  .example-card p{
+    font-size:.98rem;
+    color:#334155;
+    line-height:1.7;
+    margin-bottom:12px;
+  }
+  .example-card .highlight{
+    background:var(--mint-soft);
+    border-left:4px solid var(--mint);
+    border-radius:8px;
+    padding:14px 18px;
+    font-size:.95rem;
+    color:var(--mint-dark);
+    font-weight:600;
+    line-height:1.6;
+    margin-top:16px;
+  }
+  .example-card .highlight strong{color:var(--navy);}
 
   /* ============ 3 KEY IDEAS ============ */
   .key-ideas{
@@ -326,7 +413,7 @@
     border-radius:var(--radius);
     box-shadow:var(--shadow);
     padding:26px;
-    border-top:5px solid var(--purple);
+    border-top:5px solid var(--navy);
   }
   .key-ideas h3{
     font-size:1.15rem;
@@ -337,15 +424,8 @@
     align-items:center;
     gap:10px;
   }
-  .key-ideas h3 .star{
-    color:var(--amber);
-    font-size:1.2rem;
-  }
-  .key-ideas .sub{
-    font-size:.9rem;
-    color:var(--muted);
-    margin-bottom:20px;
-  }
+  .key-ideas h3 .star{color:var(--amber);font-size:1.2rem;}
+  .key-ideas .sub{font-size:.9rem;color:var(--muted);margin-bottom:20px;}
 
   .key-row{
     display:flex;
@@ -360,8 +440,8 @@
     flex:none;
     width:26px;height:26px;
     border-radius:50%;
-    background:var(--purple-soft);
-    color:var(--purple);
+    background:var(--gray-soft);
+    color:var(--gray);
     font-size:.9rem;
     font-weight:800;
     display:flex;
@@ -381,10 +461,7 @@
     border-bottom:1.5px solid var(--line);
     transition:border-color .15s ease;
   }
-  .key-row input:focus{
-    outline:none;
-    border-bottom-color:var(--purple);
-  }
+  .key-row input:focus{outline:none;border-bottom-color:var(--mint);}
   .key-row input::placeholder{color:#b6bcc9;}
 
   .key-row .counter{
@@ -392,7 +469,7 @@
     font-size:.78rem;
     font-weight:700;
     color:var(--muted);
-    background:#f3f4f6;
+    background:var(--gray-soft);
     padding:3px 10px;
     border-radius:999px;
     min-width:64px;
@@ -403,106 +480,22 @@
   .key-row .counter.low{background:#fef3c7;color:#92400e;}
   .key-row .counter.empty{background:#fee2e2;color:#b91c1c;}
 
-  /* ============ FREE ============ */
-  .free{
-    background:var(--mint-soft);
-    border:2px solid #a7f3d0;
-    border-radius:var(--radius);
-    padding:30px;
-  }
-  .free h2{
-    font-size:1.3rem;
-    font-weight:800;
-    color:#065f46;
-    margin-bottom:18px;
-  }
-  .free ul{list-style:none;display:grid;gap:12px;}
-  .free li{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    font-size:1rem;
-    color:#065f46;
-    font-weight:500;
-    line-height:1.55;
-  }
-  .free li .check{
-    flex:none;
-    width:24px;height:24px;
-    border-radius:50%;
-    background:var(--mint);
-    color:#fff;
-    font-size:.8rem;
-    font-weight:800;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-top:2px;
-  }
-
-  /* ============ VOCAB ============ */
-  .vocab{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-    gap:12px;
-  }
-  .chip{
-    background:#fff;
-    border-radius:12px;
-    padding:14px 16px;
-    box-shadow:var(--shadow);
-    border-left:4px solid var(--purple);
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .chip:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
-  .chip b{
-    display:block;
-    font-size:.95rem;
-    color:var(--navy);
-    font-weight:800;
-    margin-bottom:2px;
-  }
-  .chip span{
-    font-size:.85rem;
-    color:var(--muted);
-    line-height:1.45;
-    display:block;
-  }
-
-  /* ============ STARTERS ============ */
-  .starters{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:12px;
-  }
-  .starter{
-    background:#fff;
-    border-radius:12px;
-    padding:16px 18px;
-    box-shadow:var(--shadow);
-    border-left:4px solid var(--amber);
-    font-size:.98rem;
-    color:var(--navy);
-    font-weight:600;
-  }
-  .starter .dots{color:var(--amber);font-weight:800;}
-
   /* ============ FOOTER ============ */
   footer{
-    background:var(--navy);
-    color:rgba(255,255,255,.85);
+    background:var(--navy-deep);
+    color:rgba(255,255,255,.75);
     text-align:center;
     padding:36px 20px;
     font-size:.92rem;
   }
-  footer strong{color:#fff;font-weight:800;}
+  footer strong{color:#6ee7b7;font-weight:800;}
 
   /* ============ PRINT FAB ============ */
   .print-fab{
     position:fixed;
     right:20px;
     bottom:20px;
-    background:var(--purple);
+    background:var(--navy);
     color:#fff;
     border:none;
     border-radius:999px;
@@ -511,26 +504,26 @@
     font-weight:700;
     font-family:inherit;
     cursor:pointer;
-    box-shadow:0 8px 22px rgba(79,70,229,.4);
+    box-shadow:0 8px 22px rgba(15,23,42,.4);
     display:flex;
     align-items:center;
     gap:8px;
     transition:transform .15s ease, box-shadow .15s ease;
     z-index:50;
   }
-  .print-fab:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(79,70,229,.5);}
+  .print-fab:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,23,42,.5);}
 
   /* ============ RESPONSIVE ============ */
   @media (max-width:720px){
     .hero{padding:56px 0 48px;}
     section{padding:40px 0;}
-    .board{grid-template-columns:1fr;}
     .card{padding:22px;}
-    .free{padding:24px 20px;}
+    .theme-card{padding:28px 20px;}
+    .reflect-grid{grid-template-columns:1fr;}
+    .mission-box{padding:28px 22px;}
     .key-ideas{padding:20px;}
     .key-row .counter{min-width:56px;font-size:.72rem;padding:3px 8px;}
-    .mission-top{flex-direction:column;align-items:stretch;}
-    .toggle-btn{align-self:flex-start;}
+    .example-card{padding:22px;}
     .print-fab{right:14px;bottom:14px;padding:12px 18px;font-size:.82rem;}
   }
 
@@ -543,20 +536,31 @@
       padding:24px 0 20px;
       border-bottom:3px solid var(--navy);
     }
-    .hero::after{display:none;}
+    .hero::after,.hero::before{display:none;}
     .hero h1{color:var(--navy);}
     .hero p{color:#333;}
     .badge{background:#fff;color:var(--navy);border:1.5px solid var(--navy);}
-    .hero-btns,.print-fab,.toggle-btn{display:none !important;}
+    .hero-btns,.print-fab{display:none !important;}
     section{padding:24px 0;break-inside:avoid;}
-    .board{grid-template-columns:1fr 1fr;}
-    .board-card,.card,.chip,.starter,.key-ideas{
+    .card,.reflect-card,.key-ideas,.example-card{
       box-shadow:none;
       border:1px solid var(--line);
     }
-    .mission-body.collapsed{max-height:none;opacity:1;}
-    .board-card{break-inside:avoid;}
-    .free{background:#fff;border:1.5px solid var(--mint);}
+    .mission-box{
+      background:#fff !important;
+      color:#000;
+      border:2px solid var(--navy);
+      box-shadow:none;
+    }
+    .mission-box::before{display:none;}
+    .mission-box h2,.mission-box .lead{color:#000;}
+    .mission-box h2 .accent{color:var(--mint-dark);}
+    .mission-box .mission-tag{background:#fff;color:var(--navy);border:1.5px solid var(--navy);}
+    .mission-steps li,.mission-steps span{color:#333;}
+    .mission-steps b{color:#000;}
+    .mission-questions li{color:var(--mint-dark);}
+    .mission-divider{border-top:1px dashed #999;}
+    .example-card{border:2px solid var(--navy);}
     .key-row input{border-bottom:1.5px solid #999;}
     .key-row .counter{background:#fff;border:1px solid var(--line);}
     footer{background:#fff;color:#333;border-top:2px solid var(--line);}
@@ -570,118 +574,129 @@
 <header class="hero">
   <div class="wrap">
     <div class="badge">Group Project</div>
-    <h1>The Future of Work</h1>
-    <p>Design a job where people are happy, grow, and everyone wins.</p>
+    <h1><span class="lock">🔒</span>Privacy in a Digital World</h1>
+    <p>Design a world where people control their own data — and everyone wins.</p>
     <div class="hero-btns">
       <a href="#mission" class="btn btn-primary">Start the mission ↓</a>
-      <a href="#vocab" class="btn btn-ghost">Useful English ↓</a>
+      <a href="#example" class="btn btn-ghost">Real World Example ↓</a>
     </div>
   </div>
 </header>
 
-<!-- ============ 1. MISSION ============ -->
-<section id="mission">
+<!-- ============ 1. THEME ============ -->
+<section id="theme">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-num">1</div>
-      <h2 class="sec-title">Your Mission</h2>
+      <h2 class="sec-title">Theme</h2>
     </div>
 
-    <div class="card mission-card">
-      <div class="mission-top">
-        <p class="mission-intro">
-          Work in groups. You are the <strong>designers of the future of work</strong>.
-        </p>
-        <button class="toggle-btn" id="missionToggle" aria-expanded="true" aria-controls="missionBody">
-          <span class="toggle-icon">▾</span>
-          <span class="toggle-text">Minimize</span>
-        </button>
-      </div>
+    <div class="card theme-card">
+      <span class="theme-icon">🔒</span>
+      <h2>Privacy in a Digital World</h2>
+      <p>Apps know where we go, what we buy, and how we feel. Who should control this information — us, or the companies?</p>
+    </div>
+  </div>
+</section>
 
-      <div class="mission-body" id="missionBody">
-        <ol class="mission-list">
-          <li><span class="n">1</span><span><b>Choose or invent a type of work.</b> It can be real, new, or from the future.</span></li>
-          <li><span class="n">2</span><span><b>Decide how people work:</b> hours, place, team, tools, rights, and responsibilities.</span></li>
-          <li><span class="n">3</span><span><b>Plan happiness and growth</b> for every worker.</span></li>
-          <li><span class="n">4</span><span><b>Make it a win-win:</b> the company, the workers, and the customers all win.</span></li>
+<!-- ============ 2. MISSION (destaque) ============ -->
+<section id="mission">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">2</div>
+      <h2 class="sec-title">Mission</h2>
+    </div>
+
+    <div class="mission-box">
+      <div class="inner">
+        <span class="mission-tag">★ Your Mission</span>
+        <h2>Design a solution that <span class="accent">protects people's privacy</span>.</h2>
+        <p class="lead">Work in your group. Talk, imagine, and create something better for the digital world.</p>
+
+        <ol class="mission-steps">
+          <li><span class="n">1</span><span><b>Discuss the problem.</b> How does data collection affect people today?</span></li>
+          <li><span class="n">2</span><span><b>Create your solution.</b> Rules, an app, a law, or a new system.</span></li>
+          <li><span class="n">3</span><span><b>Make it a win-win.</b> People, companies, and governments all benefit.</span></li>
         </ol>
 
-        <div class="warn">⚠ Everyone must win. No one can lose.</div>
+        <hr class="mission-divider" />
+
+        <ul class="mission-questions">
+          <li>How does it protect people's privacy?</li>
+          <li>What impact does it have on the world?</li>
+          <li>Would it work in your country? Why or why not?</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 2. DESIGN BOARD ============ -->
-<section id="board">
+<!-- ============ REFLECTION CARDS ============ -->
+<section id="reflect">
+  <div class="wrap">
+    <div class="reflect-grid">
+
+      <!-- Scenario -->
+      <div class="reflect-card scenario">
+        <span class="r-tag">Think About It</span>
+        <h3><span class="dot"></span>Scenario</h3>
+        <p>
+          You wake up and check your phone. Your apps know your location, your shopping list, your friends, your health, and your secrets. Companies collect this data every second — sometimes with your permission, sometimes without it.
+        </p>
+        <p>
+          Some say: <strong>"If you have nothing to hide, you have nothing to fear."</strong>
+          Others say: <strong>"Privacy is a human right. I should control my own data."</strong>
+        </p>
+      </div>
+
+      <!-- Keywords -->
+      <div class="reflect-card keywords">
+        <span class="r-tag">Use If You Want</span>
+        <h3><span class="dot"></span>Keywords</h3>
+        <p>Use these ideas if they help you — or create your own.</p>
+        <div class="kw-mini">
+          <span>passwords</span>
+          <span>data</span>
+          <span>rules</span>
+          <span>kids</span>
+          <span>companies</span>
+          <span>trust</span>
+          <span>choice</span>
+          <span>global</span>
+          <span>apps</span>
+          <span>transparency</span>
+          <span>protection</span>
+          <span>delete</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. REAL WORLD EXAMPLE ============ -->
+<section id="example">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-num">2</div>
-      <h2 class="sec-title">Design Board</h2>
+      <div class="sec-num">3</div>
+      <h2 class="sec-title">Real World Example</h2>
     </div>
 
-    <p class="hint">
-      <strong>This is only a suggestion.</strong> Talk about these questions in your group.
-      You can change them or add your own ideas.
-    </p>
-
-    <div class="board">
-
-      <div class="board-card c1">
-        <h3><span class="dot"></span>Our Work</h3>
-        <ul>
-          <li>What do we do?</li>
-          <li>What do we make or sell?</li>
-          <li>Who are our customers?</li>
-        </ul>
+    <div class="example-card">
+      <span class="ex-badge">🌍 Real Story</span>
+      <h3>Europe Fined Google €403 Million</h3>
+      <p>
+        In 2026, the European Union fined Google €403 million because the company used people's location data without clear permission. Under European law (called the <strong>GDPR</strong>), companies must be honest about what data they collect and why.
+      </p>
+      <p>
+        The GDPR says that personal data must be processed in a <strong>lawful, fair, and transparent</strong> way. Google did not follow these rules, so the European Union took action.
+      </p>
+      <div class="highlight">
+        💡 <strong>Why this matters:</strong> This shows that privacy laws can work in real life. When companies break the rules, they must pay. The European Union's GDPR is now a model for many other countries, including Brazil, Japan, and South Korea.
       </div>
-
-      <div class="board-card c2">
-        <h3><span class="dot"></span>How We Work</h3>
-        <ul>
-          <li>What hours do we work?</li>
-          <li>Where do we work?</li>
-          <li>How big is the team?</li>
-          <li>What tools do we use?</li>
-        </ul>
-      </div>
-
-      <div class="board-card c3">
-        <h3><span class="dot"></span>Rights</h3>
-        <ul>
-          <li>What must every worker always have?</li>
-          <li>Think about pay, safety, time, and respect.</li>
-        </ul>
-      </div>
-
-      <div class="board-card c4">
-        <h3><span class="dot"></span>Responsibilities</h3>
-        <ul>
-          <li>What must every worker always do?</li>
-          <li>Think about quality, teamwork, and honesty.</li>
-        </ul>
-      </div>
-
-      <div class="board-card c5">
-        <h3><span class="dot"></span>Happiness &amp; Growth</h3>
-        <ul>
-          <li>What makes people happy at work?</li>
-          <li>How do people learn and grow?</li>
-        </ul>
-      </div>
-
-      <div class="board-card c6">
-        <h3><span class="dot"></span>Win-Win</h3>
-        <ul>
-          <li>🏢 How does the company win?</li>
-          <li>👷 How do the workers win?</li>
-          <li>🛒 How do the customers win?</li>
-        </ul>
-      </div>
-
     </div>
 
-    <!-- ============ 3 KEY IDEAS ============ -->
+    <!-- 3 KEY IDEAS -->
     <div class="key-ideas">
       <h3><span class="star">★</span> 3 Key Ideas</h3>
       <p class="sub">Write only 3 short ideas (max. 50 characters each). You will use them to present your project.</p>
@@ -708,67 +723,9 @@
   </div>
 </section>
 
-<!-- ============ 3. YOU ARE FREE ============ -->
-<section id="free">
-  <div class="wrap">
-    <div class="free">
-      <h2>✓ You Are Free</h2>
-      <ul>
-        <li><span class="check">✓</span><span>There is no wrong answer.</span></li>
-        <li><span class="check">✓</span><span>Be creative. Think big. Dream big.</span></li>
-        <li><span class="check">✓</span><span>Work alone, in pairs, or in a group.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 4. USEFUL ENGLISH ============ -->
-<section id="vocab">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">4</div>
-      <h2 class="sec-title">Useful English</h2>
-    </div>
-
-    <div class="vocab">
-      <div class="chip"><b>rights</b><span>things you must have</span></div>
-      <div class="chip"><b>responsibilities</b><span>things you must do</span></div>
-      <div class="chip"><b>fair pay</b><span>good money for your work</span></div>
-      <div class="chip"><b>flexible hours</b><span>you choose when you work</span></div>
-      <div class="chip"><b>work-life balance</b><span>time for work + time for life</span></div>
-      <div class="chip"><b>remote work</b><span>work from home</span></div>
-      <div class="chip"><b>teamwork</b><span>working together</span></div>
-      <div class="chip"><b>feedback</b><span>telling people how they are doing</span></div>
-      <div class="chip"><b>growth</b><span>getting better</span></div>
-      <div class="chip"><b>profit</b><span>the money a company makes</span></div>
-      <div class="chip"><b>win-win</b><span>everybody is happy</span></div>
-      <div class="chip"><b>thrive</b><span>to grow strong and happy</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. PRESENT ============ -->
-<section id="present">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">5</div>
-      <h2 class="sec-title">Present Your Idea</h2>
-    </div>
-
-    <div class="starters">
-      <div class="starter"><span class="dots">→</span> "Our work is…"</div>
-      <div class="starter"><span class="dots">→</span> "Workers have the right to…"</div>
-      <div class="starter"><span class="dots">→</span> "Workers must…"</div>
-      <div class="starter"><span class="dots">→</span> "People are happy because…"</div>
-      <div class="starter"><span class="dots">→</span> "People grow because…"</div>
-      <div class="starter"><span class="dots">→</span> "It is a win-win because…"</div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ FOOTER ============ -->
 <footer>
-  <strong>The Future of Work</strong> · Have fun and dream big!
+  <strong>Privacy in a Digital World</strong> · Have fun and dream big!
 </footer>
 
 <!-- ============ PRINT BUTTON ============ -->
@@ -777,20 +734,6 @@
 </button>
 
 <script>
-  /* ---------- Mission collapse / expand ---------- */
-  (function () {
-    var btn = document.getElementById('missionToggle');
-    var body = document.getElementById('missionBody');
-    var text = btn.querySelector('.toggle-text');
-
-    btn.addEventListener('click', function () {
-      var isOpen = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      body.classList.toggle('collapsed', isOpen);
-      text.textContent = isOpen ? 'Expand' : 'Minimize';
-    });
-  })();
-
   /* ---------- 3 Key Ideas character counter ---------- */
   (function () {
     var MAX = 50;
