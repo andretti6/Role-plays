@@ -1,761 +1,2692 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Privacy in a Digital World — Group Project</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synergy Cell OS — Collaborative Arena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --navy:#0f172a;
-    --navy-deep:#020617;
-    --mint:#10b981;
-    --mint-soft:#ecfdf5;
-    --mint-dark:#065f46;
-    --gray:#64748b;
-    --gray-light:#e2e8f0;
-    --gray-soft:#f1f5f9;
-    --bg:#f8fafc;
-    --ink:#1e293b;
-    --muted:#64748b;
-    --line:#e2e8f0;
-    --amber:#f59e0b;
-    --radius:16px;
-    --shadow:0 4px 16px rgba(15,23,42,.07);
-    --shadow-lg:0 10px 30px rgba(15,23,42,.12);
-  }
+/* ============================================================
+   TOKENS — pure white, minimal
+============================================================ */
+:root{
+  --bg:#FFFFFF;
+  --surface:#FFFFFF;
+  --surface-2:#FAFBFC;
+  --surface-3:#F4F6F8;
+  --ink:#0F1419;
+  --ink-2:#3D4854;
+  --muted:#6B7684;
+  --faint:#9CA5B2;
+  --line:#E8ECF1;
+  --line-2:#D5DBE3;
+  --teal:#0E9F7E;
+  --teal-deep:#0A7D63;
+  --teal-soft:#E6F6F1;
+  --blue:#3E7CD1;
+  --blue-soft:#EAF1FB;
+  --violet:#7C5FE8;
+  --violet-soft:#F0ECFD;
+  --amber:#D97706;
+  --amber-soft:#FDF3E0;
+  --rose:#DC4C4C;
+  --rose-soft:#FCECEC;
+  --green:#16A34A;
+  --green-soft:#E6F7EC;
+  --yellow-note:#FFF08A;
+  --yellow-note-2:#FFE95C;
+  --r:16px;
+  --r-sm:12px;
+  --r-xs:9px;
+  --sh-xs:0 1px 2px rgba(15,20,25,.04);
+  --sh-sm:0 1px 3px rgba(15,20,25,.06), 0 1px 2px rgba(15,20,25,.03);
+  --sh-md:0 6px 22px rgba(15,20,25,.08);
+  --sh-lg:0 24px 60px rgba(15,20,25,.16);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,textarea{font-family:inherit}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.022em}
+p{margin:0}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#D5DBE3;border-radius:99px;border:3px solid #fff}
+::-webkit-scrollbar-track{background:transparent}
 
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
+/* ============================================================
+   BUTTONS / PILLS
+============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border-radius:11px;font-size:13px;font-weight:650;padding:9px 16px;
+  transition:.15s;white-space:nowrap;border:1px solid transparent;
+}
+.btn.primary{background:var(--teal);color:#fff;box-shadow:0 2px 10px rgba(14,159,126,.24)}
+.btn.primary:hover{background:var(--teal-deep);transform:translateY(-1px)}
+.btn.ghost{background:#fff;border-color:var(--line-2);color:var(--ink-2)}
+.btn.ghost:hover{border-color:#B6BEC9;color:var(--ink);background:var(--surface-2)}
+.btn.violet{background:var(--violet);color:#fff}
+.btn.violet:hover{background:#6A4FD6}
+.btn.sm{padding:6px 12px;font-size:12px;border-radius:9px}
+.btn.full{width:100%}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
 
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,
-      "Helvetica Neue",Arial,sans-serif;
-    background:var(--bg);
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+.pill{
+  display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:650;
+  padding:3.5px 10px;border-radius:99px;background:var(--surface-3);
+  border:1px solid var(--line);color:var(--muted);letter-spacing:.01em;
+}
+.pill.teal{background:var(--teal-soft);border-color:#C7E8DF;color:var(--teal-deep)}
+.pill.violet{background:var(--violet-soft);border-color:#DCD2F8;color:var(--violet)}
 
-  .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+/* ============================================================
+   AVATARS
+============================================================ */
+.av{
+  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  font-size:12px;font-weight:700;letter-spacing:.01em;user-select:none;
+}
+.av-sm{width:26px;height:26px;font-size:10px}
+.av-lg{width:58px;height:58px;font-size:20px}
+.av-0{background:#E8EFFA;color:#3E6FC4}
+.av-1{background:#E6F6F1;color:#0A7D63}
+.av-2{background:#F0ECFD;color:#7C5FE8}
+.av-3{background:#FDF3E0;color:#D97706}
+.av-4{background:#FCECEC;color:#DC4C4C}
+.av-5{background:#E6F7EC;color:#16A34A}
+.av-6{background:#EAF1FB;color:#3E7CD1}
+.av-you{background:linear-gradient(145deg,#10A987,#0A7D63);color:#fff}
 
-  /* ============ HERO ============ */
-  .hero{
-    background:linear-gradient(135deg,#020617 0%,#0f172a 40%,#1e293b 100%);
-    color:#fff;
-    padding:72px 0 64px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero::after{
-    content:"";
-    position:absolute;
-    width:560px;height:560px;
-    background:radial-gradient(circle,rgba(16,185,129,.18),transparent 70%);
-    top:-240px;right:-180px;
-    border-radius:50%;
-    pointer-events:none;
-  }
-  .hero::before{
-    content:"";
-    position:absolute;
-    width:400px;height:400px;
-    background:radial-gradient(circle,rgba(100,116,139,.2),transparent 70%);
-    bottom:-200px;left:-120px;
-    border-radius:50%;
-    pointer-events:none;
-  }
-  .hero .wrap{position:relative;z-index:1;}
+/* ============================================================
+   SETUP
+============================================================ */
+.setup-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:var(--bg)}
+.setup-card{
+  width:100%;max-width:800px;background:#fff;border:1px solid var(--line);
+  border-radius:24px;box-shadow:var(--sh-md);padding:44px 48px 40px;
+}
+.setup-brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.setup-mark{
+  width:44px;height:44px;border-radius:13px;flex:0 0 auto;
+  background:linear-gradient(145deg,#10A987,#0A7D63);color:#fff;
+  display:grid;place-items:center;font-weight:800;font-size:19px;letter-spacing:-.04em;
+  box-shadow:0 5px 16px rgba(14,159,126,.32);
+}
+.setup-brand .bn{font-size:16px;font-weight:800;letter-spacing:-.01em}
+.setup-brand .bs{font-size:11px;color:var(--faint);letter-spacing:.11em;text-transform:uppercase;font-weight:700;margin-top:2px}
+.setup-title{font-size:28px;font-weight:800;letter-spacing:-.038em;line-height:1.15}
+.setup-sub{font-size:14px;color:var(--muted);margin-top:9px;max-width:58ch;line-height:1.6}
+.setup-step{display:flex;align-items:center;gap:10px;margin:30px 0 12px}
+.step-num{
+  width:24px;height:24px;border-radius:50%;background:var(--teal-soft);color:var(--teal-deep);
+  display:grid;place-items:center;font-size:11.5px;font-weight:800;flex:0 0 auto;
+}
+.step-lbl{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.step-hint{font-size:12px;color:var(--faint);margin-left:auto;font-weight:500}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.field label{font-size:12.5px;font-weight:650;color:var(--ink-2)}
+.field .fh{font-size:11.5px;color:var(--faint);margin-top:-2px}
+.field input,.field textarea{
+  width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 15px;
+  font-size:14px;color:var(--ink);background:#fff;outline:none;transition:.15s;resize:vertical;
+}
+.field input:focus,.field textarea:focus{
+  border-color:var(--teal);box-shadow:0 0 0 4px rgba(14,159,126,.1);
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--faint)}
 
-  .badge{
-    display:inline-block;
-    background:rgba(16,185,129,.15);
-    border:1px solid rgba(16,185,129,.5);
-    color:#6ee7b7;
-    font-size:.78rem;
-    font-weight:700;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    padding:7px 18px;
-    border-radius:999px;
-    margin-bottom:22px;
-  }
+.teacher-hint{
+  display:flex;align-items:center;gap:10px;padding:12px 15px;border-radius:12px;
+  background:var(--violet-soft);border:1px solid #DCD2F8;
+  font-size:12.5px;color:#5B48B8;font-weight:600;margin-top:10px;
+  animation:fade .25s ease;
+}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 
-  .hero h1{
-    font-size:clamp(2.1rem,6vw,3.6rem);
-    font-weight:800;
-    line-height:1.1;
-    letter-spacing:-.02em;
-    margin-bottom:18px;
-  }
-  .hero h1 .lock{display:inline-block;font-size:.85em;vertical-align:middle;margin-right:6px;}
+.cap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.cap-card{
+  border:1.5px solid var(--line);border-radius:14px;padding:14px 15px;
+  background:#fff;text-align:left;transition:.16s;position:relative;
+  display:flex;align-items:flex-start;gap:12px;min-height:78px;
+}
+.cap-card:hover{border-color:#B7E2DA;background:var(--surface-2);transform:translateY(-2px)}
+.cap-card.selected{border-color:var(--teal);background:var(--teal-soft);box-shadow:0 0 0 3px rgba(14,159,126,.09)}
+.cap-card .cc-ico{
+  width:36px;height:36px;border-radius:10px;background:var(--surface-3);border:1px solid var(--line);
+  display:grid;place-items:center;font-size:16px;flex:0 0 auto;
+}
+.cap-card.selected .cc-ico{background:#fff;border-color:#C7E8DF}
+.cap-card .cc-body{flex:1;min-width:0}
+.cap-card .cc-nm{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.25}
+.cap-card.selected .cc-nm{color:var(--teal-deep)}
+.cap-card .cc-desc{font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:3px}
+.cap-card .cc-check{
+  position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;
+  border:1.5px solid var(--line-2);display:grid;place-items:center;
+  font-size:11px;color:#fff;transition:.15s;
+}
+.cap-card.selected .cc-check{background:var(--teal);border-color:var(--teal)}
 
-  .hero p{
-    font-size:clamp(1rem,2.4vw,1.25rem);
-    color:rgba(255,255,255,.82);
-    max-width:620px;
-    margin:0 auto 32px;
-  }
+.auto-role-note{
+  display:flex;align-items:center;gap:10px;padding:12px 15px;border-radius:12px;
+  background:var(--surface-3);border:1px solid var(--line);
+  font-size:12.5px;color:var(--ink-2);font-weight:600;
+}
+.auto-role-note .ar-ico{
+  width:26px;height:26px;border-radius:8px;background:#fff;border:1px solid var(--line);
+  display:grid;place-items:center;font-size:12px;flex:0 0 auto;
+}
 
-  .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.setup-footer{display:flex;align-items:center;gap:14px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+.setup-footer .sf-note{font-size:12px;color:var(--faint);line-height:1.5;flex:1}
+.setup-footer .btn{padding:12px 24px;font-size:14px}
+.conn-error{
+  padding:12px 15px;border-radius:12px;background:var(--rose-soft);border:1px solid #F0D1D1;
+  color:var(--rose);font-size:12.5px;font-weight:600;margin-top:14px;
+}
 
-  .btn{
-    display:inline-block;
-    padding:13px 26px;
-    border-radius:999px;
-    font-size:.95rem;
-    font-weight:700;
-    text-decoration:none;
-    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    cursor:pointer;
-    border:none;
-    font-family:inherit;
-  }
-  .btn-primary{
-    background:var(--mint);
-    color:#022c22;
-    box-shadow:0 6px 18px rgba(16,185,129,.35);
-  }
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(16,185,129,.45);}
-  .btn-ghost{
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    border:1.5px solid rgba(255,255,255,.35);
-  }
-  .btn-ghost:hover{background:rgba(255,255,255,.16);transform:translateY(-2px);}
+/* ============================================================
+   ARENA
+============================================================ */
+.arena{min-height:100vh;display:flex;flex-direction:column}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  padding:12px 28px;
+  display:flex;align-items:center;gap:18px;
+}
+.tb-brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.tb-mark{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(145deg,#10A987,#0A7D63);color:#fff;
+  display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:-.04em;
+  box-shadow:0 3px 10px rgba(14,159,126,.28);
+}
+.tb-name{font-size:13.5px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.tb-session{font-size:11px;color:var(--faint);margin-top:1px}
+.tb-div{width:1px;height:28px;background:var(--line);flex:0 0 auto}
+.tb-current{min-width:0}
+.tb-current .tc-k{font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--faint)}
+.tb-current .tc-v{font-size:13px;font-weight:650;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.participants-mini{display:flex;align-items:center}
+.participants-mini .av{margin-left:-9px;border:2px solid #fff}
+.participants-mini .av:first-child{margin-left:0}
+.participants-mini .pm-count{
+  margin-left:-9px;width:32px;height:32px;border-radius:50%;background:var(--surface-3);
+  border:2px solid #fff;display:grid;place-items:center;font-size:10.5px;font-weight:750;color:var(--muted);
+}
+.conn{
+  display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:650;
+  padding:5px 11px;border-radius:99px;background:var(--green-soft);color:var(--green);
+  border:1px solid #C9E8D3;
+}
+.conn.offline{background:var(--rose-soft);color:var(--rose);border-color:#F0D1D1}
+.conn .cd{width:7px;height:7px;border-radius:50%;background:currentColor;position:relative}
+.conn .cd::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:currentColor;opacity:.35;animation:pulse 2.2s ease-out infinite}
+.conn.offline .cd::after{animation:none;display:none}
+@keyframes pulse{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.icon-btn{
+  width:36px;height:36px;border-radius:10px;border:1px solid var(--line);
+  background:#fff;display:grid;place-items:center;color:var(--ink-2);transition:.15s;position:relative;
+}
+.icon-btn:hover{border-color:var(--line-2);background:var(--surface-2);color:var(--ink)}
+.icon-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn .badge{
+  position:absolute;top:-4px;right:-4px;min-width:17px;height:17px;padding:0 4px;border-radius:99px;
+  background:var(--rose);color:#fff;font-size:9.5px;font-weight:800;display:grid;place-items:center;border:2px solid #fff;
+}
+.arena-content{flex:1;width:100%;max-width:1240px;margin:0 auto;padding:32px 28px 80px}
 
-  /* ============ SECTIONS ============ */
-  section{padding:56px 0;}
-  section + section{padding-top:0;}
+.section{margin-bottom:36px}
+.section-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.section-k{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.section-t{font-size:22px;font-weight:800;letter-spacing:-.034em;margin-top:4px}
+.section-head .right{margin-left:auto;display:flex;align-items:center;gap:9px}
 
-  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:26px;}
-  .sec-num{
-    flex:none;
-    width:42px;height:42px;
-    border-radius:12px;
-    background:var(--navy);
-    color:#fff;
-    font-weight:800;
-    font-size:1.15rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 4px 12px rgba(15,23,42,.25);
-  }
-  .sec-title{
-    font-size:clamp(1.35rem,3.4vw,1.75rem);
-    font-weight:800;
-    letter-spacing:-.01em;
-    color:var(--navy);
-  }
+/* Hint bar */
+.people-hint{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:13px 18px;border-radius:13px;
+  background:var(--surface-2);border:1px dashed var(--line-2);
+  font-size:12.5px;color:var(--muted);margin-bottom:20px;
+}
+.people-hint .ph-item{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--ink-2)}
+.people-hint .ph-ico{font-size:14px}
+.people-hint .ph-div{width:1px;height:16px;background:var(--line-2)}
+.people-hint .ph-arrow{margin-left:auto;font-size:11px;color:var(--faint);font-weight:600}
 
-  .card{
-    background:#fff;
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:28px;
-  }
+/* Teacher panel */
+.teacher-panel{
+  background:linear-gradient(135deg,#F7F4FE,#EEF9F6);
+  border:1px solid #DDD5F5;border-radius:18px;padding:20px 22px;margin-bottom:26px;
+  box-shadow:var(--sh-xs);
+}
+.tp-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.tp-ico{
+  width:34px;height:34px;border-radius:11px;background:#fff;
+  display:grid;place-items:center;font-size:15px;flex:0 0 auto;
+  box-shadow:0 2px 8px rgba(124,95,232,.16);
+}
+.tp-t{font-size:13px;font-weight:800;letter-spacing:-.01em}
+.tp-s{font-size:11.5px;color:var(--violet);margin-top:1px;font-weight:600}
+.tp-live{
+  margin-left:auto;display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:750;padding:4px 10px;border-radius:99px;
+  background:#fff;color:var(--teal-deep);border:1px solid #C7E8DF;
+}
+.tp-live .cd{width:6px;height:6px;border-radius:50%;background:var(--teal);position:relative}
+.tp-live .cd::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:var(--teal);opacity:.35;animation:pulse 2.2s ease-out infinite}
+.tp-feed{display:flex;flex-direction:column;gap:7px;max-height:260px;overflow-y:auto;background:#fff;border-radius:13px;padding:12px 14px;border:1px solid #EDE7FB}
+.tp-event{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.tp-event:last-child{border-bottom:0}
+.tp-event .ev-ico{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:11px;flex:0 0 auto;background:var(--surface-3)}
+.tp-event .ev-x{flex:1;color:var(--ink-2);line-height:1.5}
+.tp-event .ev-x b{color:var(--ink);font-weight:700}
+.tp-event .ev-t{font-size:10.5px;color:var(--faint);white-space:nowrap;margin-top:1px}
+.tp-empty{padding:24px;text-align:center;color:var(--faint);font-size:12.5px}
 
-  /* ============ 1. TEMA ============ */
-  .theme-card{
-    border-top:5px solid var(--navy);
-    text-align:center;
-    padding:36px 28px;
-  }
-  .theme-card .theme-icon{font-size:3rem;margin-bottom:12px;display:block;}
-  .theme-card h2{
-    font-size:clamp(1.6rem,4vw,2.1rem);
-    font-weight:800;
-    color:var(--navy);
-    letter-spacing:-.02em;
-    margin-bottom:10px;
-  }
-  .theme-card p{
-    font-size:1.05rem;
-    color:var(--muted);
-    max-width:560px;
-    margin:0 auto;
-  }
+/* People — HERO */
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px}
+.profile{
+  background:#fff;border:1px solid var(--line);border-radius:22px;
+  padding:26px 26px 22px;box-shadow:0 2px 10px rgba(15,20,25,.05);transition:.2s;position:relative;
+  overflow:hidden;
+}
+.profile::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--teal),var(--violet));
+  opacity:0;transition:.2s;
+}
+.profile:hover{box-shadow:0 10px 32px rgba(15,20,25,.1);border-color:#D5DBE3;transform:translateY(-2px)}
+.profile:hover::before{opacity:1}
+.profile.is-you{border-color:#B7E2DA;background:linear-gradient(180deg,#F4FBF9 0%,#FFFFFF 40%)}
+.profile.is-you::before{opacity:1;background:linear-gradient(90deg,#10A987,#0A7D63)}
+.profile.is-offline{opacity:.65}
+.profile-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.profile-id{min-width:0;flex:1}
+.profile-name{
+  font-size:19px;font-weight:800;letter-spacing:-.028em;
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;line-height:1.2;
+}
+.you-badge{
+  font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--teal-soft);color:var(--teal-deep);padding:3px 9px;border-radius:99px;
+  border:1px solid #C7E8DF;
+}
+.offline-badge{
+  font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--surface-3);color:var(--faint);padding:3px 9px;border-radius:99px;
+  border:1px solid var(--line);
+}
+.profile-role{
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;
+  margin-top:7px;padding:4px 11px;border-radius:99px;
+}
+.profile-role.risk{background:var(--amber-soft);color:var(--amber);border:1px solid #F0DDB8}
+.profile-role.cautious{background:var(--blue-soft);color:var(--blue);border:1px solid #CFDDF3}
 
-  /* ============ 2. MISSION (destaque) ============ */
-  .mission-box{
-    background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
-    color:#fff;
-    border-radius:var(--radius);
-    padding:36px 32px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 12px 40px rgba(15,23,42,.25);
-  }
-  .mission-box::before{
-    content:"";
-    position:absolute;
-    width:400px;height:400px;
-    background:radial-gradient(circle,rgba(16,185,129,.22),transparent 70%);
-    top:-180px;right:-140px;
-    border-radius:50%;
-    pointer-events:none;
-  }
-  .mission-box .inner{position:relative;z-index:1;}
+.profile-bhag{
+  margin-top:4px;margin-bottom:16px;padding:12px 15px;border-radius:12px;
+  background:var(--surface-2);border:1px solid var(--line);
+  font-size:12.5px;line-height:1.55;color:var(--ink-2);
+}
+.profile-bhag .bk{
+  font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:5px;display:flex;align-items:center;gap:5px;
+}
 
-  .mission-box .mission-tag{
-    display:inline-block;
-    background:rgba(16,185,129,.2);
-    border:1px solid rgba(16,185,129,.5);
-    color:#6ee7b7;
-    font-size:.72rem;
-    font-weight:800;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    padding:5px 14px;
-    border-radius:999px;
-    margin-bottom:16px;
-  }
+.cap-block{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.cap-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cap-ico{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:14px;flex:0 0 auto;
+  background:var(--surface-3);border:1px solid var(--line);
+}
+.cap-nm{font-size:14px;font-weight:750;letter-spacing:-.01em}
+.cap-help{
+  font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:11px;
+  padding-left:3px;font-style:italic;
+}
+.cap-actions{display:flex;gap:8px;flex-wrap:wrap}
+.act-btn{
+  display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;
+  padding:8px 14px;border-radius:10px;transition:.15s;
+}
+.act-btn.primary{
+  background:var(--teal);color:#fff;border:1px solid var(--teal);
+  box-shadow:0 2px 8px rgba(14,159,126,.2);
+}
+.act-btn.primary:hover{background:var(--teal-deep);border-color:var(--teal-deep);transform:translateY(-1px)}
+.act-btn.violet{
+  background:#fff;color:var(--violet);border:1.5px solid #DCD2F8;
+}
+.act-btn.violet:hover{background:var(--violet-soft);border-color:var(--violet)}
+.act-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cap-me-note{
+  font-size:11.5px;color:var(--faint);font-style:italic;padding:6px 0;
+}
 
-  .mission-box h2{
-    font-size:clamp(1.5rem,4vw,2rem);
-    font-weight:800;
-    letter-spacing:-.02em;
-    line-height:1.2;
-    margin-bottom:12px;
-  }
-  .mission-box h2 .accent{color:#6ee7b7;}
+.evidence-badge{
+  display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;
+  margin-top:11px;padding:4px 11px;border-radius:99px;
+  background:var(--green-soft);color:var(--green);border:1px solid #C9E8D3;
+}
 
-  .mission-box .lead{
-    font-size:1.02rem;
-    color:rgba(255,255,255,.8);
-    margin-bottom:26px;
-    max-width:640px;
-  }
+/* Mission — compact */
+.mission-card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;box-shadow:var(--sh-xs);
+}
+.mission-head{
+  padding:20px 26px 18px;
+  background:linear-gradient(135deg,#F4FBF9 0%,#F3F0FD 100%);
+  border-bottom:1px solid #E5F1ED;
+}
+.mission-k{
+  font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:7px;
+}
+.mission-t{font-size:18px;font-weight:800;letter-spacing:-.03em;line-height:1.3}
+.mission-context{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-top:9px;max-width:82ch}
+.mission-body{display:grid;grid-template-columns:1.3fr 1fr;gap:0}
+.mission-col{padding:18px 26px}
+.mission-col + .mission-col{border-left:1px solid var(--line)}
+.mission-col-k{
+  font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:11px;
+}
+.mission-list{list-style:none;padding:0;margin:0}
+.mission-list li{
+  display:flex;gap:11px;padding:9px 8px;font-size:13px;color:var(--ink-2);line-height:1.5;
+  cursor:pointer;transition:.15s;border-radius:10px;margin:0 -8px;user-select:none;
+}
+.mission-list li:hover{background:var(--surface-2)}
+.mission-list li.checked{color:var(--muted)}
+.mission-list li.checked .mission-text{text-decoration:line-through;text-decoration-color:var(--faint)}
+.mission-check{
+  width:20px;height:20px;border-radius:6px;background:#fff;border:1.8px solid var(--line-2);
+  display:grid;place-items:center;flex:0 0 auto;margin-top:1px;transition:.2s;
+  color:transparent;font-size:12px;font-weight:800;
+}
+.mission-list li:hover .mission-check{border-color:var(--teal)}
+.mission-list li.checked .mission-check{
+  background:var(--green);border-color:var(--green);color:#fff;
+  animation:checkPop .35s cubic-bezier(.2,1.4,.4,1);
+}
+@keyframes checkPop{0%{transform:scale(.8)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.mission-text{flex:1}
 
-  .mission-steps{
-    list-style:none;
-    display:grid;
-    gap:14px;
-    margin-bottom:28px;
-  }
-  .mission-steps li{
-    display:flex;
-    gap:14px;
-    align-items:flex-start;
-    font-size:1rem;
-    line-height:1.55;
-    color:rgba(255,255,255,.95);
-  }
-  .mission-steps .n{
-    flex:none;
-    width:30px;height:30px;
-    border-radius:50%;
-    background:var(--mint);
-    color:#022c22;
-    font-size:.88rem;
-    font-weight:800;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-top:1px;
-  }
-  .mission-steps b{color:#fff;font-weight:800;}
-  .mission-steps span{color:rgba(255,255,255,.85);}
+.role-block{
+  padding:14px 16px;border-radius:13px;border:1px solid var(--line);
+  background:var(--surface-2);
+}
+.role-block.risk{background:linear-gradient(180deg,#FDF7EA,#FFFFFF);border-color:#F0DDB8}
+.role-block.cautious{background:linear-gradient(180deg,#EFF4FC,#FFFFFF);border-color:#CFDDF3}
+.role-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.role-name{font-size:13.5px;font-weight:800}
+.role-desc{font-size:12px;color:var(--ink-2);line-height:1.55}
+.my-role-note{
+  display:flex;align-items:center;gap:9px;padding:10px 13px;border-radius:10px;
+  background:var(--surface-2);border:1px solid var(--line);color:var(--muted);
+  font-size:11.5px;font-weight:600;margin-top:10px;
+}
+.role-pending{
+  padding:20px;border-radius:13px;border:1.5px dashed var(--line-2);text-align:center;
+  color:var(--faint);font-size:12.5px;line-height:1.55;
+}
 
-  .mission-divider{
-    border:0;
-    border-top:1px dashed rgba(255,255,255,.2);
-    margin:0 0 22px;
-  }
+/* Lower grid */
+.lower-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,1fr);gap:20px;align-items:start}
 
-  .mission-questions{
-    list-style:none;
-    display:grid;
-    gap:10px;
-  }
-  .mission-questions li{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    font-size:.98rem;
-    color:#6ee7b7;
-    font-weight:600;
-    line-height:1.55;
-  }
-  .mission-questions li::before{
-    content:"→";
-    color:var(--mint);
-    font-weight:800;
-    flex:none;
-  }
+/* Framework */
+.framework-card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;box-shadow:var(--sh-xs);
+}
+.framework-head{padding:18px 22px 14px;border-bottom:1px solid var(--line)}
+.framework-body{padding:26px 22px 22px}
+.fw-stage{position:relative;width:100%;max-width:560px;margin:0 auto;aspect-ratio:1}
+.fw-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.fw-svg line{stroke:#DDE8E5;stroke-width:1.2;stroke-linecap:round}
+.fw-svg line.peer{stroke:#E8EEF0;stroke-width:.9;stroke-dasharray:3 3}
+.fw-svg circle.ring{fill:none;stroke:#F0F4F7;stroke-width:1}
+.fw-center{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:32%;aspect-ratio:1;border-radius:50%;
+  background:linear-gradient(145deg,#10A987,#0A7D63);
+  color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:10px;z-index:3;
+  box-shadow:0 16px 40px rgba(14,159,126,.28), inset 0 0 0 6px rgba(255,255,255,.14);
+}
+.fw-center .fc-t{font-size:13px;font-weight:800;letter-spacing:.01em;line-height:1.3}
+.fw-center .fc-s{font-size:9.5px;opacity:.8;margin-top:5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.fw-node{
+  position:absolute;transform:translate(-50%,-50%);
+  width:124px;padding:12px 8px;border-radius:15px;
+  background:#fff;border:1.8px solid var(--line);
+  text-align:center;cursor:pointer;transition:.2s;z-index:2;
+  box-shadow:0 2px 8px rgba(15,20,25,.05);
+}
+.fw-node:hover{border-color:var(--teal);transform:translate(-50%,-50%) scale(1.07);box-shadow:0 12px 28px rgba(14,159,126,.18);z-index:6}
+.fw-node.active{border-color:var(--teal);background:var(--teal-soft);box-shadow:0 0 0 4px rgba(14,159,126,.14), 0 8px 22px rgba(14,159,126,.16)}
+.fw-node .fn-ico{font-size:20px;line-height:1;margin-bottom:5px}
+.fw-node .fn-nm{font-size:12px;font-weight:800;letter-spacing:-.005em;line-height:1.25;color:var(--ink)}
+.fw-detail{
+  margin-top:26px;padding:18px 20px;border-radius:14px;
+  background:linear-gradient(135deg,#F4FBF9,#FFFFFF);border:1px solid #E5F1ED;
+  animation:fade .25s ease;
+}
+.fw-detail .fd-k{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.fw-detail .fd-ico{
+  width:36px;height:36px;border-radius:11px;background:var(--teal-soft);color:var(--teal-deep);
+  display:grid;place-items:center;font-size:16px;
+}
+.fw-detail .fd-t{font-size:17px;font-weight:800;letter-spacing:-.025em}
+.fw-detail .fd-q{font-size:14px;font-weight:700;color:var(--teal-deep);margin-bottom:8px}
+.fw-detail .fd-x{font-size:13px;color:var(--ink-2);line-height:1.6}
+.fw-note{
+  margin-top:14px;padding:11px 14px;border-radius:11px;
+  background:#F7F4FE;border:1px solid #E4DDF8;font-size:11.5px;color:#5B48B8;
+  line-height:1.6;display:flex;gap:9px;align-items:flex-start;
+}
 
-  /* ============ REFLECTION CARDS ============ */
-  .reflect-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-  }
+/* Knowledge */
+.knowledge-card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;box-shadow:var(--sh-xs);
+}
+.knowledge-head{padding:18px 22px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.knowledge-head:hover{background:var(--surface-2)}
+.knowledge-head .kh-ico{
+  width:36px;height:36px;border-radius:11px;background:var(--violet-soft);color:var(--violet);
+  display:grid;place-items:center;font-size:16px;flex:0 0 auto;
+}
+.knowledge-head .kh-t{font-size:14.5px;font-weight:800;letter-spacing:-.02em}
+.knowledge-head .kh-s{font-size:11.5px;color:var(--faint);margin-top:1px}
+.knowledge-head .kh-toggle{margin-left:auto;color:var(--faint);transition:.2s;font-size:11px;font-weight:700}
+.knowledge-card.open .kh-toggle{transform:rotate(180deg)}
+.knowledge-body{padding:0 22px 22px;border-top:1px solid var(--line);display:none}
+.knowledge-card.open .knowledge-body{display:block;padding-top:18px}
+.insight{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--line)}
+.insight:last-of-type{border-bottom:0;padding-bottom:4px}
+.insight .in-bul{width:7px;height:7px;border-radius:50%;background:var(--violet);flex:0 0 auto;margin-top:8px}
+.insight .in-t{font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+.kw-label{
+  font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);margin:16px 0 10px;
+}
+.keywords{display:flex;flex-wrap:wrap;gap:7px}
+.kw{font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:99px;background:var(--violet-soft);color:var(--violet);border:1px solid #DCD2F8}
+.kw-note{
+  margin-top:14px;padding:11px 14px;border-radius:11px;
+  background:var(--amber-soft);border:1px solid #F0DDB8;font-size:11.5px;color:#8A5C15;line-height:1.6;
+}
 
-  .reflect-card{
-    background:#fff;
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:24px;
-    transition:box-shadow .2s ease, transform .2s ease;
-  }
-  .reflect-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);}
-  .reflect-card.scenario{border-top:5px solid var(--gray);}
-  .reflect-card.keywords{border-top:5px solid var(--mint);}
+/* Tools */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tool-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--sh-xs)}
+.tool-head{padding:14px 18px;display:flex;align-items:center;gap:11px;cursor:pointer;user-select:none}
+.tool-head:hover{background:var(--surface-2)}
+.tool-head .th-ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:14px;flex:0 0 auto}
+.tool-head .th-t{font-size:13.5px;font-weight:800;letter-spacing:-.015em}
+.tool-head .th-s{font-size:11.5px;color:var(--faint);margin-top:1px}
+.tool-head .th-toggle{margin-left:auto;color:var(--faint);transition:.2s;font-size:11px;font-weight:700}
+.tool-card.open .th-toggle{transform:rotate(180deg)}
+.tool-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+.tool-card.open .tool-body{display:block;padding-top:16px}
 
-  .reflect-card .r-tag{
-    display:inline-block;
-    font-size:.68rem;
-    font-weight:800;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:10px;
-  }
-  .reflect-card h3{
-    font-size:1.08rem;
-    font-weight:800;
-    color:var(--navy);
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    gap:9px;
-  }
-  .reflect-card h3 .dot{
-    width:10px;height:10px;
-    border-radius:50%;
-    background:var(--gray);
-    flex:none;
-  }
-  .reflect-card.keywords h3 .dot{background:var(--mint);}
+/* Mural — sticky notes */
+.mural-input{display:flex;gap:9px;margin-bottom:18px}
+.mural-input input{
+  flex:1;border:1.5px solid var(--line);border-radius:11px;padding:10px 14px;
+  font-size:13px;background:#fff;outline:none;transition:.15s;
+}
+.mural-input input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(14,159,126,.1)}
+.mural-input button{padding:0 18px;border-radius:11px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;transition:.15s}
+.mural-input button:hover{background:var(--teal-deep)}
+.mural-notes{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;
+  max-height:360px;overflow-y:auto;padding:6px 4px 12px;
+}
+.mural-empty{
+  grid-column:1/-1;padding:36px 20px;text-align:center;font-size:12.5px;color:var(--faint);
+  border:1.5px dashed var(--line-2);border-radius:14px;
+}
+.sticky{
+  position:relative;aspect-ratio:1;padding:16px 14px 12px;
+  background:linear-gradient(160deg,var(--yellow-note) 0%,var(--yellow-note-2) 100%);
+  border-radius:4px;
+  box-shadow:0 6px 16px rgba(180,140,20,.22), 0 2px 3px rgba(0,0,0,.06);
+  font-family:"Caveat","Comic Sans MS",cursive;color:#4A3D0F;
+  transform:rotate(var(--rot,0deg));transition:.2s;
+  display:flex;flex-direction:column;
+  animation:stickyIn .35s cubic-bezier(.2,1.2,.4,1);
+}
+@keyframes stickyIn{from{opacity:0;transform:rotate(0deg) scale(.85)}to{opacity:1;transform:rotate(var(--rot,0deg)) scale(1)}}
+.sticky:hover{transform:rotate(0deg) scale(1.04);z-index:5;box-shadow:0 12px 26px rgba(180,140,20,.3)}
+.sticky::before{
+  content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+  width:36px;height:12px;background:rgba(255,255,255,.55);border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+.sticky::after{
+  content:"";position:absolute;bottom:0;right:0;width:20px;height:20px;
+  background:linear-gradient(135deg,transparent 50%,rgba(0,0,0,.08) 50%);border-radius:0 0 4px 0;
+}
+.sticky .st-author{
+  font-family:"Inter",sans-serif;font-size:9.5px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin-bottom:6px;
+}
+.sticky .st-text{font-size:19px;line-height:1.2;font-weight:600;flex:1;word-break:break-word;overflow:hidden}
+.sticky .st-actions{display:flex;gap:5px;margin-top:8px;justify-content:flex-end;font-family:"Inter",sans-serif;opacity:0;transition:.15s}
+.sticky:hover .st-actions{opacity:.7}
+.sticky .st-actions button{font-size:10px;font-weight:700;color:#4A3D0F;padding:2px 6px;border-radius:5px}
+.sticky .st-actions button:hover{background:rgba(0,0,0,.08)}
 
-  .reflect-card p{
-    font-size:.95rem;
-    color:#334155;
-    line-height:1.65;
-  }
-  .reflect-card p + p{margin-top:10px;}
-  .reflect-card p strong{color:var(--navy);}
+.cues-list{display:flex;flex-direction:column;gap:10px}
+.cue{
+  padding:14px 17px;border-radius:13px;background:var(--surface-3);border:1px solid var(--line);
+  font-size:15px;font-weight:650;color:var(--ink);letter-spacing:-.01em;
+  display:flex;align-items:flex-start;gap:11px;
+}
+.cue .cq{font-size:24px;color:var(--teal);line-height:1;font-weight:400;font-family:Georgia,serif;flex:0 0 auto}
+.cue .cue-body{flex:1}
+.cue small{display:block;font-size:11.5px;color:var(--muted);font-weight:500;margin-top:5px;letter-spacing:0;line-height:1.5}
 
-  .kw-mini{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:6px;
-  }
-  .kw-mini span{
-    background:var(--gray-soft);
-    color:var(--navy);
-    font-size:.82rem;
-    font-weight:700;
-    padding:6px 12px;
-    border-radius:999px;
-    border-left:3px solid var(--mint);
-  }
+/* Footer insights — subtler */
+.footer-insights{
+  margin-top:40px;padding:26px 24px 22px;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:18px;
+}
+.fi-head{text-align:center;margin-bottom:22px}
+.fi-k{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.fi-t{font-size:15px;font-weight:800;letter-spacing:-.025em;margin-top:5px;color:var(--ink-2)}
+.fi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.fi-item{text-align:center;padding:16px 12px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.fi-mark{width:40px;height:40px;border-radius:12px;margin:0 auto 10px;display:grid;place-items:center;font-size:11px;font-weight:800;letter-spacing:.02em}
+.fi-mark.fun{background:var(--amber-soft);color:var(--amber)}
+.fi-mark.learn{background:var(--blue-soft);color:var(--blue)}
+.fi-mark.help{background:var(--teal-soft);color:var(--teal-deep)}
+.fi-mark.grow{background:var(--violet-soft);color:var(--violet)}
+.fi-word{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.fi-qs{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+.fi-message{text-align:center;padding:20px 16px 4px;border-top:1px solid var(--line)}
+.fi-message p{font-size:15px;font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.5}
+.fi-message p span{color:var(--teal-deep)}
+.fi-message .fi-sub{font-size:11.5px;color:var(--faint);margin-top:7px;font-weight:500;letter-spacing:0}
 
-  /* ============ REAL WORLD EXAMPLE ============ */
-  .example-card{
-    border:2px solid var(--navy);
-    border-radius:var(--radius);
-    background:#fff;
-    padding:28px;
-    position:relative;
-    overflow:hidden;
-  }
-  .example-card::before{
-    content:"";
-    position:absolute;
-    top:0;left:0;
-    width:100%;height:5px;
-    background:linear-gradient(90deg,var(--navy),var(--mint));
-  }
-  .example-card .ex-badge{
-    display:inline-block;
-    background:var(--navy);
-    color:#fff;
-    font-size:.7rem;
-    font-weight:800;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    padding:5px 14px;
-    border-radius:999px;
-    margin-bottom:16px;
-  }
-  .example-card h3{
-    font-size:1.2rem;
-    font-weight:800;
-    color:var(--navy);
-    margin-bottom:12px;
-  }
-  .example-card p{
-    font-size:.98rem;
-    color:#334155;
-    line-height:1.7;
-    margin-bottom:12px;
-  }
-  .example-card .highlight{
-    background:var(--mint-soft);
-    border-left:4px solid var(--mint);
-    border-radius:8px;
-    padding:14px 18px;
-    font-size:.95rem;
-    color:var(--mint-dark);
-    font-weight:600;
-    line-height:1.6;
-    margin-top:16px;
-  }
-  .example-card .highlight strong{color:var(--navy);}
+/* Drawers */
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(460px,94vw);
+  background:#fff;border-left:1px solid var(--line);box-shadow:var(--sh-lg);z-index:100;
+  display:flex;flex-direction:column;transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.8,.3,1);
+}
+.drawer.open{transform:none}
+.drawer-overlay{
+  position:fixed;inset:0;background:rgba(15,20,25,.35);z-index:99;opacity:0;pointer-events:none;
+  transition:opacity .3s;backdrop-filter:blur(2px);
+}
+.drawer-overlay.open{opacity:1;pointer-events:auto}
+.drawer-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:13px;flex:0 0 auto}
+.drawer-head .dh-ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:17px;flex:0 0 auto}
+.drawer-head .dh-t{font-size:16px;font-weight:800;letter-spacing:-.022em}
+.drawer-head .dh-s{font-size:12px;color:var(--faint);margin-top:2px}
+.drawer-close{margin-left:auto;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--muted);transition:.15s}
+.drawer-close:hover{background:var(--surface-2);color:var(--ink)}
+.drawer-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.drawer-body{flex:1;overflow-y:auto;padding:22px 24px}
+.dash-profile{padding:18px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line);margin-bottom:22px}
+.dash-profile .dp-top{display:flex;align-items:center;gap:13px;margin-bottom:15px}
+.dash-profile .dp-name{font-size:16px;font-weight:800;letter-spacing:-.022em}
+.dash-profile .dp-role{font-size:12px;color:var(--muted);margin-top:2px}
+.dash-bhag{font-size:12.5px;color:var(--ink-2);line-height:1.6;padding:12px 14px;background:#fff;border-radius:12px;border:1px solid var(--line)}
+.dash-bhag .dbk{font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.dash-caps{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.dash-cap{
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;
+  padding:6px 12px;border-radius:99px;background:var(--teal-soft);color:var(--teal-deep);border:1px solid #C7E8DF;
+}
+.dash-section{margin-bottom:26px}
+.dash-section:last-child{margin-bottom:0}
+.dash-section-k{
+  font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.dash-section-k .cnt{background:var(--surface-3);border:1px solid var(--line);border-radius:99px;padding:1px 8px;font-size:10px;color:var(--muted)}
+.ev-card{padding:15px 17px;border-radius:14px;border:1px solid var(--line);background:#fff;margin-bottom:10px;transition:.15s}
+.ev-card:hover{border-color:#C7E8DF;background:var(--surface-2)}
+.ev-card .ec-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ev-card .ec-skill{font-size:12px;font-weight:800;color:var(--teal-deep)}
+.ev-card .ec-from{font-size:11px;color:var(--faint);margin-left:auto}
+.ev-card .ec-text{font-size:13px;line-height:1.6;color:var(--ink-2)}
+.ev-card .ec-foot{display:flex;align-items:center;gap:9px;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);flex-wrap:wrap}
+.ev-card .ec-foot button{
+  font-size:11.5px;font-weight:700;color:var(--violet);
+  display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:7px;
+}
+.ev-card .ec-foot button:hover{background:var(--violet-soft)}
+.empty-state{
+  padding:30px 20px;text-align:center;border:1.5px dashed var(--line-2);border-radius:14px;
+  font-size:12.5px;color:var(--faint);line-height:1.6;
+}
+.req-card{padding:15px 17px;border-radius:14px;border:1px solid var(--line);background:#fff;margin-bottom:10px}
+.req-card .rc-head{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.req-card .rc-t{font-size:13px;font-weight:750}
+.req-card .rc-s{font-size:12px;color:var(--muted);line-height:1.6}
+.req-card .rc-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.dash-note{padding:13px 15px;border-radius:12px;background:var(--violet-soft);border:1px solid #DCD2F8;font-size:11.5px;color:#5B48B8;line-height:1.65}
+.dash-actions{display:flex;gap:9px;margin-bottom:22px;flex-wrap:wrap}
+.dash-actions .btn{flex:1;min-width:130px}
 
-  /* ============ 3 KEY IDEAS ============ */
-  .key-ideas{
-    margin-top:24px;
-    background:#fff;
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:26px;
-    border-top:5px solid var(--navy);
-  }
-  .key-ideas h3{
-    font-size:1.15rem;
-    font-weight:800;
-    color:var(--navy);
-    margin-bottom:6px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .key-ideas h3 .star{color:var(--amber);font-size:1.2rem;}
-  .key-ideas .sub{font-size:.9rem;color:var(--muted);margin-bottom:20px;}
+/* Modal */
+.modal-wrap{
+  position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;
+  background:rgba(15,20,25,.45);backdrop-filter:blur(3px);
+}
+.modal-wrap.open{display:flex}
+.modal{
+  width:100%;max-width:560px;background:#fff;border-radius:22px;box-shadow:var(--sh-lg);overflow:hidden;
+  animation:modalIn .3s cubic-bezier(.2,.8,.3,1);max-height:calc(100vh - 40px);display:flex;flex-direction:column;
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{padding:24px 26px 20px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:13px;flex:0 0 auto}
+.modal-head .mh-ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+.modal-head .mh-t{font-size:17px;font-weight:800;letter-spacing:-.024em}
+.modal-head .mh-s{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+.modal-close{margin-left:auto;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:var(--muted);transition:.15s;flex:0 0 auto}
+.modal-close:hover{background:var(--surface-2);color:var(--ink)}
+.modal-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.modal-body{padding:24px 26px;overflow-y:auto;flex:1}
+.modal-foot{padding:16px 26px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex:0 0 auto;background:var(--surface-2)}
+.modal-foot .btn{min-width:120px}
 
-  .key-row{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:10px 0;
-    border-bottom:1px dashed var(--line);
-  }
-  .key-row:last-child{border-bottom:none;}
+.recipient-chip{display:flex;align-items:center;gap:13px;padding:15px 17px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);margin-bottom:20px}
+.recipient-chip .rc-nm{font-size:15px;font-weight:800;letter-spacing:-.022em}
+.recipient-chip .rc-cap{font-size:12px;font-weight:700;color:var(--teal-deep);margin-top:4px;display:inline-flex;align-items:center;gap:6px}
+.recipient-chip .rc-role{margin-left:auto;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:99px;background:#fff;border:1px solid var(--line);color:var(--muted)}
 
-  .key-row .bullet{
-    flex:none;
-    width:26px;height:26px;
-    border-radius:50%;
-    background:var(--gray-soft);
-    color:var(--gray);
-    font-size:.9rem;
-    font-weight:800;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    line-height:1;
-  }
+/* Evidence presets */
+.evidence-presets{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.evidence-preset{
+  display:flex;align-items:flex-start;gap:13px;padding:15px 17px;
+  border-radius:14px;border:1.5px solid var(--line);background:#fff;text-align:left;
+  transition:.18s;cursor:pointer;position:relative;
+}
+.evidence-preset:hover{
+  border-color:#B7E2DA;background:var(--surface-2);transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(14,159,126,.1);
+}
+.evidence-preset.selected{
+  border-color:var(--teal);background:var(--teal-soft);
+  box-shadow:0 0 0 3px rgba(14,159,126,.12);
+}
+.evidence-preset .ep-ico{
+  width:34px;height:34px;border-radius:11px;background:var(--surface-3);
+  display:grid;place-items:center;font-size:15px;flex:0 0 auto;transition:.15s;
+}
+.evidence-preset.selected .ep-ico{background:#fff;border:1px solid #C7E8DF}
+.evidence-preset .ep-body{flex:1;min-width:0}
+.evidence-preset .ep-label{
+  font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:4px;transition:.15s;
+}
+.evidence-preset.selected .ep-label{color:var(--teal)}
+.evidence-preset .ep-text{font-size:13px;line-height:1.55;color:var(--ink-2);font-weight:540}
+.evidence-preset.selected .ep-text{color:var(--teal-deep);font-weight:650}
+.evidence-preset .ep-check{
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-2);
+  display:grid;place-items:center;font-size:11px;color:#fff;flex:0 0 auto;transition:.15s;
+}
+.evidence-preset.selected .ep-check{background:var(--teal);border-color:var(--teal)}
 
-  .key-row input{
-    flex:1;
-    border:none;
-    background:transparent;
-    font-family:inherit;
-    font-size:1rem;
-    color:var(--ink);
-    padding:6px 0;
-    border-bottom:1.5px solid var(--line);
-    transition:border-color .15s ease;
-  }
-  .key-row input:focus{outline:none;border-bottom-color:var(--mint);}
-  .key-row input::placeholder{color:#b6bcc9;}
+.or-divider{
+  display:flex;align-items:center;gap:12px;margin:18px 0 16px;
+  font-size:11px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
+}
+.or-divider::before,.or-divider::after{content:"";flex:1;height:1px;background:var(--line)}
 
-  .key-row .counter{
-    flex:none;
-    font-size:.78rem;
-    font-weight:700;
-    color:var(--muted);
-    background:var(--gray-soft);
-    padding:3px 10px;
-    border-radius:999px;
-    min-width:64px;
-    text-align:center;
-    transition:background .2s ease, color .2s ease;
-    font-variant-numeric:tabular-nums;
-  }
-  .key-row .counter.low{background:#fef3c7;color:#92400e;}
-  .key-row .counter.empty{background:#fee2e2;color:#b91c1c;}
+.example-box{padding:12px 15px;border-radius:12px;background:#F7F4FE;border:1px solid #E4DDF8;font-size:11.5px;color:#5B48B8;line-height:1.6;margin-top:12px}
+.example-box b{font-weight:800}
 
-  /* ============ FOOTER ============ */
-  footer{
-    background:var(--navy-deep);
-    color:rgba(255,255,255,.75);
-    text-align:center;
-    padding:36px 20px;
-    font-size:.92rem;
-  }
-  footer strong{color:#6ee7b7;font-weight:800;}
+/* Toasts */
+#toasts{position:fixed;right:24px;bottom:24px;z-index:400;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.toast{
+  display:flex;gap:12px;align-items:flex-start;background:#0F1419;color:#fff;border-radius:14px;
+  padding:14px 18px;box-shadow:var(--sh-lg);max-width:380px;
+  opacity:0;transform:translateY(12px) scale(.97);transition:.3s cubic-bezier(.2,.8,.3,1);
+}
+.toast.in{opacity:1;transform:none}
+.toast-ico{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:13px;flex:0 0 auto}
+.toast-msg{font-size:13.5px;font-weight:700;line-height:1.35}
+.toast-sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:3px;line-height:1.45}
 
-  /* ============ PRINT FAB ============ */
-  .print-fab{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    background:var(--navy);
-    color:#fff;
-    border:none;
-    border-radius:999px;
-    padding:14px 22px;
-    font-size:.9rem;
-    font-weight:700;
-    font-family:inherit;
-    cursor:pointer;
-    box-shadow:0 8px 22px rgba(15,23,42,.4);
-    display:flex;
-    align-items:center;
-    gap:8px;
-    transition:transform .15s ease, box-shadow .15s ease;
-    z-index:50;
-  }
-  .print-fab:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,23,42,.5);}
+/* Print */
+.print-container{display:none}
+@media print{
+  body > *:not(.print-container){display:none!important}
+  .print-container{display:block!important;font-family:"Inter",Arial,sans-serif;color:#000;padding:32px 40px}
+}
 
-  /* ============ RESPONSIVE ============ */
-  @media (max-width:720px){
-    .hero{padding:56px 0 48px;}
-    section{padding:40px 0;}
-    .card{padding:22px;}
-    .theme-card{padding:28px 20px;}
-    .reflect-grid{grid-template-columns:1fr;}
-    .mission-box{padding:28px 22px;}
-    .key-ideas{padding:20px;}
-    .key-row .counter{min-width:56px;font-size:.72rem;padding:3px 8px;}
-    .example-card{padding:22px;}
-    .print-fab{right:14px;bottom:14px;padding:12px 18px;font-size:.82rem;}
-  }
-
-  /* ============ PRINT ============ */
-  @media print{
-    body{background:#fff;}
-    .hero{
-      background:#fff !important;
-      color:#000;
-      padding:24px 0 20px;
-      border-bottom:3px solid var(--navy);
-    }
-    .hero::after,.hero::before{display:none;}
-    .hero h1{color:var(--navy);}
-    .hero p{color:#333;}
-    .badge{background:#fff;color:var(--navy);border:1.5px solid var(--navy);}
-    .hero-btns,.print-fab{display:none !important;}
-    section{padding:24px 0;break-inside:avoid;}
-    .card,.reflect-card,.key-ideas,.example-card{
-      box-shadow:none;
-      border:1px solid var(--line);
-    }
-    .mission-box{
-      background:#fff !important;
-      color:#000;
-      border:2px solid var(--navy);
-      box-shadow:none;
-    }
-    .mission-box::before{display:none;}
-    .mission-box h2,.mission-box .lead{color:#000;}
-    .mission-box h2 .accent{color:var(--mint-dark);}
-    .mission-box .mission-tag{background:#fff;color:var(--navy);border:1.5px solid var(--navy);}
-    .mission-steps li,.mission-steps span{color:#333;}
-    .mission-steps b{color:#000;}
-    .mission-questions li{color:var(--mint-dark);}
-    .mission-divider{border-top:1px dashed #999;}
-    .example-card{border:2px solid var(--navy);}
-    .key-row input{border-bottom:1.5px solid #999;}
-    .key-row .counter{background:#fff;border:1px solid var(--line);}
-    footer{background:#fff;color:#333;border-top:2px solid var(--line);}
-    footer strong{color:var(--navy);}
-  }
+/* Responsive */
+@media (max-width:1024px){
+  .lower-grid{grid-template-columns:1fr}
+  .mission-body{grid-template-columns:1fr}
+  .mission-col + .mission-col{border-left:0;border-top:1px solid var(--line)}
+  .tools-grid{grid-template-columns:1fr}
+}
+@media (max-width:840px){
+  .topbar{padding:11px 18px;gap:12px}
+  .tb-current{display:none}
+  .tb-div{display:none}
+  .arena-content{padding:22px 18px 60px}
+  .profile-grid{grid-template-columns:1fr}
+  .mission-head{padding:18px 20px 16px}
+  .mission-col{padding:16px 20px}
+  .framework-body{padding:22px 18px}
+  .fw-node{width:104px;padding:10px 6px}
+  .fw-node .fn-ico{font-size:17px}
+  .fw-node .fn-nm{font-size:11px}
+  .setup-card{padding:32px 26px 28px}
+  .cap-grid{grid-template-columns:1fr}
+  .fi-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .fw-stage{max-width:420px}
+  .fw-node{width:86px;padding:8px 5px}
+  .fw-node .fn-ico{font-size:14px;margin-bottom:3px}
+  .fw-node .fn-nm{font-size:9.5px;line-height:1.2}
+  .fw-center .fc-t{font-size:10.5px}
+  .fw-center .fc-s{font-size:8px}
+  .fi-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .fi-item{padding:14px 8px}
+  .section-t{font-size:19px}
+  .mission-t{font-size:17px}
+  .setup-title{font-size:22px}
+  .mural-notes{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+}
 </style>
 </head>
 <body>
 
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="wrap">
-    <div class="badge">Group Project</div>
-    <h1><span class="lock">🔒</span>Privacy in a Digital World</h1>
-    <p>Design a world where people control their own data — and everyone wins.</p>
-    <div class="hero-btns">
-      <a href="#mission" class="btn btn-primary">Start the mission ↓</a>
-      <a href="#example" class="btn btn-ghost">Real World Example ↓</a>
-    </div>
-  </div>
-</header>
+<!-- ============================================================
+     SETUP
+============================================================ -->
+<section id="setupScreen" class="setup-wrap">
+  <div class="setup-card">
 
-<!-- ============ 1. THEME ============ -->
-<section id="theme">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">1</div>
-      <h2 class="sec-title">Theme</h2>
+    <div class="setup-brand">
+      <div class="setup-mark">S</div>
+      <div>
+        <div class="bn">Synergy Cell OS</div>
+        <div class="bs">Collaborative Arena</div>
+      </div>
     </div>
 
-    <div class="card theme-card">
-      <span class="theme-icon">🔒</span>
-      <h2>Privacy in a Digital World</h2>
-      <p>Apps know where we go, what we buy, and how we feel. Who should control this information — us, or the companies?</p>
+    <h1 class="setup-title">Before we begin</h1>
+    <p class="setup-sub">
+      Your profile is saved for future sessions. Choose the two capabilities you want to focus on today.
+      If you are the teacher, type <b>teacher me</b> in the name field.
+    </p>
+
+    <div class="setup-step">
+      <span class="step-num">0</span>
+      <span class="step-lbl">Session code</span>
+      <span class="step-hint">Shared by your teacher</span>
     </div>
+    <div class="field">
+      <input id="setupCode" type="text" placeholder="e.g. class-a" autocomplete="off">
+      <div class="fh">Everyone in the same session must use the same code.</div>
+    </div>
+
+    <div class="setup-step">
+      <span class="step-num">1</span>
+      <span class="step-lbl">Your name</span>
+      <span class="step-hint">Type “teacher me” to enter as teacher</span>
+    </div>
+    <div class="field">
+      <input id="setupName" type="text" placeholder="e.g. Ana Ribeiro" autocomplete="name">
+    </div>
+
+    <div id="teacherHint" class="teacher-hint" hidden>
+      <span>👁️</span>
+      <span>Teacher mode: you will enter as an observer. No BHAG or capabilities required.</span>
+    </div>
+
+    <div id="studentFields">
+
+      <div class="setup-step">
+        <span class="step-num">2</span>
+        <span class="step-lbl">Your professional BHAG</span>
+        <span class="step-hint">Saved for next time</span>
+      </div>
+      <div class="field">
+        <textarea id="setupBhag" rows="2" placeholder="e.g. Lead a team that redesigns how companies organise work across Latin America."></textarea>
+        <div class="fh">One sentence is enough. It can change over time.</div>
+      </div>
+
+      <div class="setup-step">
+        <span class="step-num">3</span>
+        <span class="step-lbl">Focus capabilities</span>
+        <span class="step-hint" id="capCounter">0 / 2 selected</span>
+      </div>
+      <div class="cap-grid" id="capGrid"></div>
+
+      <div class="setup-step">
+        <span class="step-num">4</span>
+        <span class="step-lbl">Your role in the role-play</span>
+      </div>
+      <div class="auto-role-note">
+        <span class="ar-ico">🎭</span>
+        <span>The system assigns your role automatically by order of entry. You will see yours on the next screen.</span>
+      </div>
+
+    </div>
+
+    <div id="connError" class="conn-error" hidden></div>
+
+    <div class="setup-footer">
+      <div class="sf-note" id="setupNote">
+        Your name and BHAG are stored on this device. Capabilities are chosen per session.
+      </div>
+      <button class="btn primary" id="enterBtn" disabled>Enter the session</button>
+    </div>
+
   </div>
 </section>
 
-<!-- ============ 2. MISSION (destaque) ============ -->
-<section id="mission">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">2</div>
-      <h2 class="sec-title">Mission</h2>
-    </div>
+<!-- ============================================================
+     ARENA
+============================================================ -->
+<section id="arenaScreen" class="arena" hidden>
 
-    <div class="mission-box">
-      <div class="inner">
-        <span class="mission-tag">★ Your Mission</span>
-        <h2>Design a solution that <span class="accent">protects people's privacy</span>.</h2>
-        <p class="lead">Work in your group. Talk, imagine, and create something better for the digital world.</p>
-
-        <ol class="mission-steps">
-          <li><span class="n">1</span><span><b>Discuss the problem.</b> How does data collection affect people today?</span></li>
-          <li><span class="n">2</span><span><b>Create your solution.</b> Rules, an app, a law, or a new system.</span></li>
-          <li><span class="n">3</span><span><b>Make it a win-win.</b> People, companies, and governments all benefit.</span></li>
-        </ol>
-
-        <hr class="mission-divider" />
-
-        <ul class="mission-questions">
-          <li>How does it protect people's privacy?</li>
-          <li>What impact does it have on the world?</li>
-          <li>Would it work in your country? Why or why not?</li>
-        </ul>
+  <header class="topbar">
+    <div class="tb-brand">
+      <div class="tb-mark">S</div>
+      <div>
+        <div class="tb-name">Synergy Cell OS</div>
+        <div class="tb-session" id="tbSessionCode">Collaborative Arena</div>
       </div>
     </div>
-  </div>
-</section>
+    <div class="tb-div"></div>
+    <div class="tb-current">
+      <div class="tc-k">Session</div>
+      <div class="tc-v">What if we could redesign the way a company works?</div>
+    </div>
+    <div class="tb-right">
+      <div class="participants-mini" id="participantsMini"></div>
+      <div class="conn" id="connStatus"><span class="cd"></span><span id="connLabel">Connected</span></div>
+      <button class="icon-btn" id="inboxBtn" title="Recognition inbox">
+        <svg viewBox="0 0 24 24"><path d="M4 5h16v13H4z"/><path d="m4 6 8 6 8-6"/></svg>
+        <span class="badge" id="inboxBadge" hidden>0</span>
+      </button>
+      <button class="icon-btn" id="dashBtn" title="My Dashboard">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+      </button>
+    </div>
+  </header>
 
-<!-- ============ REFLECTION CARDS ============ -->
-<section id="reflect">
-  <div class="wrap">
-    <div class="reflect-grid">
+  <div class="arena-content">
 
-      <!-- Scenario -->
-      <div class="reflect-card scenario">
-        <span class="r-tag">Think About It</span>
-        <h3><span class="dot"></span>Scenario</h3>
-        <p>
-          You wake up and check your phone. Your apps know your location, your shopping list, your friends, your health, and your secrets. Companies collect this data every second — sometimes with your permission, sometimes without it.
-        </p>
-        <p>
-          Some say: <strong>"If you have nothing to hide, you have nothing to fear."</strong>
-          Others say: <strong>"Privacy is a human right. I should control my own data."</strong>
-        </p>
+    <!-- TEACHER PANEL -->
+    <section class="teacher-panel" id="teacherPanel" hidden>
+      <div class="tp-head">
+        <div class="tp-ico">👁️</div>
+        <div>
+          <div class="tp-t">Teacher view · live activity</div>
+          <div class="tp-s" id="tpSubtitle">Watching 0 participants</div>
+        </div>
+        <span class="tp-live"><span class="cd"></span>Live</span>
       </div>
+      <div class="tp-feed" id="tpFeed">
+        <div class="tp-empty">Waiting for students to join and act…</div>
+      </div>
+    </section>
 
-      <!-- Keywords -->
-      <div class="reflect-card keywords">
-        <span class="r-tag">Use If You Want</span>
-        <h3><span class="dot"></span>Keywords</h3>
-        <p>Use these ideas if they help you — or create your own.</p>
-        <div class="kw-mini">
-          <span>passwords</span>
-          <span>data</span>
-          <span>rules</span>
-          <span>kids</span>
-          <span>companies</span>
-          <span>trust</span>
-          <span>choice</span>
-          <span>global</span>
-          <span>apps</span>
-          <span>transparency</span>
-          <span>protection</span>
-          <span>delete</span>
+    <!-- PEOPLE — HERO -->
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-k">People first</div>
+          <div class="section-t">People in this session</div>
+        </div>
+        <div class="right">
+          <span class="pill teal" id="peopleCount">0 participants</span>
         </div>
       </div>
 
-    </div>
+      <div class="people-hint">
+        <span class="ph-item"><span class="ph-ico">✨</span> Recognize — send specific evidence of a capability</span>
+        <span class="ph-div"></span>
+        <span class="ph-item"><span class="ph-ico">🤝</span> Ask to understand — invite a conversation</span>
+        <span class="ph-arrow">↓ tap any capability below</span>
+      </div>
+
+      <div class="profile-grid" id="profileGrid"></div>
+      <div class="empty-state" id="profileEmpty">Waiting for participants to join…</div>
+    </section>
+
+    <!-- MISSION -->
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-k">The mission</div>
+          <div class="section-t">Role-play scenario</div>
+        </div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-head">
+          <div class="mission-k">Role-play · Future of Work event</div>
+          <h3 class="mission-t">What if we could redesign the way a company works?</h3>
+          <p class="mission-context">
+            You and your partner are business specialists attending a Future of Work event.
+            You have received $50,000 in investment and incentives to reinvent how a company operates.
+          </p>
+        </div>
+
+        <div class="mission-body">
+          <div class="mission-col">
+            <div class="mission-col-k">Your mission · tap to check off</div>
+            <ul class="mission-list" id="missionList">
+              <li data-mission="0">
+                <span class="mission-check">✓</span>
+                <span class="mission-text">Design a new way of organizing work.</span>
+              </li>
+              <li data-mission="1">
+                <span class="mission-check">✓</span>
+                <span class="mission-text">Decide how people share decisions and responsibilities.</span>
+              </li>
+              <li data-mission="2">
+                <span class="mission-check">✓</span>
+                <span class="mission-text">Explain how the company creates value and measures success.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mission-col">
+            <div class="mission-col-k">Your role</div>
+            <div id="myRoleBlock"></div>
+            <div class="my-role-note">
+              <span>🎭</span>
+              <span id="myRoleNote">Your role is assigned automatically.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRAMEWORK + KNOWLEDGE -->
+    <section class="section">
+      <div class="lower-grid">
+
+        <div class="framework-card">
+          <div class="framework-head">
+            <div class="section-k">Learning framework</div>
+            <div class="section-t" style="font-size:19px;margin-top:4px">Rethinking How Work Works</div>
+          </div>
+          <div class="framework-body">
+            <div class="fw-stage" id="fwStage">
+              <svg class="fw-svg" viewBox="0 0 100 100" preserveAspectRatio="none" id="fwSvg"></svg>
+              <div class="fw-center">
+                <div class="fc-t">People<br>+ Purpose<br>+ Value</div>
+                <div class="fc-s">Framework</div>
+              </div>
+            </div>
+            <div class="fw-detail" id="fwDetail">
+              <div class="fd-k">
+                <span class="fd-ico" id="fwDetailIco">🎯</span>
+                <span class="fd-t" id="fwDetailTitle">Purpose</span>
+              </div>
+              <div class="fd-q" id="fwDetailQ">Why do we exist?</div>
+              <div class="fd-x" id="fwDetailX">A shared reason to work together, beyond profit alone.</div>
+            </div>
+            <div class="fw-note">
+              <span>ℹ️</span>
+              <span>This framework is a conceptual learning aid inspired by decentralized organizational practices. It is not a claim that all organizations follow one identical model.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="knowledge-card" id="knowledgeCard">
+          <div class="knowledge-head" id="knowledgeToggle">
+            <div class="kh-ico">📘</div>
+            <div>
+              <div class="kh-t">The Future of Work</div>
+              <div class="kh-s">Tap to open · short insights</div>
+            </div>
+            <span class="kh-toggle">▼</span>
+          </div>
+          <div class="knowledge-body" id="knowledgeBody">
+            <div class="insight"><span class="in-bul"></span><span class="in-t">AI and automation are changing how work is organized.</span></div>
+            <div class="insight"><span class="in-bul"></span><span class="in-t">Remote work enables distributed teams across cities and time zones.</span></div>
+            <div class="insight"><span class="in-bul"></span><span class="in-t">Some organizations experiment with greater employee autonomy.</span></div>
+            <div class="insight"><span class="in-bul"></span><span class="in-t">Digital platforms allow people to coordinate and create value across locations.</span></div>
+            <div class="insight"><span class="in-bul"></span><span class="in-t">New organizational models explore purpose, shared responsibility, and distributed decision-making.</span></div>
+            <div class="kw-label">Keywords</div>
+            <div class="keywords">
+              <span class="kw">Autonomy</span>
+              <span class="kw">AI</span>
+              <span class="kw">Ownership</span>
+              <span class="kw">Purpose</span>
+              <span class="kw">Decentralization</span>
+              <span class="kw">Collaboration</span>
+            </div>
+            <div class="kw-note">
+              <b>Note:</b> These are trends and experiments — not universal facts. Established practices sit alongside emerging ones, and not all organizations are decentralized.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-k">Quick tools</div>
+          <div class="section-t">Optional support</div>
+        </div>
+      </div>
+
+      <div class="tools-grid">
+        <div class="tool-card" id="muralCard">
+          <div class="tool-head" id="muralToggle">
+            <div class="th-ico" style="background:var(--amber-soft);color:var(--amber)">📌</div>
+            <div>
+              <div class="th-t">Mural</div>
+              <div class="th-s">Shared sticky notes</div>
+            </div>
+            <span class="th-toggle">▼</span>
+          </div>
+          <div class="tool-body">
+            <div class="mural-input">
+              <input id="muralInput" type="text" placeholder="Add a short note…" maxlength="120"
+                     onkeydown="if(event.key==='Enter')window.__addMural()">
+              <button onclick="window.__addMural()">Add</button>
+            </div>
+            <div class="mural-notes" id="muralNotes"></div>
+          </div>
+        </div>
+
+        <div class="tool-card" id="cuesCard">
+          <div class="tool-head" id="cuesToggle">
+            <div class="th-ico" style="background:var(--violet-soft);color:var(--violet)">💬</div>
+            <div>
+              <div class="th-t">Language Cues</div>
+              <div class="th-s">Sentence starters</div>
+            </div>
+            <span class="th-toggle">▼</span>
+          </div>
+          <div class="tool-body">
+            <div class="cues-list">
+              <div class="cue"><span class="cq">“</span><span class="cue-body">What if we could…?<small>Open a new possibility without committing yet.</small></span></div>
+              <div class="cue"><span class="cq">“</span><span class="cue-body">Why don’t we…?<small>Suggest a small next step the two of you can try.</small></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER INSIGHTS -->
+    <section class="footer-insights">
+      <div class="fi-head">
+        <div class="fi-k">Session reflection</div>
+        <div class="fi-t">Four questions to ask yourself</div>
+      </div>
+      <div class="fi-grid">
+        <div class="fi-item">
+          <div class="fi-mark fun">FUN</div>
+          <div class="fi-word">Fun</div>
+          <div class="fi-qs">Would I want to participate again?</div>
+        </div>
+        <div class="fi-item">
+          <div class="fi-mark learn">LRN</div>
+          <div class="fi-word">Learn</div>
+          <div class="fi-qs">Did I learn useful knowledge?</div>
+        </div>
+        <div class="fi-item">
+          <div class="fi-mark help">HLP</div>
+          <div class="fi-word">Help</div>
+          <div class="fi-qs">Did I help someone grow?</div>
+        </div>
+        <div class="fi-item">
+          <div class="fi-mark grow">GRW</div>
+          <div class="fi-word">Grow</div>
+          <div class="fi-qs">Am I leaving better than I arrived?</div>
+        </div>
+      </div>
+      <div class="fi-message">
+        <p>Build value together. <span>Help people grow.</span> Leave better than you arrived.</p>
+        <div class="fi-sub">The task is the playing field. Human development is the objective.</div>
+      </div>
+    </section>
+
   </div>
 </section>
 
-<!-- ============ 3. REAL WORLD EXAMPLE ============ -->
-<section id="example">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">3</div>
-      <h2 class="sec-title">Real World Example</h2>
+<!-- ============================================================
+     DRAWERS / MODALS
+============================================================ -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
+<aside class="drawer" id="dashDrawer">
+  <div class="drawer-head">
+    <div class="dh-ico" style="background:var(--teal-soft);color:var(--teal-deep)">👤</div>
+    <div>
+      <div class="dh-t">My Dashboard</div>
+      <div class="dh-s">Your profile and professional evidence</div>
     </div>
-
-    <div class="example-card">
-      <span class="ex-badge">🌍 Real Story</span>
-      <h3>Europe Fined Google €403 Million</h3>
-      <p>
-        In 2026, the European Union fined Google €403 million because the company used people's location data without clear permission. Under European law (called the <strong>GDPR</strong>), companies must be honest about what data they collect and why.
-      </p>
-      <p>
-        The GDPR says that personal data must be processed in a <strong>lawful, fair, and transparent</strong> way. Google did not follow these rules, so the European Union took action.
-      </p>
-      <div class="highlight">
-        💡 <strong>Why this matters:</strong> This shows that privacy laws can work in real life. When companies break the rules, they must pay. The European Union's GDPR is now a model for many other countries, including Brazil, Japan, and South Korea.
-      </div>
-    </div>
-
-    <!-- 3 KEY IDEAS -->
-    <div class="key-ideas">
-      <h3><span class="star">★</span> 3 Key Ideas</h3>
-      <p class="sub">Write only 3 short ideas (max. 50 characters each). You will use them to present your project.</p>
-
-      <div class="key-row">
-        <span class="bullet">–</span>
-        <input type="text" maxlength="50" placeholder="Type your first idea…" aria-label="Key idea 1" />
-        <span class="counter" data-counter>50 left</span>
-      </div>
-
-      <div class="key-row">
-        <span class="bullet">–</span>
-        <input type="text" maxlength="50" placeholder="Type your second idea…" aria-label="Key idea 2" />
-        <span class="counter" data-counter>50 left</span>
-      </div>
-
-      <div class="key-row">
-        <span class="bullet">–</span>
-        <input type="text" maxlength="50" placeholder="Type your third idea…" aria-label="Key idea 3" />
-        <span class="counter" data-counter>50 left</span>
-      </div>
-    </div>
-
+    <button class="drawer-close" data-close-drawer>
+      <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
   </div>
-</section>
+  <div class="drawer-body" id="dashBody"></div>
+</aside>
 
-<!-- ============ FOOTER ============ -->
-<footer>
-  <strong>Privacy in a Digital World</strong> · Have fun and dream big!
-</footer>
+<aside class="drawer" id="inboxDrawer">
+  <div class="drawer-head">
+    <div class="dh-ico" style="background:var(--rose-soft);color:var(--rose)">🔔</div>
+    <div>
+      <div class="dh-t">Recognition Inbox</div>
+      <div class="dh-s">Requests waiting for your response</div>
+    </div>
+    <button class="drawer-close" data-close-drawer>
+      <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="inboxBody"></div>
+</aside>
 
-<!-- ============ PRINT BUTTON ============ -->
-<button class="print-fab" onclick="window.print()" title="Print this page">
-  🖨 Print
-</button>
+<div class="modal-wrap" id="recogModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="mh-ico" style="background:var(--teal-soft);color:var(--teal-deep)">✨</div>
+      <div>
+        <div class="mh-t" id="recogTitle">Recognize</div>
+        <div class="mh-s">Pick a suggestion or write your own. Be specific — it becomes evidence.</div>
+      </div>
+      <button class="modal-close" data-close-modal>
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="recogBody"></div>
+    <div class="modal-foot">
+      <button class="btn ghost" data-close-modal>Cancel</button>
+      <button class="btn primary" id="recogSubmit" disabled>Send recognition</button>
+    </div>
+  </div>
+</div>
 
-<script>
-  /* ---------- 3 Key Ideas character counter ---------- */
-  (function () {
-    var MAX = 50;
-    document.querySelectorAll('.key-row input').forEach(function (input) {
-      var counter = input.parentElement.querySelector('[data-counter]');
+<div class="modal-wrap" id="askModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="mh-ico" style="background:var(--violet-soft);color:var(--violet)">🤝</div>
+      <div>
+        <div class="mh-t" id="askTitle">Ask to understand</div>
+        <div class="mh-s">Request a conversation. This is not a recognition.</div>
+      </div>
+      <button class="modal-close" data-close-modal>
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="askBody"></div>
+    <div class="modal-foot">
+      <button class="btn ghost" data-close-modal>Cancel</button>
+      <button class="btn violet" id="askSubmit">Send request</button>
+    </div>
+  </div>
+</div>
 
-      function update() {
-        var left = MAX - input.value.length;
-        counter.textContent = left + ' left';
-        counter.classList.remove('low', 'empty');
-        if (left <= 0) {
-          counter.classList.add('empty');
-        } else if (left <= 10) {
-          counter.classList.add('low');
-        }
-      }
+<div class="print-container" id="printContainer"></div>
+<div id="toasts"></div>
 
-      input.addEventListener('input', update);
-      update();
+<!-- ============================================================
+     APP
+============================================================ -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {
+  getDatabase, ref, set, update, onValue, push, remove, get, onDisconnect
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+/* ---------- FIREBASE ---------- */
+const firebaseConfig = {
+  databaseURL: 'https://english-meetings-f08e4-default-rtdb.firebaseio.com/'
+};
+
+let app, db, dbReady = false;
+try {
+  app = initializeApp(firebaseConfig);
+  db = getDatabase(app);
+  dbReady = true;
+} catch (e) {
+  console.error('Firebase init failed:', e);
+}
+
+/* ---------- CONSTANTS ---------- */
+const CAPABILITIES = [
+  { id:'communication', name:'Communication',    icon:'💬', desc:'Explain ideas clearly and listen well.',           help:'explain an idea clearly' },
+  { id:'creativity',    name:'Creativity',       icon:'✨', desc:'Imagine new possibilities and approaches.',         help:'explore a different possibility' },
+  { id:'critical',      name:'Critical Thinking',icon:'🧠', desc:'Question assumptions and examine evidence.',       help:'question an assumption' },
+  { id:'collaboration', name:'Collaboration',    icon:'🤝', desc:'Build on others’ ideas and include perspectives.', help:'include different perspectives' },
+  { id:'leadership',    name:'Leadership',       icon:'🧭', desc:'Guide the group toward shared goals.',             help:'coordinate the group’s next step' },
+  { id:'adaptability',  name:'Adaptability',     icon:'🔄', desc:'Adjust when things change or don’t work.',         help:'consider an alternative approach' },
+  { id:'problem',       name:'Problem-Solving',  icon:'🧩', desc:'Break down problems and compare solutions.',      help:'compare possible solutions' },
+  { id:'empathy',       name:'Empathy',          icon:'❤️', desc:'Understand how others feel and think.',            help:'understand another person’s perspective' },
+];
+
+const ROLES = [
+  { id:'risk',     name:'The Risk Taker',   icon:'🚀', desc:'Wants bold ideas, experimentation, and fast action.' },
+  { id:'cautious', name:'The Cautious One', icon:'🛡️', desc:'Wants evidence, risk management, sustainability, and realistic implementation.' },
+];
+
+const FRAMEWORK = [
+  { id:'purpose',       name:'Purpose',              icon:'🎯', qs:'Why do we exist?',              x:'A shared reason to work together, beyond profit alone.' },
+  { id:'autonomy',      name:'Autonomy',             icon:'🧭', qs:'Who can make decisions?',        x:'People closest to the work decide how to do it.' },
+  { id:'ownership',     name:'Ownership',            icon:'🔑', qs:'Who takes responsibility?',      x:'Responsibility is shared and visible, not hidden.' },
+  { id:'transparency',  name:'Transparency',         icon:'🔍', qs:'What information is open?',       x:'Information is open by default so people can act well.' },
+  { id:'collaboration', name:'Collaboration',        icon:'🤝', qs:'How do we create value together?',x:'Value is created through relationships, not isolated tasks.' },
+  { id:'authority',     name:'Distributed Authority',icon:'⚖️', qs:'How do we share power?',          x:'Power is spread across roles and teams, not concentrated at the top.' },
+  { id:'learning',      name:'Continuous Learning',  icon:'🌱', qs:'How do we adapt and improve?',    x:'The organization learns from every experiment and setback.' },
+];
+
+/* Evidence preset suggestions per capability */
+const EVIDENCE_PRESETS = {
+  communication: [
+    (n) => `${n} explained an idea clearly so the whole group could follow.`,
+    (n) => `${n} listened carefully and helped us reach a shared understanding.`
+  ],
+  creativity: [
+    (n) => `${n} proposed a new possibility we had not considered before.`,
+    (n) => `${n} connected two different ideas in an unexpected way.`
+  ],
+  critical: [
+    (n) => `${n} asked a question that made us reconsider an assumption.`,
+    (n) => `${n} identified a risk the group had not noticed.`
+  ],
+  collaboration: [
+    (n) => `${n} built on someone else’s idea to make it stronger.`,
+    (n) => `${n} made sure different perspectives were included in the discussion.`
+  ],
+  leadership: [
+    (n) => `${n} helped the group agree on the next step.`,
+    (n) => `${n} kept the conversation focused on what mattered most.`
+  ],
+  adaptability: [
+    (n) => `${n} adjusted the approach when the first idea did not work.`,
+    (n) => `${n} considered an alternative when the group was stuck.`
+  ],
+  problem: [
+    (n) => `${n} broke a complex problem into smaller, clearer parts.`,
+    (n) => `${n} compared two solutions and explained the trade-offs.`
+  ],
+  empathy: [
+    (n) => `${n} noticed how someone else was feeling and responded with care.`,
+    (n) => `${n} tried to understand a different point of view before responding.`
+  ]
+};
+
+const TEACHER_CODE = 'teacher me';
+
+/* ---------- STATE ---------- */
+const state = {
+  me: null,
+  sessionCode: '',
+  participants: {},
+  recognitions: {},
+  supportRequests: {},
+  muralNotes: {},
+  missionChecks: {},
+  events: {},
+  activeFramework: 'purpose',
+  connected: true,
+};
+
+/* ---------- UTIL ---------- */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const uid = () => 'u_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+const capById = id => CAPABILITIES.find(c => c.id === id);
+const roleById = id => ROLES.find(r => r.id === id);
+const initials = name => {
+  const p = String(name || '').trim().split(/\s+/);
+  return ((p[0]?.[0] || '') + (p[1]?.[0] || '')).toUpperCase() || '??';
+};
+const firstName = name => String(name || '').trim().split(/\s+/)[0] || 'Friend';
+const AVATAR_CLASSES = ['av-0','av-1','av-2','av-3','av-4','av-5','av-6'];
+function avatarClass(userId){
+  let h = 0;
+  for (let i = 0; i < userId.length; i++) h = (h * 31 + userId.charCodeAt(i)) | 0;
+  return AVATAR_CLASSES[Math.abs(h) % AVATAR_CLASSES.length];
+}
+function shortTime(ts){
+  if (!ts) return 'now';
+  const d = Date.now() - ts;
+  if (d < 30_000) return 'just now';
+  if (d < 60_000) return Math.floor(d/1000) + 's ago';
+  if (d < 3_600_000) return Math.floor(d/60_000) + 'm ago';
+  return Math.floor(d/3_600_000) + 'h ago';
+}
+
+function toast(msg, sub){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML =
+    '<div class="toast-ico">✓</div><div>' +
+      '<div class="toast-msg">' + esc(msg) + '</div>' +
+      (sub ? '<div class="toast-sub">' + esc(sub) + '</div>' : '') +
+    '</div>';
+  $('#toasts').appendChild(el);
+  requestAnimationFrame(() => el.classList.add('in'));
+  setTimeout(() => {
+    el.classList.remove('in');
+    setTimeout(() => el.remove(), 340);
+  }, 4200);
+}
+
+/* ---------- FIREBASE HELPERS ---------- */
+function sessionRef(path){
+  return ref(db, `sessions/${state.sessionCode}${path ? '/' + path : ''}`);
+}
+
+async function recordEvent(type, data = {}){
+  if (!dbReady || !state.sessionCode) return;
+  try {
+    const er = push(sessionRef('events'));
+    await set(er, {
+      type,
+      actorId: state.me?.id || 'unknown',
+      actorName: state.me?.name || 'Someone',
+      data,
+      createdAt: Date.now()
     });
-  })();
-</script>
+  } catch (e) { console.warn('Event log failed:', e); }
+}
 
+/* ============================================================
+   SETUP
+============================================================ */
+let setupSelection = new Set();
+const savedProfile = (() => {
+  try { return JSON.parse(localStorage.getItem('sco_profile') || 'null'); }
+  catch { return null; }
+})();
+
+function isTeacherName(name){
+  return String(name || '').trim().toLowerCase() === TEACHER_CODE;
+}
+
+function renderSetupCapabilities(){
+  const grid = $('#capGrid');
+  grid.innerHTML = CAPABILITIES.map(c => {
+    const sel = setupSelection.has(c.id);
+    return `
+      <button type="button" class="cap-card ${sel ? 'selected' : ''}" data-cap="${c.id}">
+        <span class="cc-check">✓</span>
+        <span class="cc-ico">${c.icon}</span>
+        <span class="cc-body">
+          <span class="cc-nm">${esc(c.name)}</span>
+          <span class="cc-desc">${esc(c.desc)}</span>
+        </span>
+      </button>
+    `;
+  }).join('');
+
+  grid.querySelectorAll('[data-cap]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.cap;
+      if (setupSelection.has(id)) setupSelection.delete(id);
+      else {
+        if (setupSelection.size >= 2){
+          toast('Choose exactly two', 'Deselect one first.');
+          return;
+        }
+        setupSelection.add(id);
+      }
+      renderSetupCapabilities();
+      updateEnterButton();
+    });
+  });
+
+  $('#capCounter').textContent = setupSelection.size + ' / 2 selected';
+}
+
+function updateEnterButton(){
+  const name = $('#setupName').value.trim();
+  const code = $('#setupCode').value.trim();
+  const teacher = isTeacherName(name);
+
+  const teacherHint = $('#teacherHint');
+  const studentFields = $('#studentFields');
+
+  if (teacher){
+    teacherHint.hidden = false;
+    studentFields.hidden = true;
+    $('#setupNote').textContent = 'Teacher mode: you will observe the session without a profile card.';
+  } else {
+    teacherHint.hidden = true;
+    studentFields.hidden = false;
+    $('#setupNote').textContent = 'Your name and BHAG are stored on this device. Capabilities are chosen per session.';
+  }
+
+  if (!name || !code){
+    $('#enterBtn').disabled = true;
+    return;
+  }
+  if (teacher){
+    $('#enterBtn').disabled = false;
+    return;
+  }
+  $('#enterBtn').disabled = !(name && setupSelection.size === 2);
+}
+
+function initSetup(){
+  if (savedProfile){
+    $('#setupName').value = savedProfile.name || '';
+    $('#setupBhag').value = savedProfile.bhag || '';
+    if (savedProfile.caps) setupSelection = new Set(savedProfile.caps);
+    if (savedProfile.sessionCode) $('#setupCode').value = savedProfile.sessionCode;
+  }
+  renderSetupCapabilities();
+  updateEnterButton();
+}
+
+['#setupName','#setupCode','#setupBhag'].forEach(sel => {
+  $(sel).addEventListener('input', updateEnterButton);
+});
+
+initSetup();
+
+/* ============================================================
+   JOIN — auto-assign role by order of entry
+============================================================ */
+$('#enterBtn').addEventListener('click', async () => {
+  if (!dbReady){
+    $('#connError').hidden = false;
+    $('#connError').textContent = 'Firebase is not configured. Check the databaseURL.';
+    return;
+  }
+
+  const name = $('#setupName').value.trim();
+  const code = $('#setupCode').value.trim();
+  const teacher = isTeacherName(name);
+
+  state.sessionCode = code.toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(0, 32) || 'main';
+  const userId = (savedProfile?.userId && !teacher) ? savedProfile.userId : uid();
+
+  let myRole = null;
+
+  // Determine role: check if user already has one, else assign by entry order
+  if (!teacher){
+    try {
+      // Check if this user already has a role in this session (rejoin case)
+      const existingSnap = await get(sessionRef(`participants/${userId}`));
+      if (existingSnap.exists() && existingSnap.val().role){
+        myRole = existingSnap.val().role;
+      } else {
+        // Count current students with roles, assign alternating
+        const allSnap = await get(sessionRef('participants'));
+        const all = allSnap.val() || {};
+        const students = Object.entries(all)
+          .filter(([, p]) => !p.isTeacher && p.role)
+          .sort((a,b) => (a[1].joinedAt || 0) - (b[1].joinedAt || 0));
+        const index = students.length;
+        myRole = index % 2 === 0 ? 'risk' : 'cautious';
+      }
+    } catch (e){
+      console.warn('Role assignment fallback:', e);
+      myRole = 'risk';
+    }
+  }
+
+  let profile;
+  if (teacher){
+    profile = { id:userId, name, isTeacher:true, bhag:'', caps:[], role:null };
+  } else {
+    profile = {
+      id:userId, name,
+      bhag: $('#setupBhag').value.trim(),
+      caps: Array.from(setupSelection),
+      role: myRole,
+      isTeacher:false
+    };
+    try {
+      localStorage.setItem('sco_profile', JSON.stringify({
+        userId, name, bhag:profile.bhag, caps:profile.caps,
+        sessionCode: state.sessionCode
+      }));
+    } catch {}
+  }
+  state.me = profile;
+
+  try {
+    const pref = sessionRef(`participants/${userId}`);
+    await set(pref, {
+      name: profile.name,
+      bhag: profile.bhag,
+      caps: profile.caps,
+      role: profile.role,
+      isTeacher: profile.isTeacher,
+      online: true,
+      joinedAt: Date.now()
+    });
+    onDisconnect(sessionRef(`participants/${userId}/online`)).set(false);
+    await recordEvent('join', {});
+  } catch (e){
+    console.error(e);
+    $('#connError').hidden = false;
+    $('#connError').textContent =
+      'Could not connect to the session. Check your Realtime Database rules and the session code.';
+    return;
+  }
+
+  $('#setupScreen').hidden = true;
+  $('#arenaScreen').hidden = false;
+  $('#tbSessionCode').textContent = 'Session: ' + state.sessionCode;
+
+  if (teacher){
+    $('#teacherPanel').hidden = false;
+    $('#dashBtn').style.display = 'none';
+    $('#inboxBtn').style.display = 'none';
+  }
+
+  renderFramework();
+  renderMission();
+  attachListeners();
+  renderMural();
+
+  const roleLabel = roleById(myRole)?.name || '';
+  toast(
+    teacher ? 'Welcome, teacher' : 'Welcome, ' + firstName(name) + '!',
+    teacher
+      ? 'You are observing the session.'
+      : (roleLabel ? 'Your role: ' + roleLabel + '.' : 'You joined session “' + state.sessionCode + '”.')
+  );
+});
+
+/* ============================================================
+   LISTENERS
+============================================================ */
+function attachListeners(){
+  if (!dbReady || !state.sessionCode) return;
+
+  const onErr = e => { console.error('RTDB error:', e); setConnection(false); };
+
+  onValue(sessionRef('participants'), snap => {
+    state.participants = snap.val() || {};
+    renderParticipantsMini();
+    renderProfiles();
+    renderMission();
+    renderTeacherPanel();
+  }, onErr);
+
+  onValue(sessionRef('recognitions'), snap => {
+    state.recognitions = snap.val() || {};
+    renderProfiles();
+    renderInbox();
+    renderDashboard();
+    renderTeacherPanel();
+  }, onErr);
+
+  onValue(sessionRef('supportRequests'), snap => {
+    state.supportRequests = snap.val() || {};
+    renderInbox();
+    renderDashboard();
+    renderTeacherPanel();
+  }, onErr);
+
+  onValue(sessionRef('muralNotes'), snap => {
+    state.muralNotes = snap.val() || {};
+    renderMural();
+  }, onErr);
+
+  onValue(sessionRef('missionChecks'), snap => {
+    state.missionChecks = snap.val() || {};
+    renderMissionChecks();
+  }, onErr);
+
+  onValue(sessionRef('events'), snap => {
+    state.events = snap.val() || {};
+    renderTeacherPanel();
+  }, onErr);
+
+  onValue(ref(db, '.info/connected'), snap => {
+    setConnection(!!snap.val());
+    if (snap.val() && state.me){
+      const pref = sessionRef(`participants/${state.me.id}/online`);
+      onDisconnect(pref).set(false);
+      set(pref, true).catch(onErr);
+    }
+  });
+}
+
+function setConnection(ok){
+  state.connected = ok;
+  const el = $('#connStatus');
+  const lbl = $('#connLabel');
+  if (!el) return;
+  el.classList.toggle('offline', !ok);
+  lbl.textContent = ok ? 'Connected' : 'Reconnecting…';
+}
+
+/* ============================================================
+   TOPBAR
+============================================================ */
+function renderParticipantsMini(){
+  const all = Object.entries(state.participants)
+    .filter(([,p]) => !p.isTeacher)
+    .map(([id,p]) => ({ id, ...p }));
+
+  const wrap = $('#participantsMini');
+  wrap.innerHTML = all.slice(0, 4).map(p =>
+    `<span class="av av-sm ${avatarClass(p.id)}" title="${esc(p.name)}">${initials(p.name)}</span>`
+  ).join('') + (all.length > 4
+    ? `<span class="pm-count">+${all.length - 4}</span>` : '');
+
+  $('#peopleCount').textContent = all.length + (all.length === 1 ? ' participant' : ' participants');
+}
+
+/* ============================================================
+   PROFILES — HERO
+============================================================ */
+function renderProfiles(){
+  const grid = $('#profileGrid');
+  const empty = $('#profileEmpty');
+
+  const entries = Object.entries(state.participants)
+    .filter(([,p]) => !p.isTeacher)
+    .sort((a,b) => (a[1].joinedAt || 0) - (b[1].joinedAt || 0));
+
+  if (!entries.length){
+    grid.innerHTML = '';
+    empty.hidden = false;
+    return;
+  }
+  empty.hidden = true;
+
+  grid.innerHTML = entries.map(([id, p]) => profileCard(id, p)).join('');
+
+  grid.querySelectorAll('[data-recognize]').forEach(btn => {
+    btn.addEventListener('click', () => openRecognition(btn.dataset.person, btn.dataset.cap));
+  });
+  grid.querySelectorAll('[data-ask]').forEach(btn => {
+    btn.addEventListener('click', () => openAsk(btn.dataset.person, btn.dataset.cap));
+  });
+}
+
+function profileCard(id, p){
+  const isMe = state.me && id === state.me.id;
+  const fname = firstName(p.name);
+  // Hide the "help" hint for the current user OR anyone named "bebe"
+  const showHelp = !isMe && fname.toLowerCase() !== 'bebe';
+  const role = roleById(p.role);
+  const roleClass = p.role || 'observer';
+  const roleLabel = role ? role.name : 'Participant';
+  const online = p.online !== false;
+
+  const capsHtml = (p.caps || []).map(capId => {
+    const c = capById(capId);
+    if (!c) return '';
+
+    const help = 'Help ' + fname + ' ' + c.help + '.';
+
+    const acceptedCount = Object.values(state.recognitions).filter(r =>
+      r.toId === id && r.skill === c.name && r.status === 'accepted'
+    ).length;
+
+    const actions = isMe
+      ? `<div class="cap-me-note">Others can recognize this capability in you.</div>`
+      : `
+        <button class="act-btn primary" data-recognize data-person="${id}" data-cap="${c.id}">
+          <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M3 12h18"/></svg>
+          Recognize
+        </button>
+        <button class="act-btn violet" data-ask data-person="${id}" data-cap="${c.id}">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M12 8.5v.5"/><path d="M10 13.5c0-1.2 1-1.6 2-2.1"/></svg>
+          Ask to understand
+        </button>
+      `;
+
+    return `
+      <div class="cap-block">
+        <div class="cap-head">
+          <span class="cap-ico">${c.icon}</span>
+          <span class="cap-nm">${esc(c.name)}</span>
+        </div>
+        ${showHelp ? `<div class="cap-help">${esc(help)}</div>` : ''}
+        <div class="cap-actions">${actions}</div>
+        ${acceptedCount > 0
+          ? `<span class="evidence-badge">✓ ${acceptedCount} accepted evidence${acceptedCount > 1 ? 's' : ''}</span>`
+          : ''}
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <article class="profile ${isMe ? 'is-you' : ''} ${!online ? 'is-offline' : ''}">
+      <div class="profile-top">
+        <div class="av av-lg ${isMe ? 'av-you' : avatarClass(id)}">${initials(p.name)}</div>
+        <div class="profile-id">
+          <div class="profile-name">
+            ${esc(p.name)}
+            ${isMe ? '<span class="you-badge">You</span>' : ''}
+            ${!online ? '<span class="offline-badge">offline</span>' : ''}
+          </div>
+          <span class="profile-role ${roleClass}">${esc(roleLabel)}</span>
+        </div>
+      </div>
+
+      <div class="profile-bhag">
+        <div class="bk">🎯 Professional BHAG</div>
+        <div>${esc(p.bhag || '—')}</div>
+      </div>
+
+      ${capsHtml}
+    </article>
+  `;
+}
+
+/* ============================================================
+   MISSION
+============================================================ */
+function renderMission(){
+  renderMissionChecks();
+
+  const myRoleBlock = $('#myRoleBlock');
+  const myNote = $('#myRoleNote');
+  const meP = state.me ? state.participants[state.me.id] : null;
+
+  if (state.me?.isTeacher){
+    myRoleBlock.innerHTML = `<div class="role-pending">You are observing. Participants see only their own role.</div>`;
+    myNote.textContent = 'Teacher mode — role assignment is hidden.';
+    return;
+  }
+
+  const role = roleById(meP?.role);
+  if (!role){
+    myRoleBlock.innerHTML = `<div class="role-pending">Role not assigned yet.<br>Waiting for the session to assign it.</div>`;
+    myNote.textContent = 'Your role is assigned automatically.';
+    return;
+  }
+
+  const cls = role.id === 'risk' ? 'risk' : 'cautious';
+  myRoleBlock.innerHTML = `
+    <div class="role-block ${cls}">
+      <div class="role-head">
+        <span class="av ${role.id === 'risk' ? 'av-3' : 'av-0'} av-sm" style="width:26px;height:26px;font-size:12px">${role.icon}</span>
+        <span class="role-name">${esc(role.name)}</span>
+      </div>
+      <div class="role-desc">${esc(role.desc)}</div>
+    </div>
+  `;
+  myNote.textContent = 'Only you can see this role on your screen. Your partner has their own.';
+}
+
+function renderMissionChecks(){
+  if (!state.me) return;
+  const myChecks = state.missionChecks[state.me.id] || {};
+
+  $$('#missionList li').forEach(li => {
+    const idx = li.dataset.mission;
+    li.classList.toggle('checked', !!myChecks[idx]);
+  });
+
+  if (!renderMissionChecks.bound){
+    renderMissionChecks.bound = true;
+    $$('#missionList li').forEach(li => {
+      li.addEventListener('click', () => toggleMission(li.dataset.mission));
+    });
+  }
+}
+
+async function toggleMission(idx){
+  if (!state.me || state.me.isTeacher) return;
+  const current = !!(state.missionChecks[state.me.id]?.[idx]);
+  const next = !current;
+  state.missionChecks[state.me.id] = state.missionChecks[state.me.id] || {};
+  state.missionChecks[state.me.id][idx] = next;
+  renderMissionChecks();
+  try { await set(sessionRef(`missionChecks/${state.me.id}/${idx}`), next); } catch (e){ console.warn(e); }
+  recordEvent('mission', { idx, checked: next });
+}
+
+/* ============================================================
+   FRAMEWORK
+============================================================ */
+function renderFramework(){
+  const stage = $('#fwStage');
+  const svg = $('#fwSvg');
+
+  stage.querySelectorAll('.fw-node').forEach(n => n.remove());
+  svg.innerHTML = '';
+
+  const N = FRAMEWORK.length;
+  const positions = [
+    { a:  -90, r: 40 }, { a:  -38, r: 41 }, { a:   18, r: 39 },
+    { a:   74, r: 41 }, { a:  128, r: 39 }, { a:  182, r: 41 }, { a:  236, r: 40 },
+  ];
+
+  const pts = FRAMEWORK.map((f, i) => {
+    const p = positions[i % positions.length];
+    const rad = p.a * Math.PI / 180;
+    return { f, x: 50 + p.r * Math.cos(rad), y: 50 + p.r * Math.sin(rad) };
+  });
+
+  const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  ring.setAttribute('class','ring');
+  ring.setAttribute('cx', 50); ring.setAttribute('cy', 50); ring.setAttribute('r', 40);
+  svg.appendChild(ring);
+  const ring2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  ring2.setAttribute('class','ring');
+  ring2.setAttribute('cx', 50); ring2.setAttribute('cy', 50); ring2.setAttribute('r', 22);
+  svg.appendChild(ring2);
+
+  pts.forEach((pt, i) => {
+    const next = pts[(i + 1) % pts.length];
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('class','peer');
+    l.setAttribute('x1', pt.x); l.setAttribute('y1', pt.y);
+    l.setAttribute('x2', next.x); l.setAttribute('y2', next.y);
+    svg.appendChild(l);
+  });
+
+  pts.forEach(pt => {
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1', 50); l.setAttribute('y1', 50);
+    l.setAttribute('x2', pt.x); l.setAttribute('y2', pt.y);
+    svg.appendChild(l);
+  });
+
+  pts.forEach((pt) => {
+    const f = pt.f;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'fw-node' + (f.id === state.activeFramework ? ' active' : '');
+    btn.style.left = pt.x + '%';
+    btn.style.top  = pt.y + '%';
+    btn.dataset.fw = f.id;
+    btn.innerHTML = `<div class="fn-ico">${f.icon}</div><div class="fn-nm">${esc(f.name)}</div>`;
+    btn.addEventListener('click', () => selectFramework(f.id));
+    stage.appendChild(btn);
+  });
+
+  updateFrameworkDetail();
+}
+
+function selectFramework(id){
+  state.activeFramework = id;
+  $$('.fw-node').forEach(n => n.classList.toggle('active', n.dataset.fw === id));
+  updateFrameworkDetail();
+}
+
+function updateFrameworkDetail(){
+  const f = FRAMEWORK.find(x => x.id === state.activeFramework) || FRAMEWORK[0];
+  $('#fwDetailIco').textContent = f.icon;
+  $('#fwDetailTitle').textContent = f.name;
+  $('#fwDetailQ').textContent = f.qs;
+  $('#fwDetailX').textContent = f.x;
+}
+
+/* ============================================================
+   MURAL
+============================================================ */
+function renderMural(){
+  const wrap = $('#muralNotes');
+  const list = Object.entries(state.muralNotes)
+    .map(([id, n]) => ({ id, ...n }))
+    .sort((a,b) => (a.createdAt || 0) - (b.createdAt || 0));
+
+  if (!list.length){
+    wrap.innerHTML = '<div class="mural-empty">No sticky notes yet. Add one only if it helps the conversation.</div>';
+    return;
+  }
+
+  wrap.innerHTML = list.map(n => {
+    const mine = state.me && n.authorId === state.me.id;
+    const rot = ((n.id.charCodeAt(0) % 5) - 2) * 0.9;
+    return `
+      <div class="sticky" style="--rot:${rot}deg" data-note="${n.id}">
+        <div class="st-author">${esc(firstName(n.authorName || ''))}</div>
+        <div class="st-text">${esc(n.text)}</div>
+        ${mine ? `
+          <div class="st-actions">
+            <button data-edit="${n.id}">edit</button>
+            <button data-del="${n.id}">×</button>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+
+  wrap.querySelectorAll('[data-del]').forEach(b => {
+    b.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      try { await remove(sessionRef(`muralNotes/${b.dataset.del}`)); } catch (err){ console.warn(err); }
+    });
+  });
+  wrap.querySelectorAll('[data-edit]').forEach(b => {
+    b.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const id = b.dataset.edit;
+      const note = state.muralNotes[id];
+      if (!note) return;
+      const next = prompt('Edit your note:', note.text);
+      if (next !== null && next.trim()){
+        try { await update(sessionRef(`muralNotes/${id}`), { text: next.trim().slice(0,120) }); }
+        catch (err){ console.warn(err); }
+      }
+    });
+  });
+}
+
+window.__addMural = async function(){
+  if (!state.me || state.me.isTeacher) {
+    toast('Teacher mode', 'Teachers observe — students write notes.');
+    return;
+  }
+  const input = $('#muralInput');
+  const text = input.value.trim().slice(0,120);
+  if (!text) return;
+  input.value = '';
+  try {
+    const nr = push(sessionRef('muralNotes'));
+    await set(nr, {
+      authorId: state.me.id,
+      authorName: state.me.name,
+      text,
+      createdAt: Date.now()
+    });
+    recordEvent('mural', { text: text.slice(0,40) });
+  } catch (e){ console.warn(e); toast('Could not save note','Check your connection.'); }
+};
+
+/* ============================================================
+   RECOGNITION — with preset cards
+============================================================ */
+let recogTarget = null;
+let recogSelectedPreset = null;
+
+function openRecognition(personId, capId){
+  if (!state.me) return;
+  const p = state.participants[personId];
+  const c = capById(capId);
+  if (!p || !c) return;
+
+  recogTarget = { personId, capId, person:p, cap:c };
+  recogSelectedPreset = null;
+
+  $('#recogTitle').textContent = 'Recognize ' + firstName(p.name) + '’s ' + c.name;
+
+  // Generate 2 preset suggestions for this capability + person
+  const presets = (EVIDENCE_PRESETS[c.id] || []).map(fn => fn(firstName(p.name)));
+  const presetIcons = ['💡', '🎯'];
+
+  $('#recogBody').innerHTML = `
+    <div class="recipient-chip">
+      <div class="av ${avatarClass(personId)}">${initials(p.name)}</div>
+      <div>
+        <div class="rc-nm">${esc(p.name)}</div>
+        <div class="rc-cap">${c.icon} ${esc(c.name)}</div>
+      </div>
+      <span class="rc-role">${esc(roleById(p.role)?.name || 'Participant')}</span>
+    </div>
+
+    <div class="evidence-presets">
+      ${presets.map((text, i) => `
+        <button type="button" class="evidence-preset" data-preset="${i}" data-text="${esc(text)}">
+          <span class="ep-ico">${presetIcons[i]}</span>
+          <span class="ep-body">
+            <span class="ep-label">Suggestion ${i + 1}</span>
+            <span class="ep-text">${esc(text)}</span>
+          </span>
+          <span class="ep-check">✓</span>
+        </button>
+      `).join('')}
+    </div>
+
+    <div class="or-divider">or write your own</div>
+
+    <div class="field" style="margin-bottom:0">
+      <textarea id="recogEvidence" placeholder="Describe what you saw or heard…"></textarea>
+      <div class="fh">Optional — you can use a suggestion above and edit it.</div>
+    </div>
+  `;
+
+  $('#recogSubmit').disabled = true;
+  $('#recogSubmit').textContent = 'Send recognition';
+
+  // Wire preset cards
+  const ta = $('#recogEvidence');
+  $('#recogBody').querySelectorAll('.evidence-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.dataset.text;
+      ta.value = text;
+      recogSelectedPreset = btn.dataset.preset;
+      $('#recogBody').querySelectorAll('.evidence-preset').forEach(b =>
+        b.classList.toggle('selected', b === btn));
+      updateRecogSubmit();
+      ta.focus();
+    });
+  });
+
+  ta.addEventListener('input', () => {
+    // If user edits the text and it doesn't match the selected preset, deselect
+    if (recogSelectedPreset !== null){
+      const selectedBtn = $('#recogBody').querySelector('.evidence-preset.selected');
+      if (selectedBtn && ta.value.trim() !== selectedBtn.dataset.text.trim()){
+        selectedBtn.classList.remove('selected');
+        recogSelectedPreset = null;
+      }
+    }
+    updateRecogSubmit();
+  });
+
+  setTimeout(() => ta.focus(), 80);
+  openModal('recogModal');
+}
+
+function updateRecogSubmit(){
+  const ta = $('#recogEvidence');
+  if (!ta) return;
+  $('#recogSubmit').disabled = ta.value.trim().length < 10;
+}
+
+$('#recogSubmit').addEventListener('click', async () => {
+  if (!recogTarget || !state.me) return;
+  const evidence = $('#recogEvidence').value.trim();
+  if (evidence.length < 10) return;
+
+  $('#recogSubmit').disabled = true;
+  $('#recogSubmit').textContent = 'Sending…';
+
+  try {
+    const nr = push(sessionRef('recognitions'));
+    await set(nr, {
+      fromId: state.me.id,
+      fromName: state.me.name,
+      toId: recogTarget.personId,
+      toName: recogTarget.person.name,
+      skill: recogTarget.cap.name,
+      skillIcon: recogTarget.cap.icon,
+      evidence,
+      status: 'pending',
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    });
+
+    closeModal('recogModal');
+    toast('Recognition sent to ' + firstName(recogTarget.person.name),
+          recogTarget.cap.name + ' · they decide what happens next.');
+    recordEvent('recognize', {
+      toId: recogTarget.personId,
+      toName: recogTarget.person.name,
+      skill: recogTarget.cap.name
+    });
+  } catch (e){
+    console.error(e);
+    toast('Could not send recognition', 'Check your connection.');
+  } finally {
+    $('#recogSubmit').disabled = false;
+    $('#recogSubmit').textContent = 'Send recognition';
+  }
+});
+
+/* ============================================================
+   ASK TO UNDERSTAND
+============================================================ */
+let askTarget = null;
+
+function openAsk(personId, capId){
+  if (!state.me) return;
+  const p = state.participants[personId];
+  const c = capById(capId);
+  if (!p || !c) return;
+
+  askTarget = { personId, capId, person:p, cap:c };
+
+  $('#askTitle').textContent = 'Ask to understand ' + firstName(p.name);
+
+  $('#askBody').innerHTML = `
+    <div class="recipient-chip">
+      <div class="av ${avatarClass(personId)}">${initials(p.name)}</div>
+      <div>
+        <div class="rc-nm">${esc(p.name)}</div>
+        <div class="rc-cap">${c.icon} ${esc(c.name)}</div>
+      </div>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--ink-2);line-height:1.65;margin-bottom:18px">
+      ${esc(firstName(p.name))} will receive a request to talk with you about how to support their
+      <b>${esc(c.name)}</b> development. This is <b>not</b> a recognition — it is an invitation to a conversation.
+    </p>
+
+    <div class="field">
+      <label>Optional message <span class="fh" style="display:inline">(they will see this)</span></label>
+      <textarea id="askMessage" placeholder="e.g. I’d love to hear how you approach this in your work."></textarea>
+    </div>
+
+    <div class="example-box">
+      They will be able to reply: <b>“OK, let’s talk!”</b>
+    </div>
+  `;
+
+  setTimeout(() => $('#askMessage')?.focus(), 60);
+  openModal('askModal');
+}
+
+$('#askSubmit').addEventListener('click', async () => {
+  if (!askTarget || !state.me) return;
+  const msg = $('#askMessage').value.trim();
+
+  try {
+    const nr = push(sessionRef('supportRequests'));
+    await set(nr, {
+      fromId: state.me.id,
+      fromName: state.me.name,
+      toId: askTarget.personId,
+      toName: askTarget.person.name,
+      skill: askTarget.cap.name,
+      skillIcon: askTarget.cap.icon,
+      message: msg,
+      status: 'pending',
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    });
+
+    closeModal('askModal');
+    toast('Request sent to ' + firstName(askTarget.person.name),
+          'They will see your invitation to talk.');
+    recordEvent('ask', {
+      toId: askTarget.personId,
+      toName: askTarget.person.name,
+      skill: askTarget.cap.name
+    });
+  } catch (e){
+    console.error(e);
+    toast('Could not send request', 'Check your connection.');
+  }
+});
+
+/* ============================================================
+   INBOX
+============================================================ */
+function incomingForMe(){
+  if (!state.me) return [];
+  const items = [];
+
+  Object.entries(state.recognitions).forEach(([id, r]) => {
+    if (r.toId === state.me.id && r.status === 'pending'){
+      items.push({
+        kind:'recognition', id, rec:r,
+        senderName: r.fromName, senderId: r.fromId,
+        avatarCls: avatarClass(r.fromId),
+        init: initials(r.fromName)
+      });
+    }
+  });
+
+  Object.entries(state.supportRequests).forEach(([id, r]) => {
+    if (r.toId === state.me.id && r.status === 'pending'){
+      items.push({
+        kind:'support', id, req:r,
+        senderName: r.fromName, senderId: r.fromId,
+        avatarCls: avatarClass(r.fromId),
+        init: initials(r.fromName)
+      });
+    }
+  });
+
+  return items.sort((a,b) => {
+    const ta = a.kind === 'recognition' ? (a.rec.createdAt||0) : (a.req.createdAt||0);
+    const tb = b.kind === 'recognition' ? (b.rec.createdAt||0) : (b.req.createdAt||0);
+    return tb - ta;
+  });
+}
+
+function renderInbox(){
+  const body = $('#inboxBody');
+  const items = incomingForMe();
+
+  if (!items.length){
+    body.innerHTML = '<div class="empty-state">Your inbox is empty.<br>Recognition requests and support questions will appear here.</div>';
+  } else {
+    body.innerHTML = items.map(item => {
+      if (item.kind === 'recognition'){
+        return `
+          <div class="req-card">
+            <div class="rc-head">
+              <span class="av ${item.avatarCls} av-sm">${item.init}</span>
+              <div>
+                <div class="rc-t">${esc(item.senderName)} recognized your ${esc(item.rec.skill)}</div>
+                <div style="font-size:11px;color:var(--faint);margin-top:2px">${shortTime(item.rec.createdAt)}</div>
+              </div>
+            </div>
+            <div class="rc-s">“${esc(item.rec.evidence)}”</div>
+            <div class="rc-actions">
+              <button class="btn primary sm" data-accept="${item.id}">Accept</button>
+              <button class="btn ghost sm" data-clarify="${item.id}">Ask for clarification</button>
+              <button class="btn ghost sm" data-decline="${item.id}">Decline</button>
+            </div>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="req-card">
+            <div class="rc-head">
+              <span class="av ${item.avatarCls} av-sm">${item.init}</span>
+              <div>
+                <div class="rc-t">${esc(item.senderName)} wants to understand your ${esc(item.req.skill)}</div>
+                <div style="font-size:11px;color:var(--faint);margin-top:2px">${shortTime(item.req.createdAt)}</div>
+              </div>
+            </div>
+            <div class="rc-s">
+              ${esc(item.senderName)} would like to understand how to support your ${esc(item.req.skill)} development.
+              ${item.req.message ? '<br><i>“' + esc(item.req.message) + '”</i>' : ''}
+            </div>
+            <div class="rc-actions">
+              <button class="btn primary sm" data-ack="${item.id}">OK, let’s talk!</button>
+            </div>
+          </div>
+        `;
+      }
+    }).join('');
+  }
+
+  body.querySelectorAll('[data-accept]').forEach(b => b.addEventListener('click', () => respondRecognition(b.dataset.accept, 'accepted')));
+  body.querySelectorAll('[data-clarify]').forEach(b => b.addEventListener('click', () => respondRecognition(b.dataset.clarify, 'clarify')));
+  body.querySelectorAll('[data-decline]').forEach(b => b.addEventListener('click', () => respondRecognition(b.dataset.decline, 'declined')));
+  body.querySelectorAll('[data-ack]').forEach(b => b.addEventListener('click', () => acknowledgeSupport(b.dataset.ack)));
+
+  const badge = $('#inboxBadge');
+  if (items.length > 0){ badge.hidden = false; badge.textContent = items.length; }
+  else badge.hidden = true;
+}
+
+async function respondRecognition(recId, status){
+  try {
+    await update(sessionRef(`recognitions/${recId}`), { status, updatedAt: Date.now() });
+    const r = state.recognitions[recId];
+    if (status === 'accepted') toast('Great job!', 'This recognition is now part of your professional evidence.');
+    else if (status === 'clarify') toast('Clarification requested', 'You can refine the description together.');
+    else toast('Recognition declined', 'That is completely fine — you stay in control.');
+    recordEvent('recognition-response', { recId, status, fromName: r?.fromName, skill: r?.skill });
+  } catch (e){ console.warn(e); toast('Could not update', 'Check your connection.'); }
+}
+
+async function acknowledgeSupport(reqId){
+  try {
+    await update(sessionRef(`supportRequests/${reqId}`), { status:'acknowledged', updatedAt: Date.now() });
+    toast('Great! Connect and learn together.', 'You both see this prompt now.');
+    recordEvent('support-ack', { reqId });
+  } catch (e){ console.warn(e); toast('Could not update', 'Check your connection.'); }
+}
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+function renderDashboard(){
+  if (!state.me || state.me.isTeacher) return;
+  const me = state.me;
+  const myCaps = (me.caps || []).map(capById).filter(Boolean);
+
+  const accepted = Object.entries(state.recognitions)
+    .filter(([,r]) => r.toId === me.id && r.status === 'accepted')
+    .map(([id, r]) => ({ id, ...r }));
+
+  const myRequests = Object.entries(state.supportRequests)
+    .filter(([,r]) => r.toId === me.id)
+    .map(([id, r]) => ({ id, ...r }));
+
+  $('#dashBody').innerHTML = `
+    <div class="dash-profile">
+      <div class="dp-top">
+        <div class="av av-lg av-you">${initials(me.name)}</div>
+        <div>
+          <div class="dp-name">${esc(me.name)}</div>
+          <div class="dp-role">Session ${esc(state.sessionCode)}</div>
+        </div>
+      </div>
+      <div class="dash-bhag">
+        <div class="dbk">Professional BHAG</div>
+        ${esc(me.bhag || 'Not set yet.')}
+      </div>
+      <div class="dash-caps">
+        ${myCaps.map(c => `<span class="dash-cap">${c.icon} ${esc(c.name)}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="dash-actions">
+      <button class="btn ghost" id="printHomeworkBtn">🖨️ Print homework</button>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-section-k">
+        Recognitions I received
+        <span class="cnt">${accepted.length}</span>
+      </div>
+      ${accepted.length
+        ? accepted.map(r => `
+            <div class="ev-card">
+              <div class="ec-head">
+                <span class="ec-skill">✓ ${esc(r.skill)}</span>
+                <span class="ec-from">from ${esc(r.fromName)}</span>
+              </div>
+              <div class="ec-text">${esc(r.evidence)}</div>
+              <div class="ec-foot">
+                <button data-copy="${r.id}">📋 Copy for CV</button>
+                <button data-linkedin="${r.id}">🔗 Copy to LinkedIn</button>
+              </div>
+            </div>
+          `).join('')
+        : '<div class="empty-state">No recognitions yet.<br>They will appear here once a peer recognizes a specific action.</div>'
+      }
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-section-k">
+        Requests to understand me
+        <span class="cnt">${myRequests.length}</span>
+      </div>
+      ${myRequests.length
+        ? myRequests.map(r => `
+            <div class="ev-card">
+              <div class="ec-head">
+                <span class="ec-skill">${esc(r.skill)}</span>
+                <span class="ec-from">from ${esc(r.fromName)}</span>
+              </div>
+              <div class="ec-text">
+                ${esc(r.fromName)} would like to understand how to support your ${esc(r.skill)} development.
+              </div>
+            </div>
+          `).join('')
+        : '<div class="empty-state">No requests yet.</div>'
+      }
+    </div>
+
+    <div class="dash-note">
+      🔒 Your record belongs to you. Nothing is published automatically. You can copy a description
+      and review it before using it anywhere else.
+    </div>
+  `;
+
+  $('#dashBody').querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const r = accepted.find(x => x.id === btn.dataset.copy);
+      if (!r) return;
+      const text =
+        'Demonstrated ' + r.skill + ' — ' + r.evidence +
+        ' (recognized by ' + r.fromName + ', Synergy Cell OS).';
+      copyToClipboard(text);
+      toast('Copied for CV', 'Paste it and review before using.');
+    });
+  });
+
+  $('#dashBody').querySelectorAll('[data-linkedin]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const r = accepted.find(x => x.id === btn.dataset.linkedin);
+      if (!r) return;
+      const text =
+        'I was recognized for ' + r.skill + ' in a collaborative session.\n\n' +
+        '“' + r.evidence + '”\n\n' +
+        '— Recognized by ' + r.fromName + ' on Synergy Cell OS.';
+      copyToClipboard(text);
+      toast('LinkedIn draft copied', 'Paste into LinkedIn and review before publishing.');
+    });
+  });
+
+  const printBtn = $('#printHomeworkBtn');
+  if (printBtn) printBtn.addEventListener('click', printHomework);
+}
+
+/* ============================================================
+   PRINT HOMEWORK
+============================================================ */
+function printHomework(){
+  if (!state.me) return;
+
+  const me = state.me;
+  const myCaps = (me.caps || []).map(capById).filter(Boolean);
+  const accepted = Object.values(state.recognitions).filter(r => r.toId === me.id && r.status === 'accepted');
+  const myRole = roleById(me.role);
+  const muralList = Object.values(state.muralNotes).sort((a,b) => (a.createdAt||0)-(b.createdAt||0));
+
+  const html = `
+    <div style="font-size:24px;font-weight:800;margin-bottom:4px">Synergy Cell OS — Homework</div>
+    <div style="font-size:12px;color:#555;margin-bottom:28px">
+      ${esc(me.name)} · Session ${esc(state.sessionCode)} · ${new Date().toLocaleDateString()}
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">My professional BHAG</div>
+      <div style="font-size:12.5px;line-height:1.65">${esc(me.bhag || '—')}</div>
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">Capabilities in focus</div>
+      <div>${myCaps.map(c => `<span style="display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border:1px solid #ccc;border-radius:99px;margin:3px 4px 3px 0">${c.icon} ${esc(c.name)}</span>`).join('')}</div>
+      <div style="font-size:11px;color:#666;font-style:italic;margin-top:8px">${myCaps.map(c => '• ' + c.name + ': ' + c.desc).join('<br>')}</div>
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">Capabilities developed &amp; recognized</div>
+      ${accepted.length
+        ? accepted.map(r => `
+            <div style="font-size:14px;font-weight:700;margin:10px 0 4px">✓ ${esc(r.skill)}</div>
+            <div style="font-size:12.5px;line-height:1.65">${esc(r.evidence)}</div>
+            <div style="font-size:11px;color:#666;font-style:italic">Recognized by ${esc(r.fromName)}</div>
+          `).join('')
+        : '<div style="font-size:12.5px">No accepted recognitions yet.</div>'
+      }
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">Role-play scenario</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:6px">What if we could redesign the way a company works?</div>
+      <div style="font-size:12.5px;line-height:1.65">
+        You and your partner are business specialists attending a Future of Work event.
+        You have received $50,000 in investment and incentives to reinvent how a company operates.
+      </div>
+      <div style="font-size:14px;font-weight:700;margin-top:12px;margin-bottom:4px">Your mission</div>
+      <div style="font-size:12.5px;line-height:1.65">
+        1. Design a new way of organizing work.<br>
+        2. Decide how people share decisions and responsibilities.<br>
+        3. Explain how the company creates value and measures success.
+      </div>
+      ${myRole ? `
+        <div style="font-size:14px;font-weight:700;margin-top:12px;margin-bottom:4px">Your role</div>
+        <div style="font-size:12.5px;line-height:1.65">${esc(myRole.name)} — ${esc(myRole.desc)}</div>
+      ` : ''}
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">Learning framework — Rethinking How Work Works</div>
+      ${FRAMEWORK.map(f => `
+        <div style="font-size:14px;font-weight:700;margin:10px 0 4px">${f.icon} ${esc(f.name)}</div>
+        <div style="font-size:12.5px;line-height:1.65"><b>${esc(f.qs)}</b><br>${esc(f.x)}</div>
+      `).join('')}
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">Short insights for your conversation</div>
+      <div style="font-size:12.5px;line-height:1.65">
+        • AI and automation are changing how work is organized.<br>
+        • Remote work enables distributed teams.<br>
+        • Some organizations experiment with greater employee autonomy.<br>
+        • Digital platforms allow people to coordinate and create value across locations.<br>
+        • New organizational models explore purpose, shared responsibility, and distributed decision-making.
+      </div>
+      <div style="font-size:14px;font-weight:700;margin-top:12px;margin-bottom:4px">Keywords</div>
+      <div style="font-size:12.5px">Autonomy · AI · Ownership · Purpose · Decentralization · Collaboration</div>
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">Mural — team sticky notes</div>
+      ${muralList.length
+        ? muralList.map(n => `<div style="margin:4px 0;font-size:12.5px">• <b>${esc(n.authorName)}:</b> ${esc(n.text)}</div>`).join('')
+        : '<div style="font-size:12.5px">No notes were added.</div>'
+      }
+    </div>
+
+    <div style="margin-bottom:26px;page-break-inside:avoid">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px">Language cues</div>
+      <div style="margin:4px 0;font-size:12.5px">• What if we could…?</div>
+      <div style="margin:4px 0;font-size:12.5px">• Why don’t we…?</div>
+    </div>
+
+    <div style="font-size:11px;color:#666;font-style:italic;margin-top:24px">
+      Build value together. Help people grow. Leave better than you arrived.
+    </div>
+  `;
+
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.right = '0'; iframe.style.bottom = '0';
+  iframe.style.width = '0'; iframe.style.height = '0';
+  iframe.style.border = '0';
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html><html><head>
+      <meta charset="utf-8">
+      <title>Homework — ${esc(me.name)}</title>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+      <style>body{font-family:"Inter",Arial,sans-serif;color:#000;padding:32px 40px;line-height:1.55}</style>
+    </head><body>${html}</body></html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    setTimeout(() => iframe.remove(), 1500);
+  }, 500);
+}
+
+/* ============================================================
+   DRAWER / MODAL
+============================================================ */
+function openDrawer(id){
+  closeAllDrawers();
+  $('#' + id).classList.add('open');
+  $('#drawerOverlay').classList.add('open');
+}
+function closeAllDrawers(){
+  $$('.drawer').forEach(d => d.classList.remove('open'));
+  $('#drawerOverlay').classList.remove('open');
+}
+function openModal(id){ $('#' + id).classList.add('open'); }
+function closeModal(id){ $('#' + id).classList.remove('open'); }
+
+$('#dashBtn').addEventListener('click', () => { renderDashboard(); openDrawer('dashDrawer'); });
+$('#inboxBtn').addEventListener('click', () => { renderInbox(); openDrawer('inboxDrawer'); });
+$('#drawerOverlay').addEventListener('click', closeAllDrawers);
+$$('[data-close-drawer]').forEach(b => b.addEventListener('click', closeAllDrawers));
+$$('[data-close-modal]').forEach(b => b.addEventListener('click', () => {
+  const wrap = b.closest('.modal-wrap');
+  if (wrap) wrap.classList.remove('open');
+}));
+$$('.modal-wrap').forEach(w => {
+  w.addEventListener('click', e => { if (e.target === w) w.classList.remove('open'); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){
+    $$('.modal-wrap').forEach(w => w.classList.remove('open'));
+    closeAllDrawers();
+  }
+});
+
+$('#knowledgeToggle').addEventListener('click', () => $('#knowledgeCard').classList.toggle('open'));
+$('#muralToggle').addEventListener('click', () => $('#muralCard').classList.toggle('open'));
+$('#cuesToggle').addEventListener('click', () => $('#cuesCard').classList.toggle('open'));
+
+/* ============================================================
+   TEACHER PANEL
+============================================================ */
+function renderTeacherPanel(){
+  if (!state.me?.isTeacher) return;
+
+  const students = Object.entries(state.participants).filter(([,p]) => !p.isTeacher);
+  $('#tpSubtitle').textContent = 'Watching ' + students.length + ' participant' + (students.length === 1 ? '' : 's');
+
+  const feed = $('#tpFeed');
+  const events = Object.entries(state.events)
+    .map(([id, e]) => ({ id, ...e }))
+    .sort((a,b) => (b.createdAt||0) - (a.createdAt||0))
+    .slice(0, 40);
+
+  if (!events.length){
+    feed.innerHTML = '<div class="tp-empty">Waiting for students to join and act…</div>';
+    return;
+  }
+
+  const icons = {
+    join: '👋', recognize: '✨', ask: '🤝',
+    'recognition-response': '✅', 'support-ack': '💬',
+    mural: '📌', mission: '✓'
+  };
+
+  feed.innerHTML = events.map(e => {
+    const icon = icons[e.type] || '•';
+    let line = '';
+    const d = e.data || {};
+    switch (e.type){
+      case 'join': line = `<b>${esc(e.actorName)}</b> joined the session.`; break;
+      case 'recognize': line = `<b>${esc(e.actorName)}</b> recognized <b>${esc(d.toName||'')}</b> for ${esc(d.skill||'')}.`; break;
+      case 'ask': line = `<b>${esc(e.actorName)}</b> asked to understand <b>${esc(d.toName||'')}</b>'s ${esc(d.skill||'')}.`; break;
+      case 'recognition-response': line = `<b>${esc(e.actorName)}</b> responded to a recognition from <b>${esc(d.fromName||'')}</b> (${esc(d.status||'')}).`; break;
+      case 'support-ack': line = `<b>${esc(e.actorName)}</b> acknowledged a support request.`; break;
+      case 'mural': line = `<b>${esc(e.actorName)}</b> added a mural note: “${esc(d.text||'')}…”`; break;
+      case 'mission': line = `<b>${esc(e.actorName)}</b> ${d.checked ? 'checked' : 'unchecked'} a mission item.`; break;
+      default: line = `<b>${esc(e.actorName)}</b> did something.`;
+    }
+    return `
+      <div class="tp-event">
+        <div class="ev-ico">${icon}</div>
+        <div class="ev-x">${line}</div>
+        <div class="ev-t">${shortTime(e.createdAt)}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ============================================================
+   COPY
+============================================================ */
+function copyToClipboard(text){
+  if (navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+  } else fallbackCopy(text);
+}
+function fallbackCopy(text){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch {}
+  ta.remove();
+}
+
+window.addEventListener('beforeunload', () => {
+  if (state.me && dbReady && state.sessionCode){
+    try { set(sessionRef(`participants/${state.me.id}/online`), false); } catch {}
+  }
+});
+</script>
 </body>
 </html>
