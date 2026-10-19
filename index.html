@@ -1,1190 +1,700 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Future of Work — Psychology Track</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🤖 AI and the Human Mind at Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --violet:#6d28d9;
-    --violet-deep:#4c1d95;
-    --violet-soft:#ede9fe;
-    --amber:#f59e0b;
-    --amber-soft:#fef3c7;
-    --amber-dark:#92400e;
-    --mint:#10b981;
-    --mint-soft:#ecfdf5;
-    --mint-dark:#065f46;
-    --gray:#64748b;
-    --gray-soft:#f1f5f9;
-    --line:#e5e7eb;
-    --bg:#faf9fc;
-    --ink:#1e1b2e;
-    --muted:#6b7280;
-    --radius:16px;
-    --shadow:0 4px 16px rgba(76,29,149,.07);
-    --shadow-lg:0 10px 30px rgba(76,29,149,.13);
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05070a;--ink:#e9eef4;--muted:#7f8b9b;--dim:#57616e;
+  --line:rgba(255,255,255,.085);--line-strong:rgba(255,255,255,.16);
+  --accent:#6ee7b7;--accent-2:#38bdf8;--gold:#fbbf24;
+  --red:#f87171;--green:#34d399;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(110,231,183,.28)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:8px}
 
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
+/* Ambient background */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45}
+.orb-1{width:52vw;height:52vw;left:-14vw;top:-16vw;background:radial-gradient(circle,rgba(110,231,183,.22),transparent 68%);animation:d1 28s ease-in-out infinite}
+.orb-2{width:46vw;height:46vw;right:-12vw;bottom:-18vw;background:radial-gradient(circle,rgba(56,189,248,.20),transparent 68%);animation:d2 34s ease-in-out infinite}
+.orb-3{width:34vw;height:34vw;left:44%;top:52%;background:radial-gradient(circle,rgba(251,191,36,.14),transparent 70%);animation:d3 40s ease-in-out infinite}
+@keyframes d1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,5vh) scale(1.12)}}
+@keyframes d2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,-5vh) scale(1.1)}}
+@keyframes d3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,6vh) scale(1.18)}}
+.grid-ov{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 78%);mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 78%)}
 
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,
-      "Helvetica Neue",Arial,sans-serif;
-    background:var(--bg);
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+/* Page */
+.page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 24px 80px}
 
-  .wrap{max-width:900px;margin:0 auto;padding:0 20px;}
+/* Header */
+.hdr{margin-bottom:32px;text-align:center}
+.hdr .eyebrow{
+  font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--dim);font-weight:800;margin-bottom:14px;
+  display:inline-flex;align-items:center;gap:9px;
+}
+.hdr .eyebrow .dot{
+  width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 14px rgba(110,231,183,.9);
+  animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hdr h1{
+  font-size:clamp(28px,4.4vw,48px);line-height:1.05;font-weight:900;
+  letter-spacing:-.035em;margin-bottom:12px;
+  background:linear-gradient(180deg,#fff 20%,#7ee8c4 130%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hdr .sub{font-size:15.5px;color:var(--muted);font-weight:300;max-width:640px;margin:0 auto}
+.hdr .sub b{color:#dce6f0;font-weight:600}
 
-  /* ============ HERO ============ */
-  .hero{
-    background:linear-gradient(135deg,#2e1065 0%,#4c1d95 50%,#6d28d9 100%);
-    color:#fff;
-    padding:72px 0 64px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero::after{
-    content:"";
-    position:absolute;
-    width:520px;height:520px;
-    background:radial-gradient(circle,rgba(245,158,11,.2),transparent 70%);
-    top:-220px;right:-160px;
-    border-radius:50%;
-    pointer-events:none;
-  }
-  .hero::before{
-    content:"";
-    position:absolute;
-    width:400px;height:400px;
-    background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);
-    bottom:-180px;left:-120px;
-    border-radius:50%;
-    pointer-events:none;
-  }
-  .hero .wrap{position:relative;z-index:1;}
+/* Section label */
+.sec-label{
+  display:flex;align-items:center;gap:12px;margin:0 0 16px;
+  font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--accent);font-weight:800;
+}
+.sec-label .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(110,231,183,.4),transparent)}
+.sec-label .hint{font-size:10.5px;letter-spacing:.04em;color:var(--dim);text-transform:none;font-weight:500;font-style:italic}
 
-  .badge{
-    display:inline-block;
-    background:rgba(245,158,11,.18);
-    border:1px solid rgba(245,158,11,.55);
-    color:#fcd34d;
-    font-size:.75rem;
-    font-weight:700;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    padding:7px 18px;
-    border-radius:999px;
-    margin-bottom:22px;
-  }
+/* Players grid */
+.players-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin-bottom:16px;
+}
+@media (max-width:820px){.players-grid{grid-template-columns:1fr}}
 
-  .hero h1{
-    font-size:clamp(2rem,5.5vw,3.2rem);
-    font-weight:800;
-    line-height:1.15;
-    letter-spacing:-.02em;
-    margin-bottom:16px;
-  }
+.player-card{
+  border:1px solid var(--line);border-radius:22px;
+  padding:24px 24px 22px;
+  background:linear-gradient(165deg,rgba(255,255,255,.035),rgba(255,255,255,.008));
+  position:relative;overflow:hidden;
+  transition:.3s;
+}
+.player-card::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:60%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(110,231,183,.6),transparent);
+}
+.player-card.p2::before{
+  background:linear-gradient(90deg,transparent,rgba(56,189,248,.6),transparent);
+}
+.player-card:hover{border-color:var(--line-strong)}
 
-  .hero p{
-    font-size:clamp(1rem,2.2vw,1.15rem);
-    color:rgba(255,255,255,.85);
-    max-width:580px;
-    margin:0 auto 34px;
-  }
+/* Player name */
+.pname{
+  display:flex;align-items:center;gap:10px;margin-bottom:20px;
+  padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06);
+}
+.pname .pl-tag{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);font-weight:800;
+}
+.pname .pl-input{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:inherit;font-size:20px;font-weight:800;letter-spacing:-.02em;
+  color:#f4ede4;padding:4px 0;min-width:0;
+  border-bottom:1px dashed transparent;transition:.25s;
+}
+.pname .pl-input:focus{border-bottom-color:rgba(110,231,183,.5)}
+.pname .pl-input::placeholder{color:var(--dim);font-weight:500;font-size:16px;letter-spacing:0}
 
-  .progress-track{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:0 auto 8px;
-    max-width:340px;
-  }
-  .prog-dot{
-    width:38px;height:38px;
-    border-radius:50%;
-    background:rgba(255,255,255,.12);
-    border:2px solid rgba(255,255,255,.35);
-    color:rgba(255,255,255,.6);
-    font-weight:800;
-    font-size:.9rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:all .4s ease;
-    position:relative;
-    z-index:1;
-  }
-  .prog-dot.active{
-    background:var(--amber);
-    border-color:var(--amber);
-    color:#451a03;
-    transform:scale(1.15);
-    box-shadow:0 0 0 6px rgba(245,158,11,.25);
-  }
-  .prog-dot.done{
-    background:var(--mint);
-    border-color:var(--mint);
-    color:#fff;
-  }
-  .prog-line{
-    flex:1;
-    height:2px;
-    background:rgba(255,255,255,.2);
-    transition:background .4s ease;
-  }
-  .prog-line.done{background:var(--mint);}
+/* Section inside card */
+.card-sec{margin-bottom:18px}
+.card-sec:last-child{margin-bottom:0}
+.card-sec-h{
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  font-weight:800;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-sec-h.ask{color:var(--accent)}
+.card-sec-h.help{color:var(--gold)}
+.card-sec-h .si{font-size:14px}
 
-  .progress-label{
-    font-size:.82rem;
-    color:rgba(255,255,255,.7);
-    margin-top:14px;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-    font-weight:600;
-  }
+/* Numbered list */
+.num-list{display:flex;flex-direction:column;gap:10px}
+.num-item{
+  display:flex;gap:12px;align-items:center;
+  font-size:14.5px;color:#dce6f0;font-weight:400;line-height:1.5;
+  padding:11px 14px;border-radius:12px;
+  background:rgba(255,255,255,.022);
+  border:1px solid var(--line);
+  transition:.22s;
+}
+.num-item:hover{background:rgba(255,255,255,.05);border-color:var(--line-strong)}
+.num-item .num{
+  width:24px;height:24px;flex:0 0 24px;border-radius:8px;
+  display:grid;place-items:center;
+  font-size:11px;font-weight:900;font-variant-numeric:tabular-nums;
+  background:rgba(110,231,183,.14);
+  border:1px solid rgba(110,231,183,.35);
+  color:var(--accent);
+}
+.card-sec.help .num-item .num{
+  background:rgba(251,191,36,.14);
+  border-color:rgba(251,191,36,.35);
+  color:var(--gold);
+}
+.num-item .num-text{flex:1;min-width:0}
+.num-item .num-text b{color:#fff;font-weight:700}
 
-  /* ============ MISSION SECTION ============ */
-  .mission{
-    padding:56px 0;
-    transition:opacity .5s ease;
-  }
+/* Blank items — for oral questions */
+.num-item.blank{cursor:default}
+.num-item.blank:hover{background:rgba(255,255,255,.022);border-color:var(--line)}
+.num-item.blank .num-text{
+  display:flex;align-items:center;gap:6px;flex:1;min-width:0;
+}
+.blank-line{
+  flex:1;min-width:40px;height:22px;
+  border-bottom:1.5px dashed rgba(110,231,183,.28);
+  margin-bottom:-3px;
+}
+.qmark{
+  color:var(--accent);font-weight:800;font-size:16px;
+  line-height:1;opacity:.75;
+}
 
-  .mission-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    margin-bottom:16px;
-    flex-wrap:wrap;
-  }
+/* Ask more badge */
+.ask-more{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:999px;margin-top:12px;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:800;color:var(--accent);
+  background:rgba(110,231,183,.08);
+  border:1px dashed rgba(110,231,183,.4);
+  font-style:italic;
+}
+.ask-more .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 10px rgba(110,231,183,.9);
+  animation:pulse 1.6s ease-in-out infinite;
+}
 
-  .m-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:var(--violet);
-    color:#fff;
-    font-size:.75rem;
-    font-weight:800;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    padding:7px 16px;
-    border-radius:999px;
-  }
+/* Third minimized box */
+.shared-box{
+  border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(165deg,rgba(167,139,250,.05),rgba(255,255,255,.008));
+  overflow:hidden;transition:.35s;
+  margin-bottom:36px;
+}
+.shared-box:hover{border-color:var(--line-strong)}
+.shared-head{
+  padding:18px 24px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  user-select:none;-webkit-tap-highlight-color:transparent;
+}
+.shared-head .sh-left{display:flex;align-items:center;gap:14px;min-width:0}
+.shared-head .sh-ic{
+  width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  font-size:20px;background:rgba(167,139,250,.15);
+  border:1px solid rgba(167,139,250,.4);
+  flex:0 0 40px;
+}
+.shared-head .sh-t{font-size:14px;font-weight:800;color:#e4ecf4;letter-spacing:-.005em}
+.shared-head .sh-s{font-size:11px;color:var(--dim);font-weight:600;letter-spacing:.06em;margin-top:2px}
+.shared-head .sh-arrow{
+  font-size:12px;color:var(--muted);
+  transition:.3s;font-weight:800;
+}
+.shared-box.open .sh-arrow{transform:rotate(180deg);color:var(--accent)}
+.shared-body{
+  max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.8,.3,1);
+}
+.shared-box.open .shared-body{max-height:600px}
+.shared-body-inner{
+  padding:0 24px 24px;
+}
+.shared-ta{
+  width:100%;min-height:140px;
+  font-family:inherit;font-size:14px;line-height:1.6;
+  padding:14px 16px;border-radius:12px;
+  border:1px solid var(--line-strong);
+  background:rgba(255,255,255,.025);
+  color:var(--ink);outline:none;resize:vertical;
+  transition:.25s;
+}
+.shared-ta:focus{border-color:rgba(167,139,250,.6);background:rgba(167,139,250,.04);box-shadow:0 0 0 4px rgba(167,139,250,.08)}
+.shared-ta::placeholder{color:var(--dim);font-weight:300}
 
-  .m-status{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    font-size:.82rem;
-    font-weight:700;
-    color:var(--muted);
-    background:var(--gray-soft);
-    padding:6px 14px;
-    border-radius:999px;
-  }
-  .m-status .dot{width:8px;height:8px;border-radius:50%;background:var(--gray);}
-  .m-status.completed{color:var(--mint-dark);background:var(--mint-soft);}
-  .m-status.completed .dot{background:var(--mint);}
-  .m-status.locked{color:#92400e;background:var(--amber-soft);}
-  .m-status.locked .dot{background:var(--amber);}
+/* Study area */
+.study{
+  border-top:1px solid var(--line);padding-top:36px;margin-top:8px;
+}
+.study-hdr{margin-bottom:22px}
+.study-hdr .eyebrow{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-bottom:10px}
+.study-hdr h2{
+  font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.02em;
+  color:#f4ede4;
+}
 
-  .m-title{
-    font-size:clamp(1.6rem,4.2vw,2.2rem);
-    font-weight:800;
-    color:var(--violet-deep);
-    letter-spacing:-.02em;
-    line-height:1.2;
-    margin-bottom:22px;
-  }
-  .m-title .icon{display:inline-block;font-size:.9em;margin-right:8px;vertical-align:middle;}
+.accordion{
+  border:1px solid var(--line);border-radius:18px;
+  background:rgba(255,255,255,.02);
+  margin-bottom:12px;overflow:hidden;
+  transition:.25s;
+}
+.accordion:hover{border-color:var(--line-strong)}
+.acc-head{
+  padding:18px 22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  user-select:none;-webkit-tap-highlight-color:transparent;
+}
+.acc-head .ah-left{display:flex;align-items:center;gap:14px;min-width:0}
+.acc-head .ah-ic{
+  width:38px;height:38px;border-radius:11px;
+  display:grid;place-items:center;font-size:19px;
+  background:rgba(110,231,183,.1);
+  border:1px solid rgba(110,231,183,.25);
+  flex:0 0 38px;transition:.25s;
+}
+.accordion.open .ah-ic{background:rgba(110,231,183,.2);border-color:rgba(110,231,183,.5)}
+.acc-head .ah-t{font-size:14.5px;font-weight:800;color:#e4ecf4;letter-spacing:-.005em}
+.acc-head .ah-s{font-size:11.5px;color:var(--dim);font-weight:500;margin-top:2px}
+.acc-arrow{
+  font-size:12px;color:var(--muted);transition:.3s;font-weight:800;
+}
+.accordion.open .acc-arrow{transform:rotate(180deg);color:var(--accent)}
+.acc-body{
+  max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.8,.3,1);
+}
+.accordion.open .acc-body{max-height:1200px}
+.acc-inner{
+  padding:0 22px 22px;
+  font-size:14.5px;color:#c9d5e1;line-height:1.7;font-weight:300;
+}
+.acc-inner p{margin-bottom:14px}
+.acc-inner p:last-child{margin-bottom:0}
+.acc-inner b{color:#e4ecf4;font-weight:700}
 
-  .m-card{
-    background:#fff;
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:26px;
-    margin-bottom:18px;
-  }
+/* Concepts list (pills) */
+.concepts{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;
+}
+.concept{
+  padding:9px 16px;border-radius:999px;
+  font-size:13px;font-weight:600;color:#dce6f0;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--line);
+  cursor:help;transition:.22s;
+  position:relative;
+}
+.concept:hover{
+  background:rgba(110,231,183,.1);
+  border-color:rgba(110,231,183,.4);
+  color:var(--accent);
+  transform:translateY(-2px);
+}
+.concept[data-tip]:hover::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  padding:10px 14px;border-radius:10px;
+  background:rgba(10,16,24,.98);
+  border:1px solid rgba(110,231,183,.4);
+  font-size:12px;font-weight:400;color:#dce6f0;
+  white-space:normal;width:240px;
+  box-shadow:0 12px 40px -10px rgba(0,0,0,.9);
+  z-index:10;pointer-events:none;
+  line-height:1.5;
+  text-align:left;
+}
 
-  .m-card h4{
-    font-size:.78rem;
-    font-weight:800;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:12px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .m-card h4::before{content:"";width:14px;height:2px;background:var(--violet);border-radius:2px;}
+/* Example card */
+.example-card{
+  border:1px solid rgba(56,189,248,.3);
+  border-radius:14px;padding:18px 20px;
+  background:linear-gradient(165deg,rgba(56,189,248,.08),rgba(56,189,248,.012));
+  margin-bottom:14px;
+}
+.example-card .ec-h{
+  font-size:12px;font-weight:800;color:var(--accent-2);
+  letter-spacing:.06em;margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.example-card .ec-stat{
+  display:flex;align-items:baseline;gap:10px;margin:14px 0;
+}
+.example-card .ec-num{
+  font-size:38px;font-weight:900;letter-spacing:-.03em;
+  line-height:1;
+  background:linear-gradient(180deg,#fff 30%,#7cc3e8 130%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-variant-numeric:tabular-nums;
+}
+.example-card .ec-lbl{
+  font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.example-card .ec-text{
+  font-size:14px;color:#c9d5e1;font-weight:300;line-height:1.65;
+}
+.example-card .ec-text b{color:#e4ecf4;font-weight:600}
 
-  .m-scenario{border-left:5px solid var(--violet);}
-  .m-scenario p{font-size:1rem;color:#374151;line-height:1.7;}
-  .m-scenario p + p{margin-top:10px;}
-  .m-scenario strong{color:var(--violet-deep);font-weight:700;}
+/* Always visible insight */
+.insight-card{
+  border:2px solid rgba(251,191,36,.5);
+  border-radius:18px;padding:24px 26px;
+  background:linear-gradient(165deg,rgba(251,191,36,.08),rgba(251,191,36,.015));
+  position:relative;overflow:hidden;
+  margin-top:12px;
+}
+.insight-card::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:70%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,.8),transparent);
+}
+.insight-card .ic-h{
+  font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);font-weight:800;margin-bottom:12px;
+  display:flex;align-items:center;gap:9px;
+}
+.insight-card .ic-h .si{font-size:15px}
+.insight-card .ic-t{
+  font-size:15.5px;color:#e4ecf4;font-weight:400;line-height:1.7;
+}
+.insight-card .ic-t b{color:var(--gold);font-weight:700}
 
-  /* ============ MISSION BOX with TASK CARDS ============ */
-  .m-mission{
-    background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 100%);
-    color:#fff;
-    border-radius:var(--radius);
-    padding:28px;
-    margin-bottom:18px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(76,29,149,.25);
-  }
-  .m-mission::before{
-    content:"";
-    position:absolute;
-    width:340px;height:340px;
-    background:radial-gradient(circle,rgba(245,158,11,.22),transparent 70%);
-    top:-160px;right:-120px;
-    border-radius:50%;
-    pointer-events:none;
-  }
-  .m-mission .inner{position:relative;z-index:1;}
-  .m-mission h4{
-    color:#fcd34d;
-    font-size:.78rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    font-weight:800;
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .m-mission h4::before{content:"";width:14px;height:2px;background:var(--amber);border-radius:2px;}
+/* Footer hint */
+.footer-hint{
+  text-align:center;margin-top:48px;
+  font-size:12.5px;color:var(--dim);font-style:italic;font-weight:300;
+  line-height:1.6;
+}
+.footer-hint b{color:var(--muted);font-weight:600;font-style:normal}
 
-  .mission-tasks{
-    display:grid;
-    gap:10px;
-  }
-
-  .task-item{
-    display:flex;
-    gap:14px;
-    align-items:flex-start;
-    background:rgba(255,255,255,.08);
-    border:1.5px solid rgba(255,255,255,.15);
-    border-radius:14px;
-    padding:16px 18px;
-    transition:background .25s ease, border-color .25s ease, transform .2s ease;
-    cursor:pointer;
-    font-family:inherit;
-    text-align:left;
-    color:inherit;
-    width:100%;
-  }
-  .task-item:hover{
-    background:rgba(255,255,255,.13);
-    border-color:rgba(245,158,11,.5);
-    transform:translateX(3px);
-  }
-  .task-item .task-check{
-    flex:none;
-    width:24px;
-    height:24px;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,.45);
-    background:transparent;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:all .25s ease;
-    margin-top:2px;
-    position:relative;
-  }
-  .task-item .task-check::before{
-    content:"✓";
-    font-size:.8rem;
-    font-weight:900;
-    color:transparent;
-    transition:color .2s ease;
-    line-height:1;
-  }
-  .task-item:hover .task-check{border-color:rgba(245,158,11,.75);}
-  .task-item.done{
-    background:rgba(16,185,129,.16);
-    border-color:rgba(16,185,129,.55);
-  }
-  .task-item.done .task-check{
-    background:var(--mint);
-    border-color:var(--mint);
-  }
-  .task-item.done .task-check::before{color:#fff;}
-
-  .task-item .task-text{
-    flex:1;
-    font-size:1rem;
-    line-height:1.55;
-    color:rgba(255,255,255,.95);
-    transition:color .25s ease;
-  }
-  .task-item .task-text b{color:#fff;font-weight:800;}
-  .task-item.done .task-text{color:rgba(255,255,255,.72);}
-  .task-item.done .task-text b{color:rgba(255,255,255,.9);}
-
-  /* ============ KEYWORDS + DEFINITIONS ============ */
-  .m-keywords{border-top:5px solid var(--amber);}
-  .kw-grid{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  .kw-chip{
-    background:var(--violet-soft);
-    color:var(--violet-deep);
-    font-size:.85rem;
-    font-weight:700;
-    padding:7px 14px;
-    border-radius:999px;
-    border:1.5px solid transparent;
-    cursor:pointer;
-    font-family:inherit;
-    transition:all .15s ease;
-  }
-  .kw-chip:hover{
-    background:#ddd6fe;
-    transform:translateY(-1px);
-    border-color:var(--violet);
-  }
-  .kw-chip.active{
-    background:var(--violet-deep);
-    color:#fff;
-    border-color:var(--amber);
-    box-shadow:0 4px 12px rgba(76,29,149,.25);
-  }
-
-  .kw-def{
-    margin-top:16px;
-    background:var(--amber-soft);
-    border-left:4px solid var(--amber);
-    border-radius:10px;
-    padding:14px 18px;
-    animation:slideDown .25s ease;
-  }
-  .kw-def[hidden]{display:none;}
-  @keyframes slideDown{
-    from{opacity:0;transform:translateY(-6px);}
-    to{opacity:1;transform:translateY(0);}
-  }
-  .kw-def .kw-def-word{
-    display:block;
-    font-size:.74rem;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    color:var(--amber-dark);
-    font-weight:800;
-    margin-bottom:4px;
-  }
-  .kw-def .kw-def-text{
-    font-size:.96rem;
-    color:var(--violet-deep);
-    line-height:1.55;
-    font-weight:500;
-  }
-
-  /* ============ REAL WORLD EXAMPLE ============ */
-  .m-example{
-    border:2px solid var(--violet-deep);
-    border-radius:var(--radius);
-    background:#fff;
-    padding:26px;
-    margin-bottom:24px;
-    position:relative;
-    overflow:hidden;
-  }
-  .m-example::before{
-    content:"";
-    position:absolute;
-    top:0;left:0;
-    width:100%;height:4px;
-    background:linear-gradient(90deg,var(--violet-deep),var(--amber));
-  }
-  .m-example .ex-tag{
-    display:inline-block;
-    background:var(--violet-deep);
-    color:#fff;
-    font-size:.68rem;
-    font-weight:800;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    padding:5px 13px;
-    border-radius:999px;
-    margin-bottom:14px;
-  }
-  .m-example h5{
-    font-size:1.1rem;
-    font-weight:800;
-    color:var(--violet-deep);
-    margin-bottom:10px;
-  }
-  .m-example p{
-    font-size:.95rem;
-    color:#374151;
-    line-height:1.7;
-    margin-bottom:10px;
-  }
-  .m-example p:last-child{margin-bottom:0;}
-  .m-example .highlight{
-    background:var(--amber-soft);
-    border-left:4px solid var(--amber);
-    border-radius:8px;
-    padding:13px 16px;
-    font-size:.92rem;
-    color:var(--amber-dark);
-    font-weight:600;
-    line-height:1.6;
-    margin-top:14px;
-  }
-  .m-example .highlight strong{color:var(--violet-deep);}
-
-  /* ============ ACTION BUTTONS ============ */
-  .mission-actions{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    align-items:center;
-  }
-
-  .complete-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:var(--violet);
-    color:#fff;
-    border:none;
-    border-radius:999px;
-    padding:15px 32px;
-    font-size:1rem;
-    font-weight:800;
-    font-family:inherit;
-    cursor:pointer;
-    box-shadow:0 8px 22px rgba(109,40,217,.35);
-    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    letter-spacing:.02em;
-  }
-  .complete-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 28px rgba(109,40,217,.45);
-    background:var(--violet-deep);
-  }
-  .complete-btn.is-complete{
-    background:var(--mint);
-    box-shadow:0 8px 22px rgba(16,185,129,.35);
-  }
-  .complete-btn.is-complete:hover{
-    background:var(--mint-dark);
-    box-shadow:0 12px 28px rgba(16,185,129,.45);
-  }
-  .complete-btn .check{font-size:1.1rem;}
-
-  .print-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:#fff;
-    color:var(--violet-deep);
-    border:2px solid var(--violet-soft);
-    border-radius:999px;
-    padding:13px 24px;
-    font-size:.95rem;
-    font-weight:700;
-    font-family:inherit;
-    cursor:pointer;
-    transition:all .15s ease;
-  }
-  .print-btn:hover{
-    background:var(--violet-soft);
-    border-color:var(--violet);
-    transform:translateY(-2px);
-  }
-  .print-btn .p-icon{font-size:1rem;}
-
-  /* ============ LOCKED STATE ============ */
-  .mission.locked{
-    position:relative;
-    pointer-events:none;
-    user-select:none;
-  }
-  .mission.locked > .wrap{
-    opacity:.35;
-    filter:blur(3px);
-  }
-  .mission.locked .lock-overlay{display:flex;}
-
-  .lock-overlay{
-    display:none;
-    position:absolute;
-    inset:0;
-    align-items:center;
-    justify-content:center;
-    z-index:5;
-    pointer-events:auto;
-    padding:20px;
-  }
-  .lock-box{
-    background:#fff;
-    border-radius:var(--radius);
-    box-shadow:0 16px 44px rgba(76,29,149,.2);
-    padding:32px 36px;
-    text-align:center;
-    max-width:340px;
-    border:2px solid var(--violet-soft);
-  }
-  .lock-box .lock-icon{font-size:2.6rem;display:block;margin-bottom:12px;}
-  .lock-box h4{font-size:1.05rem;font-weight:800;color:var(--violet-deep);margin-bottom:8px;}
-  .lock-box p{font-size:.9rem;color:var(--muted);line-height:1.55;}
-  .lock-box .lock-hint{
-    display:inline-block;
-    margin-top:14px;
-    background:var(--violet-soft);
-    color:var(--violet-deep);
-    font-size:.78rem;
-    font-weight:700;
-    padding:6px 14px;
-    border-radius:999px;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-  }
-
-  /* ============ TOAST ============ */
-  .toast{
-    position:fixed;
-    bottom:24px;
-    left:50%;
-    transform:translateX(-50%) translateY(120%);
-    background:var(--violet-deep);
-    color:#fff;
-    padding:14px 24px;
-    border-radius:999px;
-    font-size:.95rem;
-    font-weight:700;
-    box-shadow:0 12px 32px rgba(76,29,149,.4);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    z-index:100;
-    transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-    border:1.5px solid rgba(245,158,11,.5);
-    max-width:calc(100% - 40px);
-    text-align:center;
-  }
-  .toast.show{transform:translateX(-50%) translateY(0);}
-  .toast .toast-icon{font-size:1.15rem;}
-
-  /* ============ FOOTER ============ */
-  footer{
-    background:var(--violet-deep);
-    color:rgba(255,255,255,.75);
-    text-align:center;
-    padding:36px 20px;
-    font-size:.9rem;
-  }
-  footer strong{color:#fcd34d;font-weight:800;}
-
-  /* ============ RESPONSIVE ============ */
-  @media (max-width:720px){
-    .hero{padding:56px 0 48px;}
-    .mission{padding:40px 0;}
-    .m-card,.m-mission,.m-example{padding:22px;}
-    .m-title{font-size:1.5rem;}
-    .progress-track{max-width:260px;}
-    .prog-dot{width:32px;height:32px;font-size:.82rem;}
-    .complete-btn,.print-btn{
-      width:100%;
-      justify-content:center;
-      padding:14px 24px;
-    }
-    .lock-box{padding:26px 22px;}
-    .task-item{padding:14px 15px;gap:12px;}
-    .task-item .task-text{font-size:.95rem;}
-  }
-
-  /* ============ PRINT ============ */
-  @media print{
-    body{background:#fff;}
-    .hero{
-      background:#fff !important;
-      color:#000;
-      padding:24px 0 20px;
-      border-bottom:3px solid var(--violet-deep);
-    }
-    .hero::after,.hero::before{display:none;}
-    .hero h1{color:var(--violet-deep);}
-    .hero p{color:#333;}
-    .badge{background:#fff;color:var(--violet-deep);border:1.5px solid var(--violet-deep);}
-    .progress-track,.progress-label,.mission-actions,.toast{display:none !important;}
-    .mission{padding:24px 0;break-inside:avoid;}
-    .mission.locked > .wrap{opacity:1;filter:none;}
-    .lock-overlay{display:none !important;}
-    .m-card,.m-mission,.m-example{box-shadow:none;border:1px solid var(--line);}
-    .m-mission{
-      background:#fff !important;
-      color:#000;
-      border:2px solid var(--violet-deep);
-    }
-    .m-mission::before{display:none;}
-    .m-mission h4{color:var(--violet-deep);}
-    .task-item{
-      background:#fff !important;
-      border:1.5px solid var(--line) !important;
-      transform:none !important;
-    }
-    .task-item .task-text{color:#333 !important;}
-    .task-item .task-text b{color:var(--violet-deep) !important;}
-    .task-item.done .task-text{color:#666 !important;}
-    .task-item .task-check{border-color:#bbb !important;}
-    .task-item.done .task-check{background:var(--mint) !important;border-color:var(--mint) !important;}
-    .kw-def{background:#fff;border:1px solid var(--line);}
-    .m-example{border:2px solid var(--violet-deep);}
-    footer{background:#fff;color:#333;border-top:2px solid var(--line);}
-    footer strong{color:var(--violet-deep);}
-  }
-
-  /* ============ PER-MISSION PRINT MODE ============ */
-  @media print{
-    body.printing-mode .hero,
-    body.printing-mode footer,
-    body.printing-mode .toast,
-    body.printing-mode .mission-actions{display:none !important;}
-
-    body.printing-mode .mission{display:none !important;}
-    body.printing-mode .mission.print-target{
-      display:block !important;
-      padding:0;
-    }
-    body.printing-mode .mission.print-target .mission-head{padding-top:0;}
-
-    /* Hero-like header when printing a single mission */
-    body.printing-mode .mission.print-target::before{
-      content:"Privacy in a Digital World · Psychology Track";
-      display:block;
-      font-size:.75rem;
-      font-weight:800;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:var(--violet-deep);
-      border-bottom:2px solid var(--violet-deep);
-      padding-bottom:8px;
-      margin-bottom:20px;
-    }
-  }
+/* Responsive */
+@media (max-width:620px){
+  .page{padding:28px 16px 60px}
+  .player-card{padding:20px 18px}
+  .pname .pl-input{font-size:18px}
+  .num-item{font-size:14px;padding:10px 12px}
+  .shared-head,.acc-head{padding:16px 18px}
+  .shared-body-inner,.acc-inner{padding-left:18px;padding-right:18px}
+  .example-card{padding:16px 16px}
+  .insight-card{padding:20px 18px}
+}
 </style>
 </head>
 <body>
 
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="wrap">
-    <div class="badge">Psychology · Self-Study Track</div>
-    <h1>The Future of Work</h1>
-    <p>Three missions. One question: how can work be good for the human mind?</p>
+<div class="bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grid-ov"></div>
+</div>
 
-    <div class="progress-track">
-      <div class="prog-dot active" data-prog="1">1</div>
-      <div class="prog-line" data-line="1"></div>
-      <div class="prog-dot" data-prog="2">2</div>
-      <div class="prog-line" data-line="2"></div>
-      <div class="prog-dot" data-prog="3">3</div>
-    </div>
-    <div class="progress-label" id="progressLabel">Mission 1 of 3 · In progress</div>
+<div class="page">
+
+  <!-- Header -->
+  <header class="hdr">
+    <div class="eyebrow"><span class="dot"></span> Live Session · Psychology of Work</div>
+    <h1>AI and the Human Mind at Work</h1>
+    <p class="sub">Two players. One conversation. <b>Ask out loud, listen well, help each other grow.</b></p>
+  </header>
+
+  <!-- Players grid -->
+  <div class="sec-label">
+    <span>🎮 The Room</span>
+    <span class="line"></span>
+    <span class="hint">One player each</span>
   </div>
-</header>
 
-<!-- ============ MISSION 1 ============ -->
-<section class="mission" id="mission1" data-m="1">
-  <div class="wrap">
-    <div class="mission-head">
-      <span class="m-badge">🔓 Mission 1</span>
-      <span class="m-status" data-status><span class="dot"></span><span class="txt">In progress</span></span>
-    </div>
+  <div class="players-grid">
 
-    <h2 class="m-title"><span class="icon">🕐</span>Rethinking Work Hours</h2>
+    <!-- Player 1 -->
+    <div class="player-card p1">
+      <div class="pname">
+        <span class="pl-tag">Player</span>
+        <input class="pl-input" type="text" placeholder="Your name" maxlength="20">
+      </div>
 
-    <div class="m-card m-scenario">
-      <h4>Scenario</h4>
-      <p>
-        In many countries, people still work <strong>six days a week with only one day off</strong> — the so-called 6x1 schedule. Workers report chronic exhaustion, poor sleep, and a sense of life passing them by. At the same time, some companies are experimenting with <strong>four-day weeks</strong>, flexible hours, and remote work. The results are surprising: people often produce the same — or more — while feeling dramatically better.
-      </p>
-      <p>
-        But not everyone agrees. Some employers say shorter weeks are impossible. Others say the problem is not the number of hours, but <strong>how those hours are used</strong>. As a psychology student, you are in a unique position: you can look at this from the mind's perspective.
-      </p>
-    </div>
+      <div class="card-sec">
+        <div class="card-sec-h ask">
+          <span class="si">❓</span> Ask out loud
+        </div>
+        <div class="num-list">
+          <div class="num-item blank">
+            <span class="num">1</span>
+            <span class="num-text">
+              <span class="blank-line"></span>
+              <span class="qmark">?</span>
+            </span>
+          </div>
+          <div class="num-item blank">
+            <span class="num">2</span>
+            <span class="num-text">
+              <span class="blank-line"></span>
+              <span class="qmark">?</span>
+            </span>
+          </div>
+          <div class="num-item blank">
+            <span class="num">3</span>
+            <span class="num-text">
+              <span class="blank-line"></span>
+              <span class="qmark">?</span>
+            </span>
+          </div>
+        </div>
+        <div class="ask-more">
+          <span class="dot"></span> Ask more — go deeper
+        </div>
+      </div>
 
-    <div class="m-mission">
-      <div class="inner">
-        <h4>Your Mission · tick as you go</h4>
-        <div class="mission-tasks">
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Analyse the cost.</b> What does the 6x1 schedule do to attention, mood, and long-term mental health?</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Question the logic.</b> Why do companies keep this model? What do they gain — and what do they lose?</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Design an alternative.</b> Propose a new work schedule (4-day week, flexible hours, hybrid — you decide).</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Defend it psychologically.</b> Use concepts like burnout, cognitive load, recovery, and intrinsic motivation.</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Anticipate the counter-argument.</b> What would a CEO say? How would you respond as a psychologist?</span>
-          </button>
+      <div class="card-sec help">
+        <div class="card-sec-h help">
+          <span class="si">🤝</span> Help them train
+        </div>
+        <div class="num-list">
+          <div class="num-item">
+            <span class="num">1</span>
+            <span class="num-text">Ask them to <b>explain it in another way</b>.</span>
+          </div>
+          <div class="num-item">
+            <span class="num">2</span>
+            <span class="num-text"><b>Name the feeling</b> you heard in their words.</span>
+          </div>
+          <div class="num-item">
+            <span class="num">3</span>
+            <span class="num-text">Connect it to a <b>real moment</b> in your own work.</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="m-card m-keywords">
-      <h4>Useful concepts · tap for meaning</h4>
-      <div class="kw-grid">
-        <button class="kw-chip" data-kw="burnout" data-def="Extreme exhaustion — physical, emotional, and mental — caused by long-term stress at work." type="button">burnout</button>
-        <button class="kw-chip" data-kw="cognitive load" data-def="The amount of mental effort your brain is using at one moment. Too much load makes thinking slow and tiring." type="button">cognitive load</button>
-        <button class="kw-chip" data-kw="recovery time" data-def="The time your brain and body need after effort to restore energy and focus." type="button">recovery time</button>
-        <button class="kw-chip" data-kw="attention span" data-def="How long you can focus on one task before your mind starts to wander." type="button">attention span</button>
-        <button class="kw-chip" data-kw="intrinsic motivation" data-def="Doing something because it feels meaningful or enjoyable — not for money or reward." type="button">intrinsic motivation</button>
-        <button class="kw-chip" data-kw="work-life balance" data-def="A healthy division between time for work and time for personal life." type="button">work-life balance</button>
-        <button class="kw-chip" data-kw="productivity" data-def="The amount of useful work you produce in a given amount of time." type="button">productivity</button>
-        <button class="kw-chip" data-kw="wellbeing" data-def="The overall state of feeling healthy, calm, and satisfied with life." type="button">wellbeing</button>
-        <button class="kw-chip" data-kw="autonomy" data-def="The freedom to make your own choices and control how you do your work." type="button">autonomy</button>
-        <button class="kw-chip" data-kw="chronic stress" data-def="Stress that lasts for weeks or months, slowly harming both body and mind." type="button">chronic stress</button>
+    <!-- Player 2 -->
+    <div class="player-card p2">
+      <div class="pname">
+        <span class="pl-tag">Player</span>
+        <input class="pl-input" type="text" placeholder="Friend's name" maxlength="20">
       </div>
-      <div class="kw-def" hidden>
-        <span class="kw-def-word"></span>
-        <p class="kw-def-text"></p>
+
+      <div class="card-sec">
+        <div class="card-sec-h ask">
+          <span class="si">❓</span> Ask out loud
+        </div>
+        <div class="num-list">
+          <div class="num-item blank">
+            <span class="num">1</span>
+            <span class="num-text">
+              <span class="blank-line"></span>
+              <span class="qmark">?</span>
+            </span>
+          </div>
+          <div class="num-item blank">
+            <span class="num">2</span>
+            <span class="num-text">
+              <span class="blank-line"></span>
+              <span class="qmark">?</span>
+            </span>
+          </div>
+          <div class="num-item blank">
+            <span class="num">3</span>
+            <span class="num-text">
+              <span class="blank-line"></span>
+              <span class="qmark">?</span>
+            </span>
+          </div>
+        </div>
+        <div class="ask-more">
+          <span class="dot"></span> Ask more — go deeper
+        </div>
       </div>
-    </div>
 
-    <div class="m-example">
-      <span class="ex-tag">🌍 Real World Example</span>
-      <h5>Microsoft Japan's 4-Day Week (2019)</h5>
-      <p>
-        Microsoft Japan tested a four-day work week for one summer month. Employees took Fridays off, with no change in pay.
-      </p>
-      <p>
-        The result: <strong>productivity rose by almost 40%</strong>, meetings became shorter, electricity use dropped by 23%, and most employees reported better mood and less stress. Similar trials in Iceland and the UK showed the same pattern — happier people, same or better output.
-      </p>
-      <div class="highlight">
-        💡 <strong>Psychological insight:</strong> Rest is not the opposite of work — it is part of work. The brain needs recovery to sustain attention, creativity, and emotional regulation. Shorter weeks often mean <strong>better quality hours</strong>, not fewer results.
-      </div>
-    </div>
-
-    <div class="mission-actions">
-      <button class="complete-btn" data-complete="1" type="button">
-        <span class="check">✓</span> <span class="btn-label">Mission Complete</span>
-      </button>
-      <button class="print-btn" data-print="1" type="button">
-        <span class="p-icon">🖨</span> Print this mission
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- ============ MISSION 2 ============ -->
-<section class="mission locked" id="mission2" data-m="2">
-  <div class="lock-overlay">
-    <div class="lock-box">
-      <span class="lock-icon">🔒</span>
-      <h4>Mission 2 Locked</h4>
-      <p>Complete Mission 1 to unlock this one.</p>
-      <span class="lock-hint">Locked</span>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="mission-head">
-      <span class="m-badge">🔒 Mission 2</span>
-      <span class="m-status locked" data-status><span class="dot"></span><span class="txt">Locked</span></span>
-    </div>
-
-    <h2 class="m-title"><span class="icon">🤖</span>AI and the Human Mind at Work</h2>
-
-    <div class="m-card m-scenario">
-      <h4>Scenario</h4>
-      <p>
-        AI is no longer a future idea — it is in the room. It writes, draws, diagnoses, decides, and manages. Some workers fear it will take their jobs. Others say it will free them from boring tasks and let them focus on what humans do best: empathy, creativity, and meaning.
-      </p>
-      <p>
-        For psychology, this raises a deeper question. Work is not only money — it is <strong>identity, purpose, and social belonging</strong>. If a machine can do your job, what happens to your sense of self? And if AI changes how we relate to our own effort, what does that do to <strong>motivation, competence, and self-worth</strong>?
-      </p>
-    </div>
-
-    <div class="m-mission">
-      <div class="inner">
-        <h4>Your Mission · tick as you go</h4>
-        <div class="mission-tasks">
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Map the impact.</b> How is AI already changing the psychological experience of work in your field or in the world?</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Identify the needs.</b> Which psychological needs does work fulfil? Think about meaning, mastery, and belonging.</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Ask the hard question.</b> Can AI replace those needs? Should it try?</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Design a model.</b> Propose a healthy human-AI collaboration — one that protects mental health and dignity.</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Look ahead.</b> What skills and psychological strengths will matter most in ten years?</span>
-          </button>
+      <div class="card-sec help">
+        <div class="card-sec-h help">
+          <span class="si">🤝</span> Help them train
+        </div>
+        <div class="num-list">
+          <div class="num-item">
+            <span class="num">1</span>
+            <span class="num-text">Ask them to <b>explain it in another way</b>.</span>
+          </div>
+          <div class="num-item">
+            <span class="num">2</span>
+            <span class="num-text"><b>Name the feeling</b> you heard in their words.</span>
+          </div>
+          <div class="num-item">
+            <span class="num">3</span>
+            <span class="num-text">Connect it to a <b>real moment</b> in your own work.</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="m-card m-keywords">
-      <h4>Useful concepts · tap for meaning</h4>
-      <div class="kw-grid">
-        <button class="kw-chip" data-kw="self-determination theory" data-def="A theory that says humans need three things to feel motivated: autonomy, competence, and relatedness." type="button">self-determination theory</button>
-        <button class="kw-chip" data-kw="competence" data-def="The feeling that you are capable and effective at what you do." type="button">competence</button>
-        <button class="kw-chip" data-kw="autonomy" data-def="The freedom to make your own choices and control how you do your work." type="button">autonomy</button>
-        <button class="kw-chip" data-kw="relatedness" data-def="The human need to feel connected, close, and important to other people." type="button">relatedness</button>
-        <button class="kw-chip" data-kw="job identity" data-def="The way your work shapes how you see yourself — and how others see you." type="button">job identity</button>
-        <button class="kw-chip" data-kw="meaning at work" data-def="The sense that your work matters and connects to something bigger than yourself." type="button">meaning at work</button>
-        <button class="kw-chip" data-kw="flow state" data-def="A state of full focus where time seems to disappear and work feels effortless." type="button">flow state</button>
-        <button class="kw-chip" data-kw="technostress" data-def="Stress caused by using, learning, or adapting to new technology." type="button">technostress</button>
-        <button class="kw-chip" data-kw="upskilling" data-def="Learning new skills to stay relevant in a changing job market." type="button">upskilling</button>
-        <button class="kw-chip" data-kw="emotional intelligence" data-def="The ability to recognise, understand, and manage emotions — yours and other people's." type="button">emotional intelligence</button>
-      </div>
-      <div class="kw-def" hidden>
-        <span class="kw-def-word"></span>
-        <p class="kw-def-text"></p>
-      </div>
-    </div>
-
-    <div class="m-example">
-      <span class="ex-tag">🌍 Real World Example</span>
-      <h5>The GitHub Copilot Study (2022)</h5>
-      <p>
-        GitHub ran a controlled experiment with software developers using its AI assistant, Copilot. Developers who used it finished tasks <strong>55% faster</strong> than those who did not.
-      </p>
-      <p>
-        But what caught psychologists' attention was something else: many developers reported that AI removed the <strong>frustrating, repetitive parts</strong> of coding, leaving more time for creative problem-solving. In other words, the tool didn't replace the human — it reshaped which parts of the work the human experienced.
-      </p>
-      <div class="highlight">
-        💡 <strong>Psychological insight:</strong> When AI takes over low-skill tasks, it can actually <strong>increase</strong> engagement — but only if people still feel competent, in control, and connected to what they do. Without those needs met, the same tool can produce anxiety and meaninglessness.
-      </div>
-    </div>
-
-    <div class="mission-actions">
-      <button class="complete-btn" data-complete="2" type="button">
-        <span class="check">✓</span> <span class="btn-label">Mission Complete</span>
-      </button>
-      <button class="print-btn" data-print="2" type="button">
-        <span class="p-icon">🖨</span> Print this mission
-      </button>
-    </div>
   </div>
-</section>
 
-<!-- ============ MISSION 3 ============ -->
-<section class="mission locked" id="mission3" data-m="3">
-  <div class="lock-overlay">
-    <div class="lock-box">
-      <span class="lock-icon">🔒</span>
-      <h4>Mission 3 Locked</h4>
-      <p>Complete Mission 2 to unlock this one.</p>
-      <span class="lock-hint">Locked</span>
+  <!-- Third minimized box -->
+  <div class="shared-box" id="sharedBox">
+    <div class="shared-head" onclick="toggleShared()">
+      <div class="sh-left">
+        <div class="sh-ic">💡</div>
+        <div>
+          <div class="sh-t">Room Notes · Shared</div>
+          <div class="sh-s">What you discover together — tap to expand</div>
+        </div>
+      </div>
+      <span class="sh-arrow">▼</span>
+    </div>
+    <div class="shared-body">
+      <div class="shared-body-inner">
+        <textarea class="shared-ta" placeholder="Write together — one insight, one question, one moment you want to remember..."></textarea>
+      </div>
     </div>
   </div>
 
-  <div class="wrap">
-    <div class="mission-head">
-      <span class="m-badge">🔒 Mission 3</span>
-      <span class="m-status locked" data-status><span class="dot"></span><span class="txt">Locked</span></span>
+  <!-- Study area -->
+  <div class="study">
+    <div class="study-hdr">
+      <div class="eyebrow">📖 Study area</div>
+      <h2>Expand what you need.</h2>
     </div>
 
-    <h2 class="m-title"><span class="icon">🧠</span>Designing a Psychologically Healthy Workplace</h2>
-
-    <div class="m-card m-scenario">
-      <h4>Scenario</h4>
-      <p>
-        Now you bring it all together. You have looked at <strong>time</strong> (Mission 1) and at <strong>technology</strong> (Mission 2). The final question is broader: what would a workplace look like if it were built around the human mind from the very first day?
-      </p>
-      <p>
-        Not a workplace that fixes problems after they appear — but one <strong>designed to prevent them</strong>. A place where people feel safe, respected, and motivated. Where growth is real, and where the company also wins. This is where psychology stops being a rescue service and becomes a design discipline.
-      </p>
-    </div>
-
-    <div class="m-mission">
-      <div class="inner">
-        <h4>Your Mission · tick as you go</h4>
-        <div class="mission-tasks">
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Integrate.</b> Bring together your best insights from Mission 1 and Mission 2.</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Design the whole picture.</b> A workplace (real or imaginary) built around psychological wellbeing.</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Cover the essentials:</b> schedule, use of AI, team culture, leadership style, meaning, and feedback.</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Justify with psychology.</b> Use concepts like psychological safety, flow, and intrinsic motivation.</span>
-          </button>
-          <button class="task-item" data-task type="button">
-            <span class="task-check" aria-hidden="true"></span>
-            <span class="task-text"><b>Present it.</b> Explain it as if you were speaking to a CEO — clear, confident, and grounded in evidence.</span>
-          </button>
+    <!-- Scenario -->
+    <div class="accordion" id="accScenario">
+      <div class="acc-head" onclick="toggleAcc('accScenario')">
+        <div class="ah-left">
+          <div class="ah-ic">🤖</div>
+          <div>
+            <div class="ah-t">The Scenario</div>
+            <div class="ah-s">What's happening in the world of work</div>
+          </div>
+        </div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>AI is no longer a future idea — it is in the room. It writes, draws, diagnoses, decides, and manages. Some workers fear it will take their jobs. Others say it will free them from boring tasks and let them focus on what humans do best: <b>empathy, creativity, and meaning</b>.</p>
+          <p>For psychology, this raises a deeper question. Work is not only money — it is <b>identity, purpose, and social belonging</b>. If a machine can do your job, what happens to your sense of self? And if AI changes how we relate to our own effort, what does that do to motivation, competence, and self-worth?</p>
         </div>
       </div>
     </div>
 
-    <div class="m-card m-keywords">
-      <h4>Useful concepts · tap for meaning</h4>
-      <div class="kw-grid">
-        <button class="kw-chip" data-kw="psychological safety" data-def="The shared belief that you can speak up, take risks, or make mistakes without being punished or humiliated." type="button">psychological safety</button>
-        <button class="kw-chip" data-kw="flow" data-def="A state of full focus where time seems to disappear and work feels effortless." type="button">flow</button>
-        <button class="kw-chip" data-kw="intrinsic motivation" data-def="Doing something because it feels meaningful or enjoyable — not for money or reward." type="button">intrinsic motivation</button>
-        <button class="kw-chip" data-kw="growth mindset" data-def="The belief that abilities can be developed through effort and learning — not fixed at birth." type="button">growth mindset</button>
-        <button class="kw-chip" data-kw="organisational culture" data-def="The shared values, beliefs, and behaviours that shape how a workplace feels from the inside." type="button">organisational culture</button>
-        <button class="kw-chip" data-kw="leadership" data-def="The way a person guides, supports, and influences a group toward a shared goal." type="button">leadership</button>
-        <button class="kw-chip" data-kw="feedback loops" data-def="Regular cycles of giving and receiving information to improve performance and learning." type="button">feedback loops</button>
-        <button class="kw-chip" data-kw="belonging" data-def="The feeling of being accepted, valued, and part of a group." type="button">belonging</button>
-        <button class="kw-chip" data-kw="purpose" data-def="A deep sense of meaning that guides your actions and decisions." type="button">purpose</button>
-        <button class="kw-chip" data-kw="resilience" data-def="The ability to recover and grow after difficult experiences." type="button">resilience</button>
+    <!-- Concepts -->
+    <div class="accordion" id="accConcepts">
+      <div class="acc-head" onclick="toggleAcc('accConcepts')">
+        <div class="ah-left">
+          <div class="ah-ic">💡</div>
+          <div>
+            <div class="ah-t">Useful concepts</div>
+            <div class="ah-s">Tap a pill for its meaning</div>
+          </div>
+        </div>
+        <span class="acc-arrow">▼</span>
       </div>
-      <div class="kw-def" hidden>
-        <span class="kw-def-word"></span>
-        <p class="kw-def-text"></p>
-      </div>
-    </div>
-
-    <div class="m-example">
-      <span class="ex-tag">🌍 Real World Example</span>
-      <h5>Google's Project Aristotle</h5>
-      <p>
-        Google studied hundreds of its own teams to discover what made some succeed while others failed. They expected to find that the best teams had the smartest people, the clearest goals, or the strongest leaders.
-      </p>
-      <p>
-        They were wrong. The single strongest predictor of team success was <strong>psychological safety</strong> — the shared belief that you can speak up, take risks, and admit mistakes without being punished or humiliated.
-      </p>
-      <div class="highlight">
-        💡 <strong>Psychological insight:</strong> Performance is not mostly about talent. It is about <strong>how safe people feel to be human</strong> at work. A workplace designed around safety, meaning, and autonomy does not just feel better — it <strong>outperforms</strong> one that ignores them.
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="concepts">
+            <span class="concept" data-tip="We are motivated by three needs: competence, autonomy, and relatedness.">self-determination theory</span>
+            <span class="concept" data-tip="The feeling that you are good at what you do.">competence</span>
+            <span class="concept" data-tip="The feeling that you have a say in how you work.">autonomy</span>
+            <span class="concept" data-tip="The feeling of belonging and connection with others.">relatedness</span>
+            <span class="concept" data-tip="Who you are when you do your work — your role and sense of self.">job identity</span>
+            <span class="concept" data-tip="The feeling that your work matters — to you or to others.">meaning at work</span>
+            <span class="concept" data-tip="Full absorption in an activity — losing track of time because it feels right.">flow state</span>
+            <span class="concept" data-tip="Stress caused by new technology — feeling overwhelmed or replaced.">technostress</span>
+            <span class="concept" data-tip="Learning new skills to stay relevant and capable.">upskilling</span>
+            <span class="concept" data-tip="The ability to notice, understand, and work with emotions — your own and others'.">emotional intelligence</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mission-actions">
-      <button class="complete-btn" data-complete="3" type="button">
-        <span class="check">✓</span> <span class="btn-label">Mission Complete</span>
-      </button>
-      <button class="print-btn" data-print="3" type="button">
-        <span class="p-icon">🖨</span> Print this mission
-      </button>
+    <!-- Real World Example -->
+    <div class="accordion" id="accExample">
+      <div class="acc-head" onclick="toggleAcc('accExample')">
+        <div class="ah-left">
+          <div class="ah-ic">🌍</div>
+          <div>
+            <div class="ah-t">Real World Example</div>
+            <div class="ah-s">A study that changed how we see AI at work</div>
+          </div>
+        </div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="example-card">
+            <div class="ec-h">📊 The GitHub Copilot Study · 2022</div>
+            <div class="ec-stat">
+              <span class="ec-num">55%</span>
+              <span class="ec-lbl">faster</span>
+            </div>
+            <div class="ec-text">
+              GitHub ran a controlled experiment with software developers using its AI assistant, Copilot. Developers who used it finished tasks <b>55% faster</b> than those who did not.
+              <br><br>
+              But what caught psychologists' attention was something else: many developers reported that AI removed the <b>frustrating, repetitive parts</b> of coding, leaving more time for <b>creative problem-solving</b>.
+              <br><br>
+              In other words, the tool didn't replace the human — it <b>reshaped which parts of the work the human experienced</b>.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Always visible insight -->
+    <div class="insight-card">
+      <div class="ic-h"><span class="si">🧠</span> Psychological insight</div>
+      <div class="ic-t">
+        When AI takes over low-skill tasks, it can actually <b>increase engagement</b> — but only if people still feel <b>competent</b>, <b>in control</b>, and <b>connected</b> to what they do. Without those needs met, the same tool can produce <b>anxiety and meaninglessness</b>.
+      </div>
+    </div>
+
   </div>
-</section>
 
-<!-- ============ FOOTER ============ -->
-<footer>
-  <strong>The Future of Work</strong> · Psychology Track · Complete all three missions.
-</footer>
+  <div class="footer-hint">
+    You're not here to finish an activity.<br>
+    <b>You're here to enter a conversation.</b>
+  </div>
 
-<!-- ============ TOAST ============ -->
-<div class="toast" id="toast">
-  <span class="toast-icon">🔓</span>
-  <span id="toastMsg">Next mission unlocked!</span>
 </div>
 
 <script>
-  (function () {
-    var completed = { 1: false, 2: false, 3: false };
+function toggleAcc(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.toggle('open');
+}
 
-    /* ============ PROGRESS ============ */
-    function updateProgress() {
-      var doneCount = 0;
-      [1, 2, 3].forEach(function (n) { if (completed[n]) doneCount++; });
+function toggleShared(){
+  const el = document.getElementById('sharedBox');
+  if(!el) return;
+  el.classList.toggle('open');
+}
 
-      document.querySelectorAll('.prog-dot').forEach(function (dot) {
-        var n = parseInt(dot.dataset.prog, 10);
-        dot.classList.remove('active', 'done');
-        if (completed[n]) {
-          dot.classList.add('done');
-          dot.textContent = '✓';
-        } else if (n === 1 || completed[n - 1]) {
-          dot.classList.add('active');
-          dot.textContent = n;
-        } else {
-          dot.textContent = n;
-        }
-      });
-
-      document.querySelectorAll('.prog-line').forEach(function (line) {
-        var n = parseInt(line.dataset.line, 10);
-        line.classList.toggle('done', completed[n]);
-      });
-
-      var label = document.getElementById('progressLabel');
-      if (doneCount === 3) label.textContent = 'All missions complete ✦';
-      else if (doneCount === 0) label.textContent = 'Mission 1 of 3 · In progress';
-      else if (doneCount === 1) label.textContent = 'Mission 2 of 3 · In progress';
-      else label.textContent = 'Mission 3 of 3 · In progress';
-    }
-
-    /* ============ TOAST ============ */
-    var toastTimer;
-    function showToast(msg, icon) {
-      var toast = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = msg;
-      toast.querySelector('.toast-icon').textContent = icon || '🔓';
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2800);
-    }
-
-    /* ============ UNLOCK NEXT ============ */
-    function unlockNext(n) {
-      var next = n + 1;
-      if (next > 3) return;
-      var section = document.getElementById('mission' + next);
-      if (!section) return;
-
-      section.classList.remove('locked');
-      var status = section.querySelector('[data-status]');
-      if (status) {
-        status.classList.remove('locked');
-        status.classList.add('active');
-        status.querySelector('.txt').textContent = 'In progress';
-      }
-      var badge = section.querySelector('.m-badge');
-      if (badge) badge.textContent = '🔓 Mission ' + next;
-
-      setTimeout(function () {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 350);
-    }
-
-    /* ============ COMPLETE BUTTON (toggle) ============ */
-    document.querySelectorAll('.complete-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var n = parseInt(btn.dataset.complete, 10);
-        var section = document.getElementById('mission' + n);
-        var status = section.querySelector('[data-status]');
-        var badge = section.querySelector('.m-badge');
-        var label = btn.querySelector('.btn-label');
-
-        if (completed[n]) {
-          /* ---- UNDO ---- */
-          completed[n] = false;
-          btn.classList.remove('is-complete');
-          label.textContent = 'Mission Complete';
-
-          section.classList.remove('completed');
-          if (status) {
-            status.classList.remove('completed', 'locked');
-            status.classList.add('active');
-            status.querySelector('.txt').textContent = 'In progress';
-          }
-          if (badge) badge.textContent = '🔓 Mission ' + n;
-
-          updateProgress();
-          showToast('Mission ' + n + ' reopened. You can work on it again.', '🔄');
-        } else {
-          /* ---- COMPLETE ---- */
-          completed[n] = true;
-          btn.classList.add('is-complete');
-          label.textContent = 'Completed · click to undo';
-
-          section.classList.add('completed');
-          if (status) {
-            status.classList.remove('active', 'locked');
-            status.classList.add('completed');
-            status.querySelector('.txt').textContent = 'Completed';
-          }
-          if (badge) badge.textContent = '✓ Mission ' + n;
-
-          updateProgress();
-
-          if (n < 3) {
-            unlockNext(n);
-            showToast('Mission ' + (n + 1) + ' unlocked!', '🔓');
-          } else {
-            showToast('All missions complete. Well done.', '✦');
-          }
-        }
-      });
+(function(){
+  const inputs = document.querySelectorAll('.pl-input');
+  inputs.forEach((inp, i) => {
+    const key = 'aimw_player_' + i;
+    try {
+      const v = localStorage.getItem(key);
+      if(v) inp.value = v;
+    } catch(e){}
+    inp.addEventListener('input', () => {
+      try { localStorage.setItem(key, inp.value); } catch(e){}
     });
+  });
 
-    /* ============ TASK CHECKBOXES ============ */
-    document.querySelectorAll('.task-item').forEach(function (item) {
-      item.addEventListener('click', function () {
-        item.classList.toggle('done');
-      });
+  const ta = document.querySelector('.shared-ta');
+  if(ta){
+    try {
+      const saved = localStorage.getItem('aimw_shared_notes');
+      if(saved) ta.value = saved;
+    } catch(e){}
+    ta.addEventListener('input', () => {
+      try { localStorage.setItem('aimw_shared_notes', ta.value); } catch(e){}
     });
-
-    /* ============ KEYWORD DEFINITIONS ============ */
-    document.querySelectorAll('.m-keywords').forEach(function (card) {
-      var chips = card.querySelectorAll('.kw-chip');
-      var def = card.querySelector('.kw-def');
-      var defWord = def.querySelector('.kw-def-word');
-      var defText = def.querySelector('.kw-def-text');
-
-      chips.forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          var isActive = chip.classList.contains('active');
-          chips.forEach(function (c) { c.classList.remove('active'); });
-
-          if (isActive) {
-            def.hidden = true;
-          } else {
-            chip.classList.add('active');
-            defWord.textContent = chip.dataset.kw;
-            defText.textContent = chip.dataset.def;
-            def.hidden = false;
-          }
-        });
-      });
-    });
-
-    /* ============ PER-MISSION PRINT ============ */
-    document.querySelectorAll('.print-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var n = btn.dataset.print;
-        var section = document.getElementById('mission' + n);
-
-        document.body.classList.add('printing-mode');
-        section.classList.add('print-target');
-
-        // Give browser one tick to apply styles
-        setTimeout(function () {
-          window.print();
-          // Cleanup after the print dialog closes
-          setTimeout(function () {
-            document.body.classList.remove('printing-mode');
-            section.classList.remove('print-target');
-          }, 200);
-        }, 60);
-      });
-    });
-
-    /* ============ INIT ============ */
-    updateProgress();
-  })();
+  }
+})();
 </script>
-
 </body>
 </html>
