@@ -1,518 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Would You Rather - Professional & Adult Edition</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0f6ff',
-                            100: '#e0edff',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#0f172a',
-                        },
-                        accent: {
-                            purple: '#a855f7',
-                            cyan: '#06b6d4',
-                            emerald: '#10b981',
-                            amber: '#f59e0b'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom Animations & Styles */
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🧑‍🏫 Teacher Panel · Sustainable Career</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05070a;--ink:#e9eef4;--muted:#7f8b9b;--dim:#57616e;
+  --line:rgba(255,255,255,.085);--line-strong:rgba(255,255,255,.16);
+  --accent:#6ee7b7;--accent-2:#38bdf8;--gold:#fbbf24;
+  --red:#f87171;--green:#34d399;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(110,231,183,.28)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:8px}
 
-        .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+/* Ambient */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.35}
+.orb-1{width:50vw;height:50vw;left:-15vw;top:-18vw;background:radial-gradient(circle,rgba(110,231,183,.22),transparent 68%)}
+.orb-2{width:44vw;height:44vw;right:-14vw;bottom:-20vw;background:radial-gradient(circle,rgba(56,189,248,.16),transparent 68%)}
+.grid-ov{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:52px 52px;
+  -webkit-mask-image:radial-gradient(ellipse 92% 75% at 50% 35%,#000 20%,transparent 80%);
+  mask-image:radial-gradient(ellipse 92% 75% at 50% 35%,#000 20%,transparent 80%);
+}
 
-        .option-card {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
+.page{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:32px 24px 80px}
 
-        .option-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.2);
-        }
+/* Header */
+.hdr{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  flex-wrap:wrap;margin-bottom:26px;
+}
+.hdr h1{
+  font-size:clamp(26px,3.2vw,36px);font-weight:900;letter-spacing:-.03em;line-height:1.05;
+  background:linear-gradient(180deg,#fff 20%,#9fb0c4 120%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:6px;
+}
+.hdr .sub{font-size:13.5px;color:var(--muted);font-weight:300}
+.hdr .eyebrow{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px}
 
-        .option-card.selected {
-            border-color: #3b82f6;
-            background: rgba(59, 130, 246, 0.15);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
-        }
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.session-input{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 14px;border-radius:12px;
+  border:1px solid var(--line);background:rgba(255,255,255,.02);
+}
+.session-input label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:800}
+.session-input input{
+  font-family:inherit;font-size:13px;font-weight:500;
+  background:transparent;border:none;outline:none;color:var(--ink);
+  width:130px;
+}
 
-        .option-card.selected::after {
-            content: "\f00c";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 28px;
-            height: 28px;
-            background: #3b82f6;
-            color: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.875rem;
-        }
+.btn{
+  font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  padding:11px 18px;border-radius:11px;cursor:pointer;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--ink);
+  transition:.22s;display:inline-flex;align-items:center;gap:8px;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:hover{background:rgba(255,255,255,.08);border-color:var(--line-strong);transform:translateY(-1px)}
+.btn-primary{
+  border-color:rgba(110,231,183,.5);color:var(--accent);
+  background:linear-gradient(135deg,rgba(110,231,183,.14),rgba(110,231,183,.04));
+  box-shadow:0 0 22px -8px rgba(110,231,183,.7);
+}
+.btn-primary:hover{background:rgba(110,231,183,.2);box-shadow:0 0 32px -6px rgba(110,231,183,.9)}
+.btn-danger{border-color:rgba(248,113,113,.35);color:#fca5a5}
+.btn-danger:hover{background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.6)}
+.btn-sm{padding:8px 13px;font-size:10.5px;border-radius:9px}
 
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
+/* Stats bar */
+.stats-bar{
+  display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+  padding:16px 20px;border-radius:16px;margin-bottom:22px;
+  border:1px solid var(--line);background:linear-gradient(165deg,rgba(255,255,255,.03),rgba(255,255,255,.006));
+}
+.stat{display:flex;align-items:center;gap:10px}
+.stat .si{font-size:20px;filter:drop-shadow(0 0 10px rgba(110,231,183,.4))}
+.stat .sv{font-size:20px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.stat .sl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:800}
+.stat-sep{width:1px;height:26px;background:var(--line)}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.live-dot{
+  display:inline-flex;align-items:center;gap:7px;margin-left:auto;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700;
+}
+.live-dot .d{
+  width:8px;height:8px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 12px rgba(110,231,183,.9);animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
 
-        /* Gradient Text */
-        .gradient-text {
-            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+/* Actions */
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:24px}
 
-        /* Custom Scrollbar for summary */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-    </style>
+/* Rooms grid */
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.room{
+  border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  background:linear-gradient(165deg,rgba(255,255,255,.035),rgba(255,255,255,.006));
+  transition:.3s cubic-bezier(.2,.7,.3,1);position:relative;
+}
+.room:hover{border-color:var(--line-strong)}
+.room.locked{border-color:rgba(251,191,36,.35)}
+.room.locked::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,.7),transparent);
+}
+.room-header{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.055);
+}
+.room-title{display:flex;align-items:center;gap:12px;min-width:0}
+.room-num{
+  width:38px;height:38px;flex:0 0 38px;border-radius:11px;display:grid;place-items:center;
+  font-size:11px;font-weight:800;font-variant-numeric:tabular-nums;
+  background:linear-gradient(135deg,rgba(110,231,183,.18),rgba(110,231,183,.04));
+  border:1px solid rgba(110,231,183,.28);color:var(--accent);
+  overflow:hidden;text-overflow:ellipsis;
+}
+.room.locked .room-num{
+  background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(251,191,36,.04));
+  border-color:rgba(251,191,36,.35);color:var(--gold);
+}
+.room-name{font-size:14.5px;font-weight:700;letter-spacing:-.01em;word-break:break-all}
+.room-meta{font-size:11px;color:var(--dim);letter-spacing:.06em;margin-top:2px;font-weight:500}
+.room-meta b{color:var(--muted);font-weight:700}
+.room-status{
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
+  padding:5px 11px;border-radius:999px;
+  border:1px solid rgba(110,231,183,.35);background:rgba(110,231,183,.08);color:var(--accent);
+  white-space:nowrap;
+}
+.room.locked .room-status{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:var(--gold)}
+.room-actions{display:flex;gap:6px;margin-left:auto}
+.icon-btn{
+  width:32px;height:32px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);
+  font-size:13px;transition:.22s;display:grid;place-items:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.icon-btn:hover{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.08)}
+.icon-btn.danger:hover{color:#fca5a5;border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.1)}
+
+.room-body{padding:8px}
+.players-list{display:flex;flex-direction:column;gap:6px}
+.player{
+  display:flex;align-items:center;gap:11px;
+  padding:11px 13px;border-radius:12px;
+  border:1px solid transparent;background:rgba(255,255,255,.022);
+  transition:.22s;
+}
+.player:hover{background:rgba(255,255,255,.05);border-color:var(--line)}
+.player-av{
+  width:34px;height:34px;flex:0 0 34px;border-radius:10px;
+  display:grid;place-items:center;font-size:16px;font-weight:800;
+  background:linear-gradient(135deg,rgba(110,231,183,.14),rgba(56,189,248,.06));
+  border:1px solid rgba(110,231,183,.24);color:var(--accent);
+}
+.player-info{flex:1;min-width:0}
+.player-name{
+  font-size:13.5px;font-weight:600;color:#e4ecf4;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.player-role{
+  font-size:11px;color:var(--muted);font-weight:400;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-top:1px;
+}
+.player-kick{
+  width:28px;height:28px;border-radius:8px;cursor:pointer;
+  border:1px solid rgba(248,113,113,.25);background:rgba(248,113,113,.06);
+  color:#fca5a5;font-size:12px;font-weight:800;
+  display:grid;place-items:center;transition:.22s;
+  -webkit-tap-highlight-color:transparent;
+}
+.player-kick:hover{background:rgba(248,113,113,.18);border-color:rgba(248,113,113,.6);color:#fff}
+
+.empty-state{padding:22px 16px;text-align:center;font-size:12.5px;color:var(--dim);font-style:italic}
+
+.global-empty{
+  padding:70px 32px;text-align:center;
+  border:1px dashed var(--line-strong);border-radius:20px;
+  background:rgba(255,255,255,.012);
+}
+.global-empty .ge-icon{font-size:52px;display:block;margin-bottom:16px;opacity:.65}
+.global-empty h3{font-size:19px;font-weight:600;color:var(--muted);margin-bottom:8px}
+.global-empty p{font-size:14px;color:var(--dim);max-width:440px;margin:0 auto}
+
+/* Toast */
+.toast-wrap{position:fixed;top:22px;right:22px;z-index:200;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 18px;border-radius:13px;
+  background:rgba(10,16,22,.95);backdrop-filter:blur(14px);
+  border:1px solid rgba(110,231,183,.4);
+  box-shadow:0 20px 60px -20px rgba(110,231,183,.6);
+  animation:toastIn .45s cubic-bezier(.2,.9,.3,1) both;
+  font-size:13px;font-weight:500;color:var(--ink);
+  min-width:220px;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(40px) scale(.94)}to{opacity:1;transform:none}}
+.toast.out{animation:toastOut .35s ease forwards}
+@keyframes toastOut{to{opacity:0;transform:translateX(40px) scale(.94)}}
+.toast .ti{font-size:20px}
+.toast.error{border-color:rgba(248,113,113,.5);box-shadow:0 20px 60px -20px rgba(248,113,113,.6)}
+.toast.success{border-color:rgba(110,231,183,.5);box-shadow:0 20px 60px -20px rgba(110,231,183,.6)}
+
+@media (max-width:760px){
+  .page{padding:24px 16px 60px}
+  .hdr{flex-direction:column;align-items:stretch}
+  .controls{justify-content:flex-start}
+  .rooms{grid-template-columns:1fr}
+  .stats-bar{padding:14px 16px;gap:12px}
+  .stat .sv{font-size:17px}
+  .toast-wrap{top:12px;right:12px;left:12px}
+  .toast{min-width:0}
+}
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+<body>
 
-    <!-- Header Navigation Bar -->
-    <header class="w-full border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-4 py-4">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToHome()">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-purple flex items-center justify-center shadow-lg shadow-brand-500/20">
-                    <i class="fa-solid fa-briefcase text-white text-lg"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg tracking-tight leading-none text-white">Would You Rather</h1>
-                    <span class="text-xs text-slate-400 font-medium">Professional & Adult Edition</span>
-                </div>
-            </div>
-            <div id="header-tag" class="hidden sm:block text-xs uppercase tracking-widest text-slate-400 font-semibold bg-slate-800 px-3 py-1.5 rounded-full border border-slate-700">
-                ESL & Discussion Tool
-            </div>
+<div class="bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="grid-ov"></div>
+</div>
+
+<div class="page">
+
+  <div class="hdr">
+    <div>
+      <div class="eyebrow">🧑‍🏫 Teacher Control</div>
+      <h1>SUSTAINABLE CAREER</h1>
+      <div class="sub">See every room, every player. Remove a player or wipe a room with one click.</div>
+    </div>
+    <div class="controls">
+      <div class="session-input">
+        <label>Session</label>
+        <input id="sessionInput" type="text" value="default" spellcheck="false">
+      </div>
+      <button class="btn btn-primary" onclick="manualRefresh()">🔄 Refresh now</button>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="si">👥</span>
+      <div>
+        <div class="sv" id="statPlayers">0</div>
+        <div class="sl">Players</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <span class="si">🚪</span>
+      <div>
+        <div class="sv" id="statRooms">0</div>
+        <div class="sl">Rooms</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <span class="si">🔒</span>
+      <div>
+        <div class="sv" id="statLocked">0</div>
+        <div class="sl">In Game</div>
+      </div>
+    </div>
+    <div class="live-dot" id="liveDot"><span class="d"></span> Live · refreshing every 2s</div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-danger" onclick="clearAllRooms()">🧹 Clear all rooms</button>
+  </div>
+
+  <div id="roomsContainer">
+    <div class="global-empty">
+      <span class="ge-icon">📡</span>
+      <h3>Connecting to Firebase…</h3>
+      <p>Waiting for players to join.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CONFIG
+   ═══════════════════════════════════════════════════════ */
+const FIREBASE_URL = 'https://english-meetings-f08e4-default-rtdb.firebaseio.com';
+const POLL_MS = 2000;
+
+let state = {
+  session: 'default',
+  rooms: []
+};
+let pollTimer = null;
+
+/* ═══════════════════════════════════════════════════════
+   FIREBASE
+   ═══════════════════════════════════════════════════════ */
+function fbPath(p){ return FIREBASE_URL + '/' + p + '.json'; }
+
+async function fbGet(p){
+  const r = await fetch(fbPath(p));
+  if(!r.ok) throw new Error('FB get failed');
+  return await r.json();
+}
+async function fbDelete(p){
+  const r = await fetch(fbPath(p), { method: 'DELETE' });
+  return r.ok;
+}
+
+function basePath(){
+  return 'sustainable/' + state.session;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FETCH + RENDER
+   ═══════════════════════════════════════════════════════ */
+async function fetchRooms(){
+  try {
+    const roomsPath = basePath() + '/rooms';
+    const data = await fbGet(roomsPath) || {};
+    const rooms = Object.entries(data).map(([id, r]) => {
+      const players = r.players || {};
+      const playerList = Object.entries(players).map(([pid, p]) => ({
+        id: pid,
+        name: p.name || 'Player',
+        joinedAt: p.joinedAt || 0
+      })).sort((a,b) => a.joinedAt - b.joinedAt || a.id.localeCompare(b.id));
+
+      return {
+        id,
+        createdAt: r.createdAt || 0,
+        locked: r.locked || false,
+        currentRound: r.currentRound != null ? r.currentRound : -1,
+        totalRounds: r.totalRounds || 0,
+        players: playerList
+      };
+    });
+    rooms.sort((a,b) => (a.createdAt || 0) - (b.createdAt || 0));
+    state.rooms = rooms;
+    render();
+  } catch(err){
+    console.error('fetchRooms failed', err);
+  }
+}
+
+function render(){
+  const container = document.getElementById('roomsContainer');
+  const rooms = state.rooms;
+
+  let totalPlayers = 0;
+  let lockedCount = 0;
+  rooms.forEach(r => {
+    totalPlayers += r.players.length;
+    if(r.locked) lockedCount++;
+  });
+
+  document.getElementById('statPlayers').textContent = totalPlayers;
+  document.getElementById('statRooms').textContent = rooms.length;
+  document.getElementById('statLocked').textContent = lockedCount;
+
+  if(rooms.length === 0){
+    container.innerHTML = `
+      <div class="global-empty">
+        <span class="ge-icon">🚪</span>
+        <h3>No rooms yet</h3>
+        <p>Students will appear here once they join with the session "${escapeHtml(state.session)}".</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `<div class="rooms">${rooms.map((r, idx) => renderRoom(r, idx)).join('')}</div>`;
+}
+
+function renderRoom(room, idx){
+  const count = room.players.length;
+  const locked = room.locked;
+  const roomClass = 'room' + (locked ? ' locked' : '');
+
+  let status;
+  if(locked){
+    const roundNum = room.currentRound >= 0 ? room.currentRound + 1 : '?';
+    status = 'In game · R' + roundNum;
+  } else {
+    status = count + ' / 3 ready';
+  }
+
+  const playersHtml = count === 0
+    ? '<div class="empty-state">No players in this room.</div>'
+    : '<div class="players-list">' + room.players.map(p => renderPlayer(p, room)).join('') + '</div>';
+
+  return `
+    <div class="${roomClass}">
+      <div class="room-header">
+        <div class="room-title">
+          <div class="room-num" title="${escapeHtml(room.id)}">#${idx + 1}</div>
+          <div style="min-width:0">
+            <div class="room-name">Room ${idx + 1}</div>
+            <div class="room-meta"><b>${count}</b> player${count === 1 ? '' : 's'}</div>
+          </div>
         </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 md:p-8">
-        <div class="w-full max-w-3xl">
-
-            <!-- 1. INTRO SCREEN -->
-            <div id="intro-screen" class="glass-card rounded-2xl p-6 sm:p-10 text-center shadow-2xl fade-in">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-brand-500 mb-6">
-                    <i class="fa-solid fa-comments text-3xl"></i>
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white">
-                    Dilemmas & Decisions: <br>
-                    <span class="gradient-text">The Adult Career Dilemmas</span>
-                </h2>
-                <p class="text-slate-300 text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
-                    Explore 5 challenging career and lifestyle scenarios designed for adults. Choose your preference, analyze key business vocabulary, and prepare to defend your stance!
-                </p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 text-left">
-                    <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
-                        <i class="fa-solid fa-layer-group text-accent-cyan mb-2 text-xl"></i>
-                        <h3 class="font-semibold text-sm text-slate-200">5 Scenarios</h3>
-                        <p class="text-xs text-slate-400 mt-1">Real-world professional choices and trade-offs.</p>
-                    </div>
-                    <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
-                        <i class="fa-solid fa-book-bookmark text-accent-purple mb-2 text-xl"></i>
-                        <h3 class="font-semibold text-sm text-slate-200">Key Vocabulary</h3>
-                        <p class="text-xs text-slate-400 mt-1">Useful corporate terms for every question.</p>
-                    </div>
-                    <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
-                        <i class="fa-solid fa-comments text-accent-emerald mb-2 text-xl"></i>
-                        <h3 class="font-semibold text-sm text-slate-200">Conversation Starters</h3>
-                        <p class="text-xs text-slate-400 mt-1">Ideal for English fluency & practice.</p>
-                    </div>
-                </div>
-
-                <button onclick="startQuiz()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-brand-600 to-accent-purple hover:from-brand-500 hover:to-accent-purple text-white font-bold text-lg rounded-xl shadow-lg shadow-brand-500/25 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer">
-                    Start Dilemmas <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
-                </button>
-            </div>
-
-            <!-- 2. QUIZ SCREEN (Hidden initially) -->
-            <div id="quiz-screen" class="hidden fade-in">
-                
-                <!-- Progress Header -->
-                <div class="mb-6">
-                    <div class="flex justify-between items-center mb-2">
-                        <span id="question-counter" class="text-xs font-bold uppercase tracking-wider text-brand-500">Question 1 of 5</span>
-                        <span id="progress-percent" class="text-xs font-semibold text-slate-400">20% Completed</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-700/50">
-                        <div id="progress-bar" class="bg-gradient-to-r from-brand-500 to-accent-purple h-full transition-all duration-300 w-1/5"></div>
-                    </div>
-                </div>
-
-                <!-- Main Card -->
-                <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl">
-                    <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center text-slate-100" id="question-title">
-                        Would you rather...
-                    </h2>
-
-                    <!-- Options Container -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <!-- Option A -->
-                        <div id="option-a" onclick="selectOption('A')" class="option-card p-6 rounded-xl bg-slate-800/80 border border-slate-700/80 cursor-pointer flex flex-col justify-between h-full">
-                            <div>
-                                <div class="inline-block px-3 py-1 rounded-md text-xs font-bold bg-brand-500/20 text-brand-400 mb-3 border border-brand-500/30">
-                                    Option A
-                                </div>
-                                <h3 id="option-a-text" class="text-base sm:text-lg font-semibold text-slate-100 leading-snug">
-                                    Loading...
-                                </h3>
-                            </div>
-                        </div>
-
-                        <!-- Option B -->
-                        <div id="option-b" onclick="selectOption('B')" class="option-card p-6 rounded-xl bg-slate-800/80 border border-slate-700/80 cursor-pointer flex flex-col justify-between h-full">
-                            <div>
-                                <div class="inline-block px-3 py-1 rounded-md text-xs font-bold bg-accent-purple/20 text-purple-300 mb-3 border border-accent-purple/30">
-                                    Option B
-                                </div>
-                                <h3 id="option-b-text" class="text-base sm:text-lg font-semibold text-slate-100 leading-snug">
-                                    Loading...
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Key Words & Vocabulary Box -->
-                    <div class="bg-slate-900/90 rounded-xl p-4 sm:p-5 border border-slate-700/60 mb-6">
-                        <div class="flex items-center space-x-2 text-accent-amber mb-3">
-                            <i class="fa-solid fa-key text-sm"></i>
-                            <h4 class="text-xs font-bold uppercase tracking-wider">Key Words & Vocabulary to Use</h4>
-                        </div>
-                        <div id="vocab-container" class="flex flex-wrap gap-2">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-
-                    <!-- Navigation Footer -->
-                    <div class="flex justify-between items-center pt-2">
-                        <p id="error-message" class="text-red-400 text-xs font-medium opacity-0 transition-opacity">
-                            <i class="fa-solid fa-circle-exclamation mr-1"></i> Please choose one option to continue.
-                        </p>
-                        <button id="next-btn" onclick="nextQuestion()" class="px-7 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl shadow-md transition-all flex items-center space-x-2 cursor-pointer ml-auto">
-                            <span id="next-btn-text">Done! Next</span>
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. SUMMARY SCREEN (Hidden initially) -->
-            <div id="summary-screen" class="hidden fade-in">
-                <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl">
-                    <div class="text-center mb-8">
-                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-emerald/10 border border-accent-emerald/20 text-accent-emerald mb-4">
-                            <i class="fa-solid fa-check text-2xl"></i>
-                        </div>
-                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">Summary & Reflection</h2>
-                        <p class="text-slate-400 text-sm">Here is a recap of your choices along with the key vocabulary. Use these notes to explain your reasons!</p>
-                    </div>
-
-                    <!-- Results List -->
-                    <div id="summary-list" class="space-y-4 mb-8 max-h-[50vh] overflow-y-auto pr-2">
-                        <!-- Populated dynamically -->
-                    </div>
-
-                    <!-- Discussion Prompt Box -->
-                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 mb-8 flex items-start space-x-3">
-                        <i class="fa-solid fa-lightbulb text-accent-amber text-lg mt-0.5"></i>
-                        <div class="text-xs sm:text-sm text-slate-300">
-                            <span class="font-bold text-white">Discussion Tip:</span> Try explaining <i>why</i> you selected each option using at least 2 key words from each question box in complete sentences!
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button onclick="resetQuiz()" class="px-8 py-3.5 bg-gradient-to-r from-brand-600 to-accent-purple hover:from-brand-500 hover:to-accent-purple text-white font-bold text-base rounded-xl shadow-lg transition-all cursor-pointer">
-                            <i class="fa-solid fa-rotate-right mr-2"></i> Play Again
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+        <span class="room-status">${status}</span>
+        <div class="room-actions">
+          <button class="icon-btn danger" title="Delete entire room" onclick="confirmDeleteRoom('${room.id}', ${idx + 1})">🗑️</button>
         </div>
-    </main>
+      </div>
+      <div class="room-body">${playersHtml}</div>
+    </div>
+  `;
+}
 
-    <!-- Footer -->
-    <footer class="w-full border-t border-slate-800/80 bg-slate-900/50 py-4 px-4 text-center text-xs text-slate-500">
-        <p>Would You Rather - Professional Adult Edition &copy; Designed for English Conversation & Vocabulary Building</p>
-    </footer>
+function renderPlayer(p, room){
+  const initial = (p.name || '?').trim().charAt(0).toUpperCase();
+  return `
+    <div class="player">
+      <div class="player-av">${escapeHtml(initial)}</div>
+      <div class="player-info">
+        <div class="player-name">${escapeHtml(p.name)}</div>
+        <div class="player-role">Player</div>
+      </div>
+      <button class="player-kick" title="Remove player" onclick="confirmKick('${p.id}', '${escapeHtml(p.name)}', '${room.id}')">✕</button>
+    </div>
+  `;
+}
 
-    <!-- JavaScript Logic -->
-    <script>
-        // Questions Data
-        const questions = [
-            {
-                id: 1,
-                optionA: "Work 100% remotely from anywhere in the world with a flexible schedule, but earn 20% less income.",
-                optionB: "Work in a corporate office 5 days a week with strict hours, but earn a 20% higher salary.",
-                vocab: [
-                    { word: "Work-life balance", def: "Equilibrium between personal life and work duties" },
-                    { word: "Commute", def: "Travel distance between home and workplace" },
-                    { word: "Autonomy", def: "Freedom and independence in your job" },
-                    { word: "Compensation package", def: "Total pay and benefits provided by an employer" }
-                ]
-            },
-            {
-                id: 2,
-                optionA: "Be your own boss and run a stressful startup business with unlimited earnings potential.",
-                optionB: "Have a stable, stress-free 9-to-5 job at a large company with a fixed salary and great benefits.",
-                vocab: [
-                    { word: "Entrepreneurship", def: "Starting and operating your own business" },
-                    { word: "Job security", def: "Probability that an employee will keep their job" },
-                    { word: "Financial risk", def: "Possibility of losing money or invested capital" },
-                    { word: "Fringe benefits", def: "Extra incentives like health insurance or bonuses" }
-                ]
-            },
-            {
-                id: 3,
-                optionA: "Receive an immediate cash bonus of $50,000 tax-free right now.",
-                optionB: "Get a guaranteed 15% salary increase every year for the next 5 years.",
-                vocab: [
-                    { word: "Lump sum", def: "A single payment made all at once" },
-                    { word: "Compound growth", def: "Growth that builds exponentially over time" },
-                    { word: "Purchasing power", def: "The financial ability to buy goods and services" },
-                    { word: "Financial leverage", def: "Using resources to increase potential return" }
-                ]
-            },
-            {
-                id: 4,
-                optionA: "Work for a highly famous, prestigious global company where you are just an easily replaceable worker.",
-                optionB: "Work for a small local company where you are the top key decision-maker and leader.",
-                vocab: [
-                    { word: "Brand prestige", def: "High reputation and status of a well-known brand" },
-                    { word: "Decision-making power", def: "Authority to make important strategic choices" },
-                    { word: "Career trajectory", def: "The path and progress of your professional growth" },
-                    { word: "Corporate culture", def: "Shared values and environment of an organization" }
-                ]
-            },
-            {
-                id: 5,
-                optionA: "Have a 4-day work week (32 hours) with 100% of your current salary.",
-                optionB: "Have an extra month of paid vacation (4 weeks) every year that you can take whenever you want.",
-                vocab: [
-                    { word: "Productivity", def: "Efficiency and rate of output per working hour" },
-                    { word: "Paid time off (PTO)", def: "Time away from work while still receiving pay" },
-                    { word: "Burnout", def: "State of physical or mental exhaustion from work" },
-                    { word: "Workplace flexibility", def: "Adaptability in how and when work gets done" }
-                ]
-            }
-        ];
+/* ═══════════════════════════════════════════════════════
+   ACTIONS
+   ═══════════════════════════════════════════════════════ */
+async function kickPlayer(playerId, playerName, roomId){
+  try {
+    const url = basePath() + '/rooms/' + roomId + '/players/' + playerId;
+    await fbDelete(url);
+    toast('Removed ' + playerName, 'success');
+    await fetchRooms();
+  } catch(err){
+    console.error(err);
+    toast('Could not remove player', 'error');
+  }
+}
 
-        // State variables
-        let currentQuestionIndex = 0;
-        let selectedAnswers = {}; // Maps question index -> 'A' or 'B'
+function confirmKick(playerId, playerName, roomId){
+  if(!confirm('Remove "' + playerName + '" from this room?')) return;
+  kickPlayer(playerId, playerName, roomId);
+}
 
-        // DOM Elements
-        const introScreen = document.getElementById('intro-screen');
-        const quizScreen = document.getElementById('quiz-screen');
-        const summaryScreen = document.getElementById('summary-screen');
-        
-        const questionCounter = document.getElementById('question-counter');
-        const progressPercent = document.getElementById('progress-percent');
-        const progressBar = document.getElementById('progress-bar');
-        
-        const optionAEl = document.getElementById('option-a');
-        const optionBEl = document.getElementById('option-b');
-        const optionAText = document.getElementById('option-a-text');
-        const optionBText = document.getElementById('option-b-text');
-        const vocabContainer = document.getElementById('vocab-container');
-        const errorMessage = document.getElementById('error-message');
-        const nextBtnText = document.getElementById('next-btn-text');
+async function deleteRoom(roomId, roomNum){
+  try {
+    const url = basePath() + '/rooms/' + roomId;
+    await fbDelete(url);
+    toast('Room ' + roomNum + ' deleted', 'success');
+    await fetchRooms();
+  } catch(err){
+    console.error(err);
+    toast('Could not delete room', 'error');
+  }
+}
 
-        // Start Quiz
-        function startQuiz() {
-            introScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            currentQuestionIndex = 0;
-            selectedAnswers = {};
-            loadQuestion(currentQuestionIndex);
-        }
+function confirmDeleteRoom(roomId, roomNum){
+  if(!confirm('Delete Room ' + roomNum + ' and remove all its players?')) return;
+  deleteRoom(roomId, roomNum);
+}
 
-        // Load Question Data
-        function loadQuestion(index) {
-            const q = questions[index];
-            
-            // Clear selection highlights and error
-            optionAEl.classList.remove('selected');
-            optionBEl.classList.remove('selected');
-            errorMessage.classList.add('opacity-0');
+async function clearAllRooms(){
+  if(!confirm('Delete ALL rooms in session "' + state.session + '"? This removes every player too.')) return;
+  try {
+    await fbDelete(basePath() + '/rooms');
+    toast('All rooms cleared', 'success');
+    await fetchRooms();
+  } catch(err){
+    console.error(err);
+    toast('Could not clear rooms', 'error');
+  }
+}
 
-            // Set text
-            optionAText.textContent = q.optionA;
-            optionBText.textContent = q.optionB;
+/* ═══════════════════════════════════════════════════════
+   SESSION SWITCH
+   ═══════════════════════════════════════════════════════ */
+document.getElementById('sessionInput').addEventListener('change', (e) => {
+  const val = e.target.value.trim() || 'default';
+  state.session = val;
+  fetchRooms();
+});
 
-            // Update Progress Header
-            questionCounter.textContent = `Question ${index + 1} of ${questions.length}`;
-            const percent = Math.round(((index + 1) / questions.length) * 100);
-            progressPercent.textContent = `${percent}% Completed`;
-            progressBar.style.width = `${percent}%`;
+/* ═══════════════════════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════════════════════ */
+function toast(msg, type = 'success'){
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type === 'error' ? 'error' : 'success');
+  el.innerHTML = `<span class="ti">${type === 'error' ? '⚠️' : '✅'}</span><span>${escapeHtml(msg)}</span>`;
+  wrap.appendChild(el);
+  setTimeout(() => {
+    el.classList.add('out');
+    setTimeout(() => el.remove(), 400);
+  }, 2400);
+}
 
-            // Update Button Text if last question
-            if (index === questions.length - 1) {
-                nextBtnText.textContent = "Finish & See Results";
-            } else {
-                nextBtnText.textContent = "Done! Next";
-            }
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
 
-            // Restore previously selected option if navigating back/around
-            if (selectedAnswers[index]) {
-                if (selectedAnswers[index] === 'A') optionAEl.classList.add('selected');
-                if (selectedAnswers[index] === 'B') optionBEl.classList.add('selected');
-            }
+/* ═══════════════════════════════════════════════════════
+   REFRESH + POLLING
+   ═══════════════════════════════════════════════════════ */
+async function manualRefresh(){
+  await fetchRooms();
+  toast('Refreshed', 'success');
+}
 
-            // Load Vocabulary Tags
-            vocabContainer.innerHTML = '';
-            q.vocab.forEach(item => {
-                const tag = document.createElement('div');
-                tag.className = "bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2";
-                tag.innerHTML = `
-                    <span class="font-bold text-accent-cyan">${item.word}:</span>
-                    <span class="text-slate-400 font-normal">${item.def}</span>
-                `;
-                vocabContainer.appendChild(tag);
-            });
-        }
+function startPolling(){
+  stopPolling();
+  pollTimer = setInterval(fetchRooms, POLL_MS);
+}
+function stopPolling(){
+  if(pollTimer){ clearInterval(pollTimer); pollTimer = null; }
+}
 
-        // Select Option A or B
-        function selectOption(choice) {
-            errorMessage.classList.add('opacity-0');
-            selectedAnswers[currentQuestionIndex] = choice;
-
-            if (choice === 'A') {
-                optionAEl.classList.add('selected');
-                optionBEl.classList.remove('selected');
-            } else {
-                optionBEl.classList.add('selected');
-                optionAEl.classList.remove('selected');
-            }
-        }
-
-        // Next Question or Finish
-        function nextQuestion() {
-            // Check if user selected an option
-            if (!selectedAnswers[currentQuestionIndex]) {
-                errorMessage.classList.remove('opacity-0');
-                return;
-            }
-
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion(currentQuestionIndex);
-            } else {
-                showSummary();
-            }
-        }
-
-        // Show Final Summary
-        function showSummary() {
-            quizScreen.classList.add('hidden');
-            summaryScreen.classList.remove('hidden');
-
-            const summaryList = document.getElementById('summary-list');
-            summaryList.innerHTML = '';
-
-            questions.forEach((q, idx) => {
-                const chosenLetter = selectedAnswers[idx];
-                const chosenText = chosenLetter === 'A' ? q.optionA : q.optionB;
-                
-                const itemEl = document.createElement('div');
-                itemEl.className = "p-4 sm:p-5 rounded-xl bg-slate-800/90 border border-slate-700/80 flex flex-col gap-3";
-
-                // Build Vocabulary Badges
-                const vocabBadges = q.vocab.map(v => 
-                    `<span class="bg-slate-900 text-accent-cyan px-2 py-0.5 rounded text-[11px] font-medium border border-slate-700">${v.word}</span>`
-                ).join(' ');
-
-                itemEl.innerHTML = `
-                    <div class="flex items-center justify-between border-b border-slate-700/60 pb-2">
-                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Question ${idx + 1}</span>
-                        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${chosenLetter === 'A' ? 'bg-brand-500/20 text-brand-400 border border-brand-500/30' : 'bg-accent-purple/20 text-purple-300 border border-accent-purple/30'}">
-                            Selected Option ${chosenLetter}
-                        </span>
-                    </div>
-                    <p class="text-sm font-semibold text-slate-100 leading-snug">
-                        "${chosenText}"
-                    </p>
-                    <div class="pt-1">
-                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Vocabulary to practice:</span>
-                        <div class="flex flex-wrap gap-1.5">
-                            ${vocabBadges}
-                        </div>
-                    </div>
-                `;
-                summaryList.appendChild(itemEl);
-            });
-        }
-
-        // Reset Quiz to Play Again
-        function resetQuiz() {
-            summaryScreen.classList.add('hidden');
-            startQuiz();
-        }
-
-        // Header click reset to home
-        function resetToHome() {
-            quizScreen.classList.add('hidden');
-            summaryScreen.classList.add('hidden');
-            introScreen.classList.remove('hidden');
-            selectedAnswers = {};
-            currentQuestionIndex = 0;
-        }
-    </script>
+/* ═══════════════════════════════════════════════════════
+   BOOT
+   ═══════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  const urlSession = new URLSearchParams(location.search).get('session');
+  if(urlSession){
+    state.session = urlSession;
+    document.getElementById('sessionInput').value = urlSession;
+  }
+  fetchRooms();
+  startPolling();
+});
+</script>
 </body>
 </html>
