@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Let's Talk! · Question Cards</title>
+<title>Let's Talk! · Career · Trips · Dreams · Family</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,10 +28,7 @@
         padding: 26px 22px 40px;
     }
 
-    .app {
-        max-width: 1560px;
-        margin: 0 auto;
-    }
+    .app { max-width: 1560px; margin: 0 auto; }
 
     /* ---------- HEADER ---------- */
     .app-header {
@@ -40,7 +37,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 16px 24px;
-        margin-bottom: 24px;
+        margin-bottom: 18px;
     }
 
     .brand { display: flex; align-items: center; gap: 15px; }
@@ -118,6 +115,38 @@
         box-shadow: none;
     }
 
+    /* ---------- TOPIC LEGEND ---------- */
+    .topic-legend {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        padding-left: 2px;
+    }
+
+    .legend-label {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: #8aa0b6;
+        margin-right: 4px;
+    }
+
+    .legend-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 14px;
+        border-radius: 40px;
+        font-size: 12.5px;
+        font-weight: 700;
+        background: #ffffff;
+        border: 1.5px solid #e2ecf5;
+        box-shadow: 0 3px 10px rgba(20, 45, 80, 0.05);
+    }
+
     /* ---------- PLAYERS ROW ---------- */
     .players-row {
         display: flex;
@@ -136,7 +165,7 @@
 
     /* ---------- PLAYER CARD ---------- */
     .player-card {
-        flex: 0 0 344px;
+        flex: 0 0 348px;
         scroll-snap-align: start;
         background: #ffffff;
         border: 1px solid #e6eef6;
@@ -161,7 +190,6 @@
         align-items: center;
         gap: 12px;
         color: #fff;
-        position: relative;
     }
 
     .p-num {
@@ -246,7 +274,7 @@
     /* --- flip slot --- */
     .q-slot {
         position: relative;
-        height: 152px;
+        height: 166px;
         perspective: 1100px;
         border-radius: 16px;
     }
@@ -264,9 +292,7 @@
         z-index: 5;
     }
 
-    .q-slot.shine::after {
-        animation: flash 0.62s ease-out;
-    }
+    .q-slot.shine::after { animation: flash 0.62s ease-out; }
 
     @keyframes flash {
         0%   { opacity: 0; transform: scale(0.94); }
@@ -293,6 +319,20 @@
         -webkit-backface-visibility: hidden;
     }
 
+    /* --- topic chip --- */
+    .topic-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 10.5px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
     /* front face */
     .q-front {
         width: 100%;
@@ -303,7 +343,7 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        gap: 9px;
+        gap: 10px;
         padding: 14px 16px;
         cursor: pointer;
         font-family: inherit;
@@ -319,6 +359,13 @@
     }
 
     .q-front:active { transform: translateY(0) scale(0.985); }
+
+    .q-front-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
 
     .q-badge {
         width: 25px; height: 25px;
@@ -351,9 +398,16 @@
         padding: 12px 15px;
         display: flex;
         flex-direction: column;
-        gap: 7px;
+        gap: 8px;
         cursor: pointer;
         overflow: hidden;
+    }
+
+    .q-back-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
     }
 
     .q-back .q-badge {
@@ -362,9 +416,9 @@
     }
 
     .q-text {
-        font-size: 14px;
+        font-size: 13.5px;
         font-weight: 600;
-        line-height: 1.38;
+        line-height: 1.4;
         color: #14212e;
     }
 
@@ -406,8 +460,8 @@
         .brand h1 { font-size: 20px; }
         .logo { width: 48px; height: 48px; font-size: 20px; border-radius: 15px; }
         .btn { padding: 11px 18px; font-size: 13.5px; }
-        .player-card { flex: 0 0 86vw; max-width: 344px; }
-        .q-slot { height: 162px; }
+        .player-card { flex: 0 0 86vw; max-width: 348px; }
+        .q-slot { height: 176px; }
         .header-btns { width: 100%; }
         .header-btns .btn { flex: 1; justify-content: center; }
     }
@@ -423,19 +477,29 @@
             <div class="logo"><i class="fas fa-comments"></i></div>
             <div>
                 <h1>Let's Talk! <span>Question Cards</span></h1>
-                <p class="sub">Easy English · click a card · reveal the question · ask a friend</p>
+                <p class="sub">Career · Trips · Dreams · Family · easy English</p>
             </div>
         </div>
 
         <div class="header-btns">
             <button id="resetBtn" class="btn ghost">
-                <i class="fas fa-rotate-left"></i> Reset questions
+                <i class="fas fa-rotate-left"></i> Hide all questions
             </button>
             <button id="addBtn" class="btn primary">
                 <i class="fas fa-user-plus"></i> Add player
             </button>
         </div>
     </header>
+
+    <!-- ===== TOPIC LEGEND ===== -->
+    <div class="topic-legend">
+        <span class="legend-label">Topics</span>
+        <span class="legend-chip" style="color:#2563eb;"><i class="fas fa-briefcase"></i> Career</span>
+        <span class="legend-chip" style="color:#0d9488;"><i class="fas fa-plane"></i> Trips</span>
+        <span class="legend-chip" style="color:#7c3aed;"><i class="fas fa-star"></i> Dreams</span>
+        <span class="legend-chip" style="color:#e11d48;"><i class="fas fa-house-user"></i> Family</span>
+        <span class="legend-chip" style="color:#d97706;"><i class="fas fa-wand-magic-sparkles"></i> Surprise</span>
+    </div>
 
     <!-- ===== PLAYER CARDS ===== -->
     <main class="players-row" id="playersRow"></main>
@@ -444,9 +508,10 @@
     <footer class="hint-bar">
         <i class="fas fa-lightbulb"></i>
         <span>
-            <strong>How to play:</strong> type your name in your card. Click “Click me to reveal question”
-            to see a secret question. Then ask another player the question and listen to the answer.
-            Short answers in English are OK — have fun!
+            <strong>How to play:</strong> type your name in your card. Each card has five questions:
+            one about <strong>career</strong>, one about <strong>trips</strong>, one about <strong>dreams</strong>,
+            one about <strong>family</strong>, and one <strong>surprise</strong> question.
+            Click a card to reveal the question, then ask another player and listen to the answer.
         </span>
     </footer>
 
@@ -457,57 +522,111 @@
     'use strict';
 
     /* ================================================================
-       QUESTION BANK · easy English
+       TOPICS & QUESTION BANK · easy English
        ================================================================ */
-    const QUESTION_BANK = [
-        // work
-        'What is your job? What do you do every day?',
-        'Do you like your job? Why or why not?',
-        'What is the best part of your work?',
-        'What is difficult about your work?',
-        'What job did you want when you were a child?',
-        'Who helps you at work?',
-        'What time do you start and finish work?',
-        'Do you like working with people or alone?',
-        'What is a good day at work for you?',
-        'If you had your own business, what would it be?',
-        'Do you want to be a boss one day? Why?',
-        'What do you do when you have a problem at work?',
-        // dreams
-        'What is your biggest dream?',
-        'Where do you want to be in five years?',
-        'What do you want to learn this year?',
-        'What is one thing you want to change in your life?',
-        'What makes you happy?',
-        'What superpower do you want? Why?',
-        'What is something you are good at?',
-        'What is something you want to try for the first time?',
-        'Who is a person you admire? Why?',
-        // places
-        'What is your favorite place in your city?',
-        'Where do you want to travel next?',
-        'Do you like the beach or the mountains? Why?',
-        'What country do you want to visit? Why?',
-        'What is the most beautiful place you know?',
-        'Do you like to travel alone or with friends?',
-        'What is the best trip you remember?',
-        // food & free time
-        'What is your favorite food? Can you cook it?',
-        'What do you do on Sundays?',
-        'What music do you like?',
-        'Do you have a pet? Tell me about it.',
-        'What is a good movie you watched recently?',
-        'What do you do when you are sad?',
-        'Are you a morning person or a night person?',
-        'What is your favorite day of the week? Why?',
-        'Do you like to read? What kind of books?',
-        'What is your favorite drink in the morning?',
-        'How do you go to work — bus, car, or walk?',
-        'What is a small thing that makes you smile?',
-        'What language do you want to speak well?',
-        'If you had one free day, what would you do?',
-        'What did you do last weekend?'
+    const TOPICS = [
+        {
+            id: 'career',
+            name: 'Career',
+            icon: 'fa-briefcase',
+            color: '#2563eb',
+            tint: '#eaf1ff',
+            questions: [
+                'What is your job now? What do you do every day?',
+                'Do you like your job? Why?',
+                'What was your first job?',
+                'What job do you want in five years?',
+                'Do you want to be a manager one day? Why?',
+                'What is difficult about your work?',
+                'What is the best part of your work?',
+                'Who helped you in your career?',
+                'Do you like working with people or alone?',
+                'What new skill do you want to learn for your career?',
+                'Do you want to work in another country?',
+                'What time do you start and finish work?',
+                'Do you want to have your own business one day?',
+                'What makes a good boss?'
+            ]
+        },
+        {
+            id: 'trips',
+            name: 'Trips',
+            icon: 'fa-plane',
+            color: '#0d9488',
+            tint: '#e6f7f4',
+            questions: [
+                'Where did you go on your last trip?',
+                'What country do you want to visit? Why?',
+                'Do you like the beach or the mountains? Why?',
+                'Who do you like to travel with?',
+                'What do you always take in your bag?',
+                'What is the most beautiful place you know?',
+                'Do you like to travel by plane, bus, or car?',
+                'What is the best food you ate on a trip?',
+                'Where do you want to go next year?',
+                'Do you like long trips or short trips?',
+                'What is a place in your city that visitors must see?',
+                'Do you take many photos on a trip?',
+                'What was the funniest thing on a trip?',
+                'Do you prefer a hotel or a friend\'s house?'
+            ]
+        },
+        {
+            id: 'dreams',
+            name: 'Dreams',
+            icon: 'fa-star',
+            color: '#7c3aed',
+            tint: '#f1ebff',
+            questions: [
+                'What is your biggest dream?',
+                'What do you want to do before you are 60?',
+                'What do you want to learn this year?',
+                'If you had one free day, what would you do?',
+                'What superpower do you want? Why?',
+                'What is one thing you want to change in your life?',
+                'Where do you want to live in the future?',
+                'What makes you happy?',
+                'What is something you are good at?',
+                'Who is a person you admire? Why?',
+                'What do you want to try for the first time?',
+                'What is a small thing that makes you smile?',
+                'If you had a lot of money, what would you do first?',
+                'What language do you want to speak well?'
+            ]
+        },
+        {
+            id: 'family',
+            name: 'Family',
+            icon: 'fa-house-user',
+            color: '#e11d48',
+            tint: '#ffeaef',
+            questions: [
+                'Do you have a big family or a small family?',
+                'Who do you live with?',
+                'What do you do with your family on Sundays?',
+                'Do you have brothers or sisters? Tell me about them.',
+                'Who is the funniest person in your family?',
+                'What food does your family like?',
+                'Do you look like your mother or your father?',
+                'What did you do with your family last weekend?',
+                'Who do you call when you have a problem?',
+                'Do you have children? Tell me about them.',
+                'What is a family tradition you like?',
+                'Where does your family live now?',
+                'Who is the best cook in your family?',
+                'What do you want for your family in the future?'
+            ]
+        }
     ];
+
+    /* Extra topic used for the fifth "surprise" card */
+    const SURPRISE = {
+        id: 'surprise',
+        name: 'Surprise',
+        icon: 'fa-wand-magic-sparkles',
+        color: '#d97706',
+        tint: '#fff4e0'
+    };
 
     /* ================================================================
        CARD COLORS
@@ -529,7 +648,7 @@
     /* ================================================================
        STATE
        ================================================================ */
-    let questionQueue = [];
+    const queues = {};   // topic id -> array of not-yet-used questions
 
     const playersRow = document.getElementById('playersRow');
     const addBtn = document.getElementById('addBtn');
@@ -547,30 +666,64 @@
         return a;
     }
 
-    function takeQuestions(n) {
-        if (questionQueue.length < n) {
-            questionQueue = shuffle(QUESTION_BANK);
+    /* Pull one question from a topic. Refills the queue when it is empty. */
+    function pullQuestion(topicId) {
+        const topic = TOPICS.find(t => t.id === topicId);
+        if (!queues[topicId] || queues[topicId].length === 0) {
+            queues[topicId] = shuffle(topic.questions);
         }
-        return questionQueue.splice(0, n);
+        return {
+            topic: topic,
+            question: queues[topicId].shift()
+        };
+    }
+
+    /* Pull one question from a random topic (for the surprise slot). */
+    function pullSurprise() {
+        const randomTopic = TOPICS[Math.floor(Math.random() * TOPICS.length)];
+        const item = pullQuestion(randomTopic.id);
+        item.isSurprise = true;
+        return item;
+    }
+
+    /* Build the five question slots for one card. */
+    function buildCardQuestions() {
+        const items = TOPICS.map(t => pullQuestion(t.id)); // career, trips, dreams, family
+        items.push(pullSurprise());                        // surprise
+        return items;
     }
 
     /* ================================================================
        BUILD A QUESTION SLOT
        ================================================================ */
-    function slotHTML(question, number) {
+    function slotHTML(item, number) {
+        const t = item.topic;
+        const chipStyle = `color:${t.color};background:${t.tint};`;
+
         return `
             <div class="q-slot">
                 <div class="q-inner">
                     <button class="q-front" type="button">
-                        <span class="q-badge">${number}</span>
+                        <span class="q-front-top">
+                            <span class="q-badge">${number}</span>
+                            <span class="topic-chip" style="${chipStyle}">
+                                <i class="fas ${t.icon}"></i> ${t.name}
+                            </span>
+                        </span>
                         <span class="q-front-txt">
                             <i class="fas fa-hand-pointer"></i>
                             Click me to reveal question
                         </span>
                     </button>
+
                     <div class="q-back">
-                        <span class="q-badge">${number}</span>
-                        <p class="q-text">${question}</p>
+                        <div class="q-back-top">
+                            <span class="q-badge">${number}</span>
+                            <span class="topic-chip" style="${chipStyle}">
+                                <i class="fas ${t.icon}"></i> ${t.name}
+                            </span>
+                        </div>
+                        <p class="q-text">${item.question}</p>
                         <span class="q-ask">
                             <i class="fas fa-comments"></i> Ask a friend this question
                         </span>
@@ -584,7 +737,7 @@
        ================================================================ */
     function createCard(index) {
         const color = PALETTE[index % PALETTE.length];
-        const questions = takeQuestions(QUESTIONS_PER_PLAYER);
+        const questions = buildCardQuestions();
 
         const card = document.createElement('div');
         card.className = 'player-card';
@@ -623,6 +776,7 @@
        ================================================================ */
     function renumber() {
         const cards = playersRow.querySelectorAll('.player-card');
+
         cards.forEach((card, i) => {
             card.querySelector('.p-num').textContent = i + 1;
             card.querySelector('.p-title').textContent = 'Player ' + (i + 1);
@@ -631,11 +785,9 @@
             input.id = 'name-' + i;
             card.querySelector('label').setAttribute('for', 'name-' + i);
 
-            // hide remove button if there is only one player
             card.querySelector('.remove-btn').style.display = cards.length > 1 ? '' : 'none';
         });
 
-        // add button state
         if (cards.length >= MAX_PLAYERS) {
             addBtn.disabled = true;
             addBtn.innerHTML = `<i class="fas fa-circle-check"></i> ${MAX_PLAYERS} players max`;
@@ -656,7 +808,6 @@
         playersRow.appendChild(card);
         renumber();
 
-        // scroll the row so the new card is visible
         requestAnimationFrame(() => {
             playersRow.scrollTo({
                 left: playersRow.scrollWidth,
@@ -681,7 +832,7 @@
     }
 
     /* ================================================================
-       CLICK HANDLING (delegated)
+       CLICK HANDLING
        ================================================================ */
     playersRow.addEventListener('click', function (e) {
         // remove player
@@ -707,7 +858,7 @@
             return;
         }
 
-        // hide question again (click on the answer side)
+        // hide question again
         const back = e.target.closest('.q-back');
         if (back) {
             flipSlot(back.closest('.q-slot'), false);
