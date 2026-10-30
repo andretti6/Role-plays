@@ -108,11 +108,11 @@
     /* ---------- TOP BAR ---------- */
     .topbar {
         display: flex; justify-content: space-between; align-items: center;
-        gap: 12px; flex-wrap: wrap;
+        gap: 10px; flex-wrap: wrap;
         background: #ffffff; border: 1px solid #e6eef6; border-radius: 20px;
         padding: 12px 16px;
         box-shadow: 0 10px 26px rgba(20, 45, 80, 0.08);
-        margin-bottom: 22px;
+        margin-bottom: 12px;
         position: sticky; top: 10px; z-index: 100;
     }
     .room-chip {
@@ -148,6 +148,72 @@
         transition: all 0.15s;
     }
     .leave-btn:hover { background: #fdeaea; color: #a13d3d; }
+
+    .reset-answers-btn {
+        border: 1.5px solid #f0c88a;
+        background: #fff4e0;
+        color: #a0690c;
+        border-radius: 30px;
+        padding: 7px 14px;
+        font-family: inherit; font-size: 12px; font-weight: 800;
+        cursor: pointer;
+        display: inline-flex; align-items: center; gap: 6px;
+        transition: all 0.15s;
+    }
+    .reset-answers-btn:hover {
+        background: #ffe9c9;
+        border-color: #e0a860;
+        color: #7a4a00;
+        transform: translateY(-1px);
+    }
+
+    /* ---------- LOCATION BANNER ---------- */
+    .location-banner {
+        display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        background: linear-gradient(135deg, #1d4ed8 0%, #16389b 100%);
+        color: #fff;
+        border-radius: 16px;
+        padding: 14px 20px;
+        margin-bottom: 22px;
+        box-shadow: 0 12px 28px rgba(29, 78, 216, 0.28);
+    }
+    .loc-info {
+        display: flex; align-items: center; gap: 10px;
+        font-size: 14.5px; font-weight: 700;
+        flex: 1; min-width: 0;
+    }
+    .loc-info i { font-size: 17px; color: #ffd166; flex-shrink: 0; }
+    .loc-step-num {
+        background: rgba(255, 255, 255, 0.18);
+        padding: 3px 10px; border-radius: 30px;
+        font-size: 11.5px; font-weight: 800; letter-spacing: 0.4px;
+        flex-shrink: 0;
+    }
+    .loc-step-title {
+        font-weight: 800; letter-spacing: -0.2px;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .loc-team-score {
+        display: flex; align-items: center; gap: 8px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1.5px solid rgba(255, 255, 255, 0.28);
+        border-radius: 30px; padding: 7px 16px;
+        font-size: 13px; font-weight: 800;
+        flex-shrink: 0;
+    }
+    .loc-team-score i { color: #ffd166; }
+    .loc-team-score b { font-size: 16px; letter-spacing: 0.5px; }
+    .loc-guide-btn {
+        border: none; border-radius: 30px;
+        background: #ffd166; color: #7a4a00;
+        padding: 9px 18px;
+        font-family: inherit; font-size: 12.5px; font-weight: 800;
+        cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.15s;
+        flex-shrink: 0;
+    }
+    .loc-guide-btn:hover { background: #ffdf8a; transform: translateY(-1px); }
 
     /* ---------- SECTIONS ---------- */
     .section {
@@ -282,24 +348,76 @@
     }
     .listening-section.listen2 .sec-badge.listen { background: #ffffff; color: #0f766e; }
 
-    .live-hint {
-        display: flex; align-items: center; gap: 9px;
-        background: #f1ebff; border-radius: 11px;
-        padding: 9px 14px; margin-bottom: 14px;
-        font-size: 12px; font-weight: 600; color: #5b21b6;
+    /* ---------- AUTH STATE PANELS ---------- */
+    .auth-panel {
+        border-radius: 15px; padding: 16px 20px;
+        margin-bottom: 16px;
+        display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     }
-    .live-hint i { color: #7c3aed; }
-    .live-hint .pulse-dot {
-        width: 8px; height: 8px; border-radius: 50%;
-        background: #7c3aed;
-        animation: pulseLive 1.4s ease-in-out infinite;
+    .auth-panel.locked {
+        background: #f7fafd; border: 1.5px dashed #c5d8eb;
+        color: #55708b;
+    }
+    .auth-panel.locked i.icon { color: #8098ad; font-size: 20px; flex-shrink: 0; }
+    .auth-panel.locked strong { display: block; color: #13202d; font-size: 14px; margin-bottom: 2px; }
+    .auth-panel.locked p { font-size: 12.5px; font-weight: 500; }
+
+    .auth-panel.go {
+        background: linear-gradient(135deg, #16a34a 0%, #0d9488 100%);
+        color: #fff;
+        box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28);
+        animation: goBounce 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.15) both,
+                   goPulse 2s ease-in-out 0.6s infinite;
+    }
+    @keyframes goBounce {
+        0%   { opacity: 0; transform: scale(0.6); }
+        60%  { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes goPulse {
+        0%, 100% { box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28), 0 0 0 0 rgba(22, 163, 74, 0.5); }
+        50%      { box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28), 0 0 0 14px rgba(22, 163, 74, 0); }
+    }
+    .auth-panel.go .go-icon {
+        font-size: 28px; flex-shrink: 0;
+        animation: goWiggle 1.6s ease-in-out infinite;
+    }
+    @keyframes goWiggle {
+        0%, 100% { transform: rotate(0deg); }
+        25%      { transform: rotate(-12deg); }
+        75%      { transform: rotate(12deg); }
+    }
+    .auth-panel.go strong { display: block; font-size: 17px; font-weight: 800; margin-bottom: 2px; letter-spacing: -0.2px; }
+    .auth-panel.go p { font-size: 12.5px; opacity: 0.9; font-weight: 500; }
+
+    .auth-panel.ghost {
+        background: #f1ebff; border: 1.5px solid #d6c7f5;
+        color: #5b21b6;
+    }
+    .auth-panel.ghost i.icon { color: #7c3aed; font-size: 20px; flex-shrink: 0; }
+    .auth-panel.ghost strong { display: block; color: #4c1d95; font-size: 14px; margin-bottom: 2px; }
+    .auth-panel.ghost p { font-size: 12.5px; font-weight: 500; opacity: 0.85; }
+    .auth-btn {
+        margin-left: auto;
+        border: none; border-radius: 40px;
+        padding: 10px 20px;
+        font-family: inherit; font-size: 13px; font-weight: 800;
+        cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+        transition: all 0.15s;
         flex-shrink: 0;
     }
-    @keyframes pulseLive {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50%      { opacity: 0.4; transform: scale(1.4); }
+    .auth-btn.authorize {
+        background: #7c3aed; color: #fff;
+        box-shadow: 0 6px 16px rgba(124, 58, 237, 0.28);
     }
+    .auth-btn.authorize:hover { background: #5b21b6; transform: translateY(-2px); box-shadow: 0 10px 22px rgba(124, 58, 237, 0.36); }
+    .auth-btn.revoke {
+        background: #fff; color: #a13d3d;
+        border: 1.5px solid #f6d5d5;
+    }
+    .auth-btn.revoke:hover { background: #fdeaea; }
 
+    /* ---------- AUDIO (ghost only) ---------- */
     .audio-row {
         display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
         background: #f7fafd; border: 1px solid #eaf1f8;
@@ -307,6 +425,15 @@
     }
     .audio-row > i { color: #7c3aed; font-size: 18px; flex-shrink: 0; }
     .audio-row audio { flex: 1; min-width: 240px; height: 40px; }
+    .audio-teacher-only {
+        display: flex; align-items: center; gap: 12px;
+        background: #f1ebff; border-radius: 15px;
+        padding: 14px 18px; margin-bottom: 14px;
+        color: #5b21b6; font-size: 13px; font-weight: 600;
+    }
+    .audio-teacher-only i { font-size: 18px; flex-shrink: 0; }
+    .audio-teacher-only strong { color: #4c1d95; }
+
     .listen-intro {
         font-size: 13.5px; line-height: 1.55; color: #4a6580;
         font-weight: 500; margin-bottom: 16px;
@@ -333,6 +460,11 @@
     .prog-avatar.C { background: #b45309; }
     .prog-count { color: #1d4ed8; font-weight: 800; }
     .prog-count.done { color: #16a34a; }
+    .prog-pts {
+        background: #fef3c7; color: #92400e;
+        padding: 2px 8px; border-radius: 20px;
+        font-size: 11px; font-weight: 800;
+    }
     .prog-divider { color: #c5d8eb; font-weight: 800; font-size: 11px; margin: 0 2px; }
     .prog-name { color: #8098ad; font-weight: 700; font-size: 11.5px; }
 
@@ -367,6 +499,11 @@
         border: 1.5px solid #e2ecf5; border-radius: 15px;
         padding: 14px 15px; transition: all 0.2s; position: relative;
     }
+    .q-card.not-yours {
+        background: #fafbfd;
+        border-style: dashed;
+    }
+    .q-card.not-yours .q-num-badge { opacity: 0.65; }
     .q-card.solved {
         border-color: #16a34a;
         background: linear-gradient(180deg, #f3fdf7 0%, #eafaf1 100%);
@@ -379,7 +516,21 @@
         display: flex; align-items: center; justify-content: center;
         font-size: 12px; font-weight: 800;
     }
-    .q-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .q-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .q-head .owner-label {
+        display: none;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: #8098ad;
+        background: #eef3f9;
+        padding: 3px 9px;
+        border-radius: 20px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-left: auto;
+    }
     .q-num-badge {
         width: 26px; height: 26px; border-radius: 8px;
         display: flex; align-items: center; justify-content: center;
@@ -390,7 +541,7 @@
     .q-col.C .q-num-badge { background: #fff4e0; color: #b45309; }
     .q-text {
         flex: 1; font-size: 13.5px; font-weight: 700; color: #1c3350;
-        line-height: 1.42; padding-right: 18px;
+        line-height: 1.42; min-width: 180px;
     }
     .options { display: flex; flex-direction: column; gap: 7px; }
     .opt {
@@ -499,8 +650,11 @@
         box-shadow: 0 12px 30px rgba(29, 78, 216, 0.35);
         opacity: 0; transition: all 0.3s; z-index: 1000;
         pointer-events: none; max-width: 90vw;
+        text-align: center;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success { background: #16a34a; }
+    .toast.gold { background: linear-gradient(135deg, #d97706, #b45309); }
 
     .footer-note {
         margin-top: 24px; font-size: 12px; line-height: 1.6;
@@ -538,6 +692,13 @@
         .step-dot.active { width: 28px; }
         .progress-bar { flex-direction: column; align-items: stretch; }
         .prog-item { justify-content: center; }
+        .location-banner { padding: 12px 16px; }
+        .loc-info { font-size: 12.5px; }
+        .loc-team-score { font-size: 12px; padding: 6px 13px; }
+        .loc-guide-btn { width: 100%; justify-content: center; }
+        .auth-panel { padding: 13px 16px; }
+        .auth-panel.go strong { font-size: 15px; }
+        .auth-btn { margin-left: 0; width: 100%; justify-content: center; margin-top: 8px; }
     }
 </style>
 </head>
@@ -595,8 +756,28 @@
             <b id="meName">—</b>
             <span id="meRole">Player A</span>
         </div>
+        <button type="button" class="reset-answers-btn hidden" id="resetAnswersBtn">
+            <i class="fas fa-eraser"></i> Reset answers
+        </button>
         <button class="leave-btn" id="leaveBtn">
             <i class="fas fa-right-from-bracket"></i> Leave
+        </button>
+    </div>
+
+    <div class="location-banner">
+        <div class="loc-info">
+            <i class="fas fa-location-dot"></i>
+            <span class="loc-step-num" id="locStepNum">1 / 6</span>
+            <span class="loc-step-title" id="locStepTitle">—</span>
+        </div>
+        <div class="loc-team-score">
+            <i class="fas fa-trophy"></i>
+            <span>Team</span>
+            <b id="teamScoreVal">0</b>
+            <span>pts</span>
+        </div>
+        <button type="button" class="loc-guide-btn hidden" id="guideBtn">
+            <i class="fas fa-paper-plane"></i> Send class here
         </button>
     </div>
 
@@ -633,17 +814,35 @@
     const FIXED_ROOM = 'TWOFUTURES';
     const GHOST_NAMES = ['andre prof', 'prof andre', 'andre professor', 'professor andre', 'prof. andre', 'andre prof.'];
     const CLIENT_ID = 'c_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-    const STORAGE_KEY = 'two-futures-debate-v1';
+    const STORAGE_KEY = 'two-futures-debate-v3';
     const ROLES = ['A', 'B', 'C'];
 
-    const OWNER_2P = { 1: 'A', 2: 'B', 3: 'A', 4: 'B', 5: 'A', 6: 'B' };
-    const OWNER_3P = { 1: 'A', 2: 'B', 3: 'C', 4: 'A', 5: 'B', 6: 'C' };
-    function getMode(presentRoles) { return presentRoles.length >= 3 ? 'three' : 'two'; }
-    function ownerOfQ(n, mode) { return mode === 'three' ? OWNER_3P[n] : OWNER_2P[n]; }
-    function rolesForMode(mode) { return mode === 'three' ? ['A', 'B', 'C'] : ['A', 'B']; }
+  const OWNER_2P = { 1: 'A', 2: 'B', 3: 'A', 4: 'B', 5: 'A', 6: 'B' };
+const OWNER_3P = { 1: 'A', 2: 'B', 3: 'C', 4: 'A', 5: 'B', 6: 'C' };
+function getMode(presentRoles) {
+    if (presentRoles.length >= 3) return 'three';
+    if (presentRoles.length === 1) return 'one';
+    return 'two';
+}
+function ownerOfQ(n, mode) {
+    if (mode === 'three') return OWNER_3P[n];
+    if (mode === 'one') {
+        const present = presentRolesOf(state);
+        return present[0] || 'A';
+    }
+    return OWNER_2P[n];
+}
+function rolesForMode(mode) {
+    if (mode === 'three') return ['A', 'B', 'C'];
+    if (mode === 'one') {
+        const present = presentRolesOf(state);
+        return present.length ? [present[0]] : ['A'];
+    }
+    return ['A', 'B'];
+}
 
     /* ================================================================
-       PORTRAITS (SVG, original drawings)
+       PORTRAITS
        ================================================================ */
     const PORTRAITS = {
         bolsonaro: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a candidate">
@@ -717,9 +916,6 @@
         }
     ];
 
-    /* ================================================================
-       DATA — listenings
-       ================================================================ */
     const LISTENINGS = [
         {
             id: 'listening1', variant: 'listen1',
@@ -815,15 +1011,22 @@
     const ALL_QUESTIONS = {};
     LISTENINGS.forEach(l => l.questions.forEach(q => { ALL_QUESTIONS[q.id] = q; }));
 
+    function stepLabel(item) {
+        if (item.type === 'theme') return 'Debate · ' + item.data.title;
+        return item.data.title;
+    }
+
     /* ================================================================
        STATE
        ================================================================ */
     let me = { role: null, name: '', room: FIXED_ROOM, isGhost: false };
-    let state = { players: {}, answers: {} };
+    let state = { players: {}, answers: {}, auth: {}, lastGuide: null };
     let currentStep = 0;
     let sectionsEls = [];
     let lastRolesStr = '';
     let lastKnownSolved = {};
+    let lastSeenGuidePushId = null;
+    let lastAuthSnapshot = {};
     let db = null;
     let firebaseOk = false;
     let roomRef = null;
@@ -842,22 +1045,27 @@
         if (!name) return '?';
         return name.trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
     }
-    function toast(msg) {
+    function toast(msg, kind) {
         const el = document.createElement('div');
-        el.className = 'toast';
+        el.className = 'toast' + (kind ? ' ' + kind : '');
         el.textContent = msg;
         document.body.appendChild(el);
         requestAnimationFrame(() => el.classList.add('show'));
         setTimeout(() => {
             el.classList.remove('show');
             setTimeout(() => el.remove(), 300);
-        }, 2800);
+        }, 3000);
     }
     function presentRolesOf(s) { return ROLES.filter(r => s.players && s.players[r]); }
     function isGhostName(name) {
         const n = String(name || '').toLowerCase()
             .normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
         return GHOST_NAMES.indexOf(n) !== -1;
+    }
+    function pointsForAttempt(attempts) {
+        if (attempts === 1) return 3;
+        if (attempts === 2) return 2;
+        return 1;
     }
 
     /* ================================================================
@@ -978,8 +1186,14 @@
         document.getElementById('meRole').textContent = me.isGhost ? 'Ghost mode' : 'Player ' + me.role;
         document.getElementById('meChip').className = 'me-chip ' + (me.isGhost ? 'ghost' : me.role);
 
+        if (me.isGhost) {
+            document.getElementById('guideBtn').classList.remove('hidden');
+            document.getElementById('resetAnswersBtn').classList.remove('hidden');
+        }
+
         renderSections();
         updateStepNav();
+        updateLocationBanner();
         connectRealtime();
     }
 
@@ -997,6 +1211,8 @@
                 const val = snap.val() || {};
                 state.players = val.players || {};
                 state.answers = val.answers || {};
+                state.auth = val.auth || {};
+                state.lastGuide = val.lastGuide || null;
                 applyState(state);
             }, err => {
                 console.warn('Room read failed:', err);
@@ -1103,15 +1319,8 @@
                 <span class="sec-num">${num} / ${total}</span>
             </div>
             <div class="section-body">
-                <div class="live-hint">
-                    <span class="pulse-dot"></span>
-                    <i class="fas fa-eye"></i>
-                    <span>Live room — everyone sees every answer as it happens, including the teacher.</span>
-                </div>
-                <div class="audio-row">
-                    <i class="fas fa-headphones"></i>
-                    <audio controls preload="none" src="${listen.audio}"></audio>
-                </div>
+                <div data-auth-panel></div>
+                <div data-audio-row></div>
                 <p class="listen-intro">${escapeHtml(listen.intro)}</p>
                 <div class="progress-bar" data-progress></div>
                 <div class="q-columns" data-cols></div>
@@ -1125,6 +1334,80 @@
             </div>
         `;
         return sec;
+    }
+
+    /* ================================================================
+       AUTH PANEL
+       ================================================================ */
+    function renderAuthPanel(listen, authorized) {
+        if (me.isGhost) {
+            if (authorized) {
+                return `
+                    <div class="auth-panel ghost">
+                        <i class="fas fa-unlock icon"></i>
+                        <div>
+                            <strong>Answers are open</strong>
+                            <p>Students can answer now — but only their own questions. Lock again if you need to.</p>
+                        </div>
+                        <button type="button" class="auth-btn revoke" data-revoke-auth="${listen.id}">
+                            <i class="fas fa-lock"></i> Lock again
+                        </button>
+                    </div>
+                `;
+            }
+            return `
+                <div class="auth-panel ghost">
+                    <i class="fas fa-shield-halved icon"></i>
+                    <div>
+                        <strong>Answers are locked</strong>
+                        <p>Play the audio first, then authorize students to answer.</p>
+                    </div>
+                    <button type="button" class="auth-btn authorize" data-authorize="${listen.id}">
+                        <i class="fas fa-unlock"></i> Authorize answers
+                    </button>
+                </div>
+            `;
+        }
+        if (authorized) {
+            return `
+                <div class="auth-panel go">
+                    <div class="go-icon">🎮</div>
+                    <div>
+                        <strong>GO! Answer the questions now!</strong>
+                        <p>You can only answer <b>your own</b> questions. First try = 3 pts · Second try = 2 pts · Third try = 1 pt.</p>
+                    </div>
+                </div>
+            `;
+        }
+        return `
+            <div class="auth-panel locked">
+                <i class="fas fa-lock icon"></i>
+                <div>
+                    <strong>Wait for your teacher</strong>
+                    <p>The questions will open after the audio finishes on the Zoom screen.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderAudioRow(listen) {
+        if (me.isGhost) {
+            return `
+                <div class="audio-row">
+                    <i class="fas fa-headphones"></i>
+                    <audio controls preload="none" src="${listen.audio}"></audio>
+                </div>
+            `;
+        }
+        return `
+            <div class="audio-teacher-only">
+                <i class="fas fa-tv"></i>
+                <div>
+                    <strong>Listen on the Zoom screen.</strong>
+                    <span style="display:block;font-weight:500;opacity:0.85;margin-top:2px;">Your teacher is playing the audio. Concentrate and take notes.</span>
+                </div>
+            </div>
+        `;
     }
 
     /* ================================================================
@@ -1158,16 +1441,18 @@
                 <div class="q-head">
                     <span class="q-num-badge">${q.num}</span>
                     <p class="q-text">${escapeHtml(q.text)}</p>
+                    <span class="owner-label" data-owner-label></span>
                 </div>
                 <div class="options">
                     ${q.options.map(o => `
-                        <button class="opt" type="button" data-choice="${o.k}">
+                        <button class="opt" type="button" data-choice="${o.k}" disabled>
                             <span class="opt-letter">${o.k}</span>
                             <span class="opt-body">${escapeHtml(o.text)}</span>
                         </button>
                     `).join('')}
                 </div>
                 <div class="feedback" data-feedback></div>
+                <div data-points></div>
             </div>
         `;
     }
@@ -1181,6 +1466,11 @@
         const mode = getMode(presentRoles);
         const rolesStr = presentRoles.join(',') + '|' + mode;
 
+        // If answers were wiped (e.g. teacher reset), clear local tracking
+        if (Object.keys(s.answers || {}).length === 0) {
+            lastKnownSolved = {};
+        }
+
         if (rolesStr !== lastRolesStr) {
             LISTENINGS.forEach(l => refreshListeningColumns(l, mode));
             lastRolesStr = rolesStr;
@@ -1190,50 +1480,36 @@
             el.style.display = (!me.isGhost && el.dataset.youBadge === me.role) ? 'inline-flex' : 'none';
         });
 
-        if (!presentRoles.length) return;
+        updateTeamScore(s);
 
+        // Guide push
+        if (s.lastGuide && s.lastGuide.pushId && s.lastGuide.pushId !== lastSeenGuidePushId) {
+            if (!me.isGhost) {
+                const stepIdx = Number(s.lastGuide.step);
+                if (!isNaN(stepIdx) && stepIdx >= 0 && stepIdx < ITEMS.length) {
+                    navigateTo(stepIdx, { fromGuide: true });
+                    toast('📍 Teacher: "Go to ' + stepLabel(ITEMS[stepIdx]) + '"', 'gold');
+                }
+            }
+            lastSeenGuidePushId = s.lastGuide.pushId;
+        }
+
+        // Always update listening state (panel, audio, questions, progress)
         LISTENINGS.forEach(listen => {
             const sec = document.querySelector(`[data-listening-id="${listen.id}"]`);
             if (!sec) return;
+            const auth = !!s.auth[listen.id];
+            updateListeningState(sec, listen, mode, s, auth);
 
-            listen.questions.forEach(q => {
-                const card = sec.querySelector(`[data-qid="${q.id}"]`);
-                if (!card) return;
-                const ans = s.answers[q.id];
-                const solved = !!(ans && ans.correct);
-                const isWrongAttempt = !!(ans && !ans.correct);
-                const owner = ownerOfQ(q.num, mode);
-                const isMine = owner === me.role && !me.isGhost;
-                const iCanClick = isMine && !solved;
-
-                card.classList.toggle('solved', solved);
-
-                card.querySelectorAll('.opt').forEach(opt => {
-                    const isChosen = ans && opt.dataset.choice === ans.choice;
-                    opt.classList.toggle('correct', solved && isChosen);
-                    opt.classList.toggle('wrong', isWrongAttempt && isChosen);
-                    opt.disabled = !iCanClick;
-                });
-
-                const fb = card.querySelector('[data-feedback]');
-                const whoName = (s.players[ans && ans.who] && s.players[ans.who].name) || (ans ? ('Player ' + ans.who) : '');
-
-                if (solved) {
-                    fb.className = 'feedback success';
-                    fb.textContent = '✅ ' + whoName + ' got it right · ' + q.explain;
-                } else if (isWrongAttempt) {
-                    fb.className = 'feedback live';
-                    fb.textContent = '👀 ' + whoName + ' tried (' + ans.choice + ') — still thinking';
-                } else {
-                    fb.className = 'feedback';
-                    fb.textContent = '';
+            if (!me.isGhost && auth && !lastAuthSnapshot[listen.id]) {
+                if (!sec.classList.contains('active-step')) {
+                    toast('🎮 ' + listen.title + ' is now open!', 'success');
                 }
-            });
-
-            updateProgressBar(sec, listen, mode, s);
-            updateTeamwork(sec, listen, s);
+            }
+            lastAuthSnapshot[listen.id] = auth;
         });
 
+        // Toasts for other players' correct answers
         if (!opts.skipToast && !me.isGhost) {
             Object.keys(s.answers || {}).forEach(qid => {
                 const ans = s.answers[qid];
@@ -1245,9 +1521,89 @@
                 if (!player) return;
                 const q = ALL_QUESTIONS[qid];
                 if (!q) return;
-                toast('✅ ' + player.name + ' answered Question ' + q.num);
+                toast('✅ ' + player.name + ' got Question ' + q.num + ' right (+' + (ans.points || 0) + ' pts)', 'success');
             });
         }
+    }
+
+    function updateListeningState(sec, listen, mode, s, auth) {
+        // Auth panel
+        const panel = sec.querySelector('[data-auth-panel]');
+        if (panel) {
+            const newHtml = renderAuthPanel(listen, auth);
+            if (panel.innerHTML.trim() !== newHtml.trim()) {
+                panel.innerHTML = newHtml;
+            }
+        }
+        // Audio row
+        const audioRow = sec.querySelector('[data-audio-row]');
+        if (audioRow) {
+            const newHtml = renderAudioRow(listen);
+            if (audioRow.innerHTML.trim() !== newHtml.trim()) {
+                audioRow.innerHTML = newHtml;
+            }
+        }
+
+        listen.questions.forEach(q => {
+            const card = sec.querySelector(`[data-qid="${q.id}"]`);
+            if (!card) return;
+            const ans = s.answers[q.id];
+            const solved = !!(ans && ans.correct);
+            const isWrongAttempt = !!(ans && !ans.correct);
+            const owner = ownerOfQ(q.num, mode);
+            const isMine = owner === me.role && !me.isGhost;
+            const iCanClick = isMine && !solved && auth;
+
+            card.classList.toggle('solved', solved);
+
+            // Owner label + not-yours styling
+            const ownerLabel = card.querySelector('[data-owner-label]');
+            if (ownerLabel) {
+                if (isMine) {
+                    ownerLabel.style.display = 'none';
+                } else {
+                    ownerLabel.textContent = 'Player ' + owner + "'s";
+                    ownerLabel.style.display = 'inline-flex';
+                }
+            }
+            card.classList.toggle('not-yours', !isMine && !me.isGhost);
+
+            card.querySelectorAll('.opt').forEach(opt => {
+                const isChosen = ans && opt.dataset.choice === ans.choice;
+                opt.classList.toggle('correct', solved && isChosen);
+                opt.classList.toggle('wrong', isWrongAttempt && isChosen);
+                opt.disabled = !iCanClick;
+            });
+
+            const fb = card.querySelector('[data-feedback]');
+            const whoName = (s.players[ans && ans.who] && s.players[ans.who].name) || (ans ? ('Player ' + ans.who) : '');
+
+            if (solved) {
+                fb.className = 'feedback success';
+                fb.textContent = '✅ ' + whoName + ' got it right · ' + q.explain;
+            } else if (isWrongAttempt) {
+                fb.className = 'feedback live';
+                fb.textContent = '👀 ' + whoName + ' tried (' + ans.choice + ') — still thinking';
+            } else {
+                fb.className = 'feedback';
+                fb.textContent = '';
+            }
+
+            const pointsEl = card.querySelector('[data-points]');
+            if (pointsEl) {
+                if (solved && ans.points) {
+                    pointsEl.innerHTML = `<span class="points-badge">🏆 +${ans.points} pts</span>`;
+                } else if (isWrongAttempt && ans.attempts) {
+                    const nextPoints = pointsForAttempt(ans.attempts + 1);
+                    pointsEl.innerHTML = `<span class="points-badge">Next try worth ${nextPoints} pt${nextPoints !== 1 ? 's' : ''}</span>`;
+                } else {
+                    pointsEl.innerHTML = '';
+                }
+            }
+        });
+
+        updateProgressBar(sec, listen, mode, s);
+        updateTeamwork(sec, listen, s);
     }
 
     function updateProgressBar(sec, listen, mode, s) {
@@ -1256,7 +1612,15 @@
         const visible = rolesForMode(mode);
         const items = visible.map(role => {
             const roleQs = listen.questions.filter(q => ownerOfQ(q.num, mode) === role);
-            const done = roleQs.filter(q => s.answers[q.id] && s.answers[q.id].correct).length;
+            let done = 0;
+            let pts = 0;
+            roleQs.forEach(q => {
+                const ans = s.answers[q.id];
+                if (ans && ans.correct) {
+                    done++;
+                    pts += (typeof ans.points === 'number') ? ans.points : 0;
+                }
+            });
             const isPresent = !!(s.players[role]);
             const name = (s.players[role] && s.players[role].name) || ('Player ' + role);
             return `
@@ -1264,10 +1628,23 @@
                     <span class="prog-avatar ${role}">${escapeHtml(initials(isPresent ? name : role))}</span>
                     <span class="prog-name">${isPresent ? escapeHtml(name) : 'Waiting for Player ' + role}</span>
                     <span class="prog-count ${done === roleQs.length ? 'done' : ''}">${done}/${roleQs.length}</span>
+                    ${pts > 0 ? `<span class="prog-pts">${pts} pts</span>` : ''}
                 </span>
             `;
         }).join('<span class="prog-divider">·</span>');
         el.innerHTML = items;
+    }
+
+    function updateTeamScore(s) {
+        let total = 0;
+        LISTENINGS.forEach(l => l.questions.forEach(q => {
+            const ans = s.answers[q.id];
+            if (ans && ans.correct) {
+                total += (typeof ans.points === 'number') ? ans.points : 0;
+            }
+        }));
+        const el = document.getElementById('teamScoreVal');
+        if (el) el.textContent = total;
     }
 
     function updateTeamwork(sec, listen, s) {
@@ -1278,14 +1655,46 @@
     }
 
     /* ================================================================
-       ANSWER HANDLING — writes EVERY attempt (correct or wrong)
+       CLICKS — auth, revoke, answers
        ================================================================ */
     document.getElementById('sections').addEventListener('click', (e) => {
+        const authBtn = e.target.closest('[data-authorize]');
+        if (authBtn) {
+            const listenId = authBtn.dataset.authorize;
+            if (firebaseOk) {
+                db.ref('rooms/' + me.room + '/auth/' + listenId).set(true)
+                    .then(() => toast('🔓 Answers are now open for students', 'success'))
+                    .catch(err => console.warn('Auth write failed:', err));
+            } else {
+                state.auth[listenId] = true;
+                applyState(state, { skipToast: true });
+            }
+            return;
+        }
+
+        const revokeBtn = e.target.closest('[data-revoke-auth]');
+        if (revokeBtn) {
+            if (!confirm('Lock the answers again? Students will not be able to answer until you open them again.')) return;
+            const listenId = revokeBtn.dataset.revokeAuth;
+            if (firebaseOk) {
+                db.ref('rooms/' + me.room + '/auth/' + listenId).set(false)
+                    .catch(err => console.warn('Revoke write failed:', err));
+            } else {
+                state.auth[listenId] = false;
+                applyState(state, { skipToast: true });
+            }
+            return;
+        }
+
         const opt = e.target.closest('.opt');
-        if (!opt || opt.disabled) return;
-        handleAnswer(opt);
+        if (opt && !opt.disabled) {
+            handleAnswer(opt);
+        }
     });
 
+    /* ================================================================
+       ANSWER — with ownership + auth + scoring
+       ================================================================ */
     function handleAnswer(opt) {
         const card = opt.closest('.q-card');
         if (!card) return;
@@ -1293,38 +1702,127 @@
         const q = ALL_QUESTIONS[qid];
         if (!q) return;
 
+        // Ghost cannot answer
+        if (me.isGhost) return;
+
+        // Owner check — only your questions
         const presentRoles = presentRolesOf(state);
         const mode = getMode(presentRoles);
         const owner = ownerOfQ(q.num, mode);
-        if (owner !== me.role || me.isGhost) return;
+        if (owner !== me.role) {
+            toast('This is Player ' + owner + "'s question — you can only answer your own.", 'gold');
+            return;
+        }
+
+        // Already solved
         if (state.answers[qid] && state.answers[qid].correct) return;
+
+        // Auth check
+        const listen = LISTENINGS.find(l => l.questions.some(x => x.id === qid));
+        if (!listen) return;
+        if (!state.auth || !state.auth[listen.id]) {
+            toast('⏳ Wait for your teacher to open the questions.', 'gold');
+            return;
+        }
 
         const choice = opt.dataset.choice;
         const isCorrect = choice === q.correct;
+        const prevAns = state.answers[qid];
+        const prevAttempts = (prevAns && typeof prevAns.attempts === 'number') ? prevAns.attempts : 0;
+        const newAttempts = prevAttempts + 1;
+        let points = 0;
+        if (isCorrect) points = pointsForAttempt(newAttempts);
 
-        // Optimistic local update — everyone sees immediately
-        state.answers[qid] = { choice, correct: isCorrect, who: me.role };
+        const answerData = {
+            choice, correct: isCorrect, who: me.role,
+            attempts: newAttempts, points,
+            ts: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        state.answers[qid] = { choice, correct: isCorrect, who: me.role, attempts: newAttempts, points };
         applyState(state, { skipToast: true });
 
-        // Write to Firebase — every attempt is broadcast
         if (firebaseOk) {
-            db.ref('rooms/' + me.room + '/answers/' + qid).set({
-                choice, correct: isCorrect, who: me.role,
-                ts: firebase.database.ServerValue.TIMESTAMP
-            }).catch(err => console.warn('Answer write failed:', err));
+            db.ref('rooms/' + me.room + '/answers/' + qid).set(answerData)
+                .catch(err => console.warn('Answer write failed:', err));
+        }
+
+        if (isCorrect) {
+            toast('🏆 +' + points + ' pts! ' + (newAttempts === 1 ? 'Perfect first try!' : 'Nice recovery!'), 'success');
         }
     }
 
     /* ================================================================
+       GUIDE BUTTON (ghost)
+       ================================================================ */
+    document.getElementById('guideBtn').addEventListener('click', () => {
+        if (!me.isGhost) return;
+        const pushId = CLIENT_ID + '_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+        if (firebaseOk) {
+            db.ref('rooms/' + me.room + '/lastGuide').set({
+                step: currentStep, pushId,
+                ts: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => toast('📤 Class guided to: ' + stepLabel(ITEMS[currentStep]), 'gold'))
+              .catch(err => console.warn('Guide write failed:', err));
+        } else {
+            toast('📤 (local mode) Guided to: ' + stepLabel(ITEMS[currentStep]), 'gold');
+        }
+    });
+
+    /* ================================================================
+       RESET ANSWERS (ghost only)
+       ================================================================ */
+    document.getElementById('resetAnswersBtn').addEventListener('click', () => {
+        if (!me.isGhost) return;
+        if (!confirm('Reset all answers and lock the questions again?\n\nThis clears all points, attempts and correct answers. You will need to authorize students again for the next class.')) return;
+
+        if (firebaseOk) {
+            const updates = {};
+            updates['rooms/' + me.room + '/answers'] = null;
+            updates['rooms/' + me.room + '/auth/listening1'] = null;
+            updates['rooms/' + me.room + '/auth/listening2'] = null;
+            updates['rooms/' + me.room + '/lastGuide'] = null;
+            db.ref().update(updates)
+                .then(() => {
+                    lastKnownSolved = {};
+                    lastAuthSnapshot = {};
+                    lastSeenGuidePushId = null;
+                    state.answers = {};
+                    state.auth = {};
+                    state.lastGuide = null;
+                    applyState(state, { skipToast: true });
+                    toast('🧹 Answers cleared, questions locked', 'success');
+                })
+                .catch(err => {
+                    console.warn('Reset failed:', err);
+                    toast('Could not reset. Try again.', 'gold');
+                });
+        } else {
+            state.answers = {};
+            state.auth = {};
+            state.lastGuide = null;
+            lastKnownSolved = {};
+            lastAuthSnapshot = {};
+            lastSeenGuidePushId = null;
+            applyState(state, { skipToast: true });
+            toast('🧹 Answers cleared (local mode)', 'success');
+        }
+    });
+
+    /* ================================================================
        STEP NAV
        ================================================================ */
-    function navigateTo(step) {
+    function navigateTo(step, opts) {
+        opts = opts || {};
         if (step < 0 || step >= ITEMS.length) return;
         $$('audio').forEach(a => { try { a.pause(); } catch (e) {} });
         currentStep = step;
         sectionsEls.forEach((el, i) => el.classList.toggle('active-step', i === step));
         updateStepNav();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        updateLocationBanner();
+        if (!opts.fromGuide) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
     function updateStepNav() {
@@ -1335,6 +1833,13 @@
         }).join('');
         document.getElementById('prevStep').disabled = currentStep === 0;
         document.getElementById('nextStep').disabled = currentStep === ITEMS.length - 1;
+    }
+
+    function updateLocationBanner() {
+        const item = ITEMS[currentStep];
+        const icon = item.type === 'listening' ? '🎧' : '💬';
+        document.getElementById('locStepNum').textContent = (currentStep + 1) + ' / ' + ITEMS.length;
+        document.getElementById('locStepTitle').textContent = icon + ' ' + stepLabel(item);
     }
 
     document.getElementById('prevStep').addEventListener('click', () => navigateTo(currentStep - 1));
@@ -1349,7 +1854,7 @@
        LEAVE
        ================================================================ */
     document.getElementById('leaveBtn').addEventListener('click', () => {
-        if (!confirm('Are you sure you want to leave the room? Your data and answers will be removed from the shared room.')) return;
+        if (!confirm('Are you sure you want to leave the room? Your player data and answers will be removed from the shared room.')) return;
 
         if (firebaseOk && me.role && me.role !== 'ghost') {
             try { removeMyData(); } catch (e) { console.warn(e); }
