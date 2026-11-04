@@ -1,485 +1,863 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Speak &amp; Dictate · 2 Speaking + 2 Listening Dictations</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baby Co. — Market Rescue</title>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#eef3fa;background-image:radial-gradient(circle at 10% 4%,rgba(29,78,216,.09),transparent 40%),radial-gradient(circle at 90% 96%,rgba(15,118,110,.09),transparent 40%);background-attachment:fixed;color:#13202d;min-height:100vh;padding:24px 18px 48px}
-.app{max-width:1180px;margin:0 auto}.hidden{display:none!important}
-.join-screen{max-width:480px;margin:60px auto 0;background:#fff;border-radius:28px;border:1px solid #e6eef6;box-shadow:0 24px 60px rgba(20,45,80,.14);padding:32px 30px 28px}
-.join-brand{display:flex;align-items:center;gap:14px;margin-bottom:22px}
-.join-logo{width:54px;height:54px;border-radius:17px;background:linear-gradient(135deg,#1d4ed8,#0f766e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.join-brand h1{font-size:21px;font-weight:800;line-height:1.2}.join-brand h1 span{color:#1d4ed8}
-.join-brand p{font-size:12.5px;color:#6b8299;font-weight:500;margin-top:3px}
-.room-info{background:#f7fafd;border:1.5px solid #e2ecf5;border-radius:13px;padding:12px 15px;margin-bottom:16px;font-size:12.5px;font-weight:600;color:#4a6580}
-.room-info b{color:#13202d;letter-spacing:1px}
-.field label{display:block;font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#7d92a8;margin-bottom:7px}
-.field input{width:100%;padding:13px 15px;border-radius:13px;border:1.5px solid #dbe7f1;background:#f7fafd;font:600 15px 'Inter',sans-serif;color:#13202d;outline:none;margin-bottom:14px}
-.field input:focus{border-color:#1d4ed8;background:#fff;box-shadow:0 0 0 4px #eaf1ff}
-.btn{border:none;border-radius:40px;padding:12px 24px;font:800 14px 'Inter',sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(135deg,#1d4ed8,#16389b);color:#fff;box-shadow:0 8px 20px rgba(29,78,216,.3);transition:.18s}
-.btn:hover:not(:disabled){transform:translateY(-2px)}.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn.wide{width:100%}.btn.soft{background:#eef3f9;color:#3d5a75;box-shadow:none}.btn.soft:hover:not(:disabled){background:#dbe7f1}
-.btn.warn{background:#fff4e0;color:#a0690c;border:1.5px solid #f0c88a;box-shadow:none;padding:8px 14px;font-size:12px}
-.join-error{background:#fdeaea;color:#8f2f2f;border:1.5px solid #f6d5d5;border-radius:12px;padding:11px 14px;font-size:13px;font-weight:600;margin-top:14px}
-.join-hint{font-size:12px;line-height:1.55;color:#8098ad;margin-top:16px;padding-top:16px;border-top:1px dashed #e2ecf5;text-align:center;font-weight:500}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid #e6eef6;border-radius:20px;padding:12px 16px;box-shadow:0 10px 26px rgba(20,45,80,.08);margin-bottom:12px;position:sticky;top:10px;z-index:100}
-.room-chip{background:#f2f7fc;border-radius:40px;padding:8px 15px;font-size:13px;font-weight:700;color:#4a6580}.room-chip b{color:#13202d}
-.me-chip{display:flex;align-items:center;gap:9px;border-radius:40px;padding:6px 14px 6px 8px;font-size:13px;font-weight:700}
-.me-chip.A{background:#eaf1ff;color:#1d4ed8}.me-chip.B{background:#e3f5f2;color:#0f766e}.me-chip.C{background:#fff4e0;color:#b45309}.me-chip.ghost{background:#f1ebff;color:#7c3aed}
-.me-dot{width:26px;height:26px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
-.A .me-dot,.me-dot.A{background:#1d4ed8}.B .me-dot,.me-dot.B{background:#0f766e}.C .me-dot,.me-dot.C{background:#b45309}.ghost .me-dot{background:#7c3aed}
-.leave-btn{border:none;background:transparent;color:#8098ad;border-radius:30px;padding:8px 14px;font:700 12px 'Inter',sans-serif;cursor:pointer}.leave-btn:hover{background:#fdeaea;color:#a13d3d}
-.location-banner{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#1d4ed8,#16389b);color:#fff;border-radius:16px;padding:14px 20px;margin-bottom:22px;box-shadow:0 12px 28px rgba(29,78,216,.28)}
-.loc-info{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:700;flex:1;min-width:0}.loc-info i{color:#ffd166}
-.loc-step-num{background:rgba(255,255,255,.18);padding:3px 10px;border-radius:30px;font-size:11.5px;font-weight:800}
-.loc-team-score{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.28);border-radius:30px;padding:7px 16px;font-size:13px;font-weight:800}
-.loc-team-score i{color:#ffd166}.loc-team-score b{font-size:16px}
-.loc-guide-btn{border:none;border-radius:30px;background:#ffd166;color:#7a4a00;padding:9px 18px;font:800 12.5px 'Inter',sans-serif;cursor:pointer}
-.section{background:#fff;border:1px solid #e6eef6;border-radius:26px;box-shadow:0 16px 38px rgba(20,45,80,.09);overflow:hidden}
-.section-head{padding:20px 26px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid #eaf1f8}
-.section-head.l{background:linear-gradient(135deg,#f1ebff,#eaf1ff)}
-.sec-badge{display:inline-flex;align-items:center;gap:7px;background:#eaf1ff;color:#1d4ed8;padding:5px 14px;border-radius:30px;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
-.sec-badge.listen{background:#fff;color:#7c3aed}
-.sec-title{font-size:21px;font-weight:800;letter-spacing:-.3px}
-.sec-num{margin-left:auto;font-size:12px;font-weight:800;color:#8098ad;background:#f2f7fc;border-radius:40px;padding:6px 15px}
-.section-body{padding:22px 26px 24px}
-.panel{border-radius:15px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.panel strong{display:block;font-size:15px;margin-bottom:2px}.panel p{font-size:12.5px;font-weight:500}
-.panel .ic{font-size:24px;flex-shrink:0}
-.panel.locked{background:#f7fafd;border:1.5px dashed #c5d8eb;color:#55708b}.panel.locked strong{color:#13202d}
-.panel.go{background:linear-gradient(135deg,#16a34a,#0d9488);color:#fff;box-shadow:0 12px 28px rgba(22,163,74,.28)}
-.panel.ghost{background:#f1ebff;border:1.5px solid #d6c7f5;color:#5b21b6}.panel.ghost strong{color:#4c1d95}
-.timer{margin-left:auto;font-size:34px;font-weight:800;letter-spacing:1px;font-variant-numeric:tabular-nums}
-.pics{display:grid;gap:14px;margin-bottom:6px}.pics[data-n="2"]{grid-template-columns:1fr 1fr}.pics[data-n="3"]{grid-template-columns:repeat(3,1fr)}
-.pic{background:var(--tint);border:2.5px solid transparent;border-radius:18px;padding:18px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;opacity:.55;transition:.2s}
-.pic.now{opacity:1;border-color:var(--accent);box-shadow:0 14px 30px rgba(20,45,80,.16);transform:translateY(-3px)}
-.pic.done{opacity:.75}
-.pic-icon{width:96px;height:96px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(20,45,80,.14);color:var(--accent);font-size:40px}
-.pic-tag{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:#fff;padding:4px 12px;border-radius:30px}
-.pic h3{font-size:17px;font-weight:800}.pic p{font-size:12px;font-weight:500;color:#5a7189;line-height:1.45}
-.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-.chip{background:#fff;border:1.5px solid #dbe7f1;color:#33526e;font-size:12px;font-weight:700;padding:5px 12px;border-radius:40px}
-.who{font-size:12.5px;font-weight:800;color:#13202d;background:#fff;border-radius:30px;padding:5px 12px}
-.textcard{background:linear-gradient(180deg,#fffdf5,#fff8e6);border:2px solid #f2dfa6;border-radius:18px;padding:22px 24px;margin-bottom:16px}
-.textcard small{display:block;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#a0690c;margin-bottom:10px}
-.textcard p{font-size:20px;line-height:1.65;font-weight:600;color:#3a2b0a}
-.order{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.order span{font-size:12px;font-weight:800;padding:6px 14px;border-radius:30px;background:#f2f7fc;color:#6b8299}
-.order span.now{background:#1d4ed8;color:#fff}.order span.done{background:#eafaf1;color:#14603c}
-.progress-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 16px;border-radius:14px;background:#f7fafd;border:1px solid #eaf1f8;margin-bottom:18px}
-.prog-item{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:#55708b;background:#fff;border-radius:30px;padding:5px 13px 5px 5px;border:1px solid #e2ecf5}
-.prog-item .me-dot{width:24px;height:24px;font-size:10.5px}
-.prog-count{color:#1d4ed8;font-weight:800}.prog-count.done{color:#16a34a}
-.prog-pts{background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:800}
-.q-columns{display:grid;gap:14px}.q-columns[data-n="1"]{grid-template-columns:1fr}.q-columns[data-n="2"]{grid-template-columns:1fr 1fr}
-.q-col{display:flex;flex-direction:column;gap:12px}
-.q-col-head{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;color:#4a6580;flex-wrap:wrap}
-.player-tag{padding:4px 12px;border-radius:30px;font-size:11px;font-weight:800;text-transform:uppercase}
-.player-tag.A{background:#eaf1ff;color:#1d4ed8}.player-tag.B{background:#e3f5f2;color:#0f766e}.player-tag.C{background:#fff4e0;color:#b45309}
-.you-badge{margin-left:auto;font-size:10px;font-weight:800;text-transform:uppercase;color:#fff;background:#16a34a;padding:3px 10px;border-radius:30px}
-.q-card{background:#fff;border:1.5px solid #e2ecf5;border-radius:15px;padding:14px 15px;position:relative}
-.q-card.not-yours{background:#fafbfd;border-style:dashed}
-.q-card.solved{border-color:#16a34a;background:linear-gradient(180deg,#f3fdf7,#eafaf1)}
-.q-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
-.q-num{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;background:#eaf1ff;color:#1d4ed8}
-.q-text{flex:1;font-size:13.5px;font-weight:700;color:#1c3350;line-height:1.42}
-.options{display:flex;flex-direction:column;gap:7px}
-.opt{width:100%;text-align:left;border:1.5px solid #dbe7f1;background:#fbfdff;border-radius:11px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px;font:600 13px 'Inter',sans-serif;color:#33526e;line-height:1.4;cursor:pointer;transition:.15s}
-.opt .l{width:22px;height:22px;border-radius:6px;background:#eef3f9;color:#4a6580;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;flex-shrink:0}
-.opt:hover:not(:disabled){border-color:#1d4ed8;background:#f4f9ff;transform:translateX(2px)}
-.opt.correct{background:#eafaf1;border-color:#16a34a;color:#14603c}.opt.correct .l{background:#16a34a;color:#fff}
-.opt.wrong{background:#fdeaea;border-color:#dc2626;color:#8f2f2f;animation:shake .55s}.opt.wrong .l{background:#dc2626;color:#fff}
-.opt:disabled{cursor:default}.opt:disabled:not(.correct):not(.wrong){opacity:.65}
-@keyframes shake{20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-5px)}40%,60%{transform:translateX(5px)}}
-.feedback{margin-top:9px;font-size:12.5px;font-weight:700;padding:8px 12px;border-radius:9px}
-.feedback.ok{background:#eafaf1;color:#14603c;border-left:3px solid #16a34a}.feedback.live{background:#fff4e0;color:#92400e;border-left:3px solid #f59e0b}
-.teamwork{margin-top:16px;background:linear-gradient(135deg,#16a34a,#0d9488);border-radius:16px;padding:16px 20px;color:#fff;display:flex;align-items:center;gap:14px}
-.teamwork i{font-size:26px}.teamwork span{display:block;font-size:12.5px;opacity:.95}
-.step-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid #e6eef6;border-radius:20px;padding:12px 16px;box-shadow:0 10px 26px rgba(20,45,80,.08);margin-top:22px;position:sticky;bottom:14px;z-index:100}
-.step-dots{display:flex;gap:6px}
-.step-dot{width:26px;height:26px;border-radius:50%;border:2px solid #dbe7f1;background:#fff;color:#6b8299;font:800 10.5px 'Inter',sans-serif;cursor:pointer}
-.step-dot.active{background:#1d4ed8;border-color:#1d4ed8;color:#fff;width:32px;border-radius:15px}
-.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:#1d4ed8;color:#fff;padding:12px 22px;border-radius:40px;font-size:13.5px;font-weight:700;box-shadow:0 12px 30px rgba(29,78,216,.35);z-index:1000;max-width:90vw;text-align:center}
-.toast.success{background:#16a34a}.toast.gold{background:#d97706}
-.footer-note{margin-top:24px;font-size:12px;color:#8098ad;text-align:center}
-@media(max-width:900px){.pics[data-n],.q-columns[data-n]{grid-template-columns:1fr}}
-@media(max-width:640px){body{padding:14px 10px 100px}.section-body{padding:18px 16px}.topbar{position:static}.textcard p{font-size:17px}}
+  :root{
+    --bg:#0a0c10; --fg:#f1f3f6; --muted:#79818f; --dim:#464e5c;
+    --line:#1b2028; --card:#0f1318; --card2:#141a22;
+    --accent:#f2b544; --red:#ef4444; --red-glow:rgba(239,68,68,.55);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;padding:clamp(16px,3.5vw,40px)}
+  .top{flex:0 0 auto;display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .top .stepno{color:var(--muted)}
+
+  .btn-primary{font:inherit;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    padding:14px 30px;border-radius:10px;border:0;cursor:pointer;background:var(--fg);color:#0a0c10}
+  .btn-primary:hover{background:#fff}
+  .btn-primary:disabled{opacity:.4;cursor:default}
+  .btn-secondary{font:inherit;font-size:12px;font-weight:500;letter-spacing:.06em;
+    padding:10px 18px;border-radius:10px;cursor:pointer;
+    background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .btn-secondary:hover{color:var(--fg);border-color:#2b3340}
+
+  main.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;gap:14px;padding:20px}
+  .brand{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+  .login-title{font-size:clamp(20px,2.8vw,28px);font-weight:600;letter-spacing:-.02em;margin-top:8px}
+  .name-input{font:inherit;font-size:16px;width:min(320px,80vw);padding:14px 18px;border-radius:10px;
+    border:1px solid var(--line);background:var(--card);color:var(--fg);text-align:center;outline:none}
+  .name-input:focus{border-color:var(--muted)}
+  .waiting-title{font-size:clamp(18px,2.4vw,24px);font-weight:600;letter-spacing:-.01em}
+  .waiting-sub{font-size:13px;color:var(--muted);max-width:36ch}
+
+  .timer{font-size:clamp(56px,min(13vw,15vh),140px);line-height:.9;font-weight:600;
+    letter-spacing:-.045em;font-variant-numeric:tabular-nums;transition:color .3s ease;margin-top:8px}
+  .timer.warn{color:var(--red);animation:shine 1.1s ease-in-out infinite}
+  .timer.zero{color:#7a2d2d}
+  @keyframes shine{
+    0%,100%{text-shadow:0 0 0 var(--red-glow)}
+    50%{text-shadow:0 0 24px var(--red-glow),0 0 48px var(--red-glow)}
+  }
+
+  main.room-main{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;
+    gap:4px;padding:12px 0 20px;overflow-y:auto}
+  .stepname{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .brief{max-width:36ch;margin-top:16px;padding:12px 18px;border:1px solid var(--line);
+    border-radius:10px;background:var(--card);color:#aab3c0;font-size:13px;line-height:1.55}
+  .section-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+    margin-top:20px;margin-bottom:6px}
+
+  .roles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:680px}
+  .role{font:inherit;font-size:12px;padding:8px 12px;border-radius:999px;cursor:pointer;
+    border:1px solid var(--line);background:transparent;color:#9aa3b0;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:background .18s,color .18s,border-color .18s}
+  .role:hover:not(:disabled){border-color:#2b3340;color:var(--fg)}
+  .role.on{background:var(--fg);color:#0a0c10;border-color:var(--fg);font-weight:600}
+  .role.taken{opacity:.45;cursor:not-allowed}
+  .ricon{font-size:14px}
+  .rtaker{opacity:.75;font-size:10px;margin-left:2px}
+
+  .questions{max-width:620px;display:flex;flex-direction:column;gap:6px;margin-top:4px}
+  .q{font-size:12px;color:#9aa3b0;line-height:1.5;padding:7px 12px;
+    border-left:2px solid var(--line);text-align:left}
+
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;max-width:720px;width:100%;margin-top:6px}
+  .pcard{padding:14px;border-radius:12px;background:var(--card);border:1px solid var(--line);text-align:left}
+  .pcard.mine{border-color:var(--accent);background:linear-gradient(180deg,#1a1510,#121013)}
+  .pcard.empty{opacity:.5}
+  .picon{font-size:24px;line-height:1;margin-bottom:6px}
+  .pname{font-size:13px;font-weight:600;color:var(--fg)}
+  .prole{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.05em;text-transform:uppercase}
+  .pprompt{font-size:12px;color:#9aa3b0;margin-top:10px;line-height:1.5;
+    border-top:1px solid var(--line);padding-top:8px}
+  .pcard.mine .pprompt{color:#e5b46a}
+
+  .roleplay-hint{max-width:560px;margin-top:20px;padding:14px 18px;border:1px solid var(--line);
+    border-radius:10px;background:var(--card);text-align:left}
+  .rh-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+  .rh-body{font-size:12px;color:#aab3c0;line-height:1.6}
+
+  .structure{display:flex;flex-direction:column;gap:8px;max-width:340px;margin-top:6px;text-align:left}
+  .srow{display:flex;gap:12px;align-items:baseline;font-size:14px;color:#c8ced6}
+  .stime{font-size:11px;letter-spacing:.1em;color:var(--dim);width:32px;flex:0 0 auto;font-variant-numeric:tabular-nums}
+  .sub{font-size:12px;color:var(--muted);margin-top:12px}
+  .footer-hint{font-size:11px;color:var(--dim);letter-spacing:.08em;text-align:center;padding:12px 0 4px}
+
+  main.teacher{flex:1;display:flex;flex-direction:column;gap:22px;padding:20px 0;overflow-y:auto;
+    max-width:720px;width:100%;align-self:center}
+  .seg{display:flex;gap:8px;margin-top:6px}
+  .seg button{font:inherit;font-size:13px;width:44px;height:44px;border-radius:10px;
+    border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+  .seg button.on{background:var(--fg);color:#0a0c10;border-color:var(--fg);font-weight:600}
+
+  .progress-step{font-size:32px;font-weight:600;letter-spacing:-.02em;margin-top:4px}
+  .progress-sub{font-size:12px;color:var(--muted);margin-top:4px}
+
+  .student-list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+  .student-row{display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+  .sname{font-size:14px;font-weight:500}
+  .sroom{display:flex;gap:4px}
+  .assign{font:inherit;font-size:11px;width:28px;height:28px;border-radius:8px;
+    border:1px solid var(--line);background:transparent;color:var(--dim);cursor:pointer}
+  .assign.on{background:var(--fg);color:#0a0c10;border-color:var(--fg);font-weight:600}
+  .assign:hover:not(.on){border-color:#2b3340;color:var(--muted)}
+  .empty{font-size:12px;color:var(--dim);padding:10px 0}
+
+  .room-line{display:flex;justify-content:space-between;align-items:baseline;
+    padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;color:#c8ced6}
+  .room-line [data-room-timer]{font-variant-numeric:tabular-nums;color:var(--muted)}
+  .room-line [data-room-timer].warn{color:var(--red);font-weight:600}
+
+  .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+
+  #modal{position:fixed;inset:0;z-index:100;pointer-events:none}
+  #modal.open{pointer-events:auto}
+  .modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.78);
+    display:flex;align-items:center;justify-content:center;padding:20px}
+  .modal-box{background:var(--card2);border:1px solid var(--line);border-radius:14px;
+    padding:24px;max-width:420px;width:100%;display:flex;flex-direction:column;gap:10px}
+  .modal-title{font-size:16px;font-weight:600;letter-spacing:-.01em}
+  .modal-body{font-size:13px;color:var(--muted);line-height:1.5}
+  .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+
+  .model-backdrop{background:rgba(0,0,0,.9);align-items:flex-start;overflow-y:auto}
+  .model-top{position:sticky;top:0;background:rgba(10,12,16,.96);backdrop-filter:blur(8px);
+    display:flex;justify-content:space-between;align-items:center;padding:20px;
+    border-bottom:1px solid var(--line);max-width:800px;width:100%;margin:0 auto;z-index:2}
+  .model-title{font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+  .model-body{max-width:800px;margin:0 auto;padding:20px 20px 40px;display:flex;flex-direction:column;gap:24px}
+  .model-step{padding:20px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+  .model-steplabel{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+    margin-bottom:12px;font-weight:600}
+  .model-stepbody{font-size:13px;color:#c8ced6;line-height:1.65}
+  .model-stepbody p{margin:0 0 10px}
+  .model-stepbody ul{margin:0 0 10px;padding-left:20px}
+  .model-stepbody li{margin-bottom:4px}
+  .dialogue{background:#0a0c10;border-left:2px solid var(--accent);padding:12px 16px;
+    border-radius:6px;margin:10px 0;display:flex;flex-direction:column;gap:8px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+  .dialogue p{margin:0;color:#aab3c0}
+  .who{color:var(--accent);font-weight:600}
+
+  .err{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);padding:8px 16px;
+    border-radius:8px;background:#5a1a1a;color:#fca5a5;font-size:12px;z-index:200}
+
+  @media (max-width:520px){
+    .timer{font-size:clamp(48px,18vw,80px)}
+    .role{font-size:11px;padding:7px 10px}
+  }
 </style>
 </head>
 <body>
-
-<div class="join-screen" id="joinScreen">
-  <div class="join-brand">
-    <div class="join-logo"><i class="fas fa-comments"></i></div>
-    <div><h1>Speak &amp; Dictate <span>· Team Activity</span></h1><p>2 speaking rounds · 2 listening dictations</p></div>
-  </div>
-  <div class="room-info"><i class="fas fa-users"></i> You are joining room <b id="roomNameDisplay"></b></div>
-  <div class="field"><label for="nameInput">Your name</label>
-    <input id="nameInput" type="text" maxlength="24" placeholder="Type your name here" autocomplete="off" /></div>
-  <button type="button" class="btn wide" id="joinBtn"><i class="fas fa-arrow-right-to-bracket"></i> Join the room</button>
-  <div class="join-error hidden" id="joinError"></div>
-  <p class="join-hint">Everyone on this page is in the same room. The system will assign you Player A, B, or C automatically.</p>
-</div>
-
-<div class="app hidden" id="mainApp">
-  <div class="topbar">
-    <div class="room-chip"><i class="fas fa-users"></i> Room <b id="roomCode"></b></div>
-    <div class="me-chip A" id="meChip"><span class="me-dot" id="meInitial">?</span><b id="meName"></b><span id="meRole"></span></div>
-    <button type="button" class="btn warn hidden" id="resetBtn"><i class="fas fa-eraser"></i> Reset everything</button>
-    <button class="leave-btn" id="leaveBtn"><i class="fas fa-right-from-bracket"></i> Leave</button>
-  </div>
-  <div class="location-banner">
-    <div class="loc-info"><i class="fas fa-location-dot"></i><span class="loc-step-num" id="locNum"></span><span id="locTitle"></span></div>
-    <div class="loc-team-score"><i class="fas fa-trophy"></i> Team <b id="teamScore">0</b> pts</div>
-    <button type="button" class="loc-guide-btn hidden" id="guideBtn"><i class="fas fa-paper-plane"></i> Send class here</button>
-  </div>
-  <div id="sections"></div>
-  <nav class="step-nav">
-    <button class="btn soft" id="prevStep"><i class="fas fa-arrow-left"></i> Previous</button>
-    <div class="step-dots" id="stepDots"></div>
-    <button class="btn" id="nextStep">Next <i class="fas fa-arrow-right"></i></button>
-  </nav>
-  <p class="footer-note">All situations here are imaginary and used only to practise English.</p>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<div id="app"></div>
+<div id="modal"></div>
 <script>
-(function () {
-'use strict';
-const FIREBASE_URL = 'https://english-meetings-f08e4-default-rtdb.firebaseio.com';
-const ROOM = 'SPEAKDICTATE';
-const GHOSTS = ['andre prof','prof andre','andre professor','professor andre','prof. andre','andre prof.'];
-const CLIENT_ID = 'c_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-const KEY = 'speak-dictate-v1';
-const ROLES = ['A','B','C'];
-const TURN_MS = 5 * 60 * 1000;
-const COLORS = [['#1d4ed8','#eaf1ff'],['#0f766e','#e3f5f2'],['#b45309','#fff4e0']];
+(function(){
+  'use strict';
 
-/* ---------------- DATA ---------------- */
-const STEPS = [
- { type:'speak', id:'s1', title:'Speaking 1 · Ask your friends', topics:[
-   { n:'A birthday party', i:'fa-cake-candles', d:'Imagine the last great party you went to.', c:['guests','food','music','presents','games'] },
-   { n:'A trip abroad', i:'fa-plane', d:'Think about a place you would like to visit.', c:['hotel','tickets','weather','sightseeing','food'] },
-   { n:'A weekend of sport', i:'fa-futbol', d:'Think about the sports people play or watch.', c:['team','training','stadium','win','injury'] } ] },
- { type:'dict', id:'d1', title:'Listening Dictation 1 · Careers and the future of work', texts:[
-   { t:'Three years ago, Camila left her job as an accountant to become a web developer. She studied online for eight months and worked at night to pay for her course. Now she earns more than before and works for a company in Lisbon, but she says the first year was very hard.',
-     q:[['What was Camila\'s old job?',['Teacher','Accountant','Nurse'],1],['How long did she study online?',['Eight months','Eighteen months','Eight weeks'],0],['How did she pay for her course?',['She won a scholarship','She borrowed money','She worked at night'],2],['Where does she work now?',['Lisbon','Madrid','London'],0]] },
-   { t:'More companies now let employees work from home, and many people like it because they save time and money on transport. However, some workers feel lonely, and managers worry about teamwork. One solution is a hybrid model: three days at home and two days in the office.',
-     q:[['Why do many people like working from home?',['They earn more','They save time and money','They have longer holidays'],1],['What do some workers feel?',['Lonely','Bored','Angry'],0],['What do managers worry about?',['Salaries','Equipment','Teamwork'],2],['What is the hybrid model?',['Three days at home, two in the office','Two days at home, three in the office','Every day at home'],0]] },
-   { t:'Artificial intelligence is changing many jobs. Experts say it will not replace all workers, but it will change the tasks people do. Workers who learn to use new tools will have better chances. A recent report says that by 2030, about one in five employees will need to learn new skills.',
-     q:[['What will artificial intelligence change?',['The tasks people do','The office buildings','The salaries'],0],['Who will have better chances?',['Young workers only','People who work longer hours','Workers who learn new tools'],2],['Which year does the report mention?',['2025','2030','2040'],1],['How many employees will need new skills?',['One in ten','One in three','One in five'],2]] } ] },
- { type:'speak', id:'s3', title:'Speaking 2 · Ask your friends', topics:[
-   { n:'Technology', i:'fa-mobile-screen', d:'Phones, apps and the things we use every day.', c:['app','battery','screen','internet','social media'] },
-   { n:'Pets and animals', i:'fa-dog', d:'Think about animals you know or would like to have.', c:['dog','cat','food','vet','walk'] },
-   { n:'Music and concerts', i:'fa-music', d:'Think about the songs and artists you enjoy.', c:['band','ticket','lyrics','instrument','festival'] } ] },
- { type:'dict', id:'d2', title:'Listening Dictation 2 · Living abroad and job skills', texts:[
-   { t:'Marcos moved to Toronto two years ago to work as an engineer. The hardest part was the winter, because temperatures fall to minus twenty degrees. He also misses his family and Brazilian food. On the other hand, he loves the public transport and the multicultural friends he has made.',
-     q:[['Which city did Marcos move to?',['Vancouver','Toronto','Dublin'],1],['What was the hardest part for him?',['The winter','The language','The paperwork'],0],['What does he miss?',['His old job','His house','His family and Brazilian food'],2],['What does he love about his new life?',['The salary','Public transport and multicultural friends','The weather'],1]] },
-   { t:'Before a job interview, research the company and prepare examples of your work. Arrive ten minutes early and dress in a way that fits the company culture. At the end, ask at least one question, because it shows that you are interested. Finally, send a thank-you email the next day.',
-     q:[['What should you do before the interview?',['Research the company','Call the manager','Buy new clothes'],0],['When should you arrive?',['Thirty minutes early','Ten minutes early','Exactly on time'],1],['Why should you ask a question?',['To finish faster','To ask about salary','To show interest'],2],['When should you send a thank-you email?',['The next day','The same night','The next week'],0]] },
-   { t:'Some countries are testing a four-day work week with the same salary. In one trial, sixty companies took part for six months. Most of them said that workers were happier and less tired, and productivity stayed the same. Only a few companies decided to go back to five days.',
-     q:[['What are some countries testing?',['A six-hour day','A four-day work week','Longer holidays'],1],['How many companies took part?',['Sixteen','Six hundred','Sixty'],2],['How long did the trial last?',['Six months','One year','Three months'],0],['What did most companies say?',['Productivity fell','Workers were unhappy','Workers were happier and less tired'],2]] } ] }
-];
-const ALLQ = {};
+  const FB = 'https://english-meetings-f08e4-default-rtdb.firebaseio.com';
+  const TEACHER_NAME = 'andre prof';
 
-/* ---------------- STATE ---------------- */
-let me = { role:null, name:'', isGhost:false };
-let state = { players:{}, turns:{}, answers:{}, lastGuide:null };
-let step = 0, db = null, fbOk = false, offset = 0, lastGuideId = null, solvedSeen = {}, scheduled = {};
+  const STEPS = [
+    { n:1, dur:600,  name:'Ideation',  title:'What does the company need?' },
+    { n:2, dur:1200, name:'Role play', title:'Build one solution.' },
+    { n:3, dur:1080, name:'Present',   title:'Present your plan.' }
+  ];
+  const BRIEF = 'A Chinese baby-products company is almost bankrupt. Help it sell more in China and Brazil.';
 
-const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const now = () => Date.now() + offset;
-const present = () => ROLES.filter(r => state.players && state.players[r]);
-const pname = r => (state.players[r] && state.players[r].name) || ('Player ' + r);
-const initials = n => (n || '?').trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
-const isGhostName = n => GHOSTS.includes(String(n || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim());
-const pts = a => a === 1 ? 3 : a === 2 ? 2 : 1;
-const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const arr = v => Array.isArray(v) ? v : Object.keys(v || {}).sort((a, b) => a - b).map(k => v[k]);
-function toast(msg, kind) {
-  const el = document.createElement('div'); el.className = 'toast ' + (kind || ''); el.textContent = msg;
-  document.body.appendChild(el); setTimeout(() => el.remove(), 3000);
-}
+  const QUESTIONS = [
+    'Who is the customer, exactly — a new parent? A grandparent?',
+    'Why would a Brazilian parent NOT buy from us?',
+    "What do we know that a Chinese brand wouldn't?",
+    "What's the ONE thing you'd do with zero budget?",
+    "Could the answer be: don't go to Brazil yet?"
+  ];
 
-/* ---------------- DB LAYER (Firebase, with local fallback) ---------------- */
-function localSet(path, val) {
-  const p = path.split('/'); let o = state;
-  for (let i = 0; i < p.length - 1; i++) { if (o[p[i]] == null) o[p[i]] = {}; o = o[p[i]]; }
-  if (val === null) delete o[p[p.length - 1]]; else o[p[p.length - 1]] = val;
-}
-function localGet(path) { let o = state; for (const k of path.split('/')) { if (o == null) return null; o = o[k]; } return o == null ? null : o; }
-function setPath(path, val) {
-  localSet(path, val); render();
-  if (fbOk) db.ref('rooms/' + ROOM + '/' + path).set(val).catch(e => console.warn(e));
-}
-function multi(updates) {
-  Object.keys(updates).forEach(p => localSet(p, updates[p])); render();
-  if (fbOk) { const u = {}; Object.keys(updates).forEach(p => u['rooms/' + ROOM + '/' + p] = updates[p]); db.ref().update(u).catch(e => console.warn(e)); }
-}
-function txn(path, fn) {
-  if (fbOk) db.ref('rooms/' + ROOM + '/' + path).transaction(fn, () => {});
-  else { const r = fn(localGet(path)); if (r !== undefined) { localSet(path, r); render(); } }
-}
-function initFirebase() {
-  if (typeof firebase === 'undefined' || !firebase.initializeApp) return;
-  try {
-    firebase.initializeApp({ databaseURL: FIREBASE_URL }); db = firebase.database(); fbOk = true;
-    db.ref('.info/serverTimeOffset').on('value', s => { offset = s.val() || 0; });
-  } catch (e) { console.warn(e); }
-}
+  const ROLES = [
+    { id:'ceo',     name:'CEO / Founder',            icon:'👑', prompt:'You have 6 months of cash. What is your call?' },
+    { id:'china',   name:'China Sales',              icon:'🏭', prompt:'Your factory is underused. What do you need from Brazil?' },
+    { id:'brazil',  name:'Brazil Launch',            icon:'🇧🇷', prompt:"Brazilian parents don't know us. What's the first trust signal?" },
+    { id:'brand',   name:'Brand & Marketing',        icon:'🎯', prompt:'One line that makes a Brazilian parent care. Say it.' },
+    { id:'safety',  name:'Safety & Certification',   icon:'🛡️', prompt:'What certification opens the door? What blocks it?' },
+    { id:'supply',  name:'Supply Chain',             icon:'🚚', prompt:'China to Brazil: 45 days by sea. Can you live with that?' },
+    { id:'pricing', name:'Pricing & Finance',        icon:'💰', prompt:'What price makes the math work? What price kills the deal?' },
+    { id:'local',   name:'Localization',             icon:'🗣️', prompt:'What does a Brazilian parent need to hear in Portuguese?' },
+    { id:'ecom',    name:'E-commerce & Live-selling',icon:'📱', prompt:'Live-selling works in China. Does it work in Brazil?' }
+  ];
 
-/* ---------------- JOIN ---------------- */
-$('roomNameDisplay').textContent = ROOM;
-try { const s = JSON.parse(localStorage.getItem(KEY) || '{}'); if (s.name) $('nameInput').value = s.name; } catch (e) {}
-function joinErr(m) { const e = $('joinError'); e.textContent = m; e.classList.toggle('hidden', !m); }
-$('joinBtn').addEventListener('click', async () => {
-  const name = $('nameInput').value.trim(); joinErr('');
-  if (!name) return joinErr('Please write your name.');
-  me.name = name; me.isGhost = isGhostName(name);
-  try { localStorage.setItem(KEY, JSON.stringify({ name })); } catch (e) {}
-  $('joinBtn').disabled = true;
-  try { if (me.isGhost) me.role = 'ghost'; else await claimSlot(); finalizeJoin(); }
-  catch (err) { joinErr(err.message || 'Could not join.'); $('joinBtn').disabled = false; }
-});
-function claimSlot() {
-  return new Promise((resolve, reject) => {
-    if (!fbOk) { me.role = 'A'; state.players = { A: { name: me.name } }; return resolve(); }
-    db.ref('rooms/' + ROOM + '/players').transaction(cur => {
-      cur = cur || {};
-      for (const r of ROLES) if (cur[r] && cur[r].clientId === CLIENT_ID) return cur;
-      for (const r of ROLES) if (!cur[r]) { cur[r] = { name: me.name, clientId: CLIENT_ID, ts: Date.now() }; return cur; }
-      return;
-    }, (err, ok, snap) => {
-      if (err) return reject(new Error('Connection error. Please try again.'));
-      if (!ok) return reject(new Error('Room is full (3 players max).'));
-      const f = snap.val() || {}; const r = ROLES.find(x => f[x] && f[x].clientId === CLIENT_ID);
-      if (!r) return reject(new Error('Could not claim a slot. Try again.'));
-      me.role = r; try { db.ref('rooms/' + ROOM + '/players/' + r).onDisconnect().remove(); } catch (e) {}
-      resolve();
+  const app = document.getElementById('app');
+  const modal = document.getElementById('modal');
+
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+  function fmt(sec){
+    sec = Math.max(0, Math.ceil(sec));
+    const m = Math.floor(sec/60), s = sec % 60;
+    return m + ':' + (s<10?'0':'') + s;
+  }
+  function genUid(){
+    return 'u_' + Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+  }
+
+  function loadMe(){
+    try { return JSON.parse(localStorage.getItem('bcm.me') || 'null'); }
+    catch(e){ return null; }
+  }
+  function saveMe(m){
+    if (m) localStorage.setItem('bcm.me', JSON.stringify(m));
+    else localStorage.removeItem('bcm.me');
+  }
+  let me = loadMe();
+
+  function isTeacher(){
+    return !!(me && me.name && me.name.trim().toLowerCase() === TEACHER_NAME);
+  }
+
+  const state = {
+    session: { started:false, startedAt:0, rooms:3 },
+    users: {},
+    rooms: {}
+  };
+  let lastKey = null;
+
+  async function fbGet(path){
+    const r = await fetch(FB + path + '.json', {cache:'no-store'});
+    if (!r.ok) throw new Error('Firebase ' + r.status);
+    return r.json();
+  }
+  async function fbPut(path, data){
+    const r = await fetch(FB + path + '.json', { method:'PUT', body:JSON.stringify(data) });
+    if (!r.ok) throw new Error('Firebase ' + r.status);
+    return r.json();
+  }
+  async function fbPatch(path, data){
+    const r = await fetch(FB + path + '.json', { method:'PATCH', body:JSON.stringify(data) });
+    if (!r.ok) throw new Error('Firebase ' + r.status);
+    return r.json();
+  }
+  async function fbDelete(path){
+    await fetch(FB + path + '.json', { method:'DELETE' });
+  }
+
+  async function poll(){
+    try {
+      const [s,u,r] = await Promise.all([
+        fbGet('/session'), fbGet('/users'), fbGet('/rooms')
+      ]);
+      state.session = s || {};
+      if (!state.session.rooms) state.session.rooms = 3;
+      if (state.session.started == null) state.session.started = false;
+      state.users = u || {};
+      state.rooms = r || {};
+      clearErr();
+
+      if (me && !state.users[me.uid]){
+        try {
+          await fbPut('/users/' + me.uid, {
+            name: me.name, room: null, role: null, isTeacher: isTeacher()
+          });
+          state.users[me.uid] = { name: me.name, room: null, role: null, isTeacher: isTeacher() };
+        } catch(e){}
+      }
+      render();
+    } catch(e){
+      showErr('Connection problem. Check internet.');
+    }
+  }
+  let polling = false;
+  function startPolling(){
+    if (polling) return;
+    polling = true;
+    poll();
+    setInterval(poll, 1500);
+  }
+  function showErr(msg){
+    let el = document.getElementById('err');
+    if (!el){ el = document.createElement('div'); el.id='err'; el.className='err'; document.body.appendChild(el); }
+    el.textContent = msg;
+  }
+  function clearErr(){
+    const el = document.getElementById('err');
+    if (el) el.remove();
+  }
+
+  function computeKey(){
+    if (!me) return 'login';
+    if (isTeacher()){
+      const users = Object.keys(state.users)
+        .filter(id => !state.users[id].isTeacher)
+        .sort()
+        .map(id => id + ':' + (state.users[id].room||'') + ':' + (state.users[id].role||''))
+        .join('|');
+      const minStep = currentStep();
+      return 'teacher:' + state.session.rooms + ':' + !!state.session.started + ':' + minStep + ':' + users;
+    }
+    const mu = state.users[me.uid];
+    if (!mu) return 'unknown';
+    if (!mu.room) return 'waiting:' + (state.session.started ? 's' : 'n');
+    if (!state.session.started) return 'prestart:' + mu.room;
+    const room = state.rooms[mu.room];
+    if (!room) return 'noRoom:' + mu.room;
+    const step = room.step || 1;
+    const roommates = Object.keys(state.users)
+      .filter(id => state.users[id].room == mu.room && !state.users[id].isTeacher)
+      .sort()
+      .map(id => id + ':' + (state.users[id].role||''))
+      .join('|');
+    return 'room:' + mu.room + ':' + step + ':' + roommates;
+  }
+
+  function currentStep(){
+    const vals = Object.values(state.rooms).map(r => r.step || 1);
+    return vals.length ? Math.min(...vals) : 0;
+  }
+
+  function render(){
+    const key = computeKey();
+    if (key !== lastKey){ lastKey = key; buildScreen(); }
+    updateTimers();
+  }
+
+  function buildScreen(){
+    if (!me){ buildLogin(); return; }
+    if (isTeacher()){ buildTeacher(); return; }
+    const mu = state.users[me.uid];
+    if (!mu){ buildUnknown(); return; }
+    if (!mu.room){ buildWaiting(); return; }
+    if (!state.session.started){ buildPrestart(); return; }
+    const room = state.rooms[mu.room];
+    if (!room){ buildNoRoom(); return; }
+    buildRoom();
+  }
+
+  function buildLogin(){
+    app.innerHTML = `
+      <main class="center">
+        <div class="brand">BABY CO. — MARKET RESCUE</div>
+        <div class="login-title">What's your name?</div>
+        <input id="nameInput" class="name-input" placeholder="Your name" maxlength="30" autocomplete="off">
+        <button class="btn-primary" id="joinBtn">Join</button>
+      </main>`;
+    const input = $('#nameInput');
+    input.focus();
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') doJoin(); });
+    $('#joinBtn').addEventListener('click', doJoin);
+
+    async function doJoin(){
+      const name = input.value.trim();
+      if (!name) return;
+      me = { uid: genUid(), name };
+      saveMe(me);
+      try {
+        await fbPut('/users/' + me.uid, {
+          name, room: null, role: null, isTeacher: isTeacher()
+        });
+        state.users[me.uid] = { name, room: null, role: null, isTeacher: isTeacher() };
+      } catch(e){
+        showErr('Could not join. Check connection.');
+        return;
+      }
+      lastKey = null;
+      render();
+    }
+  }
+
+  function buildWaiting(){
+    app.innerHTML = `
+      <div class="top"><span>BABY CO.</span><span>${esc(me.name)}</span></div>
+      <main class="center">
+        <div class="waiting-title">Waiting for Andre</div>
+        <div class="waiting-sub">He'll assign you to a room in a moment.</div>
+        <button class="btn-secondary" id="logoutBtn">Leave</button>
+      </main>`;
+    $('#logoutBtn').addEventListener('click', logout);
+  }
+
+  function buildPrestart(){
+    const mu = state.users[me.uid];
+    app.innerHTML = `
+      <div class="top"><span>ROOM ${mu.room}</span><span>${esc(me.name)}</span></div>
+      <main class="center">
+        <div class="waiting-title">You're in Room ${mu.room}</div>
+        <div class="waiting-sub">Waiting for Andre to start the activity.</div>
+        <button class="btn-secondary" id="logoutBtn">Leave</button>
+      </main>`;
+    $('#logoutBtn').addEventListener('click', logout);
+  }
+
+  function buildUnknown(){
+    app.innerHTML = `
+      <main class="center">
+        <div class="waiting-title">Syncing…</div>
+        <button class="btn-secondary" id="logoutBtn">Restart</button>
+      </main>`;
+    $('#logoutBtn').addEventListener('click', logout);
+  }
+
+  function buildNoRoom(){
+    app.innerHTML = `<main class="center"><div class="waiting-title">Preparing your room…</div></main>`;
+  }
+
+  function buildTeacher(){
+    const started = !!state.session.started;
+    const roomCount = state.session.rooms || 3;
+    const minStep = currentStep();
+
+    const students = Object.keys(state.users)
+      .filter(id => !state.users[id].isTeacher)
+      .map(id => ({ id, ...state.users[id] }))
+      .sort((a,b) => (a.name||'').localeCompare(b.name||''));
+
+    let roomsStatus = '';
+    if (started){
+      for (let i = 1; i <= roomCount; i++){
+        const r = state.rooms[i];
+        if (!r) continue;
+        roomsStatus += `<div class="room-line">
+          <span>Room ${i} · Step ${r.step}</span>
+          <span data-room-timer="${i}">--:--</span>
+        </div>`;
+      }
+    }
+
+    const studentHtml = students.length
+      ? students.map(s => `
+        <div class="student-row">
+          <span class="sname">${esc(s.name)}</span>
+          <span class="sroom">
+            ${[1,2,3,4].map(n => `
+              <button class="assign ${s.room===n?'on':''}" data-uid="${s.id}" data-r="${n}">${n}</button>
+            `).join('')}
+          </span>
+        </div>`).join('')
+      : '<div class="empty">No students yet. Share the link.</div>';
+
+    const progressHtml = started ? `
+      <div class="section">
+        <div class="section-label">Progress</div>
+        <div class="progress-step">
+          ${minStep > 3 ? 'All done' : 'Step ' + minStep + ' of 3'}
+        </div>
+        <div class="progress-sub">
+          ${minStep > 3
+            ? 'Every room is on the done screen.'
+            : (STEPS[minStep-1] ? STEPS[minStep-1].name + ' · ' + Math.round(STEPS[minStep-1].dur/60) + ' min' : '')}
+        </div>
+        ${minStep <= 3 ? `
+          <div class="actions">
+            <button class="btn-primary" id="advanceBtn">
+              ${minStep < 3 ? 'Advance all rooms to Step ' + (minStep+1) : 'Finish activity'}
+            </button>
+          </div>
+        ` : ''}
+      </div>
+    ` : `
+      <div class="section">
+        <div class="section-label">Rooms</div>
+        <div class="seg" id="segRooms">
+          ${[1,2,3,4].map(n => `<button data-n="${n}" class="${n===roomCount?'on':''}">${n}</button>`).join('')}
+        </div>
+      </div>
+    `;
+
+    app.innerHTML = `
+      <div class="top"><span>BABY CO. — TEACHER</span><span>${started?'Live':'Setup'}</span></div>
+      <main class="teacher">
+        ${progressHtml}
+        <div class="section">
+          <div class="section-label">Students (${students.length})</div>
+          <div class="student-list">${studentHtml}</div>
+        </div>
+        ${started ? `<div class="section">
+          <div class="section-label">Room status</div>
+          ${roomsStatus || '<div class="empty">No rooms active.</div>'}
+        </div>` : ''}
+        <div class="actions">
+          ${!started ? `<button class="btn-primary" id="startBtn">Start activity</button>` : ''}
+          <button class="btn-secondary" id="modelBtn">Model presentation</button>
+          ${started ? `<button class="btn-secondary" id="resetBtn">Reset</button>` : ''}
+          <button class="btn-secondary" id="logoutBtn">Leave</button>
+        </div>
+      </main>`;
+
+    const seg = $('#segRooms');
+    if (seg){
+      seg.addEventListener('click', async e => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        const n = Number(b.dataset.n);
+        if (n === roomCount) return;
+        state.session.rooms = n;
+        lastKey = null;
+        render();
+        try { await fbPatch('/session', { rooms: n }); } catch(err){}
+      });
+    }
+
+    $$('.assign').forEach(b => {
+      b.addEventListener('click', async () => {
+        const uid = b.dataset.uid;
+        const r = Number(b.dataset.r);
+        if (state.users[uid]) state.users[uid].room = r;
+        lastKey = null;
+        render();
+        try { await fbPatch('/users/' + uid, { room: r }); } catch(err){}
+      });
     });
-  });
-}
-function finalizeJoin() {
-  $('joinScreen').classList.add('hidden'); $('mainApp').classList.remove('hidden');
-  $('roomCode').textContent = ROOM; $('meName').textContent = me.name;
-  $('meInitial').textContent = me.isGhost ? '👻' : initials(me.name);
-  $('meRole').textContent = me.isGhost ? 'Teacher view' : 'Player ' + me.role;
-  $('meChip').className = 'me-chip ' + (me.isGhost ? 'ghost' : me.role);
-  if (me.isGhost) { $('guideBtn').classList.remove('hidden'); $('resetBtn').classList.remove('hidden'); }
-  render();
-  if (!fbOk) return;
-  db.ref('rooms/' + ROOM).on('value', snap => {
-    const v = snap.val() || {};
-    state.players = v.players || {}; state.turns = v.turns || {}; state.answers = v.answers || {}; state.lastGuide = v.lastGuide || null;
-    if (state.lastGuide && state.lastGuide.pushId !== lastGuideId) {
-      if (!me.isGhost && lastGuideId !== null) { step = Number(state.lastGuide.step) || 0; toast('📍 Teacher: "Go to ' + STEPS[step].title + '"', 'gold'); }
-      lastGuideId = state.lastGuide.pushId;
+
+    const startBtn = $('#startBtn');
+    if (startBtn) startBtn.addEventListener('click', startActivity);
+
+    const advanceBtn = $('#advanceBtn');
+    if (advanceBtn){
+      advanceBtn.addEventListener('click', () => {
+        const target = minStep + 1;
+        showConfirm({
+          title: minStep < 3
+            ? 'Move all rooms to Step ' + target + '?'
+            : 'Finish the activity?',
+          body: minStep < 3
+            ? 'Every room jumps to Step ' + target + ' (' + STEPS[target-1].name + '). All timers reset to ' + Math.round(STEPS[target-1].dur/60) + ' min. This is the only way to change steps.'
+            : 'Every room will show the done screen.',
+          yes: 'Confirm', no: 'Cancel',
+          onYes: () => advanceAllRooms(target)
+        });
+      });
     }
-    if (!Object.keys(state.answers).length) solvedSeen = {};
+
+    $('#modelBtn').addEventListener('click', showModel);
+    const resetBtn = $('#resetBtn');
+    if (resetBtn) resetBtn.addEventListener('click', resetSession);
+    $('#logoutBtn').addEventListener('click', logout);
+  }
+
+  function getRoommates(){
+    const mu = state.users[me.uid];
+    if (!mu) return [];
+    return Object.keys(state.users)
+      .filter(id => state.users[id].room == mu.room && !state.users[id].isTeacher)
+      .map(id => ({ uid:id, name: state.users[id].name, role: state.users[id].role }));
+  }
+
+  function buildRoom(){
+    const mu = state.users[me.uid];
+    const room = state.rooms[mu.room];
+    const step = room.step || 1;
+
+    if (step >= 4){
+      app.innerHTML = `
+        <div class="top"><span>ROOM ${mu.room}</span><span>DONE</span></div>
+        <main class="center">
+          <div class="waiting-title">Done.</div>
+          <div class="waiting-sub">Thank you. See you in the debrief.</div>
+        </main>`;
+      return;
+    }
+
+    const info = STEPS[step - 1];
+    let content = '';
+    if (step === 1) content = step1Html();
+    else if (step === 2) content = step2Html();
+    else content = step3Html();
+
+    app.innerHTML = `
+      <div class="top">
+        <span>ROOM ${mu.room} · ${esc(me.name)}</span>
+        <span class="stepno">STEP ${step} / 3</span>
+      </div>
+      <main class="room-main">
+        <div class="timer" id="timer">--:--</div>
+        <div class="stepname">${info.name}</div>
+        ${content}
+      </main>
+      <div class="footer-hint">Andre moves the room to the next step when the group is ready.</div>`;
+
+    if (step === 1) wireStep1();
+  }
+
+  function step1Html(){
+    const roommates = getRoommates();
+    const roleHtml = ROLES.map(r => {
+      const taker = roommates.find(m => m.role === r.id);
+      const mine = taker && taker.uid === me.uid;
+      const other = taker && !mine;
+      return `<button class="role ${mine?'on':''} ${other?'taken':''}" data-r="${r.id}" ${other?'disabled':''}>
+        <span class="ricon">${r.icon}</span>
+        <span>${esc(r.name)}</span>
+        ${other ? `<span class="rtaker">${esc(taker.name)}</span>` : ''}
+      </button>`;
+    }).join('');
+
+    return `
+      <div class="brief">${esc(BRIEF)}</div>
+      <div class="section-label">Pick your role</div>
+      <div class="roles" id="roles">${roleHtml}</div>
+      <div class="section-label">Ask each other</div>
+      <div class="questions">
+        ${QUESTIONS.map(q => `<div class="q">${esc(q)}</div>`).join('')}
+      </div>`;
+  }
+
+  function wireStep1(){
+    $$('#roles .role').forEach(b => {
+      b.addEventListener('click', async () => {
+        if (b.disabled) return;
+        const rid = b.dataset.r;
+        const mu = state.users[me.uid];
+        if (!mu) return;
+        const newRole = mu.role === rid ? null : rid;
+        state.users[me.uid] = { ...mu, role: newRole };
+        lastKey = null;
+        render();
+        try { await fbPatch('/users/' + me.uid, { role: newRole }); }
+        catch(e){ showErr('Sync failed.'); }
+      });
+    });
+  }
+
+  function step2Html(){
+    const mu = state.users[me.uid];
+    const roommates = getRoommates();
+    const cards = roommates.map(m => {
+      const role = ROLES.find(r => r.id === m.role);
+      const mine = m.uid === me.uid;
+      if (!role){
+        return `<div class="pcard empty">
+          <div class="picon">·</div>
+          <div class="pname">${esc(m.name)}</div>
+          <div class="prole">No role picked</div>
+        </div>`;
+      }
+      return `<div class="pcard ${mine?'mine':''}">
+        <div class="picon">${role.icon}</div>
+        <div class="pname">${esc(m.name)}${mine?' (you)':''}</div>
+        <div class="prole">${esc(role.name)}</div>
+        <div class="pprompt">${esc(role.prompt)}</div>
+      </div>`;
+    }).join('');
+
+    const myRole = ROLES.find(r => r.id === mu.role);
+    const myLine = myRole
+      ? `I'm ${esc(me.name)}, I handle ${esc(myRole.name)}. Here's what I see…`
+      : `I'm ${esc(me.name)}. Here's what I see…`;
+
+    return `
+      <div class="section-label">Your team</div>
+      <div class="team-grid">${cards || '<div class="empty">No one else yet.</div>'}</div>
+      <div class="roleplay-hint">
+        <div class="rh-title">How to play</div>
+        <div class="rh-body">
+          Introduce yourself in role. Then argue — from your role's point of view, not yours.
+          <br><br>“${myLine}”
+        </div>
+      </div>`;
+  }
+
+  function step3Html(){
+    const n = state.session.rooms || 3;
+    const perRoomMin = STEPS[2].dur / n / 60;
+    const half = perRoomMin / 2;
+    const hstr = (Number.isInteger(half) ? half : half.toFixed(1)) + ' min';
+    return `
+      <div class="section-label">Structure</div>
+      <div class="structure">
+        <div class="srow"><span class="stime">30s</span> The problem</div>
+        <div class="srow"><span class="stime">60s</span> The plan</div>
+        <div class="srow"><span class="stime">60s</span> The bet</div>
+        <div class="srow"><span class="stime">30s</span> The ask</div>
+      </div>
+      <div class="sub">${hstr} talk + ${hstr} questions per room</div>`;
+  }
+
+  async function advanceAllRooms(target){
+    const now = Date.now();
+    const updates = {};
+    Object.keys(state.rooms).forEach(n => {
+      updates[n] = { step: target, stepStartedAt: now };
+    });
+    try {
+      await fbPut('/rooms', updates);
+      state.rooms = updates;
+      lastKey = null;
+      render();
+    } catch(e){
+      showErr('Could not advance.');
+    }
+  }
+
+  async function startActivity(){
+    const n = state.session.rooms || 3;
+    const now = Date.now();
+    const roomsInit = {};
+    for (let i = 1; i <= n; i++) roomsInit[i] = { step: 1, stepStartedAt: now };
+    try {
+      await fbPut('/rooms', roomsInit);
+      await fbPatch('/session', { started: true, startedAt: now });
+      state.session.started = true;
+      state.session.startedAt = now;
+      state.rooms = roomsInit;
+      lastKey = null;
+      render();
+    } catch(e){
+      showErr('Could not start.');
+    }
+  }
+
+  async function resetSession(){
+    if (!confirm('Reset the session? Rooms and progress will clear.')) return;
+    try {
+      await fbPatch('/session', { started: false, startedAt: 0 });
+      await fbDelete('/rooms');
+      state.session.started = false;
+      state.session.startedAt = 0;
+      state.rooms = {};
+      lastKey = null;
+      render();
+    } catch(e){}
+  }
+
+  async function logout(){
+    const oldUid = me && me.uid;
+    me = null;
+    saveMe(null);
+    lastKey = null;
+    if (oldUid) delete state.users[oldUid];
     render();
-  }, () => { fbOk = false; render(); });
-}
+    if (oldUid){ try { await fbDelete('/users/' + oldUid); } catch(e){} }
+  }
 
-/* ---------------- TURN LOGIC ---------------- */
-function startRound(st) {
-  const pr = present();
-  if (pr.length < 2) return toast('You need at least 2 players to start.', 'gold');
-  setPath('turns/' + st.id, { order: shuffle(pr), idx: 0, t0: now(), done: false });
-}
-function advance(stId, expIdx) {
-  txn('turns/' + stId, c => {
-    if (!c || c.done || c.idx !== expIdx) return c;
-    const order = arr(c.order);
-    present().forEach(r => { if (!order.includes(r)) order.push(r); });
-    let i = c.idx + 1;
-    while (i < order.length && !state.players[order[i]]) i++;
-    return { order, idx: i, t0: now(), done: i >= order.length };
-  });
-}
-function fmt(ms) { ms = Math.max(0, ms); const s = Math.ceil(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
-setInterval(() => {
-  if (!me.role) return;
-  STEPS.forEach(st => {
-    const T = state.turns[st.id]; if (!T || T.done) return;
-    const order = arr(T.order), cur = order[T.idx];
-    if (st.type === 'speak') {
-      const rem = TURN_MS - (now() - T.t0);
-      if (st.id === STEPS[step].id) { const el = $('timer'); if (el) el.textContent = fmt(rem); }
-      if (rem <= 0) advance(st.id, T.idx);
+  function showConfirm({title, body, yes, no, onYes}){
+    modal.innerHTML = `
+      <div class="modal-backdrop">
+        <div class="modal-box">
+          <div class="modal-title">${esc(title)}</div>
+          <div class="modal-body">${esc(body)}</div>
+          <div class="modal-actions">
+            <button class="btn-secondary" id="mNo">${esc(no)}</button>
+            <button class="btn-primary" id="mYes">${esc(yes)}</button>
+          </div>
+        </div>
+      </div>`;
+    modal.classList.add('open');
+    $('#mNo').addEventListener('click', closeModal);
+    $('#mYes').addEventListener('click', async () => { closeModal(); await onYes(); });
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.innerHTML = '';
+  }
+  document.addEventListener('click', e => {
+    if (e.target.classList && e.target.classList.contains('modal-backdrop')
+        && !e.target.classList.contains('model-backdrop')){
+      closeModal();
     }
-    if (cur && !state.players[cur] && fbOk) advance(st.id, T.idx);
   });
-}, 500);
 
-/* ---------------- DICTATION HELPERS ---------------- */
-function ownerOf(n, reader) {
-  const ans = present().filter(r => r !== reader);
-  if (!ans.length) return null;
-  return ans.length === 1 ? ans[0] : ans[(n - 1) % 2];
-}
-const qkey = (id, idx, n) => id + '_' + idx + '_' + n;
-function dictSolved(st, T) { return [1, 2, 3, 4].every(n => { const a = state.answers[qkey(st.id, T.idx, n)]; return a && a.correct; }); }
-
-/* ---------------- RENDER ---------------- */
-function render() {
-  if (!me.role) return;
-  const st = STEPS[step];
-  $('sections').innerHTML = st.type === 'speak' ? speakHTML(st) : dictHTML(st);
-  $('locNum').textContent = (step + 1) + ' / ' + STEPS.length;
-  $('locTitle').textContent = (st.type === 'speak' ? '💬 ' : '🎧 ') + st.title;
-  $('stepDots').innerHTML = STEPS.map((_, i) => `<button class="step-dot ${i === step ? 'active' : ''}" data-step="${i}" type="button">${i + 1}</button>`).join('');
-  document.querySelector('.step-nav').classList.toggle('hidden', !me.isGhost);
-  $('prevStep').disabled = step === 0; $('nextStep').disabled = step === STEPS.length - 1;
-  let total = 0; Object.keys(state.answers).forEach(k => { const a = state.answers[k]; if (a && a.correct) total += a.points || 0; });
-  $('teamScore').textContent = total;
-  // auto-advance dictation after all answered
-  STEPS.filter(s => s.type === 'dict').forEach(s => {
-    const T = state.turns[s.id]; if (!T || T.done) return;
-    const k = s.id + T.idx;
-    if (dictSolved(s, T) && !scheduled[k]) { scheduled[k] = true; setTimeout(() => advance(s.id, T.idx), 3500); }
-  });
-  // toasts for other players' correct answers
-  Object.keys(state.answers).forEach(k => {
-    const a = state.answers[k]; if (!a || !a.correct || solvedSeen[k]) return;
-    solvedSeen[k] = true;
-    if (!me.isGhost && a.who !== me.role && state.players[a.who] && Object.keys(solvedSeen).length > 0) toast('✅ ' + pname(a.who) + ' got a question right (+' + (a.points || 0) + ' pts)', 'success');
-  });
-}
-
-function head(st, listen) {
-  return `<div class="section-head ${listen ? 'l' : ''}"><span class="sec-badge ${listen ? 'listen' : ''}"><i class="fas ${listen ? 'fa-headphones' : 'fa-comments'}"></i> ${listen ? 'Listening dictation' : 'Speaking'}</span><span class="sec-title">${esc(st.title)}</span><span class="sec-num">${step + 1} / ${STEPS.length}</span></div>`;
-}
-function startPanel(st, msg) {
-  const pr = present();
-  const info = `Here now: ${pr.length ? pr.map(pname).map(esc).join(', ') : 'nobody yet'}. `;
-  if (!me.isGhost) return `<div class="panel locked"><i class="fas fa-hourglass-half ic"></i><div><strong>Wait for your teacher</strong><p>${info}Your teacher will start the round.</p></div></div>`;
-  return `<div class="panel ghost"><i class="fas fa-play ic"></i><div><strong>${esc(msg)}</strong><p>${info}${pr.length < 2 ? 'Waiting for at least 2 students…' : 'The system will choose randomly.'}</p></div>
-  <button type="button" class="btn" style="margin-left:auto" data-act="start" ${pr.length < 2 ? 'disabled' : ''}><i class="fas fa-shuffle"></i> Start (random order)</button></div>`;
-}
-
-function speakHTML(st) {
-  const T = state.turns[st.id], pr = present();
-  const order = T ? arr(T.order) : [];
-  const n = Math.min(st.topics.length, Math.max(2, order.length, pr.length));
-  const active = T && !T.done;
-  let panel = '';
-  if (!T) panel = startPanel(st, 'Ready to ask questions?');
-  else if (T.done) panel = `<div class="panel go"><i class="fas fa-flag-checkered ic"></i><div><strong>Everyone has been the interviewer. Well done!</strong><p>All the pictures were used.</p></div>${me.isGhost ? '<button type="button" class="btn soft" style="margin-left:auto" data-act="restart">Play again</button>' : ''}</div>`;
-  else {
-    const cur = order[T.idx], topic = st.topics[T.idx];
-    const canSkip = me.isGhost;
-    const skip = canSkip ? `<button type="button" class="btn soft" data-act="skip"><i class="fas fa-forward"></i> Next turn</button>` : '';
-    if (me.role === cur) panel = `<div class="panel go"><i class="fas fa-microphone ic"></i><div><strong>YOUR TURN — you are the interviewer!</strong><p>Look at “${esc(topic.n)}”. Ask your friends questions out loud. No reading from the screen.</p></div><span class="timer" id="timer">5:00</span>${skip}</div>`;
-    else panel = `<div class="panel ${me.isGhost ? 'ghost' : 'locked'}"><i class="fas fa-ear-listen ic"></i><div><strong>${esc(pname(cur))} is asking questions about “${esc(topic.n)}”</strong><p>${me.isGhost ? 'Teacher view: the students speak without the screen.' : 'Listen and answer out loud. Do not look for help on the screen.'}</p></div><span class="timer" id="timer">5:00</span>${skip}</div>`;
+  function showModel(){
+    modal.innerHTML = `
+      <div class="modal-backdrop model-backdrop">
+        <div style="width:100%">
+          <div class="model-top">
+            <div class="model-title">Model presentation</div>
+            <button class="btn-secondary" id="modelClose">Close</button>
+          </div>
+          <div class="model-body">
+            <div class="model-step">
+              <div class="model-steplabel">Step 1 · Ideation · 10 min</div>
+              <div class="model-stepbody">
+                <p><strong>Prompt:</strong> A Chinese baby company is almost bankrupt. Help it sell more in China and Brazil.</p>
+                <p><strong>Sample questions to ask each other:</strong></p>
+                <ul>
+                  <li>Who is the customer, exactly?</li>
+                  <li>Why would a Brazilian parent NOT buy from us?</li>
+                  <li>What do we know that a Chinese brand wouldn't?</li>
+                  <li>What's the ONE thing you'd do with zero budget?</li>
+                </ul>
+                <p><strong>Sample output:</strong> "We need (1) a partner in Brazil, (2) one hero product, (3) trust signals — safety certification, reviews, a local voice."</p>
+              </div>
+            </div>
+            <div class="model-step">
+              <div class="model-steplabel">Step 2 · Role play · 20 min</div>
+              <div class="model-stepbody">
+                <p><strong>Sample roles:</strong> CEO · China Sales · Brazil Launch · Safety · Pricing.</p>
+                <p><strong>Sample dialogue:</strong></p>
+                <div class="dialogue">
+                  <p><span class="who">CEO:</span> We have 6 months of cash. Where do we spend it?</p>
+                  <p><span class="who">China Sales:</span> Our factory can produce 3× more. Cost is low. Let's use that.</p>
+                  <p><span class="who">Brazil Launch:</span> Brazilians don't know us. We need 90 days of trust-building before launch.</p>
+                  <p><span class="who">Safety:</span> INMETRO certification takes 8–12 weeks. Start now or we don't launch.</p>
+                  <p><span class="who">Pricing:</span> Landed cost plus 40%. Any lower and we lose on every unit.</p>
+                </div>
+              </div>
+            </div>
+            <div class="model-step">
+              <div class="model-steplabel">Step 3 · Present · 18 min</div>
+              <div class="model-stepbody">
+                <p><strong>Sample 3-minute presentation:</strong></p>
+                <div class="dialogue">
+                  <p>"We're bleeding cash with China-only sales.</p>
+                  <p>Our plan: enter Brazil with one hero product, a local partner, and safety certification.</p>
+                  <p>The bet: 3 months, $200k, target 20k units.</p>
+                  <p>The ask: sign the partner, ship 500 units as a pilot.</p>
+                  <p>The risk: if it fails, we exit in 6 months. Thank you."</p>
+                </div>
+                <p>Then 3 minutes of questions. Answer in role.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    modal.classList.add('open');
+    $('#modelClose').addEventListener('click', closeModal);
   }
-  const cards = st.topics.slice(0, n).map((t, i) => {
-    const cls = !T ? '' : (T.done || i < T.idx) ? 'done' : i === T.idx ? 'now' : '';
-    const asg = order[i] ? esc(pname(order[i])) : null;
-    const tag = cls === 'now' ? 'Asking now' : cls === 'done' ? '✓ Done' : 'Picture ' + (i + 1);
-    return `<div class="pic ${cls || (!T ? 'now' : '')}" style="--accent:${COLORS[i][0]};--tint:${COLORS[i][1]}">
-      <div class="pic-icon"><i class="fas ${t.i}"></i></div><span class="pic-tag">${tag}</span>
-      <h3>${esc(t.n)}</h3><p>${esc(t.d)}</p>
-      <div class="chips">${t.c.map(w => `<span class="chip">${esc(w)}</span>`).join('')}</div>
-      ${asg ? `<span class="who"><i class="fas fa-user"></i> ${asg}</span>` : ''}</div>`;
-  }).join('');
-  return `${head(st, false)}<div class="section-body">${panel}
-    ${active || !T ? '' : ''}<div class="pics" data-n="${n}">${cards}</div>
-    <p class="join-hint" style="border:0;padding-top:12px">Each turn lasts 5 minutes. When time is up, the next person gets the next picture. A third person adds a third picture.</p></div>`;
-}
 
-function dictHTML(st) {
-  const T = state.turns[st.id];
-  if (!T) return `${head(st, true)}<div class="section-body">${startPanel(st, 'Ready for the dictation?')}</div>`;
-  const order = arr(T.order);
-  const bar = `<div class="order">${order.map((r, i) => `<span class="${T.done || i < T.idx ? 'done' : i === T.idx ? 'now' : ''}">${T.done || i < T.idx ? '✓ ' : ''}Reader ${i + 1}: ${esc(pname(r))}</span>`).join('')}</div>`;
-  if (T.done) return `${head(st, true)}<div class="section-body">${bar}<div class="panel go"><i class="fas fa-champagne-glasses ic"></i><div><strong>Great teamwork! 🎉</strong><p>Everyone has read a text.</p></div>${me.isGhost ? '<button type="button" class="btn soft" style="margin-left:auto" data-act="restart">Play again</button>' : ''}</div></div>`;
-  const reader = order[T.idx], text = st.texts[T.idx], isReader = me.role === reader;
-  const answerers = present().filter(r => r !== reader);
-  const solved = dictSolved(st, T);
-  let panel;
-  if (isReader) panel = `<div class="panel go"><i class="fas fa-book-open-reader ic"></i><div><strong>YOUR TURN — read the text aloud!</strong><p>Read slowly and clearly. Only you can see this text. Your friends will answer the questions.</p></div></div>`;
-  else if (me.isGhost) panel = `<div class="panel ghost"><i class="fas fa-eye ic"></i><div><strong>Teacher view — ${esc(pname(reader))} is reading</strong><p>You can see the current text and the questions.</p></div></div>`;
-  else panel = `<div class="panel go"><i class="fas fa-ear-listen ic"></i><div><strong>${esc(pname(reader))} is reading. Listen and answer!</strong><p>${answerers.length > 1 ? 'You answer only your own questions. ' : 'You answer all 4 questions. '}First try = 3 pts · second = 2 pts · third = 1 pt.</p></div></div>`;
-  const textBlock = (isReader || me.isGhost) ? `<div class="textcard"><small>${isReader ? 'Your text — read it aloud' : 'Current reader’s text'}</small><p>${esc(text.t)}</p></div>` : '';
-  let qs = '';
-  if (!isReader) {
-    qs = `<div class="progress-bar">${answerers.map(r => {
-      const mine = [1, 2, 3, 4].filter(n => ownerOf(n, reader) === r);
-      let d = 0, p = 0; mine.forEach(n => { const a = state.answers[qkey(st.id, T.idx, n)]; if (a && a.correct) { d++; p += a.points || 0; } });
-      return `<span class="prog-item"><span class="me-dot ${r}">${esc(initials(pname(r)))}</span>${esc(pname(r))} <span class="prog-count ${d === mine.length ? 'done' : ''}">${d}/${mine.length}</span>${p ? `<span class="prog-pts">${p} pts</span>` : ''}</span>`;
-    }).join('') || 'Waiting for friends…'}</div>
-    <div class="q-columns" data-n="${answerers.length || 1}">${answerers.map(r => `<div class="q-col"><div class="q-col-head"><span class="player-tag ${r}">Player ${r}</span>${[1, 2, 3, 4].filter(n => ownerOf(n, reader) === r).length} questions${r === me.role ? '<span class="you-badge">You</span>' : ''}</div>
-      ${[1, 2, 3, 4].filter(n => ownerOf(n, reader) === r).map(n => qCard(st, T, text, n, r)).join('')}</div>`).join('')}</div>`;
-  }
-  const banner = solved ? `<div class="teamwork"><i class="fas fa-champagne-glasses"></i><div><strong>All answers are correct! 🎉</strong><span>The next reader is coming up…</span></div></div>` : '';
-  return `${head(st, true)}<div class="section-body">${bar}${panel}${textBlock}${qs}${banner}</div>`;
-}
-
-function qCard(st, T, text, n, owner) {
-  const q = text.q[n - 1], key = qkey(st.id, T.idx, n), a = state.answers[key];
-  const ok = !!(a && a.correct), wrong = !!(a && !a.correct);
-  const mine = owner === me.role && !me.isGhost, can = mine && !ok;
-  const L = ['a', 'b', 'c'];
-  const fb = ok ? `<div class="feedback ok">✅ ${esc(pname(a.who))} got it right · +${a.points} pts</div>` : wrong ? `<div class="feedback live">👀 ${esc(pname(a.who))} tried (${L[a.choice]}) — next try worth ${pts(a.attempts + 1)} pt${pts(a.attempts + 1) > 1 ? 's' : ''}</div>` : '';
-  return `<div class="q-card ${ok ? 'solved' : ''} ${mine ? '' : 'not-yours'}"><div class="q-head"><span class="q-num">${n}</span><p class="q-text">${esc(q[0])}</p></div>
-    <div class="options">${q[1].map((o, i) => `<button class="opt ${ok && a.choice === i ? 'correct' : ''} ${wrong && a.choice === i ? 'wrong' : ''}" type="button" data-q="${key}" data-n="${n}" data-c="${i}" ${can ? '' : 'disabled'}><span class="l">${L[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>${fb}</div>`;
-}
-
-/* ---------------- EVENTS ---------------- */
-$('sections').addEventListener('click', e => {
-  const st = STEPS[step];
-  const act = e.target.closest('[data-act]');
-  if (act) {
-    const a = act.dataset.act, T = state.turns[st.id];
-    if (a === 'start' && me.isGhost) startRound(st);
-    if (a === 'skip' && T && me.isGhost) advance(st.id, T.idx);
-    if (a === 'restart' && me.isGhost) {
-      const u = { ['turns/' + st.id]: null };
-      Object.keys(state.answers).forEach(k => { if (k.indexOf(st.id + '_') === 0) u['answers/' + k] = null; });
-      multi(u);
+  function updateTimers(){
+    const t = $('#timer');
+    if (t && me && !isTeacher()){
+      const mu = state.users[me.uid];
+      if (mu && mu.room){
+        const r = state.rooms[mu.room];
+        if (r && r.step && r.step <= 3){
+          const step = STEPS[r.step - 1];
+          const remaining = Math.max(0, step.dur - (Date.now() - r.stepStartedAt) / 1000);
+          t.textContent = fmt(remaining);
+          t.classList.toggle('warn', remaining <= 120 && remaining > 0);
+          t.classList.toggle('zero', remaining <= 0);
+        }
+      }
     }
-    return;
+    $$('[data-room-timer]').forEach(el => {
+      const n = el.dataset.roomTimer;
+      const r = state.rooms[n];
+      if (r && r.step && r.step <= 3){
+        const step = STEPS[r.step - 1];
+        const remaining = Math.max(0, step.dur - (Date.now() - r.stepStartedAt) / 1000);
+        el.textContent = fmt(remaining);
+        el.classList.toggle('warn', remaining <= 120 && remaining > 0);
+      }
+    });
   }
-  const opt = e.target.closest('.opt');
-  if (!opt || opt.disabled || me.isGhost) return;
-  const T = state.turns[st.id]; if (!T || T.done) return;
-  const reader = arr(T.order)[T.idx], n = Number(opt.dataset.n);
-  if (ownerOf(n, reader) !== me.role) return toast('This is another player’s question.', 'gold');
-  const key = opt.dataset.q, c = Number(opt.dataset.c), q = st.texts[T.idx].q[n - 1];
-  const prev = state.answers[key]; if (prev && prev.correct) return;
-  const attempts = ((prev && prev.attempts) || 0) + 1, correct = c === q[2];
-  const data = { choice: c, correct, who: me.role, attempts, points: correct ? pts(attempts) : 0 };
-  setPath('answers/' + key, data);
-  if (correct) toast('🏆 +' + data.points + ' pts! ' + (attempts === 1 ? 'Perfect first try!' : 'Nice recovery!'), 'success');
-});
-function go(i) { if (i < 0 || i >= STEPS.length) return; step = i; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-$('prevStep').addEventListener('click', () => go(step - 1));
-$('nextStep').addEventListener('click', () => go(step + 1));
-$('stepDots').addEventListener('click', e => { const d = e.target.closest('.step-dot'); if (d) go(Number(d.dataset.step)); });
-$('guideBtn').addEventListener('click', () => {
-  if (!me.isGhost) return;
-  const g = { step, pushId: CLIENT_ID + '_' + Date.now() };
-  if (fbOk) db.ref('rooms/' + ROOM + '/lastGuide').set(g).then(() => toast('📤 Class guided to: ' + STEPS[step].title, 'gold'));
-  else toast('📤 (local mode) Guided to: ' + STEPS[step].title, 'gold');
-});
-$('resetBtn').addEventListener('click', () => {
-  if (!me.isGhost || !confirm('Reset all rounds, answers and points?')) return;
-  solvedSeen = {}; scheduled = {};
-  multi({ turns: null, answers: null, lastGuide: null }); toast('🧹 Everything was reset', 'success');
-});
-$('leaveBtn').addEventListener('click', () => {
-  if (!confirm('Are you sure you want to leave the room?')) return;
-  if (fbOk && me.role && me.role !== 'ghost') { try { db.ref('rooms/' + ROOM + '/players/' + me.role).remove(); } catch (e) {} }
-  setTimeout(() => location.reload(), 250);
-});
 
-initFirebase();
+  render();
+  startPolling();
+  setInterval(updateTimers, 200);
 })();
 </script>
 </body>
